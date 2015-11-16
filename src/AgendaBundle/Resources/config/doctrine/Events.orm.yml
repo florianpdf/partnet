@@ -1,0 +1,23 @@
+AgendaBundle\Entity\Events:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        start:
+            type: datetime
+        end:
+            type: datetime
+        titre:
+            type: string
+            length: 255
+        contenu:
+            type: text
+        idUser:
+            type: integer
+            column: id_user
+    lifecycleCallbacks: {  }
