@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new GedBundle\GedBundle(),
+            new AgendaBundle\AgendaBundle(),
 
         );
 
