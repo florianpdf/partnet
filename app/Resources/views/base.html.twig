@@ -9,11 +9,17 @@
         <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap-theme.css') }}"type="text/css"/>
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+
+            <a href="{{ path('ged_homepage') }}">GED</a>
+
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('bundles/ged/js/jquery-1.11.3.js') }}"></script>
+            <script src="{{ asset('bundles/ged/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('bundles/ged/js/modal.js') }}"></script>
+        {% endblock %}
     </body>
-    <script src="{{ asset('bundles/ged/js/jquery-1.11.3.js') }}"></script>
-    <script src="{{ asset('bundles/ged/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('bundles/ged/js/modal.js') }}"></script>
+
 
 </html>
