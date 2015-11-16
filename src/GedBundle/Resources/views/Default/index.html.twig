@@ -1,1 +1,22 @@
-Hello {{ name }}!
+<h1>Ajouter un document</h1>
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+<div>
+    {{ form_label(form.task, 'Titre') }}
+    {{ form_errors(form.task) }}
+    {{ form_widget(form.task) }}
+</div>
+
+<div>
+    {{ form_label(form.dueDate) }}
+    {{ form_errors(form.dueDate) }}
+    {{ form_widget(form.dueDate) }}
+</div>
+
+<div>
+    {{ form_widget(form.save) }}
+</div>
+
+{{ form_end(form) }}
