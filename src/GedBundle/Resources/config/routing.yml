@@ -1,0 +1,7 @@
+parnet_homepage:
+    path:     /
+    defaults: { _controller: GedBundle:Default:index }
+
+ged_homepage:
+    path:     /ged
+    defaults: { _controller: GedBundle:Ged:index }
