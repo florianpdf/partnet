@@ -4,6 +4,7 @@ agenda:
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /user
 
 ged:
     resource: "@GedBundle/Resources/config/routing.yml"
