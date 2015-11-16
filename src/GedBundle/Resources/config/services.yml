@@ -1,5 +1,5 @@
 services:
-    ged.form.type.task:
-        class: GedBundle\Form\Type\TaskType
+    ged.form.type.document:
+        class: GedBundle\Form\Type\DocumentType
         tags:
-            - { name: form.type, alias: task }
+            - { name: form.type, alias: document }
