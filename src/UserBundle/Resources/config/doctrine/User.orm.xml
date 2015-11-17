@@ -6,36 +6,36 @@
       <generator strategy="IDENTITY"/>
     </id>
 
-    <field name="nom" type="string" column="nom" length="45" nullable="false">
+    <field name="nom" type="string" column="nom" length="45" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="prenom" type="string" column="prenom" length="45" nullable="false">
+    <field name="prenom" type="string" column="prenom" length="45" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="organisme" type="string" column="organisme" length="45" nullable="false">
+    <field name="organisme" type="string" column="organisme" length="45" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="poste" type="string" column="poste" length="45" nullable="false">
+    <field name="poste" type="string" column="poste" length="45" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="telephone" type="integer" column="telephone" nullable="false">
+    <field name="telephone" type="integer" column="telephone" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="nbUploads" type="integer" column="nb_uploads" nullable="false">
+    <field name="nbUploads" type="integer" column="nb_uploads" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="creationCompte" type="date" column="creation_compte" nullable="false"/>
+    <field name="creationCompte" type="date" column="creation_compte" nullable="true"/>
   </entity>
 </doctrine-mapping>
