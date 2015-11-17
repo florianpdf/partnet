@@ -7,6 +7,12 @@ namespace GedBundle\Entity;
  */
 class Documents
 {
+
+
+
+    // GENERATED CODE
+
+
     /**
      * @var integer
      */
@@ -48,14 +54,14 @@ class Documents
     private $dateModif;
 
     /**
-     * @var integer
+     * @var \DateTime
      */
-    private $dureeDeVie;
+    private $finDeVie;
 
     /**
-     * @var integer
+     * @var \UserBundle\Entity\User
      */
-    private $idUser;
+    private $user;
 
 
     /**
@@ -237,51 +243,50 @@ class Documents
     }
 
     /**
-     * Set dureeDeVie
+     * Set finDeVie
      *
-     * @param integer $dureeDeVie
+     * @param \DateTime $finDeVie
      *
      * @return Documents
      */
-    public function setDureeDeVie($dureeDeVie)
+    public function setFinDeVie($finDeVie)
     {
-        $this->dureeDeVie = $dureeDeVie;
+        $this->finDeVie = $finDeVie;
 
         return $this;
     }
 
     /**
-     * Get dureeDeVie
+     * Get finDeVie
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getDureeDeVie()
+    public function getFinDeVie()
     {
-        return $this->dureeDeVie;
+        return $this->finDeVie;
     }
 
     /**
-     * Set idUser
+     * Set user
      *
-     * @param integer $idUser
+     * @param \UserBundle\Entity\User $user
      *
      * @return Documents
      */
-    public function setIdUser($idUser)
+    public function setUser(\UserBundle\Entity\User $user = null)
     {
-        $this->idUser = $idUser;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get idUser
+     * Get user
      *
-     * @return integer
+     * @return \UserBundle\Entity\User
      */
-    public function getIdUser()
+    public function getUser()
     {
-        return $this->idUser;
+        return $this->user;
     }
 }
-

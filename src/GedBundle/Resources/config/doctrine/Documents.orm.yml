@@ -56,19 +56,17 @@ GedBundle\Entity\Documents:
             type: datetime
             nullable: true
             column: date_modif
-        dureeDeVie:
-            type: integer
+        finDeVie:
+            type: date
             nullable: true
             options:
                 unsigned: false
-            column: duree_de_vie
+            column: fin_de_vie
     manyToOne:
-        idUser:
+        user:
             targetEntity: UserBundle\Entity\User
             cascade: {  }
             fetch: LAZY
-            mappedBy: null
-            inversedBy: null
             joinColumns:
                 id_user:
                     referencedColumnName: id
