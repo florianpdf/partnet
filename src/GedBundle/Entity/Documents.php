@@ -2,6 +2,8 @@
 
 namespace GedBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Documents
  */
@@ -20,11 +22,15 @@ class Documents
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(max = 50)
+     * @Assert\Type(type="alnum")
      */
     private $titre;
 
     /**
      * @var string
+     * @Assert\Type(type="alnum")
      */
     private $resume;
 
@@ -35,11 +41,16 @@ class Documents
 
     /**
      * @var string
+     * @Assert\Length(max = 50)
+     * @Assert\Type(type="string")
      */
     private $auteur;
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(max = 50)
+     * @Assert\File(maxSize = "10M")
      */
     private $url;
 
@@ -55,6 +66,7 @@ class Documents
 
     /**
      * @var \DateTime
+     * @Assert\Date()
      */
     private $finDeVie;
 

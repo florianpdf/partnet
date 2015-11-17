@@ -26,6 +26,11 @@
     </div>
 
     <h1>Ajouter un document</h1>
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -54,6 +59,11 @@
         {{ form_widget(form.finDeVie) }}
     </div>
 
+    {% if app.session.flashBag.has('failure') %}
+        {% for msg in app.session.flashBag.get('failure') %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
     <div>
         {{ form_label(form.url) }}
         {{ form_errors(form.url) }}

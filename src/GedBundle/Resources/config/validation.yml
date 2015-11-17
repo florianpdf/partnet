@@ -1,0 +1,27 @@
+# src/GedBundle/Resources/config/validation.yml
+GedBundle\Entity\Documents:
+    properties:
+        titre:
+            - NotBlank: ~
+            - Length:
+                max: 50
+            - Type:
+                type: string
+        resume:
+            - Type:
+                type: alnum
+        auteur:
+            - Length:
+               max: 50
+            - Type:
+                type: string
+        finDeVie:
+            - Date: ~
+        url:
+            - NotBlank: ~
+            - Length:
+                max: 50
+            - Type:
+                type: string
+            - File:
+                maxSize: 20M
