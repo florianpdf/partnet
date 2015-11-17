@@ -1,6 +1,13 @@
 {% extends '::base.html.twig' %}
 
-{% block body %}
+{% block external_css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap-theme.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <a href="{{ path('ged_homepage') }}">GED</a>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Ajouter un document
@@ -76,4 +83,10 @@
 
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/ged/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/ged/js/modal.js') }}"></script>
 {% endblock %}

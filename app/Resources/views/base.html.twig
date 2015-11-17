@@ -1,25 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}P@rnet Emploi!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap.css') }}"type="text/css"/>
-        <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap-theme.css') }}"type="text/css"/>
-    </head>
-    <body>
-        {% block body %}
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <a href="{{ path('ged_homepage') }}">GED</a>
+        <title>{% block title %}P@rtnet'emploi{% endblock %}</title>
+        <meta name="description" content="Plateforme de communication et d'échange entre les partenaires de l'emploi du Perche.">
 
+        {% block external_css %}
+            {% if app.environment == 'dev' %}
+                <link rel="stylesheet" href="css/dev/main.css">
+            {% else %}
+                <link rel="stylesheet" href="css/dist/main.min.css">
+            {% endif %}
         {% endblock %}
-        {% block javascripts %}
+
+        {% block external_fonts %}{% endblock %}
+
+        {% block ie_comments %}
+            <!--[if lte IE 9]>
+            {% if app.environment == 'dev' %}
+                <script src="js/dev/polyfills.js"></script>
+            {% else %}
+                <script src="js/dist/polyfills.min.js"></script>
+            {% endif %}
+            <![endif]-->
+        {% endblock %}
+
+        {% block favicons %}
+            <link rel="icon" href="{{ asset('favicon.png') }}">
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block main_content %}{% endblock %}
+
+        {% block scripts %}
             <script src="{{ asset('bundles/ged/js/jquery-1.11.3.js') }}"></script>
-            <script src="{{ asset('bundles/ged/js/bootstrap.js') }}"></script>
-            <script src="{{ asset('bundles/ged/js/modal.js') }}"></script>
+            {% if app.environment == 'dev' %}
+                <script src="js/dev/scripts.js"></script>
+            {% else %}
+                <script src="js/dist/scripts.min.js"></script>
+            {% endif %}
         {% endblock %}
     </body>
-
-
 </html>
