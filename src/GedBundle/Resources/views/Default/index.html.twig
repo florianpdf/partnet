@@ -8,6 +8,32 @@
 
 {% block main_content %}
     <a href="{{ path('ged_homepage') }}">GED</a>
+
+
+    <table cellspacing="1" cellpadding="1" border="1">
+        <tr>
+            <td>id</td>
+            <td>titre</td>
+            <td>extension</td>
+            <td>auteur</td>
+            <td>émetteur</td>
+            <td>date</td>
+        </tr>
+        {% for list_docs in docs %}
+            <tr>
+                <td>{{ list_docs.id }}</td>
+                <td>{{ list_docs.titre }}</td>
+                <td>{{ list_docs.extension }}</td>
+                <td>{{ list_docs.auteur }}</td>
+                {% for list_user in user %}
+                    {% if list_user.username == list_docs.user %}
+                        <td>{{ list_user.organisme }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ list_docs.dateUpload|date('m/d/Y') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Ajouter un document
