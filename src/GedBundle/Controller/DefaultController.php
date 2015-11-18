@@ -5,13 +5,19 @@ namespace GedBundle\Controller;
 use GedBundle\Entity\Documents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
+        if (!$this->getUser())
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $document = new Documents();
 
         $document->setDateUpload(new \DateTime());
@@ -47,8 +53,41 @@ class DefaultController extends Controller
             }
         }
 
+        // Doctrine : récupère tous les documents et utilisateurs
+        $em = $this->getDoctrine()->getManager();
+        $list_docs = $em->getRepository('GedBundle:Documents')->findAll();
+        $list_users = $em->getRepository('UserBundle:User')->findAll();
+
         return $this->render('GedBundle:Default:index.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'docs' => $list_docs,
+            'users' => $list_users
         ));
+    }
+
+    public function dlAction($filename)
+    {
+        if (!$this->getUser())
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."\\uploads\\documents\\".$filename;
+        $oFile = new File($filepath);
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
     }
 }

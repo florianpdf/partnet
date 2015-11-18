@@ -8,7 +8,7 @@ user:
 
 ged:
     resource: "@GedBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /documents
 
 app:
     resource: "@AppBundle/Controller/"

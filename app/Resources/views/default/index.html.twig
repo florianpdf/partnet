@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block main_content %}
+    <a href="{{ path('ged_homepage') }}">GED</a>
 
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        {# statistiques #}
+
+    {% endif %}
 {% endblock %}
