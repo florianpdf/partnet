@@ -21,7 +21,5 @@ GedBundle\Entity\Documents:
             - NotBlank: ~
             - Length:
                 max: 50
-            - Type:
-                type: string
             - File:
                 maxSize: 20M
