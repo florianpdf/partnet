@@ -47,8 +47,18 @@ class DefaultController extends Controller
             }
         }
 
+        // doctrine : recupère tout les docs
+        $em = $this->getDoctrine()->getManager();
+        $list_docs = $em->getRepository('GedBundle:Documents')->findAll();
+
+        // doctrine : recupère tout les users
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->findAll();
+
         return $this->render('GedBundle:Default:index.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'docs' => $list_docs,
+            'user' => $user
         ));
     }
 }
