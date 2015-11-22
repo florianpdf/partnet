@@ -53,7 +53,7 @@ class DefaultController extends Controller
             }
         }
 
-        // Doctrine : récupère tous les documents et utilisateurs
+        // Doctrine : get all documents and users
         $em = $this->getDoctrine()->getManager();
         $list_docs = $em->getRepository('GedBundle:Documents')->findAll();
         $list_users = $em->getRepository('UserBundle:User')->findAll();

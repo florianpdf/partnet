@@ -1,11 +1,4 @@
-{% extends '::base.html.twig' %}
-
-{% block external_css %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/ged/css/bootstrap-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/ged/css/jquery.dataTables.css') }}">
-{% endblock %}
+{% extends 'base.html.twig' %}
 
 {% block main_content %}
     <table id="example" class="display" cellspacing="0" width="100%">
@@ -116,9 +109,6 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/ged/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('bundles/ged/js/modal.js') }}"></script>
-    <script src="{{ asset('bundles/ged/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();

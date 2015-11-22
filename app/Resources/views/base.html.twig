@@ -10,9 +10,9 @@
 
         {% block external_css %}
             {% if app.environment == 'dev' %}
-                <link rel="stylesheet" href="css/dev/main.css">
+                <link rel="stylesheet" href="{{ asset('css/dev/main.css') }}">
             {% else %}
-                <link rel="stylesheet" href="css/dist/main.min.css">
+                <link rel="stylesheet" href="{{ asset('css/dist/main.min.css') }}">
             {% endif %}
         {% endblock %}
 
@@ -21,9 +21,9 @@
         {% block ie_comments %}
             <!--[if lte IE 9]>
             {% if app.environment == 'dev' %}
-                <script src="js/dev/polyfills.js"></script>
+                <script src="{{ asset('js/dev/polyfills.js') }}"></script>
             {% else %}
-                <script src="js/dist/polyfills.min.js"></script>
+                <script src="{{ asset('js/dist/polyfills.min.js') }}"></script>
             {% endif %}
             <![endif]-->
         {% endblock %}
@@ -33,15 +33,15 @@
         {% endblock %}
     </head>
 
-    <body>
+    {% block body_class %}<body>{% endblock %}
         {% block main_content %}{% endblock %}
 
         {% block scripts %}
-            <script src="{{ asset('bundles/ged/js/jquery-1.11.3.js') }}"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             {% if app.environment == 'dev' %}
-                <script src="js/dev/scripts.js"></script>
+                <script src="{{ asset('js/dev/scripts.js') }}"></script>
             {% else %}
-                <script src="js/dist/scripts.min.js"></script>
+                <script src="{{ asset('js/dist/scripts.min.js') }}"></script>
             {% endif %}
         {% endblock %}
     </body>
