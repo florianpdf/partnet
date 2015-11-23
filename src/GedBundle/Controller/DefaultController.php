@@ -76,7 +76,7 @@ class DefaultController extends Controller
         $response = new Response();
 
         // Set headers
-        $filepath = $this->get('kernel')->getRootDir()."\\uploads\\documents\\".$filename;
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/".$filename;
         $oFile = new File($filepath);
         $response->headers->set('Cache-Control', 'private');
         $response->headers->set('Content-type', $oFile->getMimeType());

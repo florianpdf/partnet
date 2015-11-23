@@ -15,7 +15,7 @@ class DocumentType extends AbstractType
             ->add('titre', 'text')
             ->add('resume', 'textarea', array('label' => 'Résumé', 'required' => false))
             ->add('auteur', 'text', array('required' => false))
-            ->add('finDeVie', 'date', array('label' => 'Fin de vie', 'required' => false))
+            ->add('finDeVie', 'date', array('label' => 'Fin de validité', 'required' => false))
             ->add('url', 'file', array('label' => 'Fichier'))
             ->add('save', 'submit', array('label' => 'Envoyer'))
         ;

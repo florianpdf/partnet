@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         // Clean /////////////////////////////////////////////////////////////////
         clean: ["app/Resources/css/_sprite.scss", 'app/Resources/images/spritesheet.png',
                 "web/js/dev/*", "web/js/dist/*",
-                "web/css/dev/*", "web/css/dist/*", "web/css/temp/*"],
+                "web/css/dev/*", "web/css/dist/*"],
 
 
         // Browsersync ///////////////////////////////////////////////////////////

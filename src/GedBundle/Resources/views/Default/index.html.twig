@@ -1,6 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block body_class %}<body id="ged">{% endblock %}
+
 {% block main_content %}
+    <nav><span>P@rtnet'emploi</span>
+        <span id="testtt">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+            </span>
+    </nav>
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
+
     <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -31,7 +51,7 @@
     </table>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Ajouter un document
     </button>
 
@@ -41,69 +61,61 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un document</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+
+                    <div>
+                        {{ form_label(form.titre, 'Titre') }}
+                        {{ form_errors(form.titre) }}
+                        {{ form_widget(form.titre) }}
+                    </div>
+
+                    <div>
+                        {{ form_label(form.auteur) }}
+                        {{ form_errors(form.auteur) }}
+                        {{ form_widget(form.auteur) }}
+                    </div>
+
+                    <div>
+                        {{ form_label(form.resume) }}
+                        {{ form_errors(form.resume) }}
+                        {{ form_widget(form.resume) }}
+                    </div>
+
+                    <div>
+                        {{ form_label(form.finDeVie) }}
+                        {{ form_errors(form.finDeVie) }}
+                        {{ form_widget(form.finDeVie) }}
+                    </div>
+
+                    {% if app.session.flashBag.has('failure') %}
+                        {% for msg in app.session.flashBag.get('failure') %}
+                            {{ msg }}
+                        {% endfor %}
+                    {% endif %}
+                    <div>
+                        {{ form_label(form.url) }}
+                        {{ form_errors(form.url) }}
+                        {{ form_widget(form.url) }}
+                    </div>
+
+                    <div>
+                        {{ form_widget(form.save) }}
+                    </div>
+
+                    {{ form_end(form) }}
                 </div>
-                <div class="modal-footer">
+                <!--<div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
-
-    <h1>Ajouter un document</h1>
-    {% if app.session.flashBag.has('success') %}
-        {% for msg in app.session.flashBag.get('success') %}
-            {{ msg }}
-        {% endfor %}
-    {% endif %}
-
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-
-    <div>
-        {{ form_label(form.titre, 'Titre') }}
-        {{ form_errors(form.titre) }}
-        {{ form_widget(form.titre) }}
-    </div>
-
-    <div>
-        {{ form_label(form.auteur) }}
-        {{ form_errors(form.auteur) }}
-        {{ form_widget(form.auteur) }}
-    </div>
-
-    <div>
-        {{ form_label(form.resume) }}
-        {{ form_errors(form.resume) }}
-        {{ form_widget(form.resume) }}
-    </div>
-
-    <div>
-        {{ form_label(form.finDeVie) }}
-        {{ form_errors(form.finDeVie) }}
-        {{ form_widget(form.finDeVie) }}
-    </div>
-
-    {% if app.session.flashBag.has('failure') %}
-        {% for msg in app.session.flashBag.get('failure') %}
-            {{ msg }}
-        {% endfor %}
-    {% endif %}
-    <div>
-        {{ form_label(form.url) }}
-        {{ form_errors(form.url) }}
-        {{ form_widget(form.url) }}
-    </div>
-
-    <div>
-        {{ form_widget(form.save) }}
-    </div>
-
-    {{ form_end(form) }}
 
 {% endblock %}
 
