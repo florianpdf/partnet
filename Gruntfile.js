@@ -104,6 +104,9 @@ module.exports = function(grunt) {
             options: {
                 watchTask: true,
                 proxy: "http://localhost/partnet/web/app_dev.php"
+            },
+            ui: {
+                port: 8080
             }
         },
         // Monitoring ////////////////////////////////////////////////////////////

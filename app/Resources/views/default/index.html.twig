@@ -1,10 +1,33 @@
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="accueil">{% endblock %}
 
 {% block main_content %}
-    <a href="{{ path('ged_homepage') }}">GED</a>
+    {{ include('includes/navbar.html.twig') }}
 
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-        {# statistiques #}
+    <ul id="tiles-wrapper">
+        <li><a href="{{ path('ged_homepage') }}">Documents</a></li>
+        <li><a href="#">Agenda</a></li>
+        <li><a href="#">Annuaire</a></li>
+        <li><a href="#">Offres d'emploi</a></li>
+        <li><a href="#">Formations</a></li>
+        <li><a href="#">Dialogue</a></li>
+    </ul>
 
-    {% endif %}
+    {#{% if is_granted('ROLE_ADMIN') %}#}
+        <div id="data-wrapper">
+            <table id="data-uploads">
+                <tr>
+                    <td>Nombre total de documents mis en ligne</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>Nombre de documents mis en ligne au cours du dernier mois</td>
+                    <td>N</td>
+                </tr>
+            </table>
+            <a href="#">Statistiques de fréquentation</a>
+            <a href="#">Interface d'administration</a>
+        </div>
+    {#{% endif %}#}
 {% endblock %}

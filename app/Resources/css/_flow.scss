@@ -3,6 +3,11 @@ body {
   font-family: Arial, sans-serif;
   font-size: 16px;
 }
+#accueil { background: $tiles-bg !important; }
+
+
+
+
 #ged { background: #fff !important; }
 
 .aligner {
@@ -68,21 +73,81 @@ body {
   margin: auto;
 }
 
-nav {
+#top-bar {
+  position: fixed; top: 0;
+  width: 100%;
+  height: $top-bar-height; line-height: 80px;
   display: relative;
-  padding: 20px 100px;
+  padding: 0 10%;
   margin-bottom: 50px;
   background: #2B77AA;
   color: #fff;
+  border-bottom: 1px solid #fff;
 }
-#testtt {
-  position: absolute;
-  right: 100px;
+#top-bar div { float: right; }
+#top-bar a { color: #fff; }
 
+
+/* //////////////// TILES //////////////// *\
+\* /////////////////////////////////////// */
+#tiles-wrapper {
+  list-style: none;
+  background: $tiles-bg;
+  width: 1300px; margin: 0 auto 0; height: 100%; padding: $top-bar-height 0 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center; align-content: center;
 }
-#testtt a {
+#tiles-wrapper li {
+  flex: auto;
+  width: 400px; height: 265px;
+  margin: 5px;
+  border: 1px solid #fff;
+}
+#tiles-wrapper li:nth-child(1) { background: $tile1-bg; }
+#tiles-wrapper li:nth-child(2) { background: $tile2-bg; }
+#tiles-wrapper li:nth-child(3) { background: $tile3-bg; }
+#tiles-wrapper li:nth-child(4) { background: $tile4-bg; }
+#tiles-wrapper li:nth-child(5) { background: $tile5-bg; }
+#tiles-wrapper li:nth-child(6) { background: $tile6-bg; }
+
+#data-wrapper {
+  background: $login-bg;
+  height: 300px;
+  padding-top: 50px;
+  border-top: 1px solid #fff;
+  display: flex;
+  flow-direction: column;
+  justify-content: center;
+}
+#data-uploads {
+  width: 700px;
   color: #fff;
 }
+#data-uploads tr + tr {
+  border-top: 1px solid #cbddeb;
+}
+#data-uploads td {
+  padding: 10px 20px;
+}
+
+#data-wrapper a {
+  background: #ABD1EB;
+  width: 400px; height: 50px; line-height: 50px;
+  padding-left: 55px;
+  color: #000;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
 
 #document_save {
   background: #275C8B;
@@ -94,3 +159,4 @@ nav {
   display: block;
   border-radius: 5px;
 }
+
