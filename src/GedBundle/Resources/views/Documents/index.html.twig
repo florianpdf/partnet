@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    <nav><span>P@rtnet'emploi</span>
+        <span id="testtt">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+            </span>
+    </nav>
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
+
+    <h1>Documents list</h1>
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Titre du document</th>
+                <th>Extension</th>
+                <th>Auteur</th>
+                <th>Organisme émetteur</th>
+                <th>Date d'ajout</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                {#<td><a href="{{ path('documents_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+                <td>{{ entity.titre }}</td>
+                <td>{{ entity.extension }}</td>
+                <td>{{ entity.auteur }}</td>
+                {% for user in users %}
+                    {% if user.username == entity.user %}
+                        <td>{{ user.organisme }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{% if entity.dateUpload %}{{ entity.dateUpload|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('documents_show', { 'id': entity.id }) }}">Voir</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('documents_edit', { 'id': entity.id }) }}">Editer</a>
+                    </li>
+                    <li><a href="{{ path("document_download", {'filename': entity.document}) }}">Télécharger</a></li>
+                    <li><a href="{{ path("documents_delete", {'id': entity.id}) }}">Supprimer</a></li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('documents_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
+
+
+{% block scripts %}
+{{ parent() }}
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+{% endblock %}

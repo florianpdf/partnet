@@ -32,7 +32,7 @@ GedBundle\Entity\Documents:
                 fixed: false
         extension:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
@@ -42,15 +42,17 @@ GedBundle\Entity\Documents:
             length: 255
             options:
                 fixed: false
-        url:
+        document:
             type: string
-            nullable: false
+            nullable: true
             length: 255
-            options:
-                fixed: false
+        file_name:
+            type: string
+            nullage: false
+            length: 255
         dateUpload:
             type: datetime
-            nullable: false
+            nullable: true
             column: date_upload
         dateModif:
             type: datetime
@@ -71,4 +73,9 @@ GedBundle\Entity\Documents:
                 id_user:
                     referencedColumnName: id
             orphanRemoval: false
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

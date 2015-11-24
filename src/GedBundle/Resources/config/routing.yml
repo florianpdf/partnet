@@ -1,7 +1,0 @@
-ged_homepage:
-    path:     /
-    defaults: { _controller: GedBundle:Default:index }
-
-ged_download:
-    path:     /download/{filename}
-    defaults: { _controller: GedBundle:Default:dl }

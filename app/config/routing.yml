@@ -2,13 +2,13 @@ agenda:
     resource: "@AgendaBundle/Resources/config/routing.yml"
     prefix:   /
 
+ged_documents:
+    resource: "@GedBundle/Resources/config/routing/documents.yml"
+    prefix:   /documents
+
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user
-
-ged:
-    resource: "@GedBundle/Resources/config/routing.yml"
-    prefix:   /documents
 
 app:
     resource: "@AppBundle/Controller/"
