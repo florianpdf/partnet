@@ -6,15 +6,15 @@
     {{ include('includes/navbar.html.twig') }}
 
     <ul id="tiles-wrapper">
-        <li><a href="{{ path('ged_homepage') }}">Documents</a></li>
-        <li><a href="#">Agenda</a></li>
-        <li><a href="#">Annuaire</a></li>
-        <li><a href="#">Offres d'emploi</a></li>
-        <li><a href="#">Formations</a></li>
-        <li><a href="#">Dialogue</a></li>
+        <li><a href="{{ path('ged_homepage') }}"><span>Documents</span><img src="{{ asset('images/icone-documents.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Agenda</span><img src="{{ asset('images/icone-agenda.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Annuaire</span><img src="{{ asset('images/icone-annuaire.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Offres d'emploi</span><img src="{{ asset('images/icone-emploi.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Formations</span><img src="{{ asset('images/icone-formations.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Dialogue</span><img src="{{ asset('images/icone-dialogue.png') }}" alt="icône agenda"></a></li>
     </ul>
 
-    {#{% if is_granted('ROLE_ADMIN') %}#}
+    {% if is_granted('ROLE_ADMIN') %}
         <div id="data-wrapper">
             <table id="data-uploads">
                 <tr>
@@ -26,8 +26,26 @@
                     <td>N</td>
                 </tr>
             </table>
-            <a href="#">Statistiques de fréquentation</a>
-            <a href="#">Interface d'administration</a>
+            <div>
+                <a href="#">Statistiques de fréquentation</a>
+                <a href="#">Interface d'administration</a>
+            </div>
         </div>
-    {#{% endif %}#}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        function tilesBg(n) {
+            $( "#tiles-wrapper li:nth-child(" + n + ")" ).hover(
+                function() { $( "#accueil" ).addClass( "tile" + n ) },
+                function() { $( "#accueil" ).removeClass( "tile" + n ) }
+            );
+        }
+        for (var i = 1; i <= 6; i++) {
+            tilesBg(i);
+        }
+
+    </script>
 {% endblock %}

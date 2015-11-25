@@ -104,16 +104,13 @@ module.exports = function(grunt) {
             options: {
                 watchTask: true,
                 proxy: "http://localhost/partnet/web/app_dev.php"
-            },
-            ui: {
-                port: 8080
             }
         },
         // Monitoring ////////////////////////////////////////////////////////////
         watch: {
             scripts: {
                 files: ['app/Resources/js/scripts/*.js', 'app/Resources/js/*.js',
-                    'src/**/Resources/public/js/*.js'],
+                        'src/**/Resources/public/js/*.js'],
                 tasks: ['concat:scripts']
             },
             polyfills: {
