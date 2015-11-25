@@ -27,7 +27,8 @@ documents_update:
 documents_delete:
     path:     /{id}/delete
     defaults: { _controller: "GedBundle:Documents:delete" }
-    methods:  [POST, DELETE]
+    requirements:
+        id:  \d+
 
 document_download:
     path:     /download/{filename}

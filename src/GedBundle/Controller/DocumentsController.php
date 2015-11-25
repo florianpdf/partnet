@@ -2,6 +2,7 @@
 
 namespace GedBundle\Controller;
 
+use GedBundle\Form\EditDocType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -61,7 +62,7 @@ class DocumentsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('documents_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('documents', array('id' => $entity->getId())));
         }
 
         return $this->render('GedBundle:Documents:new.html.twig', array(
@@ -118,11 +119,11 @@ class DocumentsController extends Controller
             throw $this->createNotFoundException('Unable to find Documents entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+//        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('GedBundle:Documents:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -141,12 +142,12 @@ class DocumentsController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+//        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('GedBundle:Documents:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -159,7 +160,7 @@ class DocumentsController extends Controller
     */
     private function createEditForm(Documents $entity)
     {
-        $form = $this->createForm(new DocumentsType(), $entity, array(
+        $form = $this->createForm(new EditDocType(), $entity, array(
             'action' => $this->generateUrl('documents_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -182,7 +183,7 @@ class DocumentsController extends Controller
             throw $this->createNotFoundException('Unable to find Documents entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+//        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -196,48 +197,70 @@ class DocumentsController extends Controller
         return $this->render('GedBundle:Documents:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         ));
     }
-    /**
-     * Deletes a Documents entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+//    /**
+//     * Deletes a Documents entity.
+//     *
+//     */
+//    public function deleteAction(Request $request, $id)
+//    {
+//        $form = $this->createDeleteForm($id);
+//        $form->handleRequest($request);
+//
+//        if ($form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $entity = $em->getRepository('GedBundle:Documents')->find($id);
+//
+//            if (!$entity) {
+//                throw $this->createNotFoundException('Unable to find Documents entity.');
+//            }
+//
+//            $em->remove($entity);
+//            $em->flush();
+//        }
+//
+//        return $this->redirect($this->generateUrl('documents'));
+//    }
+//
+//    /**
+//     * Creates a form to delete a Documents entity by id.
+//     *
+//     * @param mixed $id The entity id
+//     *
+//     * @return \Symfony\Component\Form\Form The form
+//     */
+//    private function createDeleteForm($id)
+//    {
+//        return $this->createFormBuilder()
+//            ->setAction($this->generateUrl('documents_delete', array('id' => $id)))
+//            ->setMethod('DELETE')
+//            ->add('submit', 'submit', array('label' => 'Delete'))
+//            ->getForm()
+//        ;
+//    }
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('GedBundle:Documents')->find($id);
+    public function deleteAction($id) {
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Documents entity.');
-            }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('GedBundle:Documents')->find($id);
+        $entities = $em->getRepository('GedBundle:Documents')->findAll();
+        $list_users = $em->getRepository('UserBundle:User')->findAll();
 
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException(
+                'Pas de document trouvé' . $id
+            );
         }
 
-        return $this->redirect($this->generateUrl('documents'));
-    }
+        $em->remove($entity);
+        $em->flush();
 
-    /**
-     * Creates a form to delete a Documents entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('documents_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('documents', array(
+            'entities' => $entities,
+            'users' => $list_users
+        )));
     }
 
     public function dlAction($filename)

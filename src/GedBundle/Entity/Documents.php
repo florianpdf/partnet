@@ -369,7 +369,7 @@ class Documents
             $this->document = uniqid().'.'.$this->file->guessExtension();
         }
     }
-    
+
     /**
      * @ORM\PostPersist
      */
@@ -395,5 +395,14 @@ class Documents
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setExpiresAtValue($finDeVie)
+    {
+//        $this->finDeVie = $finDeVie;
+//        return $this;
     }
 }

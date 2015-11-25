@@ -74,7 +74,7 @@ GedBundle\Entity\Documents:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks:
-        prePersist: [ preUpload ]
+        prePersist: [ preUpload, setExpiresAtValue ]
         preUpdate: [ preUpload ]
         postPersist: [ upload ]
         postUpdate: [ upload ]
