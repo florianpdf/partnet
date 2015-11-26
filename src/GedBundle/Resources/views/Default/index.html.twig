@@ -3,18 +3,8 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    <nav><span>P@rtnet'emploi</span>
-        <span id="testtt">
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-            <a href="{{ path('fos_user_security_logout') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
-        {% else %}
-            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-        {% endif %}
-            </span>
-    </nav>
+    {{ include('includes/navbar.html.twig') }}
+
     {% if app.session.flashBag.has('success') %}
         {% for msg in app.session.flashBag.get('success') %}
             {{ msg }}

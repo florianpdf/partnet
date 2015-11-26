@@ -110,7 +110,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['app/Resources/js/scripts/*.js', 'app/Resources/js/*.js',
-                    'src/**/Resources/public/js/*.js'],
+                        'src/**/Resources/public/js/*.js'],
                 tasks: ['concat:scripts']
             },
             polyfills: {

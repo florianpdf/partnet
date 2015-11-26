@@ -1,10 +1,51 @@
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="accueil">{% endblock %}
 
 {% block main_content %}
-    <a href="{{ path('ged_homepage') }}">GED</a>
+    {{ include('includes/navbar.html.twig') }}
 
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-        {# statistiques #}
+    <ul id="tiles-wrapper">
+        <li><a href="{{ path('ged_homepage') }}"><span>Documents</span><img src="{{ asset('images/icone-documents.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Agenda</span><img src="{{ asset('images/icone-agenda.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Annuaire</span><img src="{{ asset('images/icone-annuaire.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Offres d'emploi</span><img src="{{ asset('images/icone-emploi.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Formations</span><img src="{{ asset('images/icone-formations.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Dialogue</span><img src="{{ asset('images/icone-dialogue.png') }}" alt="icône agenda"></a></li>
+    </ul>
 
+    {% if is_granted('ROLE_ADMIN') %}
+        <div id="data-wrapper">
+            <table id="data-uploads">
+                <tr>
+                    <td>Nombre total de documents mis en ligne</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>Nombre de documents mis en ligne au cours du dernier mois</td>
+                    <td>N</td>
+                </tr>
+            </table>
+            <div>
+                <a href="#">Statistiques de fréquentation</a>
+                <a href="#">Interface d'administration</a>
+            </div>
+        </div>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        function tilesBg(n) {
+            $( "#tiles-wrapper li:nth-child(" + n + ")" ).hover(
+                function() { $( "#accueil" ).addClass( "tile" + n ) },
+                function() { $( "#accueil" ).removeClass( "tile" + n ) }
+            );
+        }
+        for (var i = 1; i <= 6; i++) {
+            tilesBg(i);
+        }
+
+    </script>
 {% endblock %}
