@@ -20,3 +20,7 @@ app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+ged_homepage:
+    path:     /
+    defaults: { _controller: "GedBundle:Documents:index" }

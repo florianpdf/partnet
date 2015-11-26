@@ -25,7 +25,7 @@ class DocumentsController extends Controller
      * Lists all Documents entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->getUser())
         {
@@ -34,12 +34,16 @@ class DocumentsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $list_users = $em->getRepository('UserBundle:User')->findAll();
-
         $entities = $em->getRepository('GedBundle:Documents')->findAll();
+
+        $entity = new Documents();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
 
         return $this->render('GedBundle:Documents:index.html.twig', array(
             'entities' => $entities,
-            'users' => $list_users
+            'users' => $list_users,
+            'form'   => $form->createView(),
         ));
 
     }
