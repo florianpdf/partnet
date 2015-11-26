@@ -12,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Documents
 {
 
-
-
     // GENERATED CODE
     /**
      * @var File

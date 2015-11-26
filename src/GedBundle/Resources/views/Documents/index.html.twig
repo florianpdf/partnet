@@ -1,87 +1,3 @@
-{#
-{% extends 'base.html.twig' %}
-
-{% block body_class %}<body id="ged">{% endblock %}
-
-{% block main_content %}
-    <nav><span>P@rtnet'emploi</span>
-        <span id="testtt">
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-            <a href="{{ path('fos_user_security_logout') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
-        {% else %}
-            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-        {% endif %}
-            </span>
-    </nav>
-    {% if app.session.flashBag.has('success') %}
-        {% for msg in app.session.flashBag.get('success') %}
-            {{ msg }}
-        {% endfor %}
-    {% endif %}
-
-    <h1>Documents list</h1>
-
-    <table id="example" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Titre du document</th>
-                <th>Extension</th>
-                <th>Auteur</th>
-                <th>Organisme émetteur</th>
-                <th>Date d'ajout</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.titre }}</td>
-                <td>{{ entity.extension }}</td>
-                <td>{{ entity.auteur }}</td>
-                {% for user in users %}
-                    {% if user.username == entity.user %}
-                        <td>{{ user.organisme }}</td>
-                    {% endif %}
-                {% endfor %}
-                <td>{% if entity.dateUpload %}{{ entity.dateUpload|date('Y-m-d') }}{% endif %}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('documents_show', { 'id': entity.id }) }}">Voir</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('documents_edit', { 'id': entity.id }) }}">Editer</a>
-                    </li>
-                    <li><a href="{{ path("document_download", {'filename': entity.document}) }}">Télécharger</a></li>
-                    <li><a href="{{ path('documents_delete', {'id':  entity.Id  }) }}" onclick="return confirm('are u sure?')">Supprimer</a></li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('documents_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
-
-
-{% block scripts %}
-{{ parent() }}
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-</script>
-{% endblock %}#}
-
 {% extends 'base.html.twig' %}
 
 {% block body_class %}<body id="ged">{% endblock %}
@@ -102,70 +18,49 @@
             <th>Auteur</th>
             <th>Organisme émetteur</th>
             <th>Date d'ajout</th>
-            <th>/</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for doc in docs %}
             <tr>
-                <td>{{ entity.titre }}</td>
-                <td>{{ entity.auteur }}</td>
+                <td>{{ doc.titre }}</td>
+                <td>{{ doc.auteur }}</td>
                 {% for user in users %}
-                    {% if user.username == entity.user %}
+                    {% if user.username == doc.user %}
                         <td>{{ user.organisme }}</td>
+                    {% else %}
+                        <td></td>
                     {% endif %}
                 {% endfor %}
-                <td>{{ entity.dateUpload|date('m/d/Y') }}</td>
-                <td><a href="{{ path('documents_show', { 'id': entity.id }) }}">Voir</a></td>
-                <td><a href="{{ path('documents_edit', { 'id': entity.id }) }}">Editer</a></td>
-                <td><a href="{{ path("document_download", {'filename': entity.document}) }}">Télécharger</a></td>
-                <td><a href="{{ path('documents_delete', {'id':  entity.Id  }) }}" onclick="return confirm('are u sure?')">Supprimer</a></td>
+                <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
+                <td>
+                    <ul>
+                        <li><a href="{{ path('documents_show', { 'id': doc.id }) }}">Voir</a></li>
+                        <li><a href="{{ path('documents_edit', { 'id': doc.id }) }}">Editer</a></li>
+                        <li><a href="{{ path("document_download", {'filename': doc.document}) }}">Télécharger</a></li>
+                        <li><a href="{{ path('documents_delete', {'id':  doc.Id  }) }}" onclick="return confirm('are u sure?')">Supprimer</a></li>
+                    </ul>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     <!-- Button trigger modal -->
-    <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_ajout">
         Ajouter un document
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Ajouter un document</h4>
-                </div>
-                <div class="modal-body">
-                    <h1>Documents creation</h1>
-
-                    {{ form(form) }}
-
-                    <ul class="record_actions">
-                        <li>
-                            <a href="{{ path('documents') }}">
-                                Back to the list
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!--<div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>-->
-            </div>
-        </div>
-    </div>
+    {% include '@Ged/Documents/new.html.twig' %}
 
 {% endblock %}
 
 {% block scripts %}
-{{ parent() }}
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-</script>
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
 {% endblock %}
