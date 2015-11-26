@@ -11,6 +11,7 @@ use GedBundle\Form\DocumentsType;
 use Symfony\Component\HttpFoundation\Session;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 /**
@@ -228,17 +229,22 @@ class DocumentsController extends Controller
      * Download an existing file.
      *
      */
-    public function dlAction($filename)
+    public function DownloadAction($document)
     {
         if (!$this->getUser())
         {
             return $this->redirectToRoute('fos_user_security_login');
         }
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('GedBundle:Documents')->findOneBy(array('document'=> $document));
+        $filename = $entity->getFileName();
+
         // Generate response
         $response = new Response();
 
         // Set headers
-        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/".$filename;
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/". $document;
 
         $oFile = new File($filepath);
 
@@ -246,9 +252,49 @@ class DocumentsController extends Controller
         $response->headers->set('Content-type', $oFile->getMimeType());
         $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
         $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
 
         // Send headers before outputting anything
         $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    public function VisualAction($document)
+    {
+        if (!$this->getUser())
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('GedBundle:Documents')->findOneBy(array('document'=> $document));
+        $filename = $entity->getFileName();
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/". $document;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'inline; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/". $filename;
 
         $response->setContent(file_get_contents($filepath));
 

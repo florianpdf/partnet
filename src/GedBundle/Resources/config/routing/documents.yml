@@ -31,5 +31,9 @@ documents_delete:
         id:  \d+
 
 document_download:
-    path:     /download/{filename}
-    defaults: { _controller: GedBundle:Documents:dl }
+    path:     /download/{document}
+    defaults: { _controller: "GedBundle:Documents:Download" }
+
+document_visual:
+    path:     /visual/{document}
+    defaults: { _controller: "GedBundle:Documents:Visual" }

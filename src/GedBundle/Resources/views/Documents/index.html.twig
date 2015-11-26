@@ -38,8 +38,9 @@
                     <ul>
                         <li><a href="{{ path('documents_show', { 'id': doc.id }) }}">Voir</a></li>
                         <li><a href="{{ path('documents_edit', { 'id': doc.id }) }}">Editer</a></li>
-                        <li><a href="{{ path("document_download", {'filename': doc.document}) }}">Télécharger</a></li>
+                        <li><a href="{{ path("document_download", {'document': doc.document}) }}">Télécharger</a></li>
                         <li><a href="{{ path('documents_delete', {'id':  doc.Id  }) }}" onclick="return confirm('are u sure?')">Supprimer</a></li>
+                        <li><a href="{{ path('document_visual', {'document': doc.document }) }}">Aperçu</a></li>
                     </ul>
                 </td>
             </tr>
