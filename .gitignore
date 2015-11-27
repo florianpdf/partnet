@@ -9,8 +9,9 @@
 /composer.phar
 /vendor/
 /web/bundles/
-/.idea/
 /node_modules/
 /app/uploads/
-/Gruntfile.js
+Gruntfile.js
 .idea
+/web/css/
+/web/js/

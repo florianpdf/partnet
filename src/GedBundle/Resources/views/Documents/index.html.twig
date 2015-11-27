@@ -39,7 +39,7 @@
                         <li><a href="{{ path('documents_show', { 'id': doc.id }) }}">Voir</a></li>
                         <li><a data-toggle="modal" data-target="#modal_ajout" href="{{ path('documents_edit', { 'id': doc.id }) }}">Editer</a></li>
                         <li><a href="{{ path("document_download", {'document': doc.document}) }}">Télécharger</a></li>
-                        <li><a href="{{ path('documents_delete', {'id':  doc.Id  }) }}" onclick="return confirm('are u sure?')">Supprimer</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#modal_delete">Supprimer</a></li>
                         <li><a href="{{ path('document_visual', {'document': doc.document }) }}">Aperçu</a></li>
                     </ul>
                 </td>
@@ -54,6 +54,7 @@
     </button>
 
     {% include '@Ged/Documents/new.html.twig' %}
+    {% include '@Ged/Documents/delete.html.twig' %}
 
 
 {% endblock %}
