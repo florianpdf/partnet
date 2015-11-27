@@ -286,15 +286,13 @@ class DocumentsController extends Controller
         $response->headers->set('Cache-Control', 'private');
         $response->headers->set('Content-type', $oFile->getMimeType());
         $response->headers->set('Content-Disposition', 'inline; filepath="' . $oFile->getBasename() . '";');
-        $response->headers->set('Content-length', $oFile->getSize());
-        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+        $response->headers->set('Content-length', $oFile->getSize());                                  // filename
 
-        $response->headers->set('Content-Disposition', $d);
 
         // Send headers before outputting anything
         $response->sendHeaders();
 
-        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/". $filename;
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/". $document;
 
         $response->setContent(file_get_contents($filepath));
 
