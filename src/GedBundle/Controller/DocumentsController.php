@@ -66,8 +66,17 @@ class DocumentsController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Votre document a bien été ajouté sur le portail.');
+
             return $this->redirect($this->generateUrl('documents', array('id' => $entity->getId())));
         }
+        else {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('failure', 'Le type de fichier n\'est pas supporté.');
+}
 
         return $this->render('GedBundle:Documents:new.html.twig', array(
             'doc' => $entity,
