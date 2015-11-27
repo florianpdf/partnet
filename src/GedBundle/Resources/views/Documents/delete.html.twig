@@ -1,18 +1,19 @@
-<div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Suppression d'un document</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Confirmation de la suppression</h3>
             </div>
             <div class="modal-body">
-                <p>Etes vous sur de vouloir supprimer ce document ?</p>
-                <hr />
-                <a href="#" data-dismiss="modal" aria-label="Close" class="btn btn-default">Annuler</a>
-                {% for doc in docs %}
-                    <a href="{{ path('documents_delete', {'id':  doc.Id  }) }}" class="btn btn-warning">Supprimer</a>
-                {% endfor %}
+                <p>Etes-vous sûr de vouloir supprimer cet élément ?</p>
             </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" id="confirmModalNo">Non</a>
+                <a href="#" class="btn btn-primary" id="confirmModalYes">Oui</a>
+            </div>
+
         </div>
     </div>
+</div>
 </div>
