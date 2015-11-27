@@ -11,6 +11,7 @@
 /web/bundles/
 /node_modules/
 /app/uploads/
-Gruntfile.js
 .idea
 web/
+Gruntfile.js
+composer.lock
