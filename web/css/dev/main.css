@@ -7247,6 +7247,9 @@ body {
 #ged {
 	background: #fff !important; }
 
+.table_buttons_ged {
+	background: transparent !important; }
+
 .aligner {
 	max-width: 600px;
 	margin: auto;
