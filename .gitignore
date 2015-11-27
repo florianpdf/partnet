@@ -13,5 +13,4 @@
 /app/uploads/
 Gruntfile.js
 .idea
-/web/css/
-/web/js/web
+web/
