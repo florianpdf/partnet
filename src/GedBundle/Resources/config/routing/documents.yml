@@ -1,0 +1,39 @@
+documents:
+    path:     /
+    defaults: { _controller: "GedBundle:Documents:index" }
+
+documents_show:
+    path:     /{id}/show
+    defaults: { _controller: "GedBundle:Documents:show" }
+
+documents_new:
+    path:     /new
+    defaults: { _controller: "GedBundle:Documents:new" }
+
+documents_create:
+    path:     /create
+    defaults: { _controller: "GedBundle:Documents:create" }
+    methods:  POST
+
+documents_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "GedBundle:Documents:edit" }
+
+documents_update:
+    path:     /{id}/update
+    defaults: { _controller: "GedBundle:Documents:update" }
+    methods:  [POST, PUT]
+
+documents_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "GedBundle:Documents:delete" }
+    requirements:
+        id:  \d+
+
+document_download:
+    path:     /download/{document}
+    defaults: { _controller: "GedBundle:Documents:Download" }
+
+document_visual:
+    path:     /visual/{document}
+    defaults: { _controller: "GedBundle:Documents:Visual" }

@@ -1,16 +1,1 @@
-<?php
 
-namespace GedBundle\Entity;
-
-/**
- * Documents
- */
-class Documents
-{
-
-
-
-    // GENERATED CODE
-
-
-}

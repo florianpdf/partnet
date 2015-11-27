@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block main_content -%}
+    <h1>Documents edit</h1>
+
+    {{ form_start(edit_form) }}
+    {{ form_errors(edit_form) }}
+
+    <div>
+        {{ form_label(edit_form.titre, 'Titre') }}
+        {{ form_errors(edit_form.titre) }}
+        {{ form_widget(edit_form.titre) }}
+    </div>
+
+    <div>
+        {{ form_label(edit_form.auteur) }}
+        {{ form_errors(edit_form.auteur) }}
+        {{ form_widget(edit_form.auteur) }}
+    </div>
+
+    <div>
+        {{ form_label(edit_form.resume) }}
+        {{ form_errors(edit_form.resume) }}
+        {{ form_widget(edit_form.resume) }}
+    </div>
+
+    <div>
+        {{ form_label(edit_form.finDeVie) }}
+        {{ form_errors(edit_form.finDeVie) }}
+        {{ form_widget(edit_form.finDeVie) }}
+    </div>
+
+    <div>
+        <p>Document uploader: </p>
+        {{ doc.fileName }}
+    </div>
+
+    {{ form_end(edit_form) }}
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('documents') }}">
+                Retour à la liste des documents
+            </a>
+        </li>
+    </ul>
+{% endblock %}

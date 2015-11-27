@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/navbar.html.twig') }}
+
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Titre du document</th>
+            <th>Auteur</th>
+            <th>Organisme émetteur</th>
+            <th>Date d'ajout</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for doc in docs %}
+            <tr>
+                <td>{{ doc.titre }}</td>
+                <td>{{ doc.auteur }}</td>
+                {% for user in users %}
+                    {% if user.username == doc.user %}
+                        <td>{{ user.organisme }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
+                <td>
+                    <ul>
+                        <li><a href="{{ path('documents_show', { 'id': doc.id }) }}">Voir</a></li>
+                        <li><a data-toggle="modal" data-target="#modal_ajout" href="{{ path('documents_edit', { 'id': doc.id }) }}">Editer</a></li>
+                        <li><a href="{{ path("document_download", {'document': doc.document}) }}">Télécharger</a></li>
+                        <li><a href="{{ path('documents_delete', {'id':  doc.Id  }) }}" onclick="return confirm('are u sure?')">Supprimer</a></li>
+                        <li><a href="{{ path('document_visual', {'document': doc.document }) }}">Aperçu</a></li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_ajout">
+        Ajouter un document
+    </button>
+
+    {% include '@Ged/Documents/new.html.twig' %}
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
+{% endblock %}

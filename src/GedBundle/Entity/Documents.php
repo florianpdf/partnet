@@ -3,6 +3,8 @@
 namespace GedBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Documents
@@ -10,10 +12,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Documents
 {
 
-
-
     // GENERATED CODE
+    /**
+     * @var File
+     *
+     * @Assert\File(
+     *     maxSize = "20M",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Please upload a valid PDF"
+     * )
+     */
+    public $file;
 
+    /**
+     * @var string
+     */
+    private $document;
 
     /**
      * @var integer
@@ -47,14 +61,6 @@ class Documents
     private $auteur;
 
     /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(max = 50)
-     * @Assert\File(maxSize = "10M")
-     */
-    private $url;
-
-    /**
      * @var \DateTime
      */
     private $dateUpload;
@@ -75,7 +81,35 @@ class Documents
      */
     private $user;
 
+    /**
+     * @var string
+     */
+    private $file_name;
 
+
+    /**
+     * Set fileName
+     *
+     * @param string $fileName
+     *
+     * @return Documents
+     */
+    public function setFileName($fileName)
+    {
+        $this->file_name = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * Get fileName
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->file_name;
+    }
     /**
      * Get id
      *
@@ -183,30 +217,6 @@ class Documents
     }
 
     /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Documents
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
      * Set dateUpload
      *
      * @param \DateTime $dateUpload
@@ -300,5 +310,97 @@ class Documents
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set document
+     *
+     * @param string $document
+     *
+     * @return Documents
+     */
+    public function setDocument($document)
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * Get document
+     *
+     * @return string
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/documents';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../app/'.$this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->document ? null : $this->getUploadDir().'/'.$this->document;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->document ? null : $this->getUploadRootDir().'/'.$this->document;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->file_name = $this->file->getClientOriginalName();
+            $this->document = uniqid().'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->file->move($this->getUploadRootDir(), $this->document);
+
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setExpiresAtValue($finDeVie)
+    {
+//        $this->finDeVie = $finDeVie;
+//        return $this;
     }
 }

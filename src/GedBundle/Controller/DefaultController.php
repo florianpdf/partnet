@@ -21,7 +21,7 @@ class DefaultController extends Controller
         $document = new Documents();
 
         $document->setDateUpload(new \DateTime());
-        $document->setUser($this->container->get('security.context')->getToken()->getUser());
+        $document->setUser($this->get('security.token_storage')->getToken()->getUser());
 
         $form = $this->createForm('document', $document);
 
@@ -29,6 +29,8 @@ class DefaultController extends Controller
 
         if ($form->isValid()) {
             $file = $document->getUrl();
+            $document->setDateUpload(new \DateTime());
+            $document->setUser($this->get('security.token_storage')->getToken()->getUser());
             $document->setExtension($file->getClientOriginalExtension());
 
             if ($document->getExtension() == 'pdf') {

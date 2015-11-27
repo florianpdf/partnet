@@ -11,4 +11,5 @@
 /web/bundles/
 /.idea/
 /node_modules/
+/app/uploads/
 /Gruntfile.js

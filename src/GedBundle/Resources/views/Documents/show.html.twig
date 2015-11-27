@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block main_content -%}
+    <h1>Documents</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ doc.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ doc.titre }}</td>
+            </tr>
+            <tr>
+                <th>Resume</th>
+                <td>{{ doc.resume }}</td>
+            </tr>
+            <tr>
+                <th>Extension</th>
+                <td>{{ doc.extension }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ doc.auteur }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ doc.file }}</td>
+            </tr>
+            <tr>
+                <th>Dateupload</th>
+                <td>{{ doc.dateUpload|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Datemodif</th>
+                <td>{{ doc.dateModif|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Findevie</th>
+                <td>{{ doc.finDeVie|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('documents') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('documents_edit', { 'id': doc.id }) }}">
+            Edit
+        </a>
+    </li>
+    {#<li>{{ form(delete_form) }}</li>#}
+</ul>
+{% endblock %}
