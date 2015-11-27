@@ -8,10 +8,12 @@
 /bin/
 /composer.phar
 /vendor/
-/web/bundles/
 /node_modules/
 /app/uploads/
 .idea
-web/
 Gruntfile.js
 composer.lock
+/web/bundles
+/web/js
+/web/images
+/web/css
