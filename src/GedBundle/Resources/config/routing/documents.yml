@@ -15,9 +15,9 @@ documents_create:
     defaults: { _controller: "GedBundle:Documents:create" }
     methods:  POST
 
-documents_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "GedBundle:Documents:edit" }
+#documents_edit:
+#    path:     /edit/{id}
+#    defaults: { _controller: "GedBundle:Documents:index" }
 
 documents_update:
     path:     /{id}/update

@@ -25,8 +25,10 @@ class DocumentsController extends Controller
      * Lists all Documents entities.
      *
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $id = null)
     {
+
+
         if (!$this->getUser())
         {
             return $this->redirectToRoute('fos_user_security_login');
@@ -40,11 +42,25 @@ class DocumentsController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        return $this->render('GedBundle:Documents:index.html.twig', array(
-            'docs' => $entities,
-            'users' => $list_users,
-            'form'   => $form->createView(),
-        ));
+        //if($id){
+        //   $entity_edit = $em->getRepository('GedBundle:Documents')->find($id);
+        //   $editForm = $this->createEditForm($entity_edit);
+
+        //    return $this->render('GedBundle:Documents:index.html.twig', array(
+        //        'docs'      => $entities,
+        //        'users' => $list_users,
+        //        'edit_form'   => $editForm->createView(),
+        //        'edit' => $id,
+        //    ));
+
+        //} else {
+            return $this->render('GedBundle:Documents:index.html.twig', array(
+                'docs' => $entities,
+                'users' => $list_users,
+                'form'   => $form->createView(),
+            ));
+        //}
+
 
     }
     /**
@@ -132,8 +148,11 @@ class DocumentsController extends Controller
             throw $this->createNotFoundException('Unable to find Documents entity.');
         }
 
+        $editForm = $this->createEditForm($entity);
+
         return $this->render('GedBundle:Documents:show.html.twig', array(
             'doc'      => $entity,
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
@@ -143,7 +162,7 @@ class DocumentsController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        /*$em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('GedBundle:Documents')->find($id);
 
@@ -156,7 +175,9 @@ class DocumentsController extends Controller
         return $this->render('GedBundle:Documents:edit.html.twig', array(
             'doc'      => $entity,
             'edit_form'   => $editForm->createView(),
-        ));
+        ));*/
+
+
     }
 
     /**
