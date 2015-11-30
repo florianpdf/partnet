@@ -6,6 +6,8 @@ Installation :
 -----------------
 Installation auto :
 
+    $ git clone https://github.com/WildCodeSchool/partnet.git
+    $ cd partnet
     $ sh install
 
 En clonant le projet :
