@@ -1,5 +1,0 @@
-services:
-    ged.form.type.document:
-        class: GedBundle\Form\Type\DocumentType
-        tags:
-            - { name: form.type, alias: document }

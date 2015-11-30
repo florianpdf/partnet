@@ -1,48 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{% block title %}P@rtnet'emploi{% endblock %}</title>
-        <meta name="description" content="Plateforme de communication et d'échange entre les partenaires de l'emploi du Perche.">
-
-        {% block external_css %}
-            {% if app.environment == 'dev' %}
-                <link rel="stylesheet" href="{{ asset('css/dev/main.css') }}">
-            {% else %}
-                <link rel="stylesheet" href="{{ asset('css/dist/main.min.css') }}">
-            {% endif %}
-        {% endblock %}
-
-        {% block external_fonts %}{% endblock %}
-
-        {% block ie_comments %}
-            <!--[if lte IE 9]>
-            {% if app.environment == 'dev' %}
-                <script src="{{ asset('js/dev/polyfills.js') }}"></script>
-            {% else %}
-                <script src="{{ asset('js/dist/polyfills.min.js') }}"></script>
-            {% endif %}
-            <![endif]-->
-        {% endblock %}
-
-        {% block favicons %}
-            <link rel="icon" href="{{ asset('favicon.png') }}">
-        {% endblock %}
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-
-    {% block body_class %}<body>{% endblock %}
-        {% block main_content %}{% endblock %}
-
-        {% block scripts %}
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            {% if app.environment == 'dev' %}
-                <script src="{{ asset('js/dev/scripts.js') }}"></script>
-            {% else %}
-                <script src="{{ asset('js/dist/scripts.min.js') }}"></script>
-            {% endif %}
-        {% endblock %}
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
