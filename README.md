@@ -1,7 +1,6 @@
 P@rtnet'emploi du Perche
 ======================
 
-----------
 
 Installation :
 -----------------
