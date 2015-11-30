@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         concat: {
             scripts: {
                 src: ['app/Resources/js/scripts/*.js', 'app/Resources/js/*.js',
-                      'src/**/Resources/public/js/*.js'],
+                    'src/**/Resources/public/js/*.js'],
                 dest: 'web/js/dev/scripts.js',
             },
             polyfills: {
@@ -90,10 +90,26 @@ module.exports = function(grunt) {
         },
 
 
+        // Images ////////////////////////////////////////////////////////////////
+        imagemin: {
+            all: {
+                options: {
+                    optimizationLevel: 7
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['app/Resources/images/*.{png,jpg,gif,svg}', 'src/**/Resources/public/images/*.{png,jpg,gif,svg}'],
+                    dest: 'web/images/'
+                }]
+            }
+        },
+
+
         // Clean /////////////////////////////////////////////////////////////////
         clean: ["app/Resources/css/_sprite.scss", 'app/Resources/images/spritesheet.png',
-                "web/js/dev/*", "web/js/dist/*",
-                "web/css/dev/*", "web/css/dist/*"],
+            "web/js/dev/*", "web/js/dist/*",
+            "web/css/dev/*", "web/css/dist/*"],
 
 
         // Browsersync ///////////////////////////////////////////////////////////
@@ -110,7 +126,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['app/Resources/js/scripts/*.js', 'app/Resources/js/*.js',
-                        'src/**/Resources/public/js/*.js'],
+                    'src/**/Resources/public/js/*.js'],
                 tasks: ['concat:scripts']
             },
             polyfills: {
@@ -125,6 +141,6 @@ module.exports = function(grunt) {
     });
 
     // Tasks
-    grunt.registerTask('default', ['clean', 'sprite', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssnano', 'browserSync', 'watch']);
+    grunt.registerTask('default', ['clean', 'sprite', 'imagemin', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssnano', 'browserSync', 'watch']);
 
 };
