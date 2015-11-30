@@ -7,6 +7,7 @@ Installation :
 En clonant le projet :
 
     $ git clone https://github.com/WildCodeSchool/partnet.git
+    $ cd partnet
     $ git checkout develop
     $ composer install
     $ php app/console doctrine:database:create
