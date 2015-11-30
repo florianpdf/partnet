@@ -11,7 +11,7 @@ En clonant le projet :
     $ git checkout develop
     $ composer install
     $ php app/console doctrine:database:create
-    $ php app/console doctrine:schema:update
+    $ php app/console doctrine:schema:update --force
     $ php app/console doctrine:fixtures:load
     $ sudo sh bash/chmod.sh
     $ sudo npm install
