@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/navbar.html.twig') }}
+
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Titre du document</th>
+            <th>Auteur</th>
+            <th>Organisme émetteur</th>
+            <th>Date d'ajout</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for doc in docs %}
+            <tr>
+                <td>{{ doc.titre }}</td>
+                <td>{{ doc.auteur }}</td>
+                {% for user in users %}
+                    {% if user.username == doc.user %}
+                        <td>{{ user.organisme }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
+                <td>
+                    <table width="100%" class="table_buttons_ged">
+                        <tr>
+                            <td><a href="{{  path('documents_edit', { 'id': doc.id }) }}"><img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a></td>
+                            <td><a href="{{ path("document_download", {'document': doc.document}) }}"><img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" /></a></td>
+                            <td><a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a></td>
+                            <td><a href="{{ path('document_visual', {'document': doc.document }) }}"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" /></a></td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_ajout">
+        Ajouter un document
+    </button>
+    {% if form is defined %}
+         {% include '@Ged/Documents/new.html.twig' %}
+    {% endif %}
+
+    {% include '@Ged/Documents/delete.html.twig' %}
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
+{% endblock %}
