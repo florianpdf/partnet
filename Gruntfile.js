@@ -119,7 +119,7 @@ module.exports = function(grunt) {
             },
             options: {
                 watchTask: true,
-                proxy: "http://localhost/partnet/web/app_dev.php/"
+                proxy: (process.platform === "darwin" ? "http://localhost:8888/project_partnet/web/app_dev.php/documents/" : "http://localhost/partnet/web/app_dev.php/")
             }
         },
         // Monitoring ////////////////////////////////////////////////////////////
