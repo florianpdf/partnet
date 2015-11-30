@@ -1,5 +1,4 @@
 #!/bin/bash
-message=`pwd`
 
 echo "\033[31;1;4;5;7mChangement de la branche\033[0m\n"
 sudo git checkout develop
@@ -40,27 +39,15 @@ clear
 
 echo "\033[31;1;4;5;7mCréation de upload\033[0m\n"
 cd app/
-echo "\033[34mVous êtes dans le dossier $message\033[0m"
-echo "Appuyer sur Entrée pour continuer..."
-read a
-clear
-
+pwd
 sudo mkdir uploads
 cd uploads/
-echo "\033[34mVous êtes dans le dossier $message\033[0m"
-echo "Appuyer sur Entrée pour continuer..."
-read a
-clear
-
+pwd
 sudo mkidr documents
 cd ..
-echo "\033[34mVous êtes dans le dossier $message\033[0m"
-echo "Appuyer sur Entrée pour continuer..."
-read a
-clear
-
+pwd
 cd ..
-echo "\033[34mVous êtes dans le dossier $message\033[0m"
+pwd
 echo "Appuyer sur Entrée pour continuer..."
 read a
 clear
