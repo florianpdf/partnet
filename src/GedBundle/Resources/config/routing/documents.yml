@@ -16,7 +16,7 @@ documents_create:
     methods:  POST
 
 documents_edit:
-    path:     /{id}/edit
+    path:     /{id}/edit/
     defaults: { _controller: "GedBundle:Documents:edit" }
 
 documents_update:

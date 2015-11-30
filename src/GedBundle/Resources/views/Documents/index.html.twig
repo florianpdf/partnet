@@ -37,8 +37,7 @@
                 <td>
                     <table width="100%" class="table_buttons_ged">
                         <tr>
-                            <td><a href="{{ path('documents_show', { 'id': doc.id }) }}"><img src="{{ asset('images/show.svg') }}" width="20" height="20" alt="Voir" /></a></td>
-                            <td><a data-toggle="modal" data-target="#modal_ajout" href="{{ path('documents_edit', { 'id': doc.id }) }}"><img src="{{ asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a></td>
+                            <td><a href="{{  path('documents_edit', { 'id': doc.id }) }}"><img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a></td>
                             <td><a href="{{ path("document_download", {'document': doc.document}) }}"><img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" /></a></td>
                             <td><a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a></td>
                             <td><a href="{{ path('document_visual', {'document': doc.document }) }}"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" /></a></td>
@@ -55,8 +54,10 @@
     <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_ajout">
         Ajouter un document
     </button>
+    {% if form is defined %}
+         {% include '@Ged/Documents/new.html.twig' %}
+    {% endif %}
 
-    {% include '@Ged/Documents/new.html.twig' %}
     {% include '@Ged/Documents/delete.html.twig' %}
 
 
