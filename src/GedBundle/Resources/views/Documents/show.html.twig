@@ -1,60 +1,58 @@
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block main_content -%}
-    <h1>Documents</h1>
+{% block body_class %}<body id="ged">{% endblock %}
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ doc.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ doc.titre }}</td>
-            </tr>
-            <tr>
-                <th>Resume</th>
-                <td>{{ doc.resume }}</td>
-            </tr>
-            <tr>
-                <th>Extension</th>
-                <td>{{ doc.extension }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ doc.auteur }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ doc.file }}</td>
-            </tr>
-            <tr>
-                <th>Dateupload</th>
-                <td>{{ doc.dateUpload|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Datemodif</th>
-                <td>{{ doc.dateModif|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Findevie</th>
-                <td>{{ doc.finDeVie|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block main_content %}
+    {{ include('includes/navbar.html.twig') }}
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Détails de {{ doc.titre }}</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered record_properties">
+                <tbody>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ doc.titre }}</td>
+                </tr>
+                <tr>
+                    <th>Résumé</th>
+                    <td>{{ doc.resume }}</td>
+                </tr>
+                <tr>
+                    <th>Auteur</th>
+                    <td>{{ doc.auteur }}</td>
+                </tr>
+                <tr>
+                    <th>Fichier associé</th>
+                    <td>{{ doc.file }}</td>
+                </tr>
+                <tr>
+                    <th>Date de mise en ligne</th>
+                    <td>{{ doc.dateUpload|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Expire le</th>
+                    <td>{{ doc.finDeVie|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <p></p>
+            <div class="btn-group" role="group">
+                <a href="{{ path('documents') }}" type="button" class="btn btn-default">Retour à la liste</a>
+                <a href="{{ path('document_visual', {'document': doc.document }) }}" type="button" class="btn btn-primary">Ouvrir</a>
+                <a href="{{ path("document_download", {'document': doc.document}) }}" type="button" class="btn btn-primary">Télécharger <span class="caret"></span></a>
+                <a data-toggle="modal" data-target="#modal_edit" href="#" type="button" class="btn btn-primary">Modifier ce document</a>
+            </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('documents') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('documents_edit', { 'id': doc.id }) }}">
-            Edit
-        </a>
-    </li>
-    {#<li>{{ form(delete_form) }}</li>#}
-</ul>
+        </div>
+    </div>
+</div>
+
+
+        {% include '@Ged/Documents/edit.html.twig' %}
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
 {% endblock %}
