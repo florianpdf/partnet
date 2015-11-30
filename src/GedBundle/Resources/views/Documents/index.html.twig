@@ -26,13 +26,13 @@
             <tr>
                 <td>{{ doc.titre }}</td>
                 <td>{{ doc.auteur }}</td>
-                {% for user in users %}
-                    {% if user.username == doc.user %}
-                        <td>{{ user.organisme }}</td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                {% endfor %}
+                <td>
+                    {% for user in users %}
+                        {% if user.username == doc.user %}
+                            {{ user.organisme }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
                 <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
                 <td>
                     <table width="100%" class="table_buttons_ged">
