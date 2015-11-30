@@ -4,6 +4,10 @@ P@rtnet'emploi du Perche
 
 Installation :
 -----------------
+Installation auto :
+
+    $ sh install
+
 En clonant le projet :
 
     $ git clone https://github.com/WildCodeSchool/partnet.git
