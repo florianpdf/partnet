@@ -2,9 +2,15 @@ P@rtnet'emploi du Perche
 ======================
 
 
-Installation :
+Installation en clonant le projet :
 -----------------
-En clonant le projet :
+Installation auto :
+
+    $ git clone https://github.com/WildCodeSchool/partnet.git
+    $ cd partnet
+    $ sh install
+
+Installation manuelle :
 
     $ git clone https://github.com/WildCodeSchool/partnet.git
     $ cd partnet
