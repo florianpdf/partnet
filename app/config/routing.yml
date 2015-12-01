@@ -14,6 +14,10 @@ user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user
 
+annuaire:
+    resource: "@AnnuaireBundle/Resources/config/routing.yml"
+    prefix:   /annuaire
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
