@@ -5,7 +5,7 @@ echo "\033[31;1;4;5;7mVérification de composer\033[0m\n"
 if [ ! -d "/usr/local/bin/composer" ];then
 	echo "\033[31;1;4;5;7mInstallation de composer en global\033[0m\n"
 	curl -sS https://getcomposer.org/installer | php
-	mv composer.phar /usr/local/bin/composer
+	sudo mv composer.phar /usr/local/bin/composer
 fi
 echo "Composer est déjà installé"
 read a
@@ -72,7 +72,7 @@ if [ ! -d "/usr/local/bin/grunt" ];then
 	sudo apt-get update
 	sudo apt-get install nodejs npm
 	echo "\033[31;1;4;5;7mInstallation de Grunt en global\033[0m\n"
-	npm install -g grunt-cli
+	sudo npm install -g grunt-cli
 fi
 echo "Grunt est déjà installé"
 read a
