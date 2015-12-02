@@ -67,7 +67,11 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
-        } );
+            $('#example').dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple"
+            });
+        });
     </script>
 {% endblock %}
