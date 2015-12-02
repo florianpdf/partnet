@@ -3,7 +3,7 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/navbar.html.twig') }}
+    {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
     {% if app.session.flashBag.has('success') %}
@@ -12,19 +12,22 @@
         {% endfor %}
     {% endif %}
 
-    <table id="example" class="display" cellspacing="0" width="100%">
+    <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th class="control"></th>
             <th>Titre du document</th>
             <th>Auteur</th>
             <th>Organisme émetteur</th>
             <th>Date d'ajout</th>
             <th>Actions</th>
+            <th>Résumé</th>
         </tr>
         </thead>
         <tbody>
         {% for doc in docs %}
             <tr>
+                <td class="control"></td>
                 <td>{{ doc.titre }}</td>
                 <td>{{ doc.auteur }}</td>
                 <td>
@@ -35,17 +38,13 @@
                     {% endfor %}
                 </td>
                 <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
-                <td>
-                    <table width="100%" class="table_buttons_ged">
-                        <tr>
-                            <td><a href="{{  path('documents_edit', { 'id': doc.id }) }}"><img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a></td>
-                            <td><a href="{{ path("document_download", {'document': doc.document}) }}"><img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" /></a></td>
-                            <td><a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a></td>
-                            <td><a href="{{ path('document_visual', {'document': doc.document }) }}"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" /></a></td>
-                        </tr>
-                    </table>
-
+                <td class="actions">
+                    <a href="{{  path('documents_edit', { 'id': doc.id }) }}"><img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a>
+                    <a href="{{ path("document_download", {'document': doc.document}) }}"><img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" /></a>
+                    <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a>
+                    <a href="{{ path('document_visual', {'document': doc.document }) }}"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" /></a>
                 </td>
+                <td>{{ doc.resume }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -68,10 +67,41 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#example').dataTable( {
+            $('#donnees').dataTable( {
                 "lengthChange": false,
                 "info": false,
-                "pagingType": "simple"
+                "pagingType": "simple",
+                responsive: {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                    '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                $('<div/>').append( data ) :
+                                false;
+                        }
+                    }
+                },
+                columnDefs: [
+                    {
+                        className: 'control',
+                        orderable: false,
+                        targets:   0
+                    },
+                    { className: 'none', targets: 6},
+                    { className: 'all', targets: 0},
+                    { className: 'none', targets: 1},
+                    { className: 'all', targets: 5},
+                    { responsivePriority: 3, targets: 3 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 4 }
+                ],
+                order: [ 1, 'asc' ]
             });
         });
     </script>

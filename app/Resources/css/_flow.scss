@@ -2,7 +2,6 @@ body {
   background: $login-bg;
   font-family: Arial, sans-serif;
   font-size: 16px;
-  //margin-top: 100px;
 }
 #accueil {
   background: $tiles-bg;
@@ -12,10 +11,9 @@ body {
 
 
 
-#ged { background: #fff !important; }
 
-.table_buttons_ged {
-  background: transparent !important;
+.actions {
+  display: inline-block;
 }
 
 .aligner {
@@ -82,24 +80,33 @@ body {
 }
 
 #top-bar {
-  position: fixed; z-index: 9; top: 0;
+  // position: fixed; z-index: 9; top: 0;
+  margin-bottom: 30px;
   width: 100%;
-  height: $top-bar-height; line-height: 80px;
+  height: $top-bar-height; line-height: $top-bar-height;
   padding: 0 10%;
   background: #2B77AA;
   color: #fff;
   border-bottom: 1px solid #fff;
 }
 #top-bar div { float: right; }
-#top-bar a { color: #fff; }
-
+#top-bar a {
+  display: inline-block;
+  height: 100%;
+  text-decoration: none;
+  padding: 0 10px;
+  color: #fff;
+}
+#top-bar a:hover {
+  background: rgba(255,255,255,0.15);
+}
 
 
 /* //////////////// MENU //////////////// *\
 \* ////////////////////////////////////// */
 #menu-wrapper {
   position: absolute; z-index: 9;
-  height: calc(100% - #{$top-bar-height}); margin-top: $top-bar-height;
+  height: calc(100% - #{$top-bar-height}); margin-top: -30px;
   width: 20%; max-width: 350px; min-width: 200px;
   transform: translateX(-100%);
   transition: transform 0.5s;
@@ -127,12 +134,12 @@ nav {
 nav a {
   flex: 1;
   position: relative;
-  color: #000;
+  color: #000 !important;
 }
 nav span, nav img {
   position: absolute; top: 50%; transform: translateY(-50%);
   opacity: 0.3;
-  transition: opacity 1s;
+  transition: opacity 0.5s;
 }
 nav span {
   margin-left: 35%;
@@ -164,12 +171,12 @@ nav a:hover span { opacity: 0.5; }
   margin: 5px;
   border: 1px solid #fff;
 }
-#tiles-wrapper li:nth-child(1), .tile1 { background: $tile1-bg; }
-#tiles-wrapper li:nth-child(2), .tile2 { background: $tile2-bg; }
-#tiles-wrapper li:nth-child(3), .tile3 { background: $tile3-bg; }
-#tiles-wrapper li:nth-child(4), .tile4 { background: $tile4-bg; }
-#tiles-wrapper li:nth-child(5), .tile5 { background: $tile5-bg; }
-#tiles-wrapper li:nth-child(6), .tile6 { background: $tile6-bg; }
+#tiles-wrapper li:nth-child(1), #accueil.tile1, .tile1 { background: $tile1-bg; }
+#tiles-wrapper li:nth-child(2), #accueil.tile2, .tile2 { background: $tile2-bg; }
+#tiles-wrapper li:nth-child(3), #accueil.tile3, .tile3 { background: $tile3-bg; }
+#tiles-wrapper li:nth-child(4), #accueil.tile4, .tile4 { background: $tile4-bg; }
+#tiles-wrapper li:nth-child(5), #accueil.tile5, .tile5 { background: $tile5-bg; }
+#tiles-wrapper li:nth-child(6), #accueil.tile6, .tile6 { background: $tile6-bg; }
 
 #data-wrapper {
   background: $login-bg;
@@ -233,8 +240,11 @@ nav a:hover span { opacity: 0.5; }
 }
 
 
-
-
+/* //////////////// GED //////////////// *\
+\* ///////////////////////////////////// */
+#ged {
+  background: #E5F6F1;
+}
 
 
 
