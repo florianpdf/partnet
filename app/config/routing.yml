@@ -1,3 +1,7 @@
+msg:
+    resource: "@MsgBundle/Resources/config/routing.yml"
+    prefix:   /
+
 homepage:
     path:     /
     defaults: { _controller: "AppBundle:Default:index" }

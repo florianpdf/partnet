@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}
+<body id="ged" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/navbar.html.twig') }}
+<div class="container">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation"><a href="{{ path('message') }}">Boite de reception</a></li><hr />
+                    <li role="presentation" class="active"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+
+    <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Nouveau message</h3>
+            </div>
+            <div class="panel-body">
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div>
+                {{ form_label(form.recipient) }}
+                {{ form_errors(form.recipient) }}
+                {{ form_widget(form.recipient) }}
+            </div>
+            <div>
+                {{ form_label(form.subject) }}
+                {{ form_errors(form.subject) }}
+                {{ form_widget(form.subject) }}
+            </div>
+
+            <div>
+                {{ form_label(form.message) }}
+                {{ form_errors(form.message) }}
+                {{ form_widget(form.message) }}
+            </div>
+
+
+            {{ form_end(form) }}
+
+          </div>
+</div>
+    </div>
+</div>
+{% endblock %}

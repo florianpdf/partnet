@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/navbar.html.twig') }}
+
+<div class="container">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active"><a href="{{ path('message') }}">Boite de reception</a></li><hr />
+                    <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Boite de réception > {{ entity.subject }}</h3>
+            </div>
+            <div class="panel-body">
+
+    <table class="record_properties">
+        <tbody>
+
+            <tr>
+                <th>Expéditeur</th>
+                <td>{{ entity.sender }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ entity.subject }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ entity.message }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('message') }}">
+            Retour
+        </a>
+    </li>
+
+    <li>{{ form(delete_form) }}</li>
+</ul>
+
+                </div></div></div></div>
+{% endblock %}

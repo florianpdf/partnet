@@ -10,7 +10,8 @@ class DocumentsControllerTest extends WebTestCase
     public function testChampsAddDoc() {
 
         $client = static::createClient();
-        $crawler = $client->request('GET', '/login');
+        $crawler = $client->request('GET', '/');
+        $crawler = $client->followRedirect();
 
         // Sélection basée sur la valeur, l'id ou le nom des boutons
         $form = $crawler->selectButton('Connexion')->form();
@@ -21,6 +22,8 @@ class DocumentsControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/documents');
 
         $crawler = $client->followRedirect('AppBundle\Controller\DefaultController::indexAction');
+
+        // Tests de la présence des champs
         $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[titre]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[auteur]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form textarea[name="gedbundle_documents[resume]"]')->count() == 1);
