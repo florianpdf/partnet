@@ -1,1 +1,17 @@
+<?php
 
+namespace GedBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Documents
+ */
+class Documents
+{
+
+    //Generated Code
+
+}
