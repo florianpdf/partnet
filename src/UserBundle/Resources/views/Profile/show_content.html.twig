@@ -7,5 +7,7 @@
     <p>Organisme: {{ user.organisme }}</p>
     <p>Fonction: {{ user.poste }}</p>
     <p>Téléphone: {{ user.telephone }}</p>
+    {#<img src="{{ asset('images/profile_pictures/{{ user.pictureUrl }}' }}"/>#}
+    <img src="/project_partnet/web/images/profile_pictures/{{ user.picture }}" />
     <a href="{{ path('fos_user_profile_edit') }}">Modifier mon profil</a>
 </div>

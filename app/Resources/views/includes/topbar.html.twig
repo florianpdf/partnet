@@ -2,12 +2,21 @@
     <a href="{{ path('homepage') }}">P@rtnet'emploi du Perche</a>
     <div>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <a href="{{ path('fos_user_profile_show') }}">{{ app.user.prenom }}&nbsp;{{ app.user.nom }}&nbsp;&nbsp;</a>
-            <a href="{{ path('fos_user_security_logout') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
+
+            {% if (app.user.prenom) and (app.user.nom) %}
+                <a href="{{ path('fos_user_profile_show') }}">{{ app.user.prenom }}&nbsp;{{ app.user.nom }}&nbsp;&nbsp;</a>
+            {% else %}
+                <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}&nbsp;&nbsp;</a>
+            {% endif %}
+
+            <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+
+            {% if (app.user.picture != null) %}
+                <img src="/project_partnet/web/images/profile_pictures/{{ app.user.picture }}" />
+            {% endif %}
+
         {% else %}
-            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
         {% endif %}
     </div>
 </div>
