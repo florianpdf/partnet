@@ -2,7 +2,7 @@
     <a href="{{ path('homepage') }}">P@rtnet'emploi du Perche</a>
     <div>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ app.user.username }}&nbsp;&nbsp;
+            <a href="{{ path('fos_user_profile_show') }}">{{ app.user.prenom }}&nbsp;{{ app.user.nom }}&nbsp;&nbsp;</a>
             <a href="{{ path('fos_user_security_logout') }}">
                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
             </a>
