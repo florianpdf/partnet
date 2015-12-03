@@ -86,7 +86,7 @@ class DocumentsController extends Controller
                 ->getFlashBag()
                 ->add('success', 'Votre document a bien été ajouté sur le portail.');
 
-            return $this->redirect($this->generateUrl('documents', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('documents'));
         }
         else {
             $request->getSession()

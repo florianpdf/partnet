@@ -26,7 +26,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="telephone" type="integer" column="telephone" nullable="true">
+    <field name="telephone" type="string" column="telephone" length="10" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>
