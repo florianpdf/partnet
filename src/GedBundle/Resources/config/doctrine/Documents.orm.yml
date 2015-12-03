@@ -44,7 +44,7 @@ GedBundle\Entity\Documents:
                 fixed: false
         document:
             type: string
-            nullable: true
+            nullable: false
             length: 255
         file_name:
             type: string
@@ -74,7 +74,7 @@ GedBundle\Entity\Documents:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks:
-        prePersist: [ preUpload, setExpiresAtValue ]
+        prePersist: [ preUpload ]
         preUpdate: [ preUpload ]
         postPersist: [ upload ]
         postUpdate: [ upload ]

@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new GedBundle\GedBundle(),
             new AgendaBundle\AgendaBundle(),
+            new AnnuaireBundle\AnnuaireBundle(),
+
 
         );
 

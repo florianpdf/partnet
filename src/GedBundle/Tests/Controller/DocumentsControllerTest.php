@@ -3,53 +3,70 @@
 namespace GedBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use GedBundle\Entity\Documents;
 
 class DocumentsControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
-    {
-        // Create a new client to browse the application
-        $client = static::createClient();
 
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/documents/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /documents/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+    public function testChampsAddDoc() {
 
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'gedbundle_documents[field_name]'  => 'Test',
-            // ... other fields to fill
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'admin',
         ));
 
-        $client->submit($form);
-        $crawler = $client->followRedirect();
+        $crawler = $client->request('GET', '/documents');
 
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
+        $crawler = $client->followRedirect('AppBundle\Controller\DefaultController::indexAction');
+        $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[titre]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[auteur]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form textarea[name="gedbundle_documents[resume]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form select[name="gedbundle_documents[finDeVie][day]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form select[name="gedbundle_documents[finDeVie][month]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form select[name="gedbundle_documents[finDeVie][year]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[file]"]')->count() == 1);
+        $this->assertTrue($crawler->filter('form button[name="gedbundle_documents[submit]"]')->count() == 1);
 
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Update')->form(array(
-            'gedbundle_documents[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    */
+    public function testUpload()
+    {
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
+
+        $crawler = $client->request('GET', '/documents');
+        $crawler = $client->followRedirect();
+
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $entity = new Documents();
+
+        $document = new UploadedFile(
+            '/Users/Florian/Downloads/plaquette structure chateaudun.pdf',
+            'plaquette structure chateaudun.pdf',
+            'application/pdf'
+        );
+
+        $form = $crawler->selectButton('Connexion')->form();
+
+        $form['titre']= 'test';
+        $form['auteur']= 'test';
+        $form['resume']= 'test';
+        $form['file']= $document;
+
+        $crawler = $client->submit($form);
+
+        $em->persist($form);
+        $em->flush();
+
+        $crawler = $client->request('GET', '/documents');
+        $crawler = $client->followRedirect();
+
+        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction', $client->getRequest()->attributes->get('_controller'));
+    }
+
 }

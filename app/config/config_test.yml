@@ -8,9 +8,19 @@ framework:
     profiler:
         collect: false
 
+security:
+    firewalls:
+        main:
+            http_basic: ~
+
 web_profiler:
     toolbar: false
     intercept_redirects: false
 
 swiftmailer:
     disable_delivery: true
+
+doctrine:
+    dbal:
+        # add "_test" to the database name you set in parameters.ini:
+        dbname:   %database_name%_test

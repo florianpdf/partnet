@@ -3,25 +3,39 @@ namespace UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
-* @ORM\Entity
-* @ORM\Table(name="fos_user")
-*/
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
 class User extends BaseUser
 {
-    /**
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    */
-    protected $id;
 
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    //Generated Code
 
     /**
      * @var string
@@ -44,7 +58,7 @@ class User extends BaseUser
     private $poste;
 
     /**
-     * @var integer
+     * @var string
      */
     private $telephone;
 
@@ -58,80 +72,6 @@ class User extends BaseUser
      */
     private $creationCompte;
 
-
-    /**
-     * Get enabled
-     *
-     * @return boolean
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return User
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get locked
-     *
-     * @return boolean
-     */
-    public function getLocked()
-    {
-        return $this->locked;
-    }
-
-    /**
-     * Get expired
-     *
-     * @return boolean
-     */
-    public function getExpired()
-    {
-        return $this->expired;
-    }
-
-    /**
-     * Get expiresAt
-     *
-     * @return \DateTime
-     */
-    public function getExpiresAt()
-    {
-        return $this->expiresAt;
-    }
-
-    /**
-     * Get credentialsExpired
-     *
-     * @return boolean
-     */
-    public function getCredentialsExpired()
-    {
-        return $this->credentialsExpired;
-    }
-
-    /**
-     * Get credentialsExpireAt
-     *
-     * @return \DateTime
-     */
-    public function getCredentialsExpireAt()
-    {
-        return $this->credentialsExpireAt;
-    }
 
     /**
      * Set nom
@@ -232,7 +172,7 @@ class User extends BaseUser
     /**
      * Set telephone
      *
-     * @param integer $telephone
+     * @param string $telephone
      *
      * @return User
      */
@@ -246,7 +186,7 @@ class User extends BaseUser
     /**
      * Get telephone
      *
-     * @return integer
+     * @return string
      */
     public function getTelephone()
     {
@@ -299,15 +239,5 @@ class User extends BaseUser
     public function getCreationCompte()
     {
         return $this->creationCompte;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }
