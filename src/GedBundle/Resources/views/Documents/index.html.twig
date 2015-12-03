@@ -82,7 +82,7 @@
                             } ).join('');
 
                             return data ?
-                                $('<div/>').append( data ) :
+                                $('<div class="slider"/>').append( data ) :
                                 false;
                         }
                     }
@@ -95,7 +95,7 @@
                     },
                     { className: 'none', targets: 6},
                     { className: 'all', targets: 0},
-                    { className: 'none', targets: 1},
+                    { className: 'all', targets: 1},
                     { className: 'all', targets: 5},
                     { responsivePriority: 3, targets: 3 },
                     { responsivePriority: 2, targets: 2 },

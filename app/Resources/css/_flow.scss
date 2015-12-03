@@ -89,6 +89,9 @@ body {
   color: #fff;
   border-bottom: 1px solid #fff;
 }
+#accueil #top-bar {
+  position: fixed; z-index: 9; top: 0;
+}
 #top-bar div { float: right; }
 #top-bar a {
   display: inline-block;
@@ -248,6 +251,11 @@ nav a:hover span { opacity: 0.5; }
 
 
 
+
+
+.slider {
+  display: none;
+}
 
 
 
