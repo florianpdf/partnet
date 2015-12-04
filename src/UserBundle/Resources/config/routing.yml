@@ -1,0 +1,13 @@
+user_user:
+    resource: "@UserBundle/Resources/config/routing/user.yml"
+    prefix:   /
+
+user_get_picture:
+    path: /picture/{picture}
+    defaults: { _controller: "UserBundle:PictureProfile:PictureProfile" }
+    methods: [GET]
+
+user_registration_register:
+    path: /
+    defaults: { _controller: "UserBundle:Registration:register" }
+    methods: [GET, POST]
