@@ -12,7 +12,7 @@
         {% endfor %}
     {% endif %}
 
-    <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
+    <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
         <thead>
         <tr>
             <th class="control"></th>
@@ -39,10 +39,18 @@
                 </td>
                 <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
                 <td class="actions">
-                    <a href="{{  path('documents_edit', { 'id': doc.id }) }}"><img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a>
-                    <a href="{{ path("document_download", {'document': doc.document}) }}"><img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" /></a>
-                    <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a>
-                    <a href="{{ path('document_visual', {'document': doc.document }) }}"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" /></a>
+                    <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer les champs">
+                        <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                    </a>
+                    <a href="{{ path("document_download", {'document': doc.document}) }}" title="Télécharger">
+                        <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                    </a>
+                    <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">
+                        <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                    </a>
+                    <a href="{{ path('document_visual', {'document': doc.document }) }}" title="Afficher">
+                        <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                    </a>
                 </td>
                 <td>{{ doc.resume }}</td>
             </tr>
@@ -67,11 +75,18 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#donnees').dataTable( {
+            $( '#donnees' ).dataTable( {
                 "lengthChange": false,
                 "info": false,
                 "pagingType": "simple",
-                responsive: {
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
                     details: {
                         type: 'column',
                         target: 'tr',
@@ -87,12 +102,23 @@
                         }
                     }
                 },
-                columnDefs: [
+                "autoWidth": false,
+                "columns": [
+                    { "width": "5%" },
+                    { "width": "35%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    null
+                ],
+                "columnDefs": [
                     {
                         className: 'control',
                         orderable: false,
                         targets:   0
                     },
+                    { orderable: false, targets: 5},
                     { className: 'none', targets: 6},
                     { className: 'all', targets: 0},
                     { className: 'all', targets: 1},
@@ -101,8 +127,14 @@
                     { responsivePriority: 2, targets: 2 },
                     { responsivePriority: 1, targets: 4 }
                 ],
-                order: [ 1, 'asc' ]
+                "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
             });
+
+            $( 'tr' ).on('click', function () {
+                $( this ).find( 'tr.child' ).slideToggle( 'slow' );
+            });
+
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
 {% endblock %}
