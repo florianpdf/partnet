@@ -5,11 +5,13 @@
 namespace UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadUserData implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -25,26 +27,26 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
     {
         $userManager = $this->container->get('fos_user.user_manager');
 
-        $admin = $userManager->createUser();
-        $admin->setUsername('Admin');
-        $admin->setEmail('admin@admin.com');
-        $admin->setPlainPassword('admin');
-        $admin->setEnabled(true);
-        $admin->setRoles(array('ROLE_ADMIN'));
-        $admin->setNom('Dumont');
-        $admin->setPrenom('Christophe');
-        $admin->setOrganisme('Pôle emploi');
-        $admin->setPoste('Directeur');
-        $admin->setTelephone('0389126433');
-        $admin->setNbUploads('0');
-        $admin->setCreationCompte(new \DateTime('01/01/2016'));
-        //$admin->setLastLogin(new \DateTime(''));
-        $userManager->updateUser($admin);
+        $superadmin = $userManager->createUser();
+        $superadmin->setUsername('superadmin');
+        $superadmin->setEmail('superadmin@superadmin.com');
+        $superadmin->setPlainPassword('superadmin');
+        $superadmin->setEnabled(true);
+        $superadmin->setRoles(array('ROLE_SUPER_ADMIN'));
+        $superadmin->setNom('Dumont');
+        $superadmin->setPrenom('Christophe');
+        $superadmin->setOrganisme('Pôle emploi');
+        $superadmin->setPoste('Directeur');
+        $superadmin->setTelephone('0389126433');
+        $superadmin->setNbUploads('0');
+        $superadmin->setCreationCompte(new \DateTime('01/01/2016'));
+        //$superadmin->setLastLogin(new \DateTime(''));
+        $userManager->updateUser($superadmin);
 
         $admin = $userManager->createUser();
-        $admin->setUsername('Admin2');
-        $admin->setEmail('admin2@admin2.com');
-        $admin->setPlainPassword('admin2');
+        $admin->setUsername('admin');
+        $admin->setEmail('admin@admin.com');
+        $admin->setPlainPassword('admin');
         $admin->setEnabled(true);
         $admin->setRoles(array('ROLE_ADMIN'));
         $admin->setNom('Fournier');
@@ -58,7 +60,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $userManager->updateUser($admin);
 
         $user = $userManager->createUser();
-        $user->setUsername('User');
+        $user->setUsername('user');
         $user->setEmail('user@user.com');
         $user->setPlainPassword('user');
         $user->setEnabled(true);
@@ -72,6 +74,8 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $user->setCreationCompte(new \DateTime('05/01/2016'));
         //$user->setLastLogin(new \DateTime(''));
         $userManager->updateUser($user);
+
+        $this->addReference('uploader', $admin);
     }
 
     public function getOrder()

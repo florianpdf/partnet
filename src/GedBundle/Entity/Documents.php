@@ -18,7 +18,7 @@ class Documents
 
     public function getFixturesPath()
     {
-        return $this->getAbsolutePath() . 'web/uploads/documents/fixtures/';
+        return $this->getAbsolutePath() . 'app/uploads/documents/fixtures/';
     }
 
     protected function getUploadRootDir()
@@ -34,6 +34,15 @@ class Documents
     public function getAbsolutePath()
     {
         return null === $this->document ? null : $this->getUploadRootDir().'/'.$this->document;
+    }
+
+    // used in fixtures
+    public function createFile($ext)
+    {
+        $token = uniqid().".".$ext;
+        $this->setDocument($token);
+        fopen("app/uploads/documents/" . $token, "w");
+        $this->setExtension($ext);
     }
 
     /**
