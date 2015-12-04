@@ -43,7 +43,7 @@ class User extends BaseUser
 
     protected function getUploadDir()
     {
-        return 'images/profile_pictures';
+        return '/profile_pictures';
     }
 
     public function getFixturesPath()
@@ -53,7 +53,7 @@ class User extends BaseUser
 
     protected function getUploadRootDir()
     {
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../app/uploads'.$this->getUploadDir();
     }
 
     public function getWebPath()
@@ -74,7 +74,7 @@ class User extends BaseUser
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
             $this->picture_name = $this->file->getClientOriginalName();
-            $this->picture = uniqid().'.'.$this->file->guessExtension();
+            $this->picture = $this->username.'.'.$this->file->guessExtension();
         }
     }
 

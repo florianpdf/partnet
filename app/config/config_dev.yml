@@ -43,8 +43,3 @@ monolog:
 
 assetic:
     use_controller: true
-
-swiftmailer:
-    transport: gmail
-    username:  partnetemploi
-    password:  azerty1234!

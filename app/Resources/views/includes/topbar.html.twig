@@ -12,7 +12,7 @@
             <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
 
             {% if (app.user.picture != null) %}
-                <img src="/project_partnet/web/images/profile_pictures/{{ app.user.picture }}" />
+                <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
             {% endif %}
 
         {% else %}
