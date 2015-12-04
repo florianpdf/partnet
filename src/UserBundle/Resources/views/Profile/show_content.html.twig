@@ -8,6 +8,8 @@
     <p>Fonction: {{ user.poste }}</p>
     <p>Téléphone: {{ user.telephone }}</p>
     {#<img src="{{ asset('images/profile_pictures/{{ user.pictureUrl }}' }}"/>#}
-    <img src="/project_partnet/web/images/profile_pictures/{{ user.picture }}" />
+    {% if (app.user.picture != null) %}
+        <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
+    {% endif %}
     <a href="{{ path('fos_user_profile_edit') }}">Modifier mon profil</a>
 </div>

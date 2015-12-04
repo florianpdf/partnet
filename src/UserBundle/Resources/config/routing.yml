@@ -1,3 +1,7 @@
+user_user:
+    resource: "@UserBundle/Resources/config/routing/user.yml"
+    prefix:   /
+
 user_get_picture:
     path: /picture/{picture}
     defaults: { _controller: "UserBundle:PictureProfile:PictureProfile" }

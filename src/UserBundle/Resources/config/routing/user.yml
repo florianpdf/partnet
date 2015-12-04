@@ -1,0 +1,9 @@
+user:
+    path:     /
+    defaults: { _controller: "UserBundle:User:index" }
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UserBundle:User:delete" }
+    requirements:
+        id:  \d+
