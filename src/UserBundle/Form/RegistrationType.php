@@ -4,6 +4,7 @@
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 
 class RegistrationType extends AbstractType
@@ -16,11 +17,17 @@ class RegistrationType extends AbstractType
                 'CAP Emploi' => 'CAP Emploi',
                 'Mission Local' => 'Mission Local'
                 )))
-            ->add('telephone', 'text')
-            ->add('poste', 'text')
-            ->add('nom', 'text')
-            ->add('prenom', 'text');
-}
+            ->add('roles', 'collection', array(
+                'type'   => 'choice',
+                'options'  => array(
+                    'label' => false,
+                    'choices'  => array(
+                        'ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'ROLE_USER'     => 'ROLE_USER',
+                    ),
+                ),
+            ));
+    }
 
     public function getParent()
     {

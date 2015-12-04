@@ -1,13 +1,13 @@
 <?php
 
-namespace UserBundle\Controller;
+namespace UserBundle;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class DefaultController extends Controller
+class UserController extends Bundle
 {
-    public function indexAction($name)
+    public function getParent()
     {
-        return $this->render('UserBundle:Default:index.html.twig', array('name' => $name));
+        return 'FOSUserBundle';
     }
 }

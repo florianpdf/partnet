@@ -1,0 +1,53 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block main_content -%}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <h1>User list</h1>
+
+    <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Nom Prénom</th>
+                <th>Organisme</th>
+                <th>Poste</th>
+                <th>Nbuploads</th>
+                <th>Creationcompte</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.username }}</td>
+                <td>{{ entity.nom }} {{ entity.prenom }}</a></td>
+                <td>{{ entity.organisme }}</td>
+                <td>{{ entity.poste }}</td>
+                <td>{{ entity.nbUploads }}</td>
+                <td>{% if entity.creationCompte %}{{ entity.creationCompte|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% include "FOSUserBundle:Registration:register.html.twig" %}
+    {% include '@User/User/delete.html.twig' %}
+    {% endblock %}
+
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#donnees').dataTable( {
+
+            });
+        });
+    </script>
+{% endblock %}
