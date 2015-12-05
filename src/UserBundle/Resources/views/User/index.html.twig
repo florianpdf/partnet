@@ -15,6 +15,7 @@
                 <th>Poste</th>
                 <th>Nbuploads</th>
                 <th>Creationcompte</th>
+                <th>Dernière connexion</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,7 +27,8 @@
                 <td>{{ entity.organisme }}</td>
                 <td>{{ entity.poste }}</td>
                 <td>{{ entity.nbUploads }}</td>
-                <td>{% if entity.creationCompte %}{{ entity.creationCompte|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.creationCompte %}{{ entity.creationCompte|date('d-m-Y') }}{% endif %}</td>
+                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('d.m.Y à H:i:s') }}{% endif %}</td>
                 <td>
                     <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a>
                 </td>
