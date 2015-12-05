@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Documents
+ *
  */
 class Documents
 {
@@ -397,4 +398,33 @@ class Documents
         return $this->user;
     }
 
+    /**
+     * @var integer
+     */
+    private $nbdocument;
+
+
+    /**
+     * Set nbdocument
+     *
+     * @param integer $nbdocument
+     *
+     * @return Documents
+     */
+    public function setNbdocument($nbdocument)
+    {
+        $this->nbdocument = $nbdocument;
+
+        return $this;
+    }
+
+    /**
+     * Get nbdocument
+     *
+     * @return integer
+     */
+    public function getNbdocument()
+    {
+        return $this->nbdocument;
+    }
 }
