@@ -14,9 +14,6 @@
             {% if (app.user.picture != null) %}
                 <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
             {% endif %}
-
-        {% else %}
-            <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
         {% endif %}
     </div>
 </div>
