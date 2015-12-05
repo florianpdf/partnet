@@ -12,9 +12,6 @@ body {
 
 
 
-.actions {
-  display: inline-block;
-}
 
 .aligner {
   max-width: 600px; margin: auto;
@@ -251,11 +248,51 @@ nav a:hover span { opacity: 0.5; }
 
 
 
-
-
-.slider {
-  display: none;
+#donnees {
+  border: 0px solid #18889D;
 }
+th { border-bottom: 2px solid #E5F6F1 !important; }
+.row-border td {
+  border-bottom: 1px solid #E5F6F1 !important;
+  border-top: 0 !important;
+}
+##{$datatables-name} thead th {
+  background: #18889D;
+  color: #fff;
+  font-weight: normal;
+}
+/*##{$datatables-name} tbody tr {
+  background-color: #9EECD5;
+}*/
+##{$datatables-name}_wrapper {
+  max-width: 85%;
+  margin: 50px auto 0;
+}
+##{$datatables-name}_filter {
+  width: 35%; height: 40px;
+  min-width: 300px;
+  margin-bottom: 20px;
+}
+##{$datatables-name}_filter label { width: 100%; height: 100%; }
+##{$datatables-name}_filter input[type="search"] {
+  width: 100%; height: 100%;
+  float: right;
+  padding: 0 40px;
+  border: 1px solid rgba(0,0,0,0.5); outline: 0;
+  border-radius: 4px;
+}
+##{$datatables-name}_filter ::-webkit-input-placeholder {
+  color: #B8B8B8;
+  font-style: italic;
+  text-align: right;
+}
+
+#donnees tr.child { background: transparent; }
+
+.actions a + a {
+  margin-left: 10px;
+}
+
 
 
 
