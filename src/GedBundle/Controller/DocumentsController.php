@@ -79,6 +79,9 @@ class DocumentsController extends Controller
             $entity->setDateUpload(new \DateTime());
             $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
 
+            $nbUploads = $entity->getUser()->getNbUploads();
+            $entity->getUser()->setNbUploads($nbUploads + 1);
+
             $em->persist($entity);
             $em->flush();
 
