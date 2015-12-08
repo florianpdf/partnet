@@ -77,7 +77,7 @@ resetting:
 
 # Global strings
 layout:
-    logout: Déconnexion
+    logout: déconnexion
     login: Connexion
     register: Inscription
     logged_in_as: Connecté en tant que %username%

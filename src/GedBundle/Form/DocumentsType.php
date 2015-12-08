@@ -19,7 +19,7 @@ class DocumentsType extends AbstractType
             ->add('resume', 'textarea', array('label' => 'Résumé', 'required' => false))
             ->add('auteur', 'text', array('required' => false))
             ->add('finDeVie', 'date', array('label' => 'Fin de validité', 'required' => false))
-            ->add('file', 'file', array('label' => 'Document'))
+            ->add('file', 'file', array('label' => 'Document', 'attr' => array('accept' => 'application/pdf, application/xpdf')))
         ;
     }
     
