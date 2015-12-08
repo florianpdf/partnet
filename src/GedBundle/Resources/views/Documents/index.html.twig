@@ -39,14 +39,16 @@
                 </td>
                 <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
                 <td class="actions">
-                    <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer les champs">
-                        <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer les champs">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    {% endif %}
                     <a href="{{ path("document_download", {'document': doc.document}) }}" title="Télécharger">
                         <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
-                    </a>
-                    <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">
-                        <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                     </a>
                     <a href="{{ path('document_visual', {'document': doc.document }) }}" title="Afficher">
                         <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
@@ -58,10 +60,11 @@
         </tbody>
     </table>
 
+{% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('documents_new') }}">ajouter</a>
+{% endif %}
 
     {% include '@Ged/Documents/delete.html.twig' %}
-
 
 {% endblock %}
 
