@@ -1,3 +1,3 @@
-mail:
-    path: /contact
-    defaults: { _controller: AnnuaireBundle:Annuaire:contact }
+annuaire_homepage:
+    path:     /
+    defaults: { _controller: AnnuaireBundle:Default:index }

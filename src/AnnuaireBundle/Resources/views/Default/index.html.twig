@@ -1,0 +1,94 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block main_content -%}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <h1>Annuaire</h1>
+
+    <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Nom Prénom</th>
+            <th>Organisme</th>
+            <th>Poste</th>
+            <th>Telephone</th>
+            <th>E-mail</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.nom }} {{ entity.prenom }}</td>
+                <td>{{ entity.organisme }}</td>
+                <td>{{ entity.poste }}</td>
+                <td>{{ entity.telephone }}</td>
+                <td>{{ entity.email }}</td>
+                <td>Envoyer un e-mail</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%"},
+                    { "width": "5%"}
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false
+                    },
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 4},
+                    { responsivePriority: 3, targets: 0 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 1 }
+                ],
+                "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
+            });
+
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
+    </script>
+{% endblock %}
