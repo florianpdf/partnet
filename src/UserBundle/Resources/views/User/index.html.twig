@@ -15,6 +15,7 @@
                 <th>Poste</th>
                 <th>Nbuploads</th>
                 <th>Creationcompte</th>
+                <th>Dernière connexion</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,7 +27,8 @@
                 <td>{{ entity.organisme }}</td>
                 <td>{{ entity.poste }}</td>
                 <td>{{ entity.nbUploads }}</td>
-                <td>{% if entity.creationCompte %}{{ entity.creationCompte|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.creationCompte %}{{ entity.creationCompte|date('d-m-Y') }}{% endif %}</td>
+                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('d.m.Y à H:i:s') }}{% endif %}</td>
                 <td>
                     <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a>
                 </td>
@@ -35,7 +37,6 @@
         </tbody>
     </table>
 
-    {% include "FOSUserBundle:Registration:register.html.twig" %}
     {% include '@User/User/delete.html.twig' %}
     {% endblock %}
 
@@ -45,9 +46,66 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#donnees').dataTable( {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
 
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "5%" },
+                    { "width": "35%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    null
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false,
+                        targets:   0
+                    },
+                    { orderable: false, targets: 5},
+                    { className: 'all', targets: 6},
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 1},
+                    { className: 'all', targets: 5},
+                    { responsivePriority: 3, targets: 3 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 4 }
+                ],
+                "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
             });
+
+            $( 'tr' ).on('click', function () {
+                $( this ).find( 'tr.child' ).slideToggle( 'slow' );
+            });
+
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
 {% endblock %}

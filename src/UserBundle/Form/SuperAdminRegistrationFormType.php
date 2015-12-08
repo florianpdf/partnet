@@ -16,15 +16,22 @@ class RegistrationType extends AbstractType
                 'Pole emploi' => 'Pole emploi',
                 'CAP Emploi' => 'CAP Emploi',
                 'Mission Local' => 'Mission Local'
-                ),
-                'placeholder' => 'Selectionnez votre organisme',
-                'empty_data'  => null,
-            ))
+            )))
             ->add('telephone', 'text')
             ->add('poste', 'text')
             ->add('nom', 'text')
             ->add('prenom', 'text')
-            ->add('file', 'file', array('label' => 'Photo de profil', 'required' => false));
+            ->add('file', 'file', array('label' => 'Photo de profil', 'required' => false))
+            ->add('roles', 'collection', array(
+            'type'   => 'choice',
+            'options'  => array(
+                'label' => false,
+                'choices'  => array(
+                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                    'ROLE_USER'     => 'ROLE_USER',
+                ),
+            ),
+        ));
     }
 
     public function getParent()

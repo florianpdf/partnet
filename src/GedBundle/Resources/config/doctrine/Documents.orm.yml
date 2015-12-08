@@ -1,6 +1,7 @@
 GedBundle\Entity\Documents:
     type: entity
     table: documents
+    repositoryClass: GedBundle\Entity\DocumentsRepository
     indexes:
         id_user:
             columns:
@@ -64,6 +65,10 @@ GedBundle\Entity\Documents:
             options:
                 unsigned: false
             column: fin_de_vie
+        nbdocument:
+            type: integer
+            nullable: true
+
     manyToOne:
         user:
             targetEntity: UserBundle\Entity\User

@@ -17,4 +17,12 @@ class DocumentsRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('now', new \DateTime('now'));
         return $queryBuilder->getQuery()->getResult();
     }
+
+    public function getNbDocuments() {
+
+        return $this->createQueryBuilder('id')
+            ->select('COUNT(id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

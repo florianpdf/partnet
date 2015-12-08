@@ -61,7 +61,6 @@ class DocumentsController extends Controller
             ));
         //}
 
-
     }
     /**
      * Creates a new Documents entity.
@@ -78,6 +77,9 @@ class DocumentsController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity->setDateUpload(new \DateTime());
             $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
+
+            $nbUploads = $entity->getUser()->getNbUploads();
+            $entity->getUser()->setNbUploads($nbUploads + 1);
 
             $em->persist($entity);
             $em->flush();
@@ -307,10 +309,6 @@ class DocumentsController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('GedBundle:Documents')->findOneBy(array('document'=> $document));
-        $filename = $entity->getFileName();
-
         // Generate response
         $response = new Response();
 
@@ -327,9 +325,6 @@ class DocumentsController extends Controller
 
         // Send headers before outputting anything
         $response->sendHeaders();
-
-        $filepath = $this->get('kernel')->getRootDir()."/uploads/documents/". $document;
-
         $response->setContent(file_get_contents($filepath));
 
         return $response;
