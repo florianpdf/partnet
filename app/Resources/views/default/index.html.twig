@@ -8,10 +8,10 @@
     <ul id="tiles-wrapper">
         <li><a href="{{ path('documents') }}"><span>Documents</span><img src="{{ asset('images/icone-documents.png') }}" alt="icône documents"></a></li>
         <li><a href="#"><span>Agenda</span><img src="{{ asset('images/icone-agenda.png') }}" alt="icône agenda"></a></li>
-        <li><a href="#"><span>Annuaire</span><img src="{{ asset('images/icone-annuaire.png') }}" alt="icône annuaire"></a></li>
-        <li><a href="#"><span>Offres d'emploi</span><img src="{{ asset('images/icone-emploi.png') }}" alt="icône emploi"></a></li>
-        <li><a href="#"><span>Formations</span><img src="{{ asset('images/icone-formations.png') }}" alt="icône formations"></a></li>
-        <li><a href="#"><span>Dialogue</span><img src="{{ asset('images/icone-dialogue.png') }}" alt="icône dialogue"></a></li>
+        <li><a href="{{ path('annuaire_homepage') }}"><span>Annuaire</span><img src="{{ asset('images/icone-annuaire.png') }}" alt="icône annuaire"></a></li>
+        <li><a href="#"><span>Offres d'emploi</span><img src="{{ asset('images/icone-emploi.png') }}" alt="icône agenda"></a></li>
+        <li><a href="#"><span>Formations</span><img src="{{ asset('images/icone-formations.png') }}" alt="icône agenda"></a></li>
+        <li><a href="{{ path('message') }}"><span>Dialogue</span><img src="{{ asset('images/icone-dialogue.png') }}" alt="icône agenda"></a></li>
     </ul>
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -28,7 +28,7 @@
             </table>
             <div>
                 <a href="#">Statistiques de fréquentation</a>
-                <a href="{{ path('user_registration_register') }}">Interface d'administration</a>
+                <a href="{{ path('user') }}">Interface d'administration</a>
             </div>
         </div>
     {% endif %}

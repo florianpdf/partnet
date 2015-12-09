@@ -4,43 +4,33 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <h1>User list</h1>
+    <h1>Annuaire</h1>
 
     <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
         <thead>
-            <tr>
-                <th>Username</th>
-                <th>Nom Prénom</th>
-                <th>Organisme</th>
-                <th>Poste</th>
-                <th>Nbuploads</th>
-                <th>Creationcompte</th>
-                <th>Dernière connexion</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Nom Prénom</th>
+            <th>Organisme</th>
+            <th>Poste</th>
+            <th>Telephone</th>
+            <th>E-mail</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.username }}</td>
-                <td>{{ entity.nom }} {{ entity.prenom }}</a></td>
+                <td>{{ entity.nom }} {{ entity.prenom }}</td>
                 <td>{{ entity.organisme }}</td>
                 <td>{{ entity.poste }}</td>
-                <td>{{ entity.nbUploads }}</td>
-                <td>{% if entity.creationCompte %}{{ entity.creationCompte|date('d-m-Y') }}{% endif %}</td>
-                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('d.m.Y à H:i:s') }}{% endif %}</td>
-                <td>
-                    <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a>
-                </td>
+                <td>{{ entity.telephone }}</td>
+                <td>{{ entity.email }}</td>
+                <td>Envoyer un e-mail</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <center><p>
-            <a class="btn btn-primary" href="{{ path('admin_create_user') }}">Créer un utilisateur</a>
-        </p></center>
-    {% include '@User/User/delete.html.twig' %}
-    {% endblock %}
+{% endblock %}
 
 
 
@@ -77,34 +67,25 @@
                 },
                 "autoWidth": false,
                 "columns": [
-                    { "width": "5%" },
-                    { "width": "35%" },
-                    { "width": "15%" },
-                    { "width": "15%" },
-                    { "width": "15%" },
-                    { "width": "15%" },
-                    null
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%"},
+                    { "width": "5%"}
                 ],
                 "columnDefs": [
                     {
                         className: 'control',
-                        orderable: false,
-                        targets:   0
+                        orderable: false
                     },
-                    { orderable: false, targets: 5},
-                    { className: 'all', targets: 6},
                     { className: 'all', targets: 0},
-                    { className: 'all', targets: 1},
-                    { className: 'all', targets: 5},
-                    { responsivePriority: 3, targets: 3 },
+                    { className: 'all', targets: 4},
+                    { responsivePriority: 3, targets: 0 },
                     { responsivePriority: 2, targets: 2 },
-                    { responsivePriority: 1, targets: 4 }
+                    { responsivePriority: 1, targets: 1 }
                 ],
-                "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
-            });
-
-            $( 'tr' ).on('click', function () {
-                $( this ).find( 'tr.child' ).slideToggle( 'slow' );
+                "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
             });
 
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );

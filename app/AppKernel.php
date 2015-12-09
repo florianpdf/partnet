@@ -22,7 +22,7 @@ class AppKernel extends Kernel
             new GedBundle\GedBundle(),
             new AgendaBundle\AgendaBundle(),
             new AnnuaireBundle\AnnuaireBundle(),
-
+            new MsgBundle\MsgBundle(),
 
         );
 

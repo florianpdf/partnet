@@ -1,0 +1,31 @@
+MsgBundle\Entity\Message:
+    type: entity
+    table: null
+    repositoryClass: MsgBundle\Entity\MessageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        recipient:
+            type: string
+            length: 255
+        sender:
+            type: string
+            length: 255
+        id_recipient:
+            type: integer
+            nullable: true
+        id_sender:
+            type: integer
+            nullable: true
+        subject:
+            type: string
+            length: 255
+        message:
+            type: text
+        date:
+            type: datetime
+    lifecycleCallbacks: {  }

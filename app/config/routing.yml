@@ -1,3 +1,11 @@
+annuaire:
+    resource: "@AnnuaireBundle/Resources/config/routing.yml"
+    prefix:   /annuaire
+
+msg:
+    resource: "@MsgBundle/Resources/config/routing.yml"
+    prefix:   /
+
 homepage:
     path:     /
     defaults: { _controller: "AppBundle:Default:index" }
@@ -14,17 +22,9 @@ user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user_management
 
-annuaire:
-    resource: "@AnnuaireBundle/Resources/config/routing.yml"
-    prefix:   /annuaire
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-ged_homepage:
-    path:     /
-    defaults: { _controller: "GedBundle:Documents:index" }

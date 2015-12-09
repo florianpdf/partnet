@@ -5,8 +5,8 @@ namespace UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use UserBundle\Entity\User;
 use UserBundle\Form\UserType;
+use UserBundle\Form\AdminType;
 
 /**
  * User controller.
@@ -21,27 +21,34 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        if($this->get('security.context')->isGranted('ROLE_ADMIN') || $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UserBundle:User')->findAll();
+            $entities = $em->getRepository('UserBundle:User')->findAll();
 
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.registration.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->get('fos_user.user_manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+            /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+            $formFactory = $this->get('fos_user.registration.form.factory');
+            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+            $userManager = $this->get('fos_user.user_manager');
+            /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+            $dispatcher = $this->get('event_dispatcher');
 
-        $user = $userManager->createUser();
-        $user->setEnabled(true);
+            $user = $userManager->createUser();
+            $user->setEnabled(true);
 
-        $form = $formFactory->createForm();
-        $form->setData($user);
+            // $form = $formFactory->createForm();
 
-        return $this->render('UserBundle:User:index.html.twig', array(
-            'entities' => $entities,
-            'form' => $form->createView(),
-        ));
+
+            //$form->setData($user);
+
+            return $this->render('UserBundle:User:index.html.twig', array(
+                'entities' => $entities,
+                //   'form' => $form->createView(),
+            ));
+        } else {
+            return $this->redirectToRoute('homepage');
+        }
+
     }
 
     /**
