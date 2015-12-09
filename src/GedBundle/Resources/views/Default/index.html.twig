@@ -3,7 +3,7 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/navbar.html.twig') }}
+    {{ include('includes/topbar.html.twig') }}
 
     {% if app.session.flashBag.has('success') %}
         {% for msg in app.session.flashBag.get('success') %}
@@ -11,7 +11,7 @@
         {% endfor %}
     {% endif %}
 
-    <table id="example" class="display" cellspacing="0" width="100%">
+    <table id="donnees" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Titre du document</th>
@@ -117,7 +117,7 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#donnees').DataTable();
         } );
     </script>
 {% endblock %}

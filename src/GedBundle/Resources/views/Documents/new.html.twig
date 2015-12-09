@@ -1,13 +1,11 @@
-<!-- Modal Ajout d'un document -->
+{% extends 'base.html.twig' %}
 
-<div class="modal fade" id="modal_ajout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Ajouter un document</h4>
-            </div>
-            <div class="modal-body">
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+
+{{ include('includes/topbar.html.twig') }}
+{{ include('includes/sidebar.html.twig') }}
 
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
@@ -45,6 +43,7 @@
                     {{ form_label(form.file) }}
                     {{ form_errors(form.file) }}
                     {{ form_widget(form.file) }}
+                    <p>Seuls les documents au format PDF sont autorisés.</p>
                 </div>
 
                 {{ form_end(form) }}
@@ -57,7 +56,4 @@
                     </li>
                 </ul>
 
-            </div>
-        </div>
-    </div>
-</div>
+{% endblock %}

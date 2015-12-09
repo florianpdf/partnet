@@ -1,6 +1,7 @@
 GedBundle\Entity\Documents:
     type: entity
     table: documents
+    repositoryClass: GedBundle\Entity\DocumentsRepository
     indexes:
         id_user:
             columns:
@@ -44,7 +45,7 @@ GedBundle\Entity\Documents:
                 fixed: false
         document:
             type: string
-            nullable: true
+            nullable: false
             length: 255
         file_name:
             type: string
@@ -64,6 +65,10 @@ GedBundle\Entity\Documents:
             options:
                 unsigned: false
             column: fin_de_vie
+        nbdocument:
+            type: integer
+            nullable: true
+
     manyToOne:
         user:
             targetEntity: UserBundle\Entity\User
@@ -74,7 +79,7 @@ GedBundle\Entity\Documents:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks:
-        prePersist: [ preUpload, setExpiresAtValue ]
+        prePersist: [ preUpload ]
         preUpdate: [ preUpload ]
         postPersist: [ upload ]
         postUpdate: [ upload ]

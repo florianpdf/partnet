@@ -7,7 +7,7 @@ documents_show:
     defaults: { _controller: "GedBundle:Documents:show" }
 
 documents_new:
-    path:     /new
+    path:     /nouveau
     defaults: { _controller: "GedBundle:Documents:new" }
 
 documents_create:

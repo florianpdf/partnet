@@ -83,3 +83,21 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: UserBundle\Entity\User
+    registration:
+        form:
+            type: app_user_registration
+        confirmation:
+            enabled: true
+    profile:
+        form:
+            type: app_user_profile
+    from_email:
+        address:        partnetemploi@gmail.com
+        sender_name:    P@rnet Emploi - Registration
+    service:
+        mailer: fos_user.mailer.default
+    resetting:
+        email:
+            from_email:
+                address:        partnetemploi@gmail.com
+                sender_name:    P@rnet Emploi - Réinitialiser mot de passe

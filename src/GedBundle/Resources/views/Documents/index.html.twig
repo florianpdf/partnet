@@ -3,7 +3,8 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/navbar.html.twig') }}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
 
     {% if app.session.flashBag.has('success') %}
         {% for msg in app.session.flashBag.get('success') %}
@@ -11,19 +12,22 @@
         {% endfor %}
     {% endif %}
 
-    <table id="example" class="display" cellspacing="0" width="100%">
+    <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th class="control"></th>
             <th>Titre du document</th>
             <th>Auteur</th>
             <th>Organisme émetteur</th>
             <th>Date d'ajout</th>
             <th>Actions</th>
+            <th>Résumé</th>
         </tr>
         </thead>
         <tbody>
         {% for doc in docs %}
             <tr>
+                <td class="control"></td>
                 <td>{{ doc.titre }}</td>
                 <td>{{ doc.auteur }}</td>
                 <td>
@@ -34,32 +38,33 @@
                     {% endfor %}
                 </td>
                 <td>{{ doc.dateUpload|date('m/d/Y') }}</td>
-                <td>
-                    <table width="100%" class="table_buttons_ged">
-                        <tr>
-                            <td><a href="{{  path('documents_edit', { 'id': doc.id }) }}"><img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Editer" /></a></td>
-                            <td><a href="{{ path("document_download", {'document': doc.document}) }}"><img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" /></a></td>
-                            <td><a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}"><img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" /></a></td>
-                            <td><a href="{{ path('document_visual', {'document': doc.document }) }}"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" /></a></td>
-                        </tr>
-                    </table>
-
+                <td class="actions">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer les champs">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    {% endif %}
+                    <a href="{{ path("document_download", {'document': doc.document}) }}" title="Télécharger">
+                        <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                    </a>
+                    <a href="{{ path('document_visual', {'document': doc.document }) }}" title="Afficher">
+                        <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                    </a>
                 </td>
+                <td>{{ doc.resume }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="button-ajout btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_ajout">
-        Ajouter un document
-    </button>
-    {% if form is defined %}
-         {% include '@Ged/Documents/new.html.twig' %}
-    {% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('documents_new') }}">ajouter</a>
+{% endif %}
 
     {% include '@Ged/Documents/delete.html.twig' %}
-
 
 {% endblock %}
 
@@ -67,7 +72,66 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
-        } );
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                    '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                $('<div class="slider"/>').append( data ) :
+                                false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "5%" },
+                    { "width": "35%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    { "width": "15%" },
+                    null
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false,
+                        targets:   0
+                    },
+                    { orderable: false, targets: 5},
+                    { className: 'none', targets: 6},
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 1},
+                    { className: 'all', targets: 5},
+                    { responsivePriority: 3, targets: 3 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 4 }
+                ],
+                "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
+            });
+
+            $( 'tr' ).on('click', function () {
+                $( this ).find( 'tr.child' ).slideToggle( 'slow' );
+            });
+
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
     </script>
 {% endblock %}

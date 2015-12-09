@@ -3,25 +3,109 @@ namespace UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
-* @ORM\Entity
-* @ORM\Table(name="fos_user")
-*/
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
 class User extends BaseUser
 {
-    /**
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    */
-    protected $id;
 
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var file
+     */
+    public $file;
+
+    protected function getUploadDir()
+    {
+        return '/profile_pictures';
+    }
+
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'web/uploads/profile_pictures/fixtures/';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../app/uploads'.$this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->picture ? null : $this->getUploadDir().'/'.$this->picture;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->picture ? null : $this->getUploadRootDir().'/'.$this->picture;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->picture_name = $this->file->getClientOriginalName();
+            $this->picture = $this->username.'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->file->move($this->getUploadRootDir(), $this->picture);
+
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    //Generated Code
 
     /**
      * @var string
@@ -44,7 +128,7 @@ class User extends BaseUser
     private $poste;
 
     /**
-     * @var integer
+     * @var string
      */
     private $telephone;
 
@@ -58,80 +142,6 @@ class User extends BaseUser
      */
     private $creationCompte;
 
-
-    /**
-     * Get enabled
-     *
-     * @return boolean
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return User
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get locked
-     *
-     * @return boolean
-     */
-    public function getLocked()
-    {
-        return $this->locked;
-    }
-
-    /**
-     * Get expired
-     *
-     * @return boolean
-     */
-    public function getExpired()
-    {
-        return $this->expired;
-    }
-
-    /**
-     * Get expiresAt
-     *
-     * @return \DateTime
-     */
-    public function getExpiresAt()
-    {
-        return $this->expiresAt;
-    }
-
-    /**
-     * Get credentialsExpired
-     *
-     * @return boolean
-     */
-    public function getCredentialsExpired()
-    {
-        return $this->credentialsExpired;
-    }
-
-    /**
-     * Get credentialsExpireAt
-     *
-     * @return \DateTime
-     */
-    public function getCredentialsExpireAt()
-    {
-        return $this->credentialsExpireAt;
-    }
 
     /**
      * Set nom
@@ -232,7 +242,7 @@ class User extends BaseUser
     /**
      * Set telephone
      *
-     * @param integer $telephone
+     * @param string $telephone
      *
      * @return User
      */
@@ -246,7 +256,7 @@ class User extends BaseUser
     /**
      * Get telephone
      *
-     * @return integer
+     * @return string
      */
     public function getTelephone()
     {
@@ -302,12 +312,62 @@ class User extends BaseUser
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @var string
      */
-    public function getId()
+    private $picture_name;
+
+    /**
+     * @var string
+     */
+    private $picture;
+
+
+    /**
+     * Set pictureName
+     *
+     * @param string $pictureName
+     *
+     * @return User
+     */
+    public function setPictureName($pictureName)
     {
-        return $this->id;
+        $this->picture_name = $pictureName;
+
+        return $this;
+    }
+
+    /**
+     * Get pictureName
+     *
+     * @return string
+     */
+    public function getPictureName()
+    {
+        return $this->picture_name;
+    }
+
+
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     *
+     * @return User
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
     }
 }

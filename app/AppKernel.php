@@ -22,7 +22,10 @@ class AppKernel extends Kernel
             new GedBundle\GedBundle(),
             new AgendaBundle\AgendaBundle(),
             new AnnuaireBundle\AnnuaireBundle(),
+<<<<<<< HEAD
             new MsgBundle\MsgBundle(),
+=======
+>>>>>>> develop
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
