@@ -7,7 +7,9 @@ user_get_picture:
     defaults: { _controller: "UserBundle:PictureProfile:PictureProfile" }
     methods: [GET]
 
-user_registration_register:
-    path: /
+admin_create_user:
+    path: /admin/create/user
     defaults: { _controller: "UserBundle:Registration:register" }
     methods: [GET, POST]
+
+
