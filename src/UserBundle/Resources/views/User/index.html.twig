@@ -36,7 +36,9 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <center><p>
+            <a class="btn btn-primary" href="{{ path('admin_create_user') }}">Créer un utilisateur</a>
+        </p></center>
     {% include '@User/User/delete.html.twig' %}
     {% endblock %}
 

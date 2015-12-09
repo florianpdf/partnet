@@ -22,8 +22,6 @@ class AppKernel extends Kernel
             new GedBundle\GedBundle(),
             new AgendaBundle\AgendaBundle(),
             new AnnuaireBundle\AnnuaireBundle(),
-
-
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

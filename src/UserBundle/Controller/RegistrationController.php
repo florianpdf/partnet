@@ -50,7 +50,21 @@ class RegistrationController extends Controller
             return $event->getResponse();
         }
 
-        $form = $formFactory->createForm();
+        //var_dump($this->getUser()->getRoles('ROLE_SUPER_ADMIN'));
+        if (in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())) {
+            $form = $formFactory->createForm()->add('roles', 'collection', array(
+                'type'   => 'choice',
+                'options'  => array(
+                    'label' => false,
+                    'choices'  => array(
+                        'ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'ROLE_USER'     => 'ROLE_USER',
+                    ),
+                ),
+            ));
+        } else {
+            $form = $formFactory->createForm();
+        }
         $form->setData($user);
 
         $form->handleRequest($request);
