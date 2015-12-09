@@ -6,9 +6,10 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
+    <main>
     {% if app.session.flashBag.has('success') %}
         {% for msg in app.session.flashBag.get('success') %}
-            {{ msg }}
+            <p class="flashbag">{{ msg }}</p>
         {% endfor %}
     {% endif %}
 
@@ -60,12 +61,12 @@
         </tbody>
     </table>
 
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('documents_new') }}">ajouter</a>
-{% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="button-add" href="{{ path('documents_new') }}">Ajouter un document</a>
+    {% endif %}
 
     {% include '@Ged/Documents/delete.html.twig' %}
-
+    </main>
 {% endblock %}
 
 {% block scripts %}
@@ -81,7 +82,7 @@
                     "paginate": {
                         previous: '‹',
                         next:     '›'
-                    },
+                    }
                 },
                 "responsive": {
                     details: {
@@ -89,8 +90,8 @@
                         target: 'tr',
                         renderer: function ( api, rowIdx, columns ) {
                             var data = $.map( columns, function ( col, i ) {
-                                return col.hidden ?
-                                    '<div>'+col.title+' : '+col.data+'</div>':'';
+                                return col.hidden && col.data != "" ?
+                                    '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
                             } ).join('');
 
                             return data ?
@@ -102,11 +103,11 @@
                 "autoWidth": false,
                 "columns": [
                     { "width": "5%" },
-                    { "width": "35%" },
-                    { "width": "15%" },
-                    { "width": "15%" },
-                    { "width": "15%" },
-                    { "width": "15%" },
+                    { "width": "37.5%" },
+                    { "width": "17.5%" },
+                    { "width": "17.5%" },
+                    { "width": "10%" },
+                    { "width": "12.5%" },
                     null
                 ],
                 "columnDefs": [
@@ -131,7 +132,13 @@
                 $( this ).find( 'tr.child' ).slideToggle( 'slow' );
             });
 
+            //$( '.button-add' ).insertBefore( '#donnees_next' );
+
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+
+            window.setTimeout(function() {
+                $( '.flashbag' ).fadeOut( 1750 );
+            }, 2250);
         });
     </script>
 {% endblock %}

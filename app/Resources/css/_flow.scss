@@ -77,8 +77,8 @@ body {
 }
 
 #top-bar {
-  // position: fixed; z-index: 9; top: 0;
-  margin-bottom: 30px;
+  position: fixed; z-index: 9; top: 0;
+  //margin-bottom: 30px;
   width: 100%;
   height: $top-bar-height; line-height: $top-bar-height;
   padding: 0 10%;
@@ -105,8 +105,8 @@ body {
 /* //////////////// MENU //////////////// *\
 \* ////////////////////////////////////// */
 #menu-wrapper {
-  position: absolute; z-index: 9;
-  height: calc(100% - #{$top-bar-height}); margin-top: -30px;
+  position: fixed; z-index: 9;
+  height: calc(100% - #{$top-bar-height}); margin-top: $top-bar-height;
   width: 20%; max-width: 350px; min-width: 200px;
   transform: translateX(-100%);
   transition: transform 0.5s;
@@ -247,7 +247,12 @@ nav a:hover span { opacity: 0.5; }
 }
 
 
-
+main {
+  position: relative;
+  max-width: 85%;
+  margin: 0 auto 0;
+  padding-top: $top-bar-height + 50px;
+}
 #donnees {
   border: 0px solid #18889D;
 }
@@ -261,17 +266,10 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   color: #fff;
   font-weight: normal;
 }
-/*##{$datatables-name} tbody tr {
-  background-color: #9EECD5;
-}*/
-##{$datatables-name}_wrapper {
-  max-width: 85%;
-  margin: 50px auto 0;
-}
 ##{$datatables-name}_filter {
-  width: 35%; height: 40px;
-  min-width: 300px;
-  margin-bottom: 20px;
+  display: block; width: 35%; height: 40px;
+  min-width: 400px;
+  margin-bottom: 30px;
 }
 ##{$datatables-name}_filter label { width: 100%; height: 100%; }
 ##{$datatables-name}_filter input[type="search"] {
@@ -288,9 +286,40 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
 }
 
 #donnees tr.child { background: transparent; }
+#donnees td.child {
+  padding: 20px 5%;
+}
 
 .actions a + a {
   margin-left: 10px;
+}
+
+
+.button-add, .button-add:visited {
+  display: block; position: relative; z-index: 9; width: 30%; min-width: 250px; margin: -32px auto 0;
+  text-align: center;
+  padding: 15px 10px;
+  background: #2BB58E;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+}
+.button-add:hover, .button-add:active {
+  text-decoration: none;
+  color: #fff;
+  background: #259978;
+}
+
+main {
+  position: relative;
+}
+.flashbag {
+  position: absolute;
+  text-align: center;
+  top: $top-bar-height; //left: 50%; transform: translateX(-50%);
+  padding: 5px 15%;
+  border-radius: 0 0 5px 5px;
+  background: #2BB58E; color: #fff;
 }
 
 
@@ -308,3 +337,11 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   border-radius: 5px;
 }
 
+@media screen and (max-width: 800px) {
+  .flashbag {
+    left: 0; right: 0;
+  }
+  ##{$datatables-name}_filter {
+    width: 100%;
+  }
+}
