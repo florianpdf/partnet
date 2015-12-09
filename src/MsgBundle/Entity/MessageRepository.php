@@ -30,4 +30,14 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
+    public function findByNomSender($nom_sender)
+    {
+        // Selection par ID recipient trier par date
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM MsgBundle:Message p WHERE p.sender = :nom ORDER BY p.date ASC'
+            )->setParameter('nom', $nom_sender)
+            ->getResult();
+    }
+
 }

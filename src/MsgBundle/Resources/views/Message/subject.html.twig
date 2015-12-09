@@ -10,8 +10,8 @@
         <div class="panel panel-primary">
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" class="active"><a href="{{ path('message') }}">Boite de reception</a></li>
-                    <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
+                    <li role="presentation"><a href="{{ path('message') }}">Boite de reception</a></li>
+                    <li role="presentation" class="active"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
                     <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
                 </ul>
             </div>
@@ -21,22 +21,24 @@
     <div class="col-md-9">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Boite de réception</h3>
+                <h3 class="panel-title">Mes fils de discussions</h3>
             </div>
             <div class="panel-body">
                 <table id="example" class="display"  width="100%">
                     <thead>
                     <tr>
-                        <th>Expéditeur</th>
+                        <th>Envoyé à</th>
                         <th>Sujet</th>
+                        <th>Réponses</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for entity in entities %}
                         <tr>
-                            <td>{{ entity.sender }}</td>
+                            <td>A : {{ entity.recipient }}</td>
                             <td>{{ entity.subject }}</td>
+                            <td></td>
                             <td>
                                 <ul>
                                     <li>

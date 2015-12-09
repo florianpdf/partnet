@@ -10,6 +10,10 @@ message_new:
     path:     /new
     defaults: { _controller: "MsgBundle:Message:new" }
 
+message_suivi:
+    path:     /discussion
+    defaults: { _controller: "MsgBundle:Message:subject" }
+
 message_create:
     path:     /create
     defaults: { _controller: "MsgBundle:Message:create" }

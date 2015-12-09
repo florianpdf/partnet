@@ -1,0 +1,21 @@
+MsgBundle\Entity\ResponseMessage:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        idMessage:
+            type: integer
+            column: id_message
+        sender:
+            type: string
+            length: 255
+        message:
+            type: text
+        date:
+            type: datetime
+    lifecycleCallbacks: {  }

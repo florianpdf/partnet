@@ -2,6 +2,7 @@
 
 namespace MsgBundle\Controller;
 
+use MsgBundle\Entity\ResponseMessage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -15,6 +16,18 @@ use MsgBundle\Form\MessageType;
 class MessageController extends Controller
 {
 
+    public function subjectAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // Vérifie les id receveur et compare à l'id de l'utilisateur connecté puis récupère les entités
+
+        $entities = $em->getRepository('MsgBundle:Message')->findByNomSender($this->getUser()->getNom());
+
+        return $this->render('MsgBundle:Message:subject.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
     /**
      * Lists all Message entities.
      *
@@ -77,11 +90,22 @@ class MessageController extends Controller
             'action' => $this->generateUrl('message_create'),
             'method' => 'POST',
         ));
-
+        $form->add('subject', 'text', array('label' => 'Sujet'));
         $form->add('submit', 'submit', array('label' => 'Envoyer'));
 
         return $form;
     }
+
+    /*private function responseCreateForm(Message $entity)
+    {
+        $form = $this->createForm(new MessageType(), $entity, array(
+            'action' => $this->generateUrl('message_create'),
+            'method' => 'POST',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Envoyer'));
+
+        return $form;
+    }*/
 
     /**
      * Displays a form to create a new Message entity.
@@ -102,21 +126,52 @@ class MessageController extends Controller
      * Finds and displays a Message entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('MsgBundle:Message')->find($id);
+        $entities_comments = $em->getRepository('MsgBundle:ResponseMessage')->findAll($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Message entity.');
         }
+
+        $comment = new ResponseMessage();
+        // On génère le formulaire
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $comment);
+        $formBuilder
+            ->add('message', 'textarea')
+            ->add('repondre', 'submit');
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            // Auto completion champ Sender et Id sender
+            $comment->setIdMessage($id);
+            $comment->setSender($this->getUser()->getUsername());
+
+            //Ajout de la date d'envoi
+            $comment->setDate(new \DateTime('now'));
+
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('message_show', array('id' => $entity->getId())));
+        }
+
 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('MsgBundle:Message:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'form' => $form->createView(),
+            'comments' => $entities_comments,
         ));
     }
 

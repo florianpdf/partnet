@@ -24,7 +24,6 @@ class MessageType extends AbstractType
                 'property' => 'nom',
                 'multiple' => false
             ))
-            ->add('subject', 'text', array('label' => 'Sujet'))
             ->add('message', 'textarea', array('label' => 'Message'))
         ;
 
