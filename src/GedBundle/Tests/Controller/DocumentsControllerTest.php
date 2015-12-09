@@ -11,14 +11,18 @@ class DocumentsControllerTest extends WebTestCase
 
     public function testChampsAddDoc() {
 
+
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW'   => 'admin',
         ));
 
+
         $crawler = $client->request('GET', '/documents');
 
         $crawler = $client->followRedirect('AppBundle\Controller\DefaultController::indexAction');
+
+        // Tests de la présence des champs
         $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[titre]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[auteur]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form textarea[name="gedbundle_documents[resume]"]')->count() == 1);

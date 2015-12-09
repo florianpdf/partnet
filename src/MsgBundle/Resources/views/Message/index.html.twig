@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/navbar.html.twig') }}
+
+<div class="container">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active"><a href="{{ path('message') }}">Boite de reception</a></li><hr />
+                    <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Boite de réception</h3>
+            </div>
+            <div class="panel-body">
+                <table id="example" class="display"  width="100%">
+                    <thead>
+                    <tr>
+                        <th>Expéditeur</th>
+                        <th>Sujet</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>{{ entity.sender }}</td>
+                            <td>{{ entity.subject }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('message_show', { 'id': entity.id }) }}">Voir</a>
+                                    </li>
+
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div></div>
+
+</div>
+
+
+
+
+
+    {% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
+{% endblock %}
