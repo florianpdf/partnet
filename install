@@ -48,6 +48,7 @@ pwd
 sudo mkdir documents
 cd ..
 pwd
+sudo chmod 777 -R uploads/
 cd ..
 pwd
 echo "Appuyer sur Entrée pour continuer..."
