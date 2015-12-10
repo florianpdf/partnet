@@ -7,7 +7,6 @@
     <p>Organisme: {{ user.organisme }}</p>
     <p>Fonction: {{ user.poste }}</p>
     <p>Téléphone: {{ user.telephone }}</p>
-    {#<img src="{{ asset('images/profile_pictures/{{ user.pictureUrl }}' }}"/>#}
     {% if (app.user.picture != null) %}
         <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
     {% endif %}
