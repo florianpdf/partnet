@@ -18,11 +18,9 @@ class MessageType extends AbstractType
 
         // MULTIPLE : true (plusieurs destinataire) false, l'inverse
         $builder
-            ->add('recipient', 'entity', array(
-                'label' => 'Destinataire',
-                'class' => 'UserBundle:User',
-                'property' => 'nom',
-                'multiple' => false
+            ->add('recipient', 'text', array(
+                'label' => 'Destinataire', 'attr' => array(
+                'placeholder' => 'adresse mail')
             ))
             ->add('message', 'textarea', array('label' => 'Message'))
         ;

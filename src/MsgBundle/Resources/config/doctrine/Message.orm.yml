@@ -15,9 +15,8 @@ MsgBundle\Entity\Message:
         sender:
             type: string
             length: 255
-        in_box:
-            type: string
-            length: 255
+        visible_in_box_receiver:
+            type: boolean
         subject:
             type: string
             length: 255

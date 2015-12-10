@@ -23,9 +23,9 @@ class Message
     private $sender;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $in_box;
+    private $visible_in_box_receiver;
 
     /**
      * @var string
@@ -102,27 +102,27 @@ class Message
     }
 
     /**
-     * Set inBox
+     * Set visibleInBoxReceiver
      *
-     * @param string $inBox
+     * @param boolean $visibleInBoxReceiver
      *
      * @return Message
      */
-    public function setInBox($inBox)
+    public function setVisibleInBoxReceiver($visibleInBoxReceiver)
     {
-        $this->in_box = $inBox;
+        $this->visible_in_box_receiver = $visibleInBoxReceiver;
 
         return $this;
     }
 
     /**
-     * Get inBox
+     * Get visibleInBoxReceiver
      *
-     * @return string
+     * @return boolean
      */
-    public function getInBox()
+    public function getVisibleInBoxReceiver()
     {
-        return $this->in_box;
+        return $this->visible_in_box_receiver;
     }
 
     /**

@@ -33,7 +33,11 @@
             <div>
                 {{ form_label(form.recipient) }}
                 {{ form_errors(form.recipient) }}
-                {{ form_widget(form.recipient) }}
+                {% if selected_email is defined %}
+                    {{ form_widget(form.recipient, {'attr' : {'value' : selected_email} }) }} <a href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                {% else %}
+                    {{ form_widget(form.recipient) }} <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                {% endif %}
             </div>
             <div>
                 {{ form_label(form.subject) }}

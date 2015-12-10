@@ -139,4 +139,3 @@ class ResponseMessage
         return $this->date;
     }
 }
-

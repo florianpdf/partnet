@@ -21,8 +21,7 @@ class MessageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // Vérifie les id receveur et compare à l'id de l'utilisateur connecté puis récupère les entités
-
-        $entities = $em->getRepository('MsgBundle:Message')->findByNomSender($this->getUser()->getNom());
+        $entities = $em->getRepository('MsgBundle:Message')->findByNomSender($this->getUser()->getEmail());
 
         return $this->render('MsgBundle:Message:subject.html.twig', array(
             'entities' => $entities,
@@ -36,10 +35,8 @@ class MessageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        // Vérifie les id receveur et compare à l'id de l'utilisateur connecté puis récupère les entités
-
-        //$entities = $em->getRepository('MsgBundle:Message')->findByIdRecipient($this->getUser()->getId());
-        $entities = $em->getRepository('MsgBundle:Message')->findByNomRecipient($this->getUser()->getUsername());
+        // Récupère les messages selon le nom d'utilisateur
+        $entities = $em->getRepository('MsgBundle:Message')->findByNomRecipient($this->getUser()->getEmail());
 
         return $this->render('MsgBundle:Message:index.html.twig', array(
             'entities' => $entities,
@@ -57,11 +54,11 @@ class MessageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
             // Auto completion champ Sender et Id sender
-            $entity->setSender($this->getUser()->getNom());
-            $entity->setIdSender($this->getUser()->getId());
+            $entity->setSender($this->getUser()->getEmail());
 
+            // Visible dans la boite du receveur, Si il est sur 0 alors il est considéré comme supprimé dans la boite du receveur
+            $entity->setVisibleInBoxReceiver(1);
             //Ajout de la date d'envoi
             $entity->setDate(new \DateTime('now'));
 
@@ -96,30 +93,29 @@ class MessageController extends Controller
         return $form;
     }
 
-    /*private function responseCreateForm(Message $entity)
-    {
-        $form = $this->createForm(new MessageType(), $entity, array(
-            'action' => $this->generateUrl('message_create'),
-            'method' => 'POST',
-        ));
-        $form->add('submit', 'submit', array('label' => 'Envoyer'));
-
-        return $form;
-    }*/
-
     /**
      * Displays a form to create a new Message entity.
      *
      */
-    public function newAction()
+    public function newAction($email = null)
     {
         $entity = new Message();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('MsgBundle:Message:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        if($email != null)
+        {
+            return $this->render('MsgBundle:Message:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                'selected_email' => $email,
+            ));
+        } else{
+            return $this->render('MsgBundle:Message:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+
+        }
     }
 
     /**
@@ -153,7 +149,7 @@ class MessageController extends Controller
 
             // Auto completion champ Sender et Id sender
             $comment->setIdMessage($id);
-            $comment->setSender($this->getUser()->getUsername());
+            $comment->setSender($this->getUser()->getEmail());
 
             //Ajout de la date d'envoi
             $comment->setDate(new \DateTime('now'));
@@ -186,13 +182,16 @@ class MessageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MsgBundle:Message')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Message entity.');
-            }
+            // recupère le message
+            $message = $em->getRepository('MsgBundle:Message')->find($id);
+            // recupère les réponses associées
+            $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findAll($id);
 
-            $em->remove($entity);
+            // supprime les réponses et le message
+            $em->remove($response_message);
+            $em->remove($message);
+
             $em->flush();
         }
 
