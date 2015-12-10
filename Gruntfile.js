@@ -135,7 +135,7 @@ module.exports = function(grunt) {
                 tasks: ['concat:polyfills']
             },
             css: {
-                files: ['app/Resources/css/*.scss', 'src/**/Resources/public/css/*.scss'],
+                files: ['app/Resources/css/**/*.scss', 'src/**/Resources/public/css/*.scss'],
                 tasks: ['sass']
             }
         }

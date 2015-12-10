@@ -22,15 +22,15 @@ body {
 .aligner > div:first-child {
   margin: -8% 0 2px;
   padding: 15px 0;
-  background: #94C8F3;
-  color: #21618A;
+  background: $login-title-bg;
+  color: #edecea; //#21618A;
   font-size: 2.8rem; font-weight: bold;
   text-align: center;
 }
 
 .login-wrapper {
   padding: 60px 90px;
-  background: #CBDDEB;
+  background: $login-wrapper-bg;
 }
 
 #login input[type="text"],
@@ -49,19 +49,28 @@ body {
 
 #login input[type="submit"] {
   margin: 25px 0 10px;
-  color: #CBDDEB;
-  background: #2F79AD;
+  color: #fff; //#CBDDEB;
+  background: $login-submit-bg;
 }
 #login input[type="submit"]:hover, #login input[type="submit"]:active, #login input[type="submit"]:focus {
-  background: #579ED1;
+  background: $login-submit-hover-bg;
 }
 #login input[type="checkbox"] {
   margin-left: 40px;
 }
-#login label {
+#login > div {
+  position: relative;
+  height: 25px; line-height: 25px;
+}
+#login label, #login a {
   font-size: 0.8em;
   font-weight: normal; // écrase Bootstrap (?)
 }
+#login a {
+  float: right; margin-right: 40px;
+}
+
+
 
 
 .button-ajout {
@@ -77,14 +86,14 @@ body {
 }
 
 #top-bar {
-  // position: fixed; z-index: 9; top: 0;
-  margin-bottom: 30px;
+  position: fixed; z-index: 9; top: 0;
+  //margin-bottom: 30px;
   width: 100%;
   height: $top-bar-height; line-height: $top-bar-height;
   padding: 0 10%;
-  background: #2B77AA;
+  background: $topbar-bg;
   color: #fff;
-  border-bottom: 1px solid #fff;
+  //border-bottom: 1px solid #fff;
 }
 #accueil #top-bar {
   position: fixed; z-index: 9; top: 0;
@@ -105,8 +114,8 @@ body {
 /* //////////////// MENU //////////////// *\
 \* ////////////////////////////////////// */
 #menu-wrapper {
-  position: absolute; z-index: 9;
-  height: calc(100% - #{$top-bar-height}); margin-top: -30px;
+  position: fixed; z-index: 9;
+  height: calc(100% - #{$top-bar-height}); margin-top: $top-bar-height;
   width: 20%; max-width: 350px; min-width: 200px;
   transform: translateX(-100%);
   transition: transform 0.5s;
@@ -169,21 +178,27 @@ nav a:hover span { opacity: 0.5; }
   flex: auto;
   width: 400px; height: 265px;
   margin: 5px;
-  border: 1px solid #fff;
+  //border: 1px solid #fff;
 }
-#tiles-wrapper li:nth-child(1), #accueil.tile1, .tile1 { background: $tile1-bg; }
-#tiles-wrapper li:nth-child(2), #accueil.tile2, .tile2 { background: $tile2-bg; }
-#tiles-wrapper li:nth-child(3), #accueil.tile3, .tile3 { background: $tile3-bg; }
-#tiles-wrapper li:nth-child(4), #accueil.tile4, .tile4 { background: $tile4-bg; }
-#tiles-wrapper li:nth-child(5), #accueil.tile5, .tile5 { background: $tile5-bg; }
-#tiles-wrapper li:nth-child(6), #accueil.tile6, .tile6 { background: $tile6-bg; }
+#tiles-wrapper li:nth-child(1), #accueil.tile1, .tile1 { background: $tile1; }
+#tiles-wrapper li:nth-child(2), #accueil.tile2, .tile2 { background: $tile2; }
+#tiles-wrapper li:nth-child(3), #accueil.tile3, .tile3 { background: $tile3; }
+#tiles-wrapper li:nth-child(4), #accueil.tile4, .tile4 { background: $tile4; }
+#tiles-wrapper li:nth-child(5), #accueil.tile5, .tile5 { background: $tile5; }
+#tiles-wrapper li:nth-child(6), #accueil.tile6, .tile6 { background: $tile6; }
+#accueil.tile1, .tile1 { background: $tile1-bg; }
+#accueil.tile2, .tile2 { background: $tile2-bg; }
+#accueil.tile3, .tile3 { background: $tile3-bg; }
+#accueil.tile4, .tile4 { background: $tile4-bg; }
+#accueil.tile5, .tile5 { background: $tile5-bg; }
+#accueil.tile6, .tile6 { background: $tile6-bg; }
 
 #data-wrapper {
-  background: $login-bg;
+  background: $topbar-bg;
   padding: 0 15%;
   height: 300px;
   padding-top: 50px;
-  border-top: 1px solid #fff;
+  //border-top: 1px solid #fff;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -231,7 +246,7 @@ nav a:hover span { opacity: 0.5; }
 }
 #data-wrapper a {
   display: block;
-  background: #ABD1EB;
+  background: rgba(255,255,255,0.6);
   width: 400px; height: 50px; line-height: 50px;
   padding-left: 55px;
   color: #000;
@@ -242,12 +257,16 @@ nav a:hover span { opacity: 0.5; }
 
 /* //////////////// GED //////////////// *\
 \* ///////////////////////////////////// */
-#ged {
-  background: #E5F6F1;
+#ged { background: #E5F6F1; }
+#annuaire { background: #e9f6e4; }
+
+
+main {
+  position: relative;
+  max-width: 85%;
+  margin: 0 auto 0;
+  padding-top: $top-bar-height + 50px;
 }
-
-
-
 #donnees {
   border: 0px solid #18889D;
 }
@@ -261,17 +280,10 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   color: #fff;
   font-weight: normal;
 }
-/*##{$datatables-name} tbody tr {
-  background-color: #9EECD5;
-}*/
-##{$datatables-name}_wrapper {
-  max-width: 85%;
-  margin: 50px auto 0;
-}
 ##{$datatables-name}_filter {
-  width: 35%; height: 40px;
-  min-width: 300px;
-  margin-bottom: 20px;
+  display: block; width: 35%; height: 40px;
+  min-width: 400px;
+  margin-bottom: 30px;
 }
 ##{$datatables-name}_filter label { width: 100%; height: 100%; }
 ##{$datatables-name}_filter input[type="search"] {
@@ -288,9 +300,40 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
 }
 
 #donnees tr.child { background: transparent; }
+#donnees td.child {
+  padding: 20px 5%;
+}
 
 .actions a + a {
   margin-left: 10px;
+}
+
+
+.button-add, .button-add:visited {
+  display: block; position: relative; z-index: 9; width: 30%; min-width: 250px; margin: -32px auto 0;
+  text-align: center;
+  padding: 15px 10px;
+  background: #2BB58E;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+}
+.button-add:hover, .button-add:active {
+  text-decoration: none;
+  color: #fff;
+  background: #259978;
+}
+
+main {
+  position: relative;
+}
+.flashbag {
+  position: absolute;
+  text-align: center;
+  top: $top-bar-height; //left: 50%; transform: translateX(-50%);
+  padding: 5px 15%;
+  border-radius: 0 0 5px 5px;
+  background: #2BB58E; color: #fff;
 }
 
 
@@ -308,3 +351,11 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   border-radius: 5px;
 }
 
+@media screen and (max-width: 800px) {
+  .flashbag {
+    left: 0; right: 0;
+  }
+  ##{$datatables-name}_filter {
+    width: 100%;
+  }
+}
