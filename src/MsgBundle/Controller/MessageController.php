@@ -196,7 +196,7 @@ class MessageController extends Controller
             $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
 
             // si il y'a des réponses au message principal
-            if ($response_message != null)
+            if ($response_message != null) {
                 // compte le nombre de message et les liste
                 for ($i=0; $i < count($response_message); $i++) {
                     // supprime les messages
