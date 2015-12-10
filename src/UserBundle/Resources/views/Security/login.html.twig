@@ -16,9 +16,13 @@
 
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    <div>
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
+    </div>
+
 </form>
-    <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a><br />
-    <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+
+    {#<a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>#}
 {% endblock fos_user_content %}

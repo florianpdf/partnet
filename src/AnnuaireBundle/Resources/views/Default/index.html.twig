@@ -1,35 +1,37 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block main_content -%}
+{% block body_class %}<body id="annuaire">{% endblock %}
+
+{% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <h1>Annuaire</h1>
-
-    <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th>Nom Prénom</th>
-            <th>Organisme</th>
-            <th>Poste</th>
-            <th>Telephone</th>
-            <th>E-mail</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
+    <main>
+        <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
+            <thead>
             <tr>
-                <td>{{ entity.nom }} {{ entity.prenom }}</td>
-                <td>{{ entity.organisme }}</td>
-                <td>{{ entity.poste }}</td>
-                <td>{{ entity.telephone }}</td>
-                <td>{{ entity.email }}</td>
-                <td>Envoyer un e-mail</td>
+                <th>Nom Prénom</th>
+                <th>Organisme</th>
+                <th>Poste</th>
+                <th>Telephone</th>
+                <th>E-mail</th>
+                <th>Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.nom }} {{ entity.prenom }}</td>
+                    <td>{{ entity.organisme }}</td>
+                    <td>{{ entity.poste }}</td>
+                    <td>{{ entity.telephone }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>Envoyer un e-mail</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
 {% endblock %}
 
 
