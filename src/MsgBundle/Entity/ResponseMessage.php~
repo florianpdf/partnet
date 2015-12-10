@@ -3,9 +3,9 @@
 namespace MsgBundle\Entity;
 
 /**
- * Message
+ * ResponseMessage
  */
-class Message
+class ResponseMessage
 {
     /**
      * @var integer
@@ -13,24 +13,14 @@ class Message
     private $id;
 
     /**
-     * @var string
+     * @var integer
      */
-    private $recipient;
+    private $idMessage;
 
     /**
      * @var string
      */
     private $sender;
-
-    /**
-     * @var string
-     */
-    private $in_box;
-
-    /**
-     * @var string
-     */
-    private $subject;
 
     /**
      * @var string
@@ -54,27 +44,27 @@ class Message
     }
 
     /**
-     * Set recipient
+     * Set idMessage
      *
-     * @param string $recipient
+     * @param integer $idMessage
      *
-     * @return Message
+     * @return ResponseMessage
      */
-    public function setRecipient($recipient)
+    public function setIdMessage($idMessage)
     {
-        $this->recipient = $recipient;
+        $this->idMessage = $idMessage;
 
         return $this;
     }
 
     /**
-     * Get recipient
+     * Get idMessage
      *
-     * @return string
+     * @return integer
      */
-    public function getRecipient()
+    public function getIdMessage()
     {
-        return $this->recipient;
+        return $this->idMessage;
     }
 
     /**
@@ -82,7 +72,7 @@ class Message
      *
      * @param string $sender
      *
-     * @return Message
+     * @return ResponseMessage
      */
     public function setSender($sender)
     {
@@ -102,59 +92,11 @@ class Message
     }
 
     /**
-     * Set inBox
-     *
-     * @param string $inBox
-     *
-     * @return Message
-     */
-    public function setInBox($inBox)
-    {
-        $this->in_box = $inBox;
-
-        return $this;
-    }
-
-    /**
-     * Get inBox
-     *
-     * @return string
-     */
-    public function getInBox()
-    {
-        return $this->in_box;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param string $subject
-     *
-     * @return Message
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
      * Set message
      *
      * @param string $message
      *
-     * @return Message
+     * @return ResponseMessage
      */
     public function setMessage($message)
     {
@@ -178,7 +120,7 @@ class Message
      *
      * @param \DateTime $date
      *
-     * @return Message
+     * @return ResponseMessage
      */
     public function setDate($date)
     {
