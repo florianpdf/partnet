@@ -36,7 +36,13 @@
                     <tbody>
                     {% for entity in entities %}
                         <tr>
-                            <td>A : {{ entity.recipient }}</td>
+                            <td>A :
+                            {% for user in users %}
+                                {% if entity.recipient == user.email %}
+                                {{ user.prenom }} {{ user.nom }} ({{ entity.recipient }})
+                                {% endif %}
+                            {% endfor %}
+                            </td>
                             <td>{{ entity.subject }}</td>
                             <td></td>
                             <td>

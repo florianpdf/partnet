@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use MsgBundle\Entity\Message;
 use MsgBundle\Form\MessageType;
+use UserBundle\Entity\User;
 
 /**
  * Message controller.
@@ -22,9 +23,11 @@ class MessageController extends Controller
 
         // Vérifie les id receveur et compare à l'id de l'utilisateur connecté puis récupère les entités
         $entities = $em->getRepository('MsgBundle:Message')->findByNomSender($this->getUser()->getEmail());
+        $users = $em->getRepository('UserBundle:User')->findAll();
 
         return $this->render('MsgBundle:Message:subject.html.twig', array(
             'entities' => $entities,
+            'users' => $users,
         ));
     }
     /**
@@ -54,8 +57,11 @@ class MessageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            // Auto completion champ Sender et Id sender
+            // Auto completion champ Sender
             $entity->setSender($this->getUser()->getEmail());
+
+            //Auto completion du champ sender_name
+            $entity->setSenderName($this->getUser()->getNom().' '.$this->getUser()->getPrenom());
 
             // Visible dans la boite du receveur, Si il est sur 0 alors il est considéré comme supprimé dans la boite du receveur
             $entity->setVisibleInBoxReceiver(1);

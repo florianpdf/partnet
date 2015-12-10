@@ -23,6 +23,11 @@ class Message
     private $sender;
 
     /**
+     * @var string
+     */
+    private $sender_name;
+
+    /**
      * @var boolean
      */
     private $visible_in_box_receiver;
@@ -99,6 +104,30 @@ class Message
     public function getSender()
     {
         return $this->sender;
+    }
+
+    /**
+     * Set senderName
+     *
+     * @param string $senderName
+     *
+     * @return Message
+     */
+    public function setSenderName($senderName)
+    {
+        $this->sender_name = $senderName;
+
+        return $this;
+    }
+
+    /**
+     * Get senderName
+     *
+     * @return string
+     */
+    public function getSenderName()
+    {
+        return $this->sender_name;
     }
 
     /**
