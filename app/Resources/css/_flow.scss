@@ -69,6 +69,13 @@ body {
 #login a {
   float: right; margin-right: 40px;
 }
+.invalid {
+  background: #B88E8D;
+  font-style: italic;
+  color: #fff;
+  padding: 5px 40px;
+  margin-bottom: 15px;
+}
 
 
 
@@ -124,7 +131,7 @@ body {
 #menu-trigger {
   position: absolute; top: 0; right: -$menu-trigger-w;
   height: 100%; width: $menu-trigger-w;
-  background: #2881c0;
+  background: $menu-trigger-bg;
 }
 .arrow-right {
   position: absolute;
@@ -158,7 +165,7 @@ nav img {
   margin-left: 7%;
   width: 20%;
 }
-nav a + a { border-top: 1px solid #2881c0; }
+nav a + a { border-top: 1px solid $menu-trigger-bg; }
 nav a:hover img { opacity: 1; }
 nav a:hover span { opacity: 0.5; }
 
@@ -180,18 +187,18 @@ nav a:hover span { opacity: 0.5; }
   margin: 5px;
   //border: 1px solid #fff;
 }
-#tiles-wrapper li:nth-child(1), #accueil.tile1, .tile1 { background: $tile1; }
-#tiles-wrapper li:nth-child(2), #accueil.tile2, .tile2 { background: $tile2; }
-#tiles-wrapper li:nth-child(3), #accueil.tile3, .tile3 { background: $tile3; }
-#tiles-wrapper li:nth-child(4), #accueil.tile4, .tile4 { background: $tile4; }
-#tiles-wrapper li:nth-child(5), #accueil.tile5, .tile5 { background: $tile5; }
-#tiles-wrapper li:nth-child(6), #accueil.tile6, .tile6 { background: $tile6; }
-#accueil.tile1, .tile1 { background: $tile1-bg; }
-#accueil.tile2, .tile2 { background: $tile2-bg; }
-#accueil.tile3, .tile3 { background: $tile3-bg; }
-#accueil.tile4, .tile4 { background: $tile4-bg; }
-#accueil.tile5, .tile5 { background: $tile5-bg; }
-#accueil.tile6, .tile6 { background: $tile6-bg; }
+#tiles-wrapper li:nth-child(1), .tile1 { background: $tile1; }
+#tiles-wrapper li:nth-child(2), .tile2 { background: $tile2; }
+#tiles-wrapper li:nth-child(3), .tile3 { background: $tile3; }
+#tiles-wrapper li:nth-child(4), .tile4 { background: $tile4; }
+#tiles-wrapper li:nth-child(5), .tile5 { background: $tile5; }
+#tiles-wrapper li:nth-child(6), .tile6 { background: $tile6; }
+#accueil.tile1 { background: $tile1-bg; }
+#accueil.tile2 { background: $tile2-bg; }
+#accueil.tile3 { background: $tile3-bg; }
+#accueil.tile4 { background: $tile4-bg; }
+#accueil.tile5 { background: $tile5-bg; }
+#accueil.tile6 { background: $tile6-bg; }
 
 #data-wrapper {
   background: $topbar-bg;
@@ -276,7 +283,7 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   border-top: 0 !important;
 }
 ##{$datatables-name} thead th {
-  background: #18889D;
+  background: #559FB2;
   color: #fff;
   font-weight: normal;
 }
@@ -305,7 +312,22 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
 }
 
 .actions a + a {
+  position: relative;z-index: 500;
   margin-left: 10px;
+}
+
+//tr.child, td.child, .slider,
+.slider {
+  display: block !important;
+  max-width: 500px !important;
+  word-wrap: break-word !important;
+}
+
+
+.not-expandable:before {
+  content: '' !important;
+  background: red !important;
+  color: green !important;
 }
 
 
@@ -313,19 +335,76 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   display: block; position: relative; z-index: 9; width: 30%; min-width: 250px; margin: -32px auto 0;
   text-align: center;
   padding: 15px 10px;
-  background: #2BB58E;
+  background: #3DB2A8;
   font-weight: bold;
   color: #fff;
   border-radius: 5px;
+  transition: background 0.3s;
 }
 .button-add:hover, .button-add:active {
   text-decoration: none;
   color: #fff;
-  background: #259978;
+  background: #35988F;
 }
+
+
 
 main {
   position: relative;
+  margin-bottom: 50px;
+}
+.admin-form > form {
+  max-width: 1000px; margin: auto;
+  padding: 2% 5%;
+  background: #D0E6EC;
+}
+.admin-form > form div {
+  position: relative;
+  height: 40px; line-height: 40px;
+  margin: 15px 0;clear: both;
+  //background: yellow;
+}
+.admin-form > form input,
+.admin-form > form textarea {
+  float: right;
+  width: 80%; height: 100%;
+  border: 0; outline: 0;
+  padding: 5px 30px;
+}
+.admin-form > form textarea {
+  height: 170px;
+  margin-bottom: 15px;
+  resize: none;
+}
+#gedbundle_documents_finDeVie {
+  float: right; margin: 0;
+}
+.admin-form > form select {
+  height: 40px; width: 100px;
+  margin-left: 5px;
+  border: 0; outline: 0;
+}
+.admin-form > form p {
+  font-style: italic;
+}
+.admin-form > form button[type="submit"] {
+  display: block;
+  width: 70%;
+  margin: 70px auto 0;
+  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
+  transition: background 0.3s;
+}
+.admin-form > form button[type="submit"]:hover {
+  background: #35988F;
+}
+h1 {
+  max-width: 1000px;
+  background: #559FB2;
+  margin: 0 auto;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.3em;
+  color: #fff;
 }
 .flashbag {
   position: absolute;

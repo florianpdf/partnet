@@ -75,7 +75,9 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         //$user->setLastLogin(new \DateTime(''));
         $userManager->updateUser($user);
 
-        $this->addReference('uploader', $admin);
+        $this->addReference('uploader-user', $user);
+        $this->addReference('uploader-admin', $admin);
+        $this->addReference('uploader-superadmin', $superadmin);
     }
 
     public function getOrder()
