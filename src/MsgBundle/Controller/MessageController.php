@@ -191,11 +191,20 @@ class MessageController extends Controller
 
             // recupère le message
             $message = $em->getRepository('MsgBundle:Message')->find($id);
-            // recupère les réponses associées
-            $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findAll($id);
 
-            // supprime les réponses et le message
-            $em->remove($response_message);
+            // recupère les réponses associées au message en question
+            $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
+
+            // si il y'a des réponses au message principal
+            if ($response_message != null)
+                // compte le nombre de message et les liste
+                for ($i=0; $i < count($response_message); $i++) {
+                    // supprime les messages
+                    $em->remove($response_message[$i]);
+                }
+            }
+
+            // supprime le message principal
             $em->remove($message);
 
             $em->flush();
