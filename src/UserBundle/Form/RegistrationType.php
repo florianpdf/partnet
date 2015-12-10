@@ -11,10 +11,12 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
-
-
+        $builder
+            ->add('organisme', 'choice', array('choices' => array(
+                'Pole emploi' => 'Pole emploi',
+                'CAP Emploi' => 'CAP Emploi',
+                'Mission Local' => 'Mission Local'
+            )));
     }
 
     public function getParent()
