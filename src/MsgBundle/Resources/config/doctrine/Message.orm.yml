@@ -15,12 +15,11 @@ MsgBundle\Entity\Message:
         sender:
             type: string
             length: 255
-        id_recipient:
-            type: integer
-            nullable: true
-        id_sender:
-            type: integer
-            nullable: true
+        sender_name:
+            type: string
+            length: 255
+        visible_in_box_receiver:
+            type: boolean
         subject:
             type: string
             length: 255

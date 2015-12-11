@@ -26,7 +26,7 @@
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
                     <td>{{ entity.email }}</td>
-                    <td>Envoyer un e-mail</td>
+                    <td><a href="{{ path('message_new') }}{{  entity.email }}">Envoyer un e-mail</a></td>
                 </tr>
             {% endfor %}
             </tbody>
