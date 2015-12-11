@@ -20,7 +20,9 @@ class ProfileFormType extends AbstractType
             ->add('poste', 'text')
             ->add('nom', 'text')
             ->add('prenom', 'text')
-            ->add('file', 'file', array('label' => 'Photo de profil', 'required' => false));
+            ->add('file', 'file', array('label' => 'Photo de profil',
+                'required' => false,
+                'attr' => array('accept' => 'image/*')));
     }
 
     public function getParent()
