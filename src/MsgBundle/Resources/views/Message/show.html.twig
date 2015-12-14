@@ -4,13 +4,14 @@
 
 {% block main_content %}
     {{ include('includes/navbar.html.twig') }}
-
+<main>
 <div class="container">
     <div class="col-md-3">
         <div class="panel panel-primary">
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" class="active"><a href="{{ path('message') }}">Boite de reception</a></li><hr />
+                    <li role="presentation" class="active"><a href="{{ path('message') }}">Boite de reception</a></li>
+                    <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
                     <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
                 </ul>
             </div>
@@ -20,37 +21,78 @@
     <div class="col-md-9">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Boite de réception > {{ entity.subject }}</h3>
+                <h3 class="panel-title">Boite de réception > Fil de disscussion : {{ entity.subject }}</h3>
             </div>
             <div class="panel-body">
 
-    <table class="record_properties">
-        <tbody>
+                <table class="record_properties">
+                    <tbody>
 
-            <tr>
-                <th>Expéditeur</th>
-                <td>{{ entity.sender }}</td>
-            </tr>
-            <tr>
-                <th>Sujet</th>
-                <td>{{ entity.subject }}</td>
-            </tr>
-            <tr>
-                <th>Message</th>
-                <td>{{ entity.message }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        <tr>
+                            <th>Expéditeur</th>
+                            <td>{{ entity.senderName }} ({{ entity.sender }})</td>
+                        </tr>
+                        <tr>
+                            <th>Sujet</th>
+                            <td>{{ entity.subject }}</td>
+                        </tr>
+                        <tr>
+                            <th>Message</th>
+                            <td>{{ entity.message }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="record_actions">
+                    <li>
+                        <a href="{{ path('message') }}">
+                            Retour
+                        </a>
+                    </li>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('message') }}">
-            Retour
-        </a>
-    </li>
+                    <li>{{ form(delete_form) }}</li>
+                </ul>
+            </div>
+        </div>
 
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        {% for entity_comments in comments %}
+            {% if entity_comments.idMessage == entity.id %}
 
-                </div></div></div></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Réponse de {{ entity_comments.sender }} le {{ entity_comments.date|date('Y-m-d H:i:s') }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ entity_comments.message }}</p>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Répondre</h3>
+            </div>
+            <div class="panel-body">
+
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+
+                <div>
+                    {{ form_label(form.message) }}
+                    {{ form_errors(form.message) }}
+                    {{ form_widget(form.message) }}
+                </div>
+
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</main>
 {% endblock %}
