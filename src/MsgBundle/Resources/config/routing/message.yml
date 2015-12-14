@@ -7,8 +7,16 @@ message_show:
     defaults: { _controller: "MsgBundle:Message:show" }
 
 message_new:
-    path:     /new
+    path:     /new/
     defaults: { _controller: "MsgBundle:Message:new" }
+
+message_new_email:
+    path:     /new/{email}/
+    defaults: { _controller: "MsgBundle:Message:new" }
+
+message_suivi:
+    path:     /discussion
+    defaults: { _controller: "MsgBundle:Message:subject" }
 
 message_create:
     path:     /create

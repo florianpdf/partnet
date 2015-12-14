@@ -5,12 +5,14 @@
 
 {% block main_content %}
     {{ include('includes/navbar.html.twig') }}
+    <main>
 <div class="container">
     <div class="col-md-3">
         <div class="panel panel-primary">
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="{{ path('message') }}">Boite de reception</a></li><hr />
+                    <li role="presentation"><a href="{{ path('message') }}">Boite de reception</a></li>
+                    <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
                     <li role="presentation" class="active"><a href="{{ path('message_new') }}">Nouveau message</a></li>
                 </ul>
             </div>
@@ -31,7 +33,11 @@
             <div>
                 {{ form_label(form.recipient) }}
                 {{ form_errors(form.recipient) }}
-                {{ form_widget(form.recipient) }}
+                {% if selected_email is defined %}
+                    {{ form_widget(form.recipient, {'attr' : {'value' : selected_email} }) }} <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                {% else %}
+                    {{ form_widget(form.recipient) }} <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                {% endif %}
             </div>
             <div>
                 {{ form_label(form.subject) }}
@@ -52,4 +58,5 @@
 </div>
     </div>
 </div>
+    </main>
 {% endblock %}

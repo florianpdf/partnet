@@ -23,6 +23,16 @@ class Message
     private $sender;
 
     /**
+     * @var integer
+     */
+    private $id_recipient;
+
+    /**
+     * @var integer
+     */
+    private $id_sender;
+
+    /**
      * @var string
      */
     private $subject;
@@ -31,6 +41,11 @@ class Message
      * @var string
      */
     private $message;
+
+    /**
+     * @var \DateTime
+     */
+    private $date;
 
 
     /**
@@ -92,6 +107,54 @@ class Message
     }
 
     /**
+     * Set idRecipient
+     *
+     * @param integer $idRecipient
+     *
+     * @return Message
+     */
+    public function setIdRecipient($idRecipient)
+    {
+        $this->id_recipient = $idRecipient;
+
+        return $this;
+    }
+
+    /**
+     * Get idRecipient
+     *
+     * @return integer
+     */
+    public function getIdRecipient()
+    {
+        return $this->id_recipient;
+    }
+
+    /**
+     * Set idSender
+     *
+     * @param integer $idSender
+     *
+     * @return Message
+     */
+    public function setIdSender($idSender)
+    {
+        $this->id_sender = $idSender;
+
+        return $this;
+    }
+
+    /**
+     * Get idSender
+     *
+     * @return integer
+     */
+    public function getIdSender()
+    {
+        return $this->id_sender;
+    }
+
+    /**
      * Set subject
      *
      * @param string $subject
@@ -137,6 +200,30 @@ class Message
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Message
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }
 

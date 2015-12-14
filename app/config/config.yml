@@ -93,7 +93,7 @@ fos_user:
             type: app_user_profile
     from_email:
         address:        partnetemploi@gmail.com
-        sender_name:    P@rnet Emploi - Registration
+        sender_name:    P@rnet Emploi # - Registration
     service:
         mailer: fos_user.mailer.default
     resetting:
