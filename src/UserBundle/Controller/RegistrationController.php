@@ -43,6 +43,8 @@ class RegistrationController extends Controller
         $user = $userManager->createUser();
         $user->setEnabled(true);
 
+
+
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
 
@@ -69,9 +71,17 @@ class RegistrationController extends Controller
 
         $form->handleRequest($request);
 
+       /*
+       // Récuperer la saisie du champ Email du form
+        $data = [];
+        foreach ( $form as $key => $value) {
+            $data[$key] = $value->getData();
+        }
+       */
 
         $user->setCreationCompte(new \DateTime());
         if ($form->isValid()) {
+
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 

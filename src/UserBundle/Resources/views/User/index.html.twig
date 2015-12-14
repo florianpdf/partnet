@@ -3,8 +3,8 @@
 {% block main_content -%}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-
-    <h1>User list</h1>
+    <main>
+    <h1>Liste d'utilisateurs</h1>
 
     <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
         <thead>
@@ -40,6 +40,7 @@
             <a class="btn btn-primary" href="{{ path('admin_create_user') }}">Créer un utilisateur</a>
         </p></center>
     {% include '@User/User/delete.html.twig' %}
+    </main>
     {% endblock %}
 
 
