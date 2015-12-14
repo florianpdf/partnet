@@ -18,8 +18,8 @@ class ProfileFormType extends AbstractType
                 )))
             ->add('telephone', 'text')
             ->add('poste', 'text')
-            ->add('nom', 'text')
-            ->add('prenom', 'text')
+            ->add('nom', 'text', array('required' => true) )
+            ->add('prenom', 'text', array('required' => true))
             ->add('file', 'file', array('label' => 'Photo de profil', 'required' => false));
     }
 

@@ -5,7 +5,7 @@ UserBundle\Entity\User:
                 message: L'email "{{ value }}" n'est pas un email valide.
                 checkMX: true
         prenom:
-            - NotBlank: ~
+#            - NotBlank: ~
             - Length:
                 max: 50
                 maxMessage: "Le prenom ne peut contenir plus de 50 caractères"
@@ -13,7 +13,7 @@ UserBundle\Entity\User:
                 type: string
                 message: "Ce champ ne peut contenir que des caractères alphabétique"
         nom:
-            - NotBlank: ~
+#            - NotBlank: ~
             - Length:
                 max: 50
                 maxMessage: "Le nom ne peut contenir plus de 50 caractères"
