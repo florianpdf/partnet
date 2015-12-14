@@ -186,28 +186,41 @@ class MessageController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             // recupère le message
             $message = $em->getRepository('MsgBundle:Message')->find($id);
 
-            // recupère les réponses associées au message en question
-            $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
+            if($message->getSender() == $this->getUser()->getUsername())
+            {
+                // recupère les réponses associées au message en question
+                $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
 
-            // si il y'a des réponses au message principal
-            if ($response_message != null) {
-                // compte le nombre de message et les liste
-                for ($i=0; $i < count($response_message); $i++) {
-                    // supprime les messages
-                    $em->remove($response_message[$i]);
+                // si il y'a des réponses au message principal
+                if ($response_message != null) {
+                    // compte le nombre de message et les liste
+                    for ($i=0; $i < count($response_message); $i++) {
+                        // supprime les messages
+                        $em->remove($response_message[$i]);
+                    }
                 }
+
+                // supprime le message principal
+                $em->remove($message);
+
+                $em->flush();
+            } else {
+
+                $message->setVisibleInBoxReceiver(false);
+
+                $em->persist($message);
+                $em->flush();
+
             }
 
-            // supprime le message principal
-            $em->remove($message);
 
-            $em->flush();
         }
 
         return $this->redirect($this->generateUrl('message'));
