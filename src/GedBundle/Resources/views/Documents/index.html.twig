@@ -63,9 +63,9 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         <a class="button-add" href="{{ path('documents_new') }}">Ajouter un document</a>
+        {% include '@Ged/Documents/delete.html.twig' %}
     {% endif %}
 
-    {% include '@Ged/Documents/delete.html.twig' %}
     </main>
 {% endblock %}
 

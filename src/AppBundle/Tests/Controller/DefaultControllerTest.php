@@ -8,11 +8,13 @@ class DefaultControllerTest extends WebTestCase
 {
     public function testIndex()
     {
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
 
-        $crawler = $client->request('GET', '/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
+        $crawler = $client->request('GET', '/documents/');
+        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
     }
 }

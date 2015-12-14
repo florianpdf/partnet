@@ -11,7 +11,56 @@ use Symfony\Component\HttpFoundation\Request;
 class DocumentsControllerTest extends WebTestCase
 {
 
-    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU4ADMINISTRATEUR //
+    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'ADMINISTRATEUR //
+
+    // Test des liens de la page documents //
+    public function testLink()
+    {
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
+
+        $crawler = $client->request('GET', '/documents/');
+        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Test du lien homepage
+        $link = $crawler
+            ->filter('a:contains("P@rtnet\'emploi du Perche")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('AppBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Test du lien "accès profil" d'Antoine Fournier
+        $link = $crawler
+            ->filter('a:contains("Antoine")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Test du lien "déconnexion"
+        $link = $crawler
+            ->filter('a:contains("déconnexion")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+//        // Test du lien d'ajout d'un document
+//        $link = $crawler
+//            ->filter('a:contains("Ajouter un document")')
+//            ->eq(0)
+//            ->link();
+//        $crawler = $client->click($link);
+//        $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
+//            $client->getRequest()->attributes->get('_controller'));
+    }
 
     // Verification de la présence des champs dans le formulaire
     public function testChampsAddDoc() {
@@ -34,7 +83,7 @@ class DocumentsControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('form button[name="gedbundle_documents[submit]"]')->count() == 1);
     }
 
-    // CRéation d'un document pour test delete et edit
+    // Fonction permettant de créer un document
     public function createDocument($values = array())
     {
         // Connexion en tant qu'admin
@@ -241,8 +290,25 @@ class DocumentsControllerTest extends WebTestCase
         $query->setParameter('titre2', 'testFormAddValid');
         $this->assertTrue(0 == $query->getSingleScalarResult());
     }
-}
 
+    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'UTILISATEUR //
+
+    // Verification que certain champs ne sont pas présent pour l'utilisateur
+    public function testChampUser()
+    {
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user@user.com',
+            'PHP_AUTH_PW'   => 'user',
+        ));
+
+        $crawler = $client->request('GET', '/documents/');
+
+        // Tests de la présence des champs
+        $this->assertEquals(0, $crawler->filter('html:contains("Ajouter un document")')->count());
+        $this->assertEquals(0, $crawler->filter('html:contains("Éditer")')->count());
+        $this->assertEquals(0, $crawler->filter('html:contains("Supprimer")')->count());
+    }
+}
 
 //        $this->assertContains(
 //            'class="alert alert-danger alert-error"',
