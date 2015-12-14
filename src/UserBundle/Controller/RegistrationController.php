@@ -32,6 +32,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  */
 class RegistrationController extends Controller
 {
+
     public function registerAction(Request $request)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -75,15 +76,8 @@ class RegistrationController extends Controller
 
         $form->handleRequest($request);
 
-       /*
-       // Récuperer la saisie du champ Email du form
-        $data = [];
-        foreach ( $form as $key => $value) {
-            $data[$key] = $value->getData();
-        }
-       */
-
         $user->setCreationCompte(new \DateTime());
+
         if ($form->isValid()) {
 
             $event = new FormEvent($form, $request);
@@ -104,7 +98,17 @@ class RegistrationController extends Controller
         return $this->render('@User/Registration/user_register.html.twig', array(
             'form' => $form->createView(),
         ));
+
+        // EN CAS BESOIN
+        /*
+          // Récuperer la saisie
+           $data = [];
+           foreach ( $form as $key => $value) {
+               $data[$key] = $value->getData();
+           }
+          */
     }
+
 
     /**
      * Tell the user to check his email provider
@@ -172,10 +176,11 @@ class RegistrationController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
+        return $this->redirectToRoute('fos_user_resetting_request');
+        /*return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
-        ));
+        ));*/
     }
 
     private function getTargetUrlFromSession()

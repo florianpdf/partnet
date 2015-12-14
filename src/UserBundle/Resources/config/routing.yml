@@ -12,4 +12,7 @@ admin_create_user:
     defaults: { _controller: "UserBundle:Registration:register" }
     methods: [GET, POST]
 
-
+create_password:
+    path: /create/password/{email}
+    defaults: { _controller: "UserBundle:Registration:createPassword" }
+    methods: [GET]
