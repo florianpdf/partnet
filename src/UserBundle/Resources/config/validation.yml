@@ -2,6 +2,8 @@ UserBundle\Entity\User:
     properties:
         username:
             - NotBlank: ~
+        plainPassword:
+            - NotBlank: ~
         email:
             - Email:
                 message: L'email "{{ value }}" n'est pas un email valide.

@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use UserBundle\Entity;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Controller managing the registration
@@ -52,8 +53,8 @@ class RegistrationController extends Controller
             return $event->getResponse();
         }
 
-        //var_dump($this->getUser()->getRoles('ROLE_SUPER_ADMIN'));
         if (in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())) {
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
             $form = $formFactory->createForm()->add('roles', 'collection', array(
                 'type'   => 'choice',
                 'options'  => array(
@@ -63,7 +64,10 @@ class RegistrationController extends Controller
                         'ROLE_USER'     => 'ROLE_USER',
                     ),
                 ),
-            ));
+            ))
+                ->add('plainPassword', 'hidden', array(
+                    'data' => substr($tokenGenerator->generateToken(), 0, 8),
+                ));
         } else {
             $form = $formFactory->createForm();
         }
