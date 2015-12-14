@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use GedBundle\Entity\Documents;
+use Symfony\Component\HttpFoundation\Request;
 
 class DocumentsControllerTest extends WebTestCase
 {
@@ -16,7 +17,7 @@ class DocumentsControllerTest extends WebTestCase
     public function testChampsAddDoc() {
 
         $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_USER' => 'admin@admin.com',
             'PHP_AUTH_PW'   => 'admin',
         ));
 
@@ -34,92 +35,93 @@ class DocumentsControllerTest extends WebTestCase
     }
 
     // Test du formulaire d'upload
-//    public function testFormAddValid()
-//    {
-//        // Connexion en tant qu'admin
-//        $client = static::createClient(array(), array(
-//            'PHP_AUTH_USER' => 'admin',
-//            'PHP_AUTH_PW'   => 'admin',
-//        ));
-//
-//        // Vérification que l'action de '/documents/nouveau' est bien 'DocumentsController::newAction'
-//        $crawler = $client->request('GET', '/documents/nouveau');
-//        $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
-//            $client->getRequest()->attributes->get('_controller'));
-//
-//        // Définition du formulaire
-//        $form = $crawler->selectButton('Envoyer')->form(array(
-//            'gedbundle_documents[titre]' => 'Test upload',
-//            'gedbundle_documents[auteur]' => 'Test upload auteur',
-//            'gedbundle_documents[resume]' => 'Ceci est un test d\'upload',
-//            'gedbundle_documents[finDeVie][day]' => 1,
-//            'gedbundle_documents[finDeVie][month]' => 1,
-//            'gedbundle_documents[finDeVie][year]' => 2017,
-//            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/FlorianGrandjean.pdf',
-//        ));
-//
-//        // Soumission du formulaire et vérification que l'action appelée est 'DocumentsController::createAction'
-//        $client->submit($form);
-//
-//        $this->assertEquals('GedBundle\Controller\DocumentsController::createAction',
-//            $client->getRequest()->attributes->get('_controller'));
-//
-//       // Vérification de la redirection suite à la soumission du formulaire
-//        $client->followRedirect();
-//        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction',
-//            $client->getRequest()->attributes->get('_controller'));
-//
-//        // Test de l'enregistrement dans la BDD
-//        $kernel = static::createKernel();
-//        $kernel->boot();
-//        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-//
-//        $query = $em->createQuery('SELECT count(d.id) from GedBundle:Documents d WHERE d.titre = :titre AND d.auteur = :auteur');
-//        $query->setParameter('titre', 'Test upload');
-//        $query->setParameter('auteur', 'Test upload auteur');
-//        $this->assertTrue(0 < $query->getSingleScalarResult());
-//      }
+    public function testFormAddValid()
+    {
+        // Connexion en tant qu'admin
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
 
-//    public function testFormAddInvalid()
-//    {
-//        // Connexion en tant qu'admin
-//        $client = static::createClient(array(), array(
-//            'PHP_AUTH_USER' => 'admin',
-//            'PHP_AUTH_PW'   => 'admin',
-//        ));
-//
-//        // Vérification que l'action de '/documents/nouveau' est bien 'DocumentsController::newAction'
-//        $crawler = $client->request('GET', '/documents/nouveau');
-//        $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
-//            $client->getRequest()->attributes->get('_controller'));
-//
-//        // Test avec un file != .pdf
-//        $form = $crawler->selectButton('Envoyer')->form(array(
-//            'gedbundle_documents[titre]' => 'Test upload',
-//            'gedbundle_documents[auteur]' => 'Test upload auteur',
-//            'gedbundle_documents[resume]' => 'Ceci est un test d\'upload',
-//            'gedbundle_documents[finDeVie][day]' => 1,
-//            'gedbundle_documents[finDeVie][month]' => 1,
-//            'gedbundle_documents[finDeVie][year]' => 2017,
-//            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/test.gif',
-//        ));
-//        $crawler = $client->submit($form);
-//
-//        // Vérification que l'action appelée est 'DocumentsController::createAction
-//        $this->assertEquals('GedBundle\Controller\DocumentsController::createAction',
-//            $client->getRequest()->attributes->get('_controller'));
-//
-//        // Vérification que le html (suite à erreur de type de fichier) contient le message d'erreur ci dessou
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Le type de fichier n\'est pas supporté.")')->count());
-//
-//    }
+        // Vérification que l'action de '/documents/nouveau' est bien 'DocumentsController::newAction'
+        $crawler = $client->request('GET', '/documents/nouveau');
+        $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Définition du formulaire
+        $form = $crawler->selectButton('Envoyer')->form(array(
+            'gedbundle_documents[titre]' => 'Test upload',
+            'gedbundle_documents[auteur]' => 'Test upload auteur',
+            'gedbundle_documents[resume]' => 'Ceci est un test d\'upload',
+            'gedbundle_documents[finDeVie][day]' => 1,
+            'gedbundle_documents[finDeVie][month]' => 1,
+            'gedbundle_documents[finDeVie][year]' => 2017,
+            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/FlorianGrandjean.pdf',
+        ));
+
+        // Soumission du formulaire et vérification que l'action appelée est 'DocumentsController::createAction'
+        $client->submit($form);
+
+        $this->assertEquals('GedBundle\Controller\DocumentsController::createAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+       // Vérification de la redirection suite à la soumission du formulaire
+        $client->followRedirect();
+        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Test de l'enregistrement dans la BDD
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        $query = $em->createQuery('SELECT count(d.id) from GedBundle:Documents d WHERE d.titre = :titre AND d.auteur = :auteur');
+        $query->setParameter('titre', 'Test upload');
+        $query->setParameter('auteur', 'Test upload auteur');
+        $this->assertTrue(0 < $query->getSingleScalarResult());
+
+      }
+
+    public function testFormAddInvalid()
+    {
+        // Connexion en tant qu'admin
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
+
+        // Vérification que l'action de '/documents/nouveau' est bien 'DocumentsController::newAction'
+        $crawler = $client->request('GET', '/documents/nouveau');
+        $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Test avec un file != .pdf
+        $form = $crawler->selectButton('Envoyer')->form(array(
+            'gedbundle_documents[titre]' => 'Test upload',
+            'gedbundle_documents[auteur]' => 'Test upload auteur',
+            'gedbundle_documents[resume]' => 'Ceci est un test d\'upload',
+            'gedbundle_documents[finDeVie][day]' => 1,
+            'gedbundle_documents[finDeVie][month]' => 1,
+            'gedbundle_documents[finDeVie][year]' => 2017,
+            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/test.gif',
+        ));
+        $crawler = $client->submit($form);
+
+        // Vérification que l'action appelée est 'DocumentsController::createAction
+        $this->assertEquals('GedBundle\Controller\DocumentsController::createAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Vérification que le html (suite à erreur de type de fichier) contient le message d'erreur ci dessou
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Le type de fichier n\'est pas supporté.")')->count());
+
+    }
 
     // CRéation d'un document pour test delete et edit
     public function createDocument($values = array())
     {
         // Connexion en tant qu'admin
         $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_USER' => 'admin@admin.com',
             'PHP_AUTH_PW'   => 'admin',
         ));
 
@@ -148,7 +150,7 @@ class DocumentsControllerTest extends WebTestCase
     {
         // Connexion en tant qu'admin
         $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_USER' => 'admin@admin.com',
             'PHP_AUTH_PW'   => 'admin',
         ));
 
@@ -157,26 +159,53 @@ class DocumentsControllerTest extends WebTestCase
         $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
             $client->getRequest()->attributes->get('_controller'));
 
-        $client = $this->createDocument(array('gedbundle_documents[titre]' => 'FOO2'));
+        $client = $this->createDocument(array('gedbundle_documents[titre]' => 'doc_test'));
 
         $crawler = $client->getCrawler();
-        $crawler->selectLink('delete');
-//        $crawler->selectButton('oui');
-        $this->assertContains(
-            'class="alert alert-danger alert-error"',
-            $client->getResponse()->getContent()
-        );
+
+        $link = $crawler
+            ->filter('td:contains("doc_test")')
+            ->siblings()
+            ->eq(4)
+            ->children()
+            ->eq(1)
+            ->link()
+        ;
+
+        $link2 = $crawler
+            ->filter('td:contains("Test upload")')
+            ->siblings()
+            ->eq(4)
+            ->children()
+            ->eq(1)
+            ->link()
+        ;
+
+//        $this->assertContains(
+//            'class="alert alert-danger alert-error"',
+//            $client->getResponse()->getContent()
+//        );
+
+
+        $crawler = $client->click($link);
+        $crawler->selectButton('oui');
+
         $this->assertEquals('GedBundle\Controller\DocumentsController::deleteAction',
             $client->getRequest()->attributes->get('_controller'));
 
+        $crawler = $client->click($link2);
+        $crawler->selectButton('oui');
 
+        $this->assertEquals('GedBundle\Controller\DocumentsController::deleteAction',
+            $client->getRequest()->attributes->get('_controller'));
 
         $kernel = static::createKernel();
         $kernel->boot();
         $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
 
-        $query = $em->createQuery('SELECT count(d.id) from GedBundle:Documents d WHERE d.titre = :titre');
-        $query->setParameter('titre', 'FOO2');
+        $query = $em->createQuery('SELECT count(d.id) from GedBundle:Documents d WHERE d.titre = :titre AND d.titre = :titre2');
+        $query->setParameter('titre', 'doc_test');
+        $query->setParameter('titre2', 'Test upload');
         $this->assertTrue(0 == $query->getSingleScalarResult());
 
 
@@ -214,3 +243,8 @@ class DocumentsControllerTest extends WebTestCase
 //
 //    }
 }
+
+//$this->assertContains(
+//    'class="alert alert-danger alert-error"',
+//    $client->getResponse()->getContent()
+//);
