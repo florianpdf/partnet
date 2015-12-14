@@ -14,10 +14,13 @@ class RegistrationType extends AbstractType
         $builder
             ->remove('username')
             ->add('organisme', 'choice', array('choices' => array(
-                'Pole emploi' => 'Pole emploi',
-                'CAP Emploi' => 'CAP Emploi',
-                'Mission Local' => 'Mission Local'
-            )));
+                'Pôle emploi' => 'Pôle emploi',
+                'Cap emploi' => 'Cap emploi',
+                'Mission locale' => 'Mission locale',
+                'Sous-préfecture' => 'Sous-préfecture',
+                'DIRECCTE' => 'DIRECCTE'
+            )))
+        ;
     }
 
     public function getParent()
