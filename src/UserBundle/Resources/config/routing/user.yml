@@ -7,3 +7,9 @@ user_delete:
     defaults: { _controller: "UserBundle:User:delete" }
     requirements:
         id:  \d+
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UserBundle:User:edit" }
+    requirements:
+        id:  \d+
