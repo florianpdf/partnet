@@ -39,9 +39,10 @@
                             <td>A :
                             {% for user in users %}
                                 {% if entity.recipient == user.email %}
-                                {{ user.prenom }} {{ user.nom }} ({{ entity.recipient }})
+                                {{ user.prenom }} {{ user.nom }}
                                 {% endif %}
                             {% endfor %}
+                                ({{ entity.recipient }})
                             </td>
                             <td>{{ entity.subject }}</td>
                             <td></td>
