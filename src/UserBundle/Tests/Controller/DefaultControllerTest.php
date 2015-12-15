@@ -79,5 +79,4 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
             $client->getRequest()->attributes->get('_controller'));
     }
-
 }
