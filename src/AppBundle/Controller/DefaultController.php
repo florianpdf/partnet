@@ -25,4 +25,9 @@ class DefaultController extends Controller
             'nb_month' => $nb_month
         ));
     }
+
+    public function adminAction()
+    {
+        return $this->render('AppBundle:admin:index.html.twig');
+    }
 }

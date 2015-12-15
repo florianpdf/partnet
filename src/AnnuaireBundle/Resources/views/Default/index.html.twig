@@ -15,6 +15,11 @@
                 <th>Poste</th>
                 <th>Telephone</th>
                 <th>E-mail</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Création du compte</th>
+                    <th>Nombre d'uploads</th>
+                    <th>Dernière connexion</th>
+                {% endif %}
                 <th>Action</th>
             </tr>
             </thead>
@@ -25,12 +30,14 @@
                     <td>{{ entity.organisme }}</td>
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
-                    <td>{{ entity.email }}</td>
+                    <td><a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a></td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>{{ entity.creationCompte|date('d-m-Y') }}</td>
+                        <td>{{ entity.nbUploads }}</td>
+                        <td>{{ entity.lastLogin|date('d.m.Y à H:i:s') }}</td>
+                    {% endif %}
                     <td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{  path('user_edit', { 'id': entity.id }) }}" title="Éditer les champs">
-                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
-                        </a>
                         <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                         </a>
@@ -43,6 +50,10 @@
             {% endfor %}
             </tbody>
         </table>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="button-add" href="{{ path('admin_create_user') }}">Enregistrer un utilisateur</a>
+        {% endif %}
     </main>
 {% endblock %}
 
@@ -50,6 +61,66 @@
 
 {% block scripts %}
     {{ parent() }}
+{% if is_granted('ROLE_ADMIN') %}
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%"},
+                    { "width": "5%"}
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false
+                    },
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 4},
+                    { responsivePriority: 3, targets: 0 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 1 }
+                ],
+                "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
+            });
+
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
+    </script>
+{% else %}
     <script>
         $(document).ready(function() {
             $( '#donnees' ).dataTable( {
@@ -105,4 +176,5 @@
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
+{% endif %}
 {% endblock %}

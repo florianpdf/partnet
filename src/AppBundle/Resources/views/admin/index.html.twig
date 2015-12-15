@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="accueil">{% endblock %}
+
+{% block main_content %}
+{{ include('includes/topbar.html.twig') }}
+
+<main>
+    <div class="aligner">
+        <div>Interface Administrateur</div>
+        <div class="login-wrapper">
+            <ul>
+                <li><a href="{{ path('annuaire_homepage') }}">Gérer les utilisateurs</a></li>
+            </ul>
+        </div>
+
+</main>
+{% endblock %}
