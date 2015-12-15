@@ -28,7 +28,6 @@ class DocumentsController extends Controller
     public function indexAction(Request $request, $id = null)
     {
 
-
         if (!$this->getUser())
         {
             return $this->redirectToRoute('fos_user_security_login');
