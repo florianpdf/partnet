@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use UserBundle\Entity;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Controller managing the registration
@@ -31,6 +32,7 @@ use UserBundle\Entity;
  */
 class RegistrationController extends Controller
 {
+
     public function registerAction(Request $request)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -52,8 +54,8 @@ class RegistrationController extends Controller
             return $event->getResponse();
         }
 
-        //var_dump($this->getUser()->getRoles('ROLE_SUPER_ADMIN'));
         if (in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())) {
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
             $form = $formFactory->createForm()->add('roles', 'collection', array(
                 'type'   => 'choice',
                 'options'  => array(
@@ -63,7 +65,10 @@ class RegistrationController extends Controller
                         'ROLE_USER'     => 'ROLE_USER',
                     ),
                 ),
-            ));
+            ))
+                ->add('plainPassword', 'hidden', array(
+                    'data' => substr($tokenGenerator->generateToken(), 0, 8),
+                ));
         } else {
             $form = $formFactory->createForm();
         }
@@ -71,15 +76,8 @@ class RegistrationController extends Controller
 
         $form->handleRequest($request);
 
-       /*
-       // Récuperer la saisie du champ Email du form
-        $data = [];
-        foreach ( $form as $key => $value) {
-            $data[$key] = $value->getData();
-        }
-       */
-
         $user->setCreationCompte(new \DateTime());
+
         if ($form->isValid()) {
 
             $event = new FormEvent($form, $request);
@@ -100,7 +98,17 @@ class RegistrationController extends Controller
         return $this->render('@User/Registration/user_register.html.twig', array(
             'form' => $form->createView(),
         ));
+
+        // EN CAS BESOIN
+        /*
+          // Récuperer la saisie
+           $data = [];
+           foreach ( $form as $key => $value) {
+               $data[$key] = $value->getData();
+           }
+          */
     }
+
 
     /**
      * Tell the user to check his email provider
@@ -168,10 +176,11 @@ class RegistrationController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
+        return $this->redirectToRoute('fos_user_resetting_request');
+        /*return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
-        ));
+        ));*/
     }
 
     private function getTargetUrlFromSession()

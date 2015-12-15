@@ -105,6 +105,28 @@ class User extends BaseUser
         }
     }
 
+    /* Override original functions */
+    public function setEmail($email)
+    {
+        parent::setEmail($email);
+        $this->username = $email;
+        return $this;
+    }
+    public function setEmailCanonical($emailCanonical)
+    {
+        parent::setEmailCanonical($emailCanonical);
+        $this->usernameCanonical = $emailCanonical;
+        return $this;
+    }
+
+    public function setPlainPassword($password)
+    {
+        parent::setPlainPassword($password);
+        $this->password = $password;
+        return $this;
+    }
+
+
     //Generated Code
 
     /**
@@ -371,17 +393,5 @@ class User extends BaseUser
         return $this->picture;
     }
 
-    /* Override original functions */
-    public function setEmail($email)
-    {
-        parent::setEmail($email);
-        $this->username = $email;
-        return $this;
-    }
-    public function setEmailCanonical($emailCanonical)
-    {
-        parent::setEmailCanonical($emailCanonical);
-        $this->usernameCanonical = $emailCanonical;
-        return $this;
-    }
+
 }

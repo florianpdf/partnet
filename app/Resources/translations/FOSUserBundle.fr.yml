@@ -42,13 +42,14 @@ registration:
     back: Retour à la page d'origine.
     submit: Enregistrer
     flash:
-        user_created: Votre compte a été créé avec succès, vous allez recevoir un mail vous permettant d'activer votre compte
+        user_created: Votre compte a été créé avec succès.
     email:
         subject: Bienvenue %username% !
         message: |
             Bonjour %username% !
 
-            Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
+            Vous devez valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl% et merci
+            de réinitialiser votre mot de passe.
 
             Cordialement,
             L'équipe.
