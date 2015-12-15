@@ -23,4 +23,9 @@ class DefaultController extends Controller
             'nb' => $nb)
         );
     }
+
+    public function adminAction()
+    {
+        return $this->render('AppBundle:admin:index.html.twig');
+    }
 }
