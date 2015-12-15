@@ -18,10 +18,22 @@ class DocumentsRepository extends \Doctrine\ORM\EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    // Permet de compter le nombre de document présent dans la GED
     public function getNbDocuments() {
 
         return $this->createQueryBuilder('id')
             ->select('COUNT(id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    // Permet de compter le nombre de document uploader durant le dernier mois
+    public function getNbDocumentsMonth()
+    {
+        return $this->createQueryBuilder('id')
+            ->select('COUNT(id)')
+            ->where('id.dateUpload > :create_at')
+            ->setParameter('create_at', date('Y-m-d', time() - 86400 * 30) )
             ->getQuery()
             ->getSingleScalarResult();
     }

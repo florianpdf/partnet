@@ -41,25 +41,11 @@ class DocumentsController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        //if($id){
-        //   $entity_edit = $em->getRepository('GedBundle:Documents')->find($id);
-        //   $editForm = $this->createEditForm($entity_edit);
-
-        //    return $this->render('GedBundle:Documents:index.html.twig', array(
-        //        'docs'      => $entities,
-        //        'users' => $list_users,
-        //        'edit_form'   => $editForm->createView(),
-        //        'edit' => $id,
-        //    ));
-
-        //} else {
-            return $this->render('GedBundle:Documents:index.html.twig', array(
-                'docs' => $entities,
-                'users' => $list_users,
-                'form'   => $form->createView(),
-            ));
-        //}
-
+        return $this->render('GedBundle:Documents:index.html.twig', array(
+            'docs' => $entities,
+            'users' => $list_users,
+            'form'   => $form->createView(),
+        ));
     }
     /**
      * Creates a new Documents entity.
