@@ -36,7 +36,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         $this->assertEquals('AppBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
-
     }
 
     // Test de connexion en temps qu'utilisateur, nécessite de loader les fixtures
@@ -49,8 +48,8 @@ class DefaultControllerTest extends WebTestCase
         // Sélection basée sur la valeur, l'id ou le nom des boutons
         $form = $crawler->selectButton('Connexion')->form();
 
-        $form['_username']= 'User';
-        $form['_password']= 'user';
+        $form['_username'] = 'User';
+        $form['_password'] = 'user';
 
         $crawler = $client->submit($form);
 
@@ -58,9 +57,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         $this->assertEquals('AppBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
-
-
-
     }
 
     // Test de connexion en temps qu'utilisateur non inscrit, nécessite de loader les fixtures
