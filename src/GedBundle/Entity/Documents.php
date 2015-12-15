@@ -42,7 +42,9 @@ class Documents
     {
         $token = uniqid().".".$ext;
         $this->setDocument($token);
-        fopen("app/uploads/documents/" . $token, "w");
+        $test_file = fopen("app/uploads/documents/" . $token, "w");
+        fwrite($test_file, 'Some content.');
+        fclose($test_file);
         $this->setExtension($ext);
     }
 
