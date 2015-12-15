@@ -125,7 +125,7 @@ class DocumentsControllerTest extends WebTestCase
             'gedbundle_documents[finDeVie][day]' => 1,
             'gedbundle_documents[finDeVie][month]' => 1,
             'gedbundle_documents[finDeVie][year]' => 2017,
-            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/FlorianGrandjean.pdf',
+            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/DocTest.pdf',
         ), $values));
 
         $client->submit($form);
