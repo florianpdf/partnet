@@ -4,7 +4,7 @@
 <body id="ged" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/navbar.html.twig') }}
+    {{ include('includes/topbar.html.twig') }}
     <main>
 <div class="container">
     <div class="col-md-3">
@@ -20,7 +20,11 @@
 
     </div>
     <div class="col-md-9">
-
+        {% if app.session.flashBag.has('failure') %}
+            {% for msg in app.session.flashBag.get('failure') %}
+                <p class="flashbag">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
     <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Nouveau message</h3>
@@ -29,6 +33,8 @@
 
             {{ form_start(form) }}
             {{ form_errors(form) }}
+
+
 
             <div>
                 {{ form_label(form.recipient) }}

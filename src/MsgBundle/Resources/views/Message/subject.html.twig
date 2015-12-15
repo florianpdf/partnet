@@ -3,7 +3,7 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/navbar.html.twig') }}
+    {{ include('includes/topbar.html.twig') }}
 <main>
 <div class="container">
     <div class="col-md-3">
@@ -39,9 +39,10 @@
                             <td>A :
                             {% for user in users %}
                                 {% if entity.recipient == user.email %}
-                                {{ user.prenom }} {{ user.nom }} ({{ entity.recipient }})
+                                {{ user.prenom }} {{ user.nom }}
                                 {% endif %}
                             {% endfor %}
+                                ({{ entity.recipient }})
                             </td>
                             <td>{{ entity.subject }}</td>
                             <td></td>

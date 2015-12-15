@@ -17,6 +17,17 @@ use UserBundle\Entity\User;
 class MessageController extends Controller
 {
 
+    public function mailAction($from, $to, $content)
+    {
+        // Fonction d'envoi de mail
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Un nouveau message privée est arrivée dans votre Messagerie P@rtnet\'Emploi')
+            ->setFrom($from)
+            ->setTo($to)
+            ->setBody($content);
+        $this->get('mailer')->send($message);
+    }
+
     public function subjectAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -56,22 +67,44 @@ class MessageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
-            // Auto completion champ Sender
-            $entity->setSender($this->getUser()->getEmail());
 
-            //Auto completion du champ sender_name
-            $entity->setSenderName($this->getUser()->getNom().' '.$this->getUser()->getPrenom());
+            $users = $em->getRepository('UserBundle:User')->findByUsername($form->get('recipient')->getData());
 
-            // Visible dans la boite du receveur, Si il est sur 0 alors il est considéré comme supprimé dans la boite du receveur
-            $entity->setVisibleInBoxReceiver(1);
-            //Ajout de la date d'envoi
-            $entity->setDate(new \DateTime('now'));
+            // Si l'utilisateur est existant
+            if(!empty($users)) {
 
-            $em->persist($entity);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                // Auto completion champ Sender
+                $entity->setSender($this->getUser()->getEmail());
 
-            return $this->redirect($this->generateUrl('message_show', array('id' => $entity->getId())));
+                //Auto completion du champ sender_name
+                $entity->setSenderName($this->getUser()->getNom().' '.$this->getUser()->getPrenom());
+
+                // Visible dans la boite du receveur, Si il est sur 0 alors il est considéré comme supprimé dans la boite du receveur
+                $entity->setVisibleInBoxReceiver(1);
+                //Ajout de la date d'envoi
+                $entity->setDate(new \DateTime('now'));
+
+                $em->persist($entity);
+                $em->flush();
+
+                // Envoi du mail
+                $this->mailAction($this->getUser()->getEmail(), $form->get('recipient')->getData(), 'Pour consulter le message : http://'.$_SERVER['HTTP_HOST'].$this->generateUrl('message_show', array('id' => $entity->getId())));
+
+                return $this->redirect($this->generateUrl('message_show', array('id' => $entity->getId())));
+            } else {
+
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('failure', 'Cet utilisateur n\'est pas enregistré sur la plateforme');
+
+                return $this->redirect($this->generateUrl('message_new'));
+            }
+
+
+
         }
 
         return $this->render('MsgBundle:Message:new.html.twig', array(
@@ -186,28 +219,41 @@ class MessageController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             // recupère le message
             $message = $em->getRepository('MsgBundle:Message')->find($id);
 
-            // recupère les réponses associées au message en question
-            $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
+            if($message->getSender() == $this->getUser()->getUsername())
+            {
+                // recupère les réponses associées au message en question
+                $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
 
-            // si il y'a des réponses au message principal
-            if ($response_message != null) {
-                // compte le nombre de message et les liste
-                for ($i=0; $i < count($response_message); $i++) {
-                    // supprime les messages
-                    $em->remove($response_message[$i]);
+                // si il y'a des réponses au message principal
+                if ($response_message != null) {
+                    // compte le nombre de message et les liste
+                    for ($i=0; $i < count($response_message); $i++) {
+                        // supprime les messages
+                        $em->remove($response_message[$i]);
+                    }
                 }
+
+                // supprime le message principal
+                $em->remove($message);
+
+                $em->flush();
+            } else {
+
+                $message->setVisibleInBoxReceiver(false);
+
+                $em->persist($message);
+                $em->flush();
+
             }
 
-            // supprime le message principal
-            $em->remove($message);
 
-            $em->flush();
         }
 
         return $this->redirect($this->generateUrl('message'));

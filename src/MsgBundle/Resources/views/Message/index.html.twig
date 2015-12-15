@@ -3,7 +3,7 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/navbar.html.twig') }}
+    {{ include('includes/topbar.html.twig') }}
 <main>
 <div class="container">
     <div class="col-md-3">
@@ -34,6 +34,7 @@
                     </thead>
                     <tbody>
                     {% for entity in entities %}
+                        {% if entity.visibleInBoxReceiver == 1 %}
                         <tr>
                             <td>De : {{ entity.senderName }} ({{ entity.sender }}) </td>
                             <td>{{ entity.subject }}</td>
@@ -46,6 +47,7 @@
                                 </ul>
                             </td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
