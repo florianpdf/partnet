@@ -26,7 +26,19 @@
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
                     <td>{{ entity.email }}</td>
-                    <td><a href="{{ path('message_new') }}{{  entity.email }}">Envoyer un e-mail</a></td>
+                    <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{  path('user_edit', { 'id': entity.id }) }}" title="Éditer les champs">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    {% endif %}
+                        <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
+                            <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
