@@ -27,7 +27,7 @@ class DefaultControllerTest extends WebTestCase
         // Sélection basée sur la valeur, l'id ou le nom des boutons
         $form = $crawler->selectButton('Connexion')->form();
 
-        $form['_username']= 'Admin';
+        $form['_username']= 'admin@admin.com';
         $form['_password']= 'admin';
 
         $crawler = $client->submit($form);
@@ -48,7 +48,7 @@ class DefaultControllerTest extends WebTestCase
         // Sélection basée sur la valeur, l'id ou le nom des boutons
         $form = $crawler->selectButton('Connexion')->form();
 
-        $form['_username'] = 'User';
+        $form['_username'] = 'user@user.com';
         $form['_password'] = 'user';
 
         $crawler = $client->submit($form);

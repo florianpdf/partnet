@@ -143,7 +143,7 @@ class DocumentsControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/documents/nouveau');
 
-        // Définition du formulaire
+        // Création du document
         $client = $this->createDocument(array('gedbundle_documents[titre]' => 'testFormAddValid'));
 
         $client->followRedirect();
@@ -396,14 +396,32 @@ class DocumentsControllerTest extends WebTestCase
     }
 
     // Test dowload action
+    public function uploadDocumentForTestUser()
+    {
+        // Création du document en tant qu'Admin
+        $client = $this->createDocument(array('gedbundle_documents[titre]' => 'testUserDocument'));
+        $client->followRedirect();
+        $crawler = $client->request('GET', '/documents/');
+        $link = $crawler
+            ->filter('a:contains("déconnexion")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
+            $client->getRequest()->attributes->get('_controller'));
+    }
+
     public function testDownloadUser()
     {
+        $client = $this->uploadDocumentForTestUser();
+        
+        // Connexion en tant que User
         $client = $this->UserConnexion();
 
         $crawler = $client->request('GET', '/documents/');
 
         $link = $crawler
-            ->filter('td:contains("edit_test_titre")')
+            ->filter('td:contains("testUserDocument")')
             ->siblings()
             ->eq(4)
             ->children()
@@ -426,7 +444,7 @@ class DocumentsControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/documents/');
 
         $link = $crawler
-            ->filter('td:contains("edit_test_titre")')
+            ->filter('td:contains("testUserDocument")')
             ->siblings()
             ->eq(4)
             ->children()
