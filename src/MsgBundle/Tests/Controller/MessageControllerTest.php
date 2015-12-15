@@ -6,6 +6,32 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MessageControllerTest extends WebTestCase
 {
+    // Connexion en tant qu'admin //
+    public function AdminConnection()
+    {
+        // Connexion en tant qu'admin
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW' => 'admin',
+        ));
+        return $client;
+    }
+
+    public function testLinkUser()
+    {
+        $client = $this->AdminConnection();
+
+        // Test du lien Dialogue
+        $crawler = $client->request('GET', '/');
+        $link = $crawler
+            ->filter('a:contains("Dialogue")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('MsgBundle\Controller\MessageController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+    }
+
     /*
     public function testCompleteScenario()
     {

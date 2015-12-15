@@ -13,7 +13,7 @@ class DocumentsControllerTest extends WebTestCase
 
     // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'ADMINISTRATEUR //
 
-    // Test des liens de la page documents //
+    // Connexion en tant qu'admin //
     public function AdminConnection()
     {
         // Connexion en tant qu'admin
