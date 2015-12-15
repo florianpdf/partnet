@@ -414,7 +414,7 @@ class DocumentsControllerTest extends WebTestCase
     public function testDownloadUser()
     {
         $client = $this->uploadDocumentForTestUser();
-        
+
         // Connexion en tant que User
         $client = $this->UserConnexion();
 
