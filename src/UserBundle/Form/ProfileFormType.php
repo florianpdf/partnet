@@ -18,6 +18,7 @@ class ProfileFormType extends AbstractType
                 )))
             ->add('telephone', 'text')
             ->remove('username')
+            ->remove('PlainPassword')
             ->add('poste', 'text')
             ->add('nom', 'text')
             ->add('prenom', 'text')

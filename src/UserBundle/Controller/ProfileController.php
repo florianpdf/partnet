@@ -72,13 +72,13 @@ class ProfileController extends Controller
 
         $form->handleRequest($request);
 
+        //$user->setPlainPassword($form->get('current_password')->getData());
+
+
 
         if ($form->isValid()) {
 
-
-
             $user->setUsername($this->getUser()->getEmail());
-            $user->setPlainPassword($form->get('current_password')->getData());
 
 
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
@@ -98,8 +98,7 @@ class ProfileController extends Controller
 
             return $response;
         }
-        var_dump($form->get('current_password'));
-        die();
+
 
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
             'form' => $form->createView()
