@@ -3,7 +3,3 @@ user_get_picture:
     defaults: { _controller: "UserBundle:PictureProfile:PictureProfile" }
     methods: [GET]
 
-create_password:
-    path: /create/password/{email}
-    defaults: { _controller: "UserBundle:Registration:createPassword" }
-    methods: [GET]

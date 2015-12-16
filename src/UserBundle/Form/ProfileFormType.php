@@ -17,6 +17,7 @@ class ProfileFormType extends AbstractType
                 'Mission Local' => 'Mission Local'
                 )))
             ->add('telephone', 'text')
+            ->remove('username')
             ->add('poste', 'text')
             ->add('nom', 'text')
             ->add('prenom', 'text')

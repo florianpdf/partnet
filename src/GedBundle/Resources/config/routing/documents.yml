@@ -10,6 +10,10 @@ documents_new:
     path:     /nouveau
     defaults: { _controller: "GedBundle:Documents:new" }
 
+documents_create:
+    path:     /create
+    defaults: { _controller: "GedBundle:Documents:create" }
+    methods:  POST
 
 documents_edit:
     path:     /{id}/edit/

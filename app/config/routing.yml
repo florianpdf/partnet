@@ -4,7 +4,7 @@ annuaire:
 
 msg:
     resource: "@MsgBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /message
 
 homepage:
     path:     /
