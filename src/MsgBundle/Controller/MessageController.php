@@ -47,6 +47,11 @@ class MessageController extends Controller
      */
     public function indexAction()
     {
+        if (!$this->getUser())
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         // Récupère les messages selon le nom d'utilisateur
