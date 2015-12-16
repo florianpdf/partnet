@@ -459,8 +459,3 @@ class DocumentsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
     }
 }
-
-//        $this->assertContains(
-//            'class="alert alert-danger alert-error"',
-//            $client->getResponse()->getContent()
-//        );

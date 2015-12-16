@@ -6,12 +6,43 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'ANONYME //
+
+    public function testLinkAnonyme()
+    {
+        $client = static::createClient();
+
+        // Test page d'accueil
+        $crawler = $client->request('GET', '/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/documents/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/message/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/annuaire/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/documents/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/user_management/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+//        $this->assertContains(
+//            'class="alert alert-danger alert-error"',
+//            $client->getResponse()->getContent()
+//        );
+    }
+
     // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'Utilisateur //
 
     // Test des liens de la page documents //
     public function UserConnection()
     {
-        // Connexion en tant qu'admin
+        // Connexion en tant qu'user
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'user@user.com',
             'PHP_AUTH_PW' => 'user',
