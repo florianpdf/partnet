@@ -97,7 +97,7 @@ class DocumentsController extends Controller
     private function createCreateForm(Documents $entity)
     {
         $form = $this->createForm(new DocumentsType(), $entity, array(
-            'action' => $this->generateUrl('documents_create'),
+            'action' => $this->generateUrl('documents_new'),
             'method' => 'POST',
         ));
 

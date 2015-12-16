@@ -70,7 +70,10 @@ class RegistrationController extends Controller
                     'data' => substr($tokenGenerator->generateToken(), 0, 8),
                 ));
         } else {
-            $form = $formFactory->createForm();
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $form = $formFactory->createForm()->add('plainPassword', 'hidden', array(
+                'data' => substr($tokenGenerator->generateToken(), 0, 8),
+            ));
         }
 
         $form->setData($user);
