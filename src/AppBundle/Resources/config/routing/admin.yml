@@ -1,0 +1,11 @@
+admin_create_user:
+    path:     /user/create
+    defaults: { _controller: "UserBundle:Registration:register" }
+    requirements:
+        id:  \d+
+
+user_delete:
+    path:     /user/{id}/delete
+    defaults: { _controller: "UserBundle:User:delete" }
+    requirements:
+        id:  \d+

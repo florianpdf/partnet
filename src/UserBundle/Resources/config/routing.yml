@@ -1,16 +1,7 @@
-user_user:
-    resource: "@UserBundle/Resources/config/routing/user.yml"
-    prefix:   /
-
 user_get_picture:
     path: /picture/{picture}
     defaults: { _controller: "UserBundle:PictureProfile:PictureProfile" }
     methods: [GET]
-
-admin_create_user:
-    path: /admin/create/user
-    defaults: { _controller: "UserBundle:Registration:register" }
-    methods: [GET, POST]
 
 create_password:
     path: /create/password/{email}

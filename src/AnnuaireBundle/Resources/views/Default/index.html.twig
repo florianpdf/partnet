@@ -54,7 +54,9 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a class="button-add" href="{{ path('admin_create_user') }}">Enregistrer un utilisateur</a>
         {% endif %}
+        {% include '@Annuaire/Default/delete.html.twig' %}
     </main>
+
 {% endblock %}
 
 
