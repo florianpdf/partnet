@@ -16,42 +16,6 @@ class UserController extends Controller
 {
 
     /**
-     * Lists all User entities.
-     *
-     */
-    public function indexAction()
-    {
-        if($this->get('security.context')->isGranted('ROLE_ADMIN') || $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
-            $em = $this->getDoctrine()->getManager();
-
-            $entities = $em->getRepository('UserBundle:User')->findAll();
-
-            /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-            $formFactory = $this->get('fos_user.registration.form.factory');
-            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-            $userManager = $this->get('fos_user.user_manager');
-            /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-            $dispatcher = $this->get('event_dispatcher');
-
-            $user = $userManager->createUser();
-            $user->setEnabled(true);
-
-            // $form = $formFactory->createForm();
-
-
-            //$form->setData($user);
-
-            return $this->render('UserBundle:User:index.html.twig', array(
-                'entities' => $entities,
-                //   'form' => $form->createView(),
-            ));
-        } else {
-            return $this->redirectToRoute('homepage');
-        }
-
-    }
-
-    /**
      * Remove an existing record and a file.
      *
      */
@@ -71,7 +35,7 @@ class UserController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('user', array(
+        return $this->redirect($this->generateUrl('annuaire_homepage', array(
             'entity' => $entities,
             'users' => $list_users
         )));

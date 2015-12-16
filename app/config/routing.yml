@@ -20,7 +20,7 @@ ged_documents:
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /user_management
+    prefix:   /profile
 
 app:
     resource: "@AppBundle/Controller/"
