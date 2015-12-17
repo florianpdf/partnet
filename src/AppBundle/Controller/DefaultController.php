@@ -9,16 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * Affichage de la page d'accueil
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $nb = $em->getRepository('GedBundle:Documents')->getNbDocuments();
         $nb_month = $em->getRepository('GedBundle:Documents')->getNbDocumentsMonth();
-
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED'))
-            return $this->redirectToRoute('fos_user_security_login');
 
         return $this->render('default/index.html.twig', array(
             'nb' => $nb,
