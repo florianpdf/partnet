@@ -9,3 +9,27 @@ user_delete:
     defaults: { _controller: "UserBundle:User:delete" }
     requirements:
         id:  \d+
+
+documents_new:
+    path:     /documents/nouveau
+    defaults: { _controller: "GedBundle:Documents:new" }
+
+documents_create:
+    path:     /documents/create
+    defaults: { _controller: "GedBundle:Documents:create" }
+    methods:  POST
+
+documents_edit:
+    path:     /documents/{id}/edit/
+    defaults: { _controller: "GedBundle:Documents:edit" }
+
+documents_update:
+    path:     /documents/{id}/update
+    defaults: { _controller: "GedBundle:Documents:update" }
+    methods:  [POST, PUT]
+
+documents_delete:
+    path:     /documents/{id}/delete
+    defaults: { _controller: "GedBundle:Documents:delete" }
+    requirements:
+        id:  \d+
