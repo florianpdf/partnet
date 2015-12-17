@@ -49,7 +49,7 @@ class DocumentsControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien d'ajout d'un document
@@ -369,7 +369,7 @@ class DocumentsControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"
