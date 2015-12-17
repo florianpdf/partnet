@@ -1,17 +1,14 @@
+# Homepage GedBundle
 documents:
     path:     /
     defaults: { _controller: "GedBundle:Documents:index" }
 
-documents_show:
-    path:     /{id}/show
-    defaults: { _controller: "GedBundle:Documents:show" }
-
-
-
+# Route action de telechargement
 document_download:
     path:     /download/{document}
     defaults: { _controller: "GedBundle:Documents:Download" }
 
+# Route action de visualisation
 document_visual:
     path:     /visual/{document}
     defaults: { _controller: "GedBundle:Documents:Visual" }

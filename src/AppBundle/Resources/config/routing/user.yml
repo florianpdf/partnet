@@ -1,0 +1,12 @@
+# Route user pour la validation utilisateur
+fos_user_registration_check_email:
+    defaults: { _controller: "FOSUserBundle:Registration:checkEmail"}
+    path:     /check-email
+
+fos_user_registration_confirm:
+    defaults: { _controller: "FOSUserBundle:Registration:confirm"}
+    path:     /confirm/{token}
+
+fos_user_registration_confirmed:
+    defaults: { _controller: "FOSUserBundle:Registration:confirmed" }
+    path:     /confirmed
