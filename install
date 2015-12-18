@@ -1,0 +1,65 @@
+#!/bin/bash
+
+echo "\033[31;1;4;5;7mChangement de la branche\033[0m\n"
+git checkout develop
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+
+echo "\033[31;1;4;5;7mLancement du composer install\033[0m\n"
+composer install
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+
+echo "\033[31;1;4;5;7mCreation de la database\033[0m\n"
+php app/console doctrine:database:create
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+echo "\033[31;1;4;5;7mUpdate de la database\033[0m\n"
+php app/console doctrine:schema:update --force
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+echo "\033[31;1;4;5;7mInsertion des fixtures\033[0m\n"
+php app/console doctrine:fixtures:load
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+echo "\033[31;1;4;5;7mDroits en ecriture\033[0m\n"
+pwd
+sudo sh bash/chmod.sh
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+echo "\033[31;1;4;5;7mCréation de upload\033[0m\n"
+cd app/
+pwd
+sudo mkdir uploads
+cd uploads/
+pwd
+sudo mkdir documents
+cd ..
+pwd
+sudo chmod 777 -R uploads/
+cd ..
+pwd
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+echo "\033[31;1;4;5;7mInstallation de Grunt\033[0m\n"
+sudo npm install
+echo "Appuyer sur Entrée pour continuer..."
+read a
+clear
+
+echo "\033[31;1;4;5;7mLancement de Grunt\033[0m\n"
+grunt
