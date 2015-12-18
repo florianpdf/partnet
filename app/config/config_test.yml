@@ -25,6 +25,5 @@ doctrine:
         default_connection: default
         connections:
             default:
-                driver: pdo_sqlite
-                path: %kernel.cache_dir%/test.db
-        # add "_test" to the database name you set in parameters.ini:
+                driver:   pdo_sqlite
+                path:     %kernel.cache_dir%/test.db

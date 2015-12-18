@@ -2,7 +2,7 @@ AgendaBundle\Entity\Events:
     type: entity
     table: events
     indexes:
-        id_user:
+        event_user:
             columns:
                 - id_user
     id:
