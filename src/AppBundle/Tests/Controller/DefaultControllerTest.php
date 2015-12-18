@@ -12,30 +12,33 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-//        // Test page d'accueil
-//        $crawler = $client->request('GET', '/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        // Test page d'accueil
+        $crawler = $client->request('GET', '/');
+//        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+//        $client->followRedirect();
+//        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction', $client->getRequest()->attributes->get('_controller'));
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
 
-//        $client->request('GET', '/annuaire');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-//
-//        $crawler = $client->request('GET', '/message/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-//
-//        $crawler = $client->request('GET', '/documents/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-//
-//        $crawler = $client->request('GET', '/profile/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-//
-//        $crawler = $client->request('GET', '/login/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-//
-//        $crawler = $client->request('GET', '/register/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-//
-//        $crawler = $client->request('GET', '/admin/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $crawler = $client->request('GET', '/annuaire/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/message/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/documents/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/profile/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/login/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/register/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+
+        $crawler = $client->request('GET', '/admin/');
+        $this->assertTrue($client->getResponse()->isRedirect('/login'));
 
 //        $this->assertContains(
 //            'class="alert alert-danger alert-error"',
