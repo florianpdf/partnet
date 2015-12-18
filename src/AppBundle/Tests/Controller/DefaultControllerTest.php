@@ -16,28 +16,26 @@ class DefaultControllerTest extends WebTestCase
 //        $crawler = $client->request('GET', '/');
 //        $this->assertTrue($client->getResponse()->isRedirect('/login'));
 
-        $client->request('GET', '/annuaire');
-        $client->followRedirect();
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-
-        $crawler = $client->request('GET', '/message/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/documents/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/profile/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/login/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/register/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/admin/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//        $client->request('GET', '/annuaire');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//
+//        $crawler = $client->request('GET', '/message/');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//
+//        $crawler = $client->request('GET', '/documents/');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//
+//        $crawler = $client->request('GET', '/profile/');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//
+//        $crawler = $client->request('GET', '/login/');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//
+//        $crawler = $client->request('GET', '/register/');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+//
+//        $crawler = $client->request('GET', '/admin/');
+//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
 
 //        $this->assertContains(
 //            'class="alert alert-danger alert-error"',
@@ -93,7 +91,7 @@ class DefaultControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien Annuaire
@@ -175,7 +173,7 @@ class DefaultControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien Annuaire
@@ -205,7 +203,7 @@ class DefaultControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\UserController::indexAction',
+        $this->assertEquals('AppBundle\Controller\DefaultController::adminAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"

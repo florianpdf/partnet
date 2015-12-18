@@ -88,7 +88,7 @@ class DocumentsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', '/documents/nouveau');
+        $crawler = $client->request('GET', 'admin/documents/nouveau');
         $this->assertEquals('GedBundle\Controller\DocumentsController::newAction',
             $client->getRequest()->attributes->get('_controller'));
     }
@@ -98,7 +98,7 @@ class DocumentsControllerTest extends WebTestCase
 
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', '/documents/nouveau');
+        $crawler = $client->request('GET', 'admin/documents/nouveau');
 
         // Tests de la présence des champs
         $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[titre]"]')->count() == 1);
@@ -116,7 +116,7 @@ class DocumentsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', '/documents/nouveau');
+        $crawler = $client->request('GET', 'admin/documents/nouveau');
 
         $form = $crawler->selectButton('Envoyer')->form(array_merge(array(
             'gedbundle_documents[titre]' => 'createDocument',
@@ -141,7 +141,7 @@ class DocumentsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', '/documents/nouveau');
+        $crawler = $client->request('GET', 'admin/documents/nouveau');
 
         // Création du document
         $client = $this->createDocument(array('gedbundle_documents[titre]' => 'testFormAddValid'));
@@ -172,17 +172,17 @@ class DocumentsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', '/documents/nouveau');
+        $crawler = $client->request('GET', 'admin/documents/nouveau');
 
         // Test avec un file != .pdf
         $form = $crawler->selectButton('Envoyer')->form(array(
             'gedbundle_documents[titre]' => 'testFormAddInvalid',
-            'gedbundle_documents[auteur]' => 'Test upload auteur',
+            'gedbundle_documents[auteur]' => 'Test upload_invalid auteur',
             'gedbundle_documents[resume]' => 'Ceci est un test d\'upload',
             'gedbundle_documents[finDeVie][day]' => 1,
             'gedbundle_documents[finDeVie][month]' => 1,
             'gedbundle_documents[finDeVie][year]' => 2017,
-            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/test.gif',
+            'gedbundle_documents[file]' => __DIR__.'/../../../../web/test_document/test.png',
         ));
         $crawler = $client->submit($form);
 
@@ -191,11 +191,21 @@ class DocumentsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
 
         // Vérification que le html (suite à erreur de type de fichier) contient le message d'erreur ci dessous
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("Le type de fichier n\'est pas supporté.")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Merci d\'uploader un document pdf valide.")')->count());
 
         // Vérification que le document n'a pas été ajouté à la liste
         $crawler = $client->request('GET', '/documents/');
         $this->assertEquals(0, $crawler->filter('html:contains("testFormAddInvalid")')->count());
+
+        // Test du non enregistrement dans la BDD
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        $query = $em->createQuery('SELECT count(d.id) from GedBundle:Documents d WHERE d.titre = :titre AND d.auteur = :auteur');
+        $query->setParameter('titre', 'testFormAddInvalid');
+        $query->setParameter('auteur', 'Test upload_invalid auteur');
+        $this->assertTrue(0 == $query->getSingleScalarResult());
     }
 
     public function testEdit()
