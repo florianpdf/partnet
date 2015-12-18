@@ -1,15 +1,4 @@
-admin_create_user:
-    path:     /user/create
-    defaults: { _controller: "UserBundle:Registration:register" }
-    requirements:
-        id:  \d+
-
-user_delete:
-    path:     /user/{id}/delete
-    defaults: { _controller: "UserBundle:User:delete" }
-    requirements:
-        id:  \d+
-
+# Route admin pour la GED
 documents_new:
     path:     /documents/nouveau
     defaults: { _controller: "GedBundle:Documents:new" }
@@ -31,5 +20,18 @@ documents_update:
 documents_delete:
     path:     /documents/{id}/delete
     defaults: { _controller: "GedBundle:Documents:delete" }
+    requirements:
+        id:  \d+
+
+# Route admin pour la gestion utilisateur
+fos_user_registration_register:
+    path:     /register
+    defaults: { _controller: "UserBundle:Registration:register" }
+    requirements:
+        id:  \d+
+
+user_delete:
+    path:     /user/{id}/delete
+    defaults: { _controller: "UserBundle:User:delete" }
     requirements:
         id:  \d+

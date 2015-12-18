@@ -25,26 +25,15 @@ class DocumentsController extends Controller
      * Lists all Documents entities.
      *
      */
-    public function indexAction(Request $request, $id = null)
+    public function indexAction()
     {
-
-        if (!$this->getUser())
-        {
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-
         $em = $this->getDoctrine()->getManager();
         $list_users = $em->getRepository('UserBundle:User')->findAll();
         $entities = $em->getRepository('GedBundle:Documents')->findAll();
 
-        $entity = new Documents();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
         return $this->render('GedBundle:Documents:index.html.twig', array(
             'docs' => $entities,
             'users' => $list_users,
-            'form'   => $form->createView(),
         ));
     }
     /**
@@ -75,11 +64,6 @@ class DocumentsController extends Controller
 
             return $this->redirect($this->generateUrl('documents'));
         }
-        else {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('failure', 'Le type de fichier n\'est pas supporté.');
-}
 
         return $this->render('GedBundle:Documents:new.html.twig', array(
             'doc' => $entity,
@@ -118,28 +102,6 @@ class DocumentsController extends Controller
         return $this->render('GedBundle:Documents:new.html.twig', array(
             'doc' => $entity,
             'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Documents entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('GedBundle:Documents')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Documents entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-
-        return $this->render('GedBundle:Documents:show.html.twig', array(
-            'doc'      => $entity,
-            'edit_form'   => $editForm->createView(),
         ));
     }
 
@@ -254,11 +216,6 @@ class DocumentsController extends Controller
      */
     public function DownloadAction($document)
     {
-        if (!$this->getUser())
-        {
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('GedBundle:Documents')->findOneBy(array('document'=> $document));
         $filename = $entity->getFileName();
@@ -289,11 +246,6 @@ class DocumentsController extends Controller
 
     public function VisualAction($document)
     {
-        if (!$this->getUser())
-        {
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-
         // Generate response
         $response = new Response();
 
