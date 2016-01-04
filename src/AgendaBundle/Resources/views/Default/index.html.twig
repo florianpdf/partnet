@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block body_class %}<body id="ged">{% endblock %}
+{% block body_class %}<body id="agenda">{% endblock %}
+
+{% block external_css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/agenda/css/fullcalendar.css') }}">
+{% endblock %}
 
 {% block main_content %}
     {{ include('includes/topbar.html.twig') }}
@@ -17,5 +22,8 @@
 {% block scripts %}
 
 {{ parent() }}
-
+    <script src="{{ asset('bundles/agenda/js/calendar/1moment.min.js') }}"></script>
+    <script src="{{ asset('bundles/agenda/js/calendar/2fullcalendar.js') }}"></script>
+    <script src="{{ asset('bundles/agenda/js/calendar/lang/fr.js') }}"></script>
+    <script src="{{ asset('bundles/agenda/js/calendar/3calendarconfig.js') }}"></script>
 {% endblock %}
