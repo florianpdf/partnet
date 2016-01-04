@@ -2,11 +2,6 @@
 
 {% block body_class %}<body id="agenda">{% endblock %}
 
-{% block external_css %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/agenda/css/fullcalendar.css') }}">
-{% endblock %}
-
 {% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
