@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         concat: {
             scripts: {
                 src: ['app/Resources/js/scripts/*.js', 'app/Resources/js/*.js',
-                    'src/**/Resources/public/js/*.js'],
+                    'src/**/Resources/public/js/*.js', 'src/**/Ressources/public/js/**/.*js'],
                 dest: 'web/js/dev/scripts.js',
             },
             polyfills: {
