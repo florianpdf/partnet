@@ -35,7 +35,7 @@ console.log(user);
         scrollTime: '09:00:00', // heure sur laquelle le calendar pointe par default
         slotEventOverlap: false, // Les évènements ne se chevauchent pas
         height: 'auto',
-        selectable: true,
+        forceEventDuration: true, // on oblige le user à mettre une heure de fin à l'evenement
 
 
         events: Routing.generate('events'),

@@ -131,15 +131,28 @@ class EventsController extends Controller
     {
         $entity = new Events();
 
-        $entity->setStart(new \DateTime($start));
-        $entity->setEnd(new \DateTime($start));
+        $entity->setStart(new \DateTime($start)); // On définie la date de début d'évènement
+        setlocale(LC_TIME, "fr_FR");
+
+        $startTime = new \DateTime($start);
+        $startTime = strftime("%A %e %B %Y à %k:%M", $startTime->getTimestamp());
+
+        // On définie une date de fin min avec un interval de 30 min
+        $startEvent = new \DateTime($start);
+        $interval = 1800;
+        $startEvent->add((new \DateInterval('PT' . $interval . 'S' )));
+        $endEvent = $startEvent->format('d-m-Y H:i:s');
+
+        $entity->setEnd(new \DateTime($endEvent));
 
         $form   = $this->createCreateForm($entity);
 
         return $this->render('AgendaBundle:Events:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'startTime' =>$startTime,
         ));
+
     }
 
     /**

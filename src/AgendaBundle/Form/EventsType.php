@@ -15,13 +15,12 @@ class EventsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('start')
             ->add('end')
             ->add('titre')
             ->add('contenu')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
