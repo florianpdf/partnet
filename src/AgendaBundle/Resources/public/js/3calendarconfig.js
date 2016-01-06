@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
-    // page is now ready, initialize the calendar...
+console.log(user);
+    console.log(admin);
 
     $('#calendar').fullCalendar({
         header: { // Contenu du header
@@ -33,7 +34,32 @@ $(document).ready(function() {
         maxTime: '20:00:00', // heure de fin du calendar
         scrollTime: '09:00:00', // heure sur laquelle le calendar pointe par default
         slotEventOverlap: false, // Les évènements ne se chevauchent pas
-        height: 'auto'
-    })
+        height: 'auto',
+        selectable: true,
 
+
+        events: Routing.generate('events'),
+
+        dayClick: function(date) {
+            if (admin != null){
+                window.location = Routing.generate('events') + date.format() + '/new';
+            }
+        },
+
+        eventRender: function(event, element) {
+            element.each(function() {
+             //   element.append('<h3>' + event.idUser['organisme'] + '</h3><br/>');
+                element.append('<strong>' + event.titre + '</strong><br/><br/>');
+             //   element.append(event.contenu + '<br/>');
+            })
+        },
+
+        eventClick: function(calEvent) {
+            console.log(calEvent.idUser.username);
+            if (user == calEvent.idUser.username) {
+                window.location = Routing.generate('events') + calEvent.id + '/edit';
+
+            }
+        }
+    });
 });

@@ -33,6 +33,8 @@ AgendaBundle\Entity\Events:
             length: null
             options:
                 fixed: false
+        backgroundColor:
+            type: string
     manyToOne:
         idUser:
             targetEntity: UserBundle\Entity\User
