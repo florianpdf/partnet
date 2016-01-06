@@ -4,10 +4,6 @@ events:
     options:
         expose: true
 
-events_show:
-    path:     /{id}/show
-    defaults: { _controller: "AgendaBundle:Events:show" }
-
 events_new:
     path:     /{start}/new
     defaults: { _controller: "AgendaBundle:Events:new" }
@@ -26,7 +22,13 @@ events_update:
     defaults: { _controller: "AgendaBundle:Events:update" }
     methods:  [POST, PUT]
 
+#events_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "AgendaBundle:Events:delete" }
+#    methods:  [POST, DELETE]
+
 events_delete:
     path:     /{id}/delete
     defaults: { _controller: "AgendaBundle:Events:delete" }
-    methods:  [POST, DELETE]
+    requirements:
+        id:  \d+

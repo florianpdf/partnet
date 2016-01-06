@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-console.log(user);
-    console.log(admin);
-
     $('#calendar').fullCalendar({
         header: { // Contenu du header
             left: 'month, agendaWeek',
@@ -52,10 +49,37 @@ console.log(user);
             })
         },
 
-        eventClick: function(calEvent) {
-            console.log(calEvent.idUser.username);
-            if (user == calEvent.idUser.username) {
-                window.location = Routing.generate('events') + calEvent.id + '/edit';
+        eventClick:  function(calEvent){
+
+            //console.log($(this));
+            //console.log(calEvent.idUser.username);
+
+            var day = moment(calEvent.start._d).format("dddd Do MMMM YYYY");
+            var ponctuation = ' de ';
+            var startTime = moment(calEvent.start._i).format('HH:mm à ');
+            var endTime = moment(calEvent.end._i).format("HH:mm");
+            var Time = day + ponctuation + startTime + endTime;
+            var editEvent = Routing.generate('events') + calEvent.id + '/edit';
+            var deleteEvent = Routing.generate('events') + calEvent.id + '/delete';
+
+            console.log(deleteEvent);
+            console.log(calEvent.id);
+            console.log(editEvent);
+
+            $('#modalTime').html(Time);
+            $('#modalTitle').html(calEvent.titre);
+            $('#modalBody').html(calEvent.contenu);
+            $('#fullCalModal').modal();
+
+            if (user == calEvent.idUser.username){
+                $('#delete_event').show();
+                $('#delete_event').attr('href', deleteEvent);
+                $('#edit_event').show();
+                $('#edit_event').attr('href', editEvent);
+            }
+            else {
+                $('#edit_event').hide();
+                $('#delete_event').hide();
             }
         }
     });
