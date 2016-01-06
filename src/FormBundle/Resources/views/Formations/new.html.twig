@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block main_content -%}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+    <main><h1>Formations creation</h1>
+
+        {{ form(form) }}
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('formations') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul></main>
+
+{% endblock %}

@@ -1,0 +1,7 @@
+form_formations:
+    resource: "@FormBundle/Resources/config/routing/formations.yml"
+    prefix:   /formations
+
+form_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: FormBundle:Default:index }

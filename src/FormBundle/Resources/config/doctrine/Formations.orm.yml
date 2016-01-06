@@ -1,0 +1,26 @@
+FormBundle\Entity\Formations:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        photoOrganisme:
+            type: string
+            length: 255
+            column: photo_organisme
+        titre:
+            type: string
+            length: 255
+        nbPlace:
+            type: integer
+            column: nb_place
+        lieu:
+            type: string
+            length: 255
+        resume:
+            type: text
+    lifecycleCallbacks: {  }

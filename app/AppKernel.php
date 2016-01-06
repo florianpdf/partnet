@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new AgendaBundle\AgendaBundle(),
             new AnnuaireBundle\AnnuaireBundle(),
             new MsgBundle\MsgBundle(),
-
+            new FormBundle\FormBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
