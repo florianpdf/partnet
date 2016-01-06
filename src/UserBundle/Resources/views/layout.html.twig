@@ -16,8 +16,8 @@
         {% endif %}
     </div>#}
 
-<div class="aligner">
-    <div>P@rtnet'emploi</div>
+<main id="login">
+    <h1>P@rtnet'emploi du Perche</h1>
     <div class="login-wrapper">
         {% if app.request.hasPreviousSession %}
             {% for type, messages in app.session.flashbag.all() %}
@@ -34,5 +34,5 @@
             {% endblock fos_user_content %}
         </div>
     </div>
-</div>
+</main>
 {% endblock %}
