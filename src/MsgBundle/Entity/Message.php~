@@ -23,14 +23,14 @@ class Message
     private $sender;
 
     /**
-     * @var integer
+     * @var string
      */
-    private $id_recipient;
+    private $sender_name;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $id_sender;
+    private $visible_in_box_receiver;
 
     /**
      * @var string
@@ -107,51 +107,51 @@ class Message
     }
 
     /**
-     * Set idRecipient
+     * Set senderName
      *
-     * @param integer $idRecipient
+     * @param string $senderName
      *
      * @return Message
      */
-    public function setIdRecipient($idRecipient)
+    public function setSenderName($senderName)
     {
-        $this->id_recipient = $idRecipient;
+        $this->sender_name = $senderName;
 
         return $this;
     }
 
     /**
-     * Get idRecipient
+     * Get senderName
      *
-     * @return integer
+     * @return string
      */
-    public function getIdRecipient()
+    public function getSenderName()
     {
-        return $this->id_recipient;
+        return $this->sender_name;
     }
 
     /**
-     * Set idSender
+     * Set visibleInBoxReceiver
      *
-     * @param integer $idSender
+     * @param boolean $visibleInBoxReceiver
      *
      * @return Message
      */
-    public function setIdSender($idSender)
+    public function setVisibleInBoxReceiver($visibleInBoxReceiver)
     {
-        $this->id_sender = $idSender;
+        $this->visible_in_box_receiver = $visibleInBoxReceiver;
 
         return $this;
     }
 
     /**
-     * Get idSender
+     * Get visibleInBoxReceiver
      *
-     * @return integer
+     * @return boolean
      */
-    public function getIdSender()
+    public function getVisibleInBoxReceiver()
     {
-        return $this->id_sender;
+        return $this->visible_in_box_receiver;
     }
 
     /**
@@ -226,4 +226,3 @@ class Message
         return $this->date;
     }
 }
-

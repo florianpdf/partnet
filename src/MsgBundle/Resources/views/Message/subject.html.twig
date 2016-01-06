@@ -21,12 +21,9 @@
 
     </div>
     <div class="col-md-9">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Mes fils de discussions</h3>
-            </div>
-            <div class="panel-body">
-                <table id="example" class="display"  width="100%">
+                <h2>Messages envoyés</h2>
+
+                <table id="donnees" class="display"  width="100%">
                     <thead>
                     <tr>
                         <th>Envoyé à</th>
@@ -48,22 +45,16 @@
                             </td>
                             <td>{{ entity.subject }}</td>
                             <td></td>
-                            <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('message_show', { 'id': entity.id }) }}">Voir</a>
-                                    </li>
+                            <td><a href="{{ path('message_show', { 'id': entity.id }) }}" title="Voir"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Voir" /></a>
 
-                                </ul>
+                            </td>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
 
-
-            </div>
-        </div></div>
+</div>
 
 </div>
 
@@ -76,7 +67,52 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
-        } );
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                    "zeroRecords": "Pas de messages",
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: '.target',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden && col.data != "" ?
+                                '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "40%" },
+                    { "width": "40%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                ],
+                "columnDefs": [],
+            });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+
+            // fadeout pour le flashbag
+            window.setTimeout(function() {
+                $( '.flashbag' ).fadeOut( 1750 );
+            }, 2250);
+        });
     </script>
 {% endblock %}

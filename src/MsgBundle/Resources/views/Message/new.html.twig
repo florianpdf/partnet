@@ -24,7 +24,8 @@
     <div class="col-md-9">
         {% if app.session.flashBag.has('failure') %}
             {% for msg in app.session.flashBag.get('failure') %}
-                <p class="flashbag">{{ msg }}</p>
+        <div class="alert alert-danger" role="alert">{{ msg }}</div>
+
             {% endfor %}
         {% endif %}
     <div class="panel panel-primary">
@@ -40,23 +41,44 @@
 
             <div>
                 {{ form_label(form.recipient) }}
-                {{ form_errors(form.recipient) }}
                 {% if selected_email is defined %}
-                    {{ form_widget(form.recipient, {'attr' : {'value' : selected_email} }) }} <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                <div class="input-group">
+                    {{ form_widget(form.recipient, {'attr' : {'class' : 'form-control', 'value' : selected_email} }) }}
+
+                    <span class="input-group-btn">
+                    <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                    </span>
+
+                </div>
+
                 {% else %}
-                    {{ form_widget(form.recipient) }} <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+
+                <div class="input-group">
+                    {{ form_widget(form.recipient, {'attr' : {'class' : 'form-control'}}) }}
+
+                    <span class="input-group-btn">
+                    <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                    </span>
+
+                </div>
+
+
                 {% endif %}
             </div>
             <div>
                 {{ form_label(form.subject) }}
+                {{ form_widget(form.subject, {'attr' : {'class' : 'form-control'}}) }}
                 {{ form_errors(form.subject) }}
-                {{ form_widget(form.subject) }}
             </div>
 
             <div>
                 {{ form_label(form.message) }}
                 {{ form_errors(form.message) }}
-                {{ form_widget(form.message) }}
+                {{ form_widget(form.message, {'attr' : {'class' : 'form-control', 'rows' : '10'}}) }}
+            </div>
+            <hr />
+            <div>
+                {{ form_widget(form.submit, {'attr' : {'class' : 'btn btn-primary'}}) }}
             </div>
 
 

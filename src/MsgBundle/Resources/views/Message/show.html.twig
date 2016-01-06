@@ -21,10 +21,9 @@
 
     </div>
     <div class="col-md-9">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Boite de réception > Fil de disscussion : {{ entity.subject }}</h3>
-            </div>
+        <h2>{{ entity.subject }}</h2>
+        <div class="panel panel-default">
+
             <div class="panel-body">
 
                 <table class="record_properties">
@@ -39,31 +38,60 @@
                             <td>{{ entity.subject }}</td>
                         </tr>
                         <tr>
-                            <th>Message</th>
-                            <td>{{ entity.message }}</td>
+                            <th>Date</th>
+                            <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <ul class="record_actions">
-                    <li>
-                        <a href="{{ path('message') }}">
-                            Retour
-                        </a>
-                    </li>
 
-                    <li>{{ form(delete_form) }}</li>
-                </ul>
+        <hr />
+                <tr>
+                    <th>Message</th>
+                    <td>{{ entity.message }}</td>
+                </tr>
             </div>
         </div>
+
+        <div class="container">
+
+                <table>
+                    <td><a class="btn btn-default" href="{{ path('message') }}">
+                            Retour
+                        </a></td>
+                    <td>{{ form_start(delete_form) }}
+                        {{ form_widget(delete_form.submit, {'attr' : {'class' : 'btn btn-danger'}}) }}
+                        {{ form_end(delete_form) }}</td>
+                </table>
+
+        </div>
+        <hr />
 
         {% for entity_comments in comments %}
             {% if entity_comments.idMessage == entity.id %}
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Réponse de {{ entity_comments.sender }} le {{ entity_comments.date|date('Y-m-d H:i:s') }}</h3>
-                    </div>
+
+
                     <div class="panel-body">
+                        <table class="record_properties">
+                            <tbody>
+                                <tr>
+                                    <th>Expéditeur</th>
+                                    <td>{{ entity_comments.senderName }} ({{ entity_comments.sender }})</td>
+                                </tr>
+                                <tr>
+                                    <th>Sujet</th>
+                                    <td>{{ entity_comments.subject }}{{ entity.subject }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ entity_comments.date|date('Y-m-d H:i:s') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <hr />
                         <p>{{ entity_comments.message }}</p>
                     </div>
                 </div>
@@ -71,6 +99,7 @@
             {% endif %}
         {% endfor %}
 
+        <hr />
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Répondre</h3>
@@ -81,11 +110,10 @@
                 {{ form_errors(form) }}
 
 
-                <div>
                     {{ form_label(form.message) }}
                     {{ form_errors(form.message) }}
-                    {{ form_widget(form.message) }}
-                </div>
+                    {{ form_widget(form.message, {'attr' : {'class' : 'form-control'}}) }}
+                    {{ form_widget(form.repondre, {'attr' : {'class' : 'btn btn-default'}}) }}
 
 
                 {{ form_end(form) }}
