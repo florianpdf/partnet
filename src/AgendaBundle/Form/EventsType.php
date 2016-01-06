@@ -15,9 +15,10 @@ class EventsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('end')
-            ->add('titre')
-            ->add('contenu')
+            ->add('start', 'datetime', array('label' => 'Début de l\'évènement', 'attr'=>array('style'=>'display:none;')))
+            ->add('end', 'datetime', array('label' => 'Fin de l\'évènement', 'required' => true))
+            ->add('titre', 'text', array('label' => 'Titre de l\'évènement: ', 'required'=>true))
+            ->add('contenu', 'textarea', array('label' => 'Résume de l\'évènement: ', 'required'=>false))
         ;
     }
 

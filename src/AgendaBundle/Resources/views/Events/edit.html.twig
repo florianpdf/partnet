@@ -6,17 +6,20 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
+    <main>
         <h1>Events edit</h1>
 
         {{ form(edit_form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('events') }}">
-                Back to the list
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('agenda_homepage') }}">
+                    Retourner à l'agenda
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </main>
+
 
 {% endblock %}

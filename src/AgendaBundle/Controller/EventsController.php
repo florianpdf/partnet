@@ -130,16 +130,17 @@ class EventsController extends Controller
     public function newAction($start)
     {
         $entity = new Events();
+        // On définie la date de début d'évènement
+        $entity->setStart(new \DateTime($start));
 
-        $entity->setStart(new \DateTime($start)); // On définie la date de début d'évènement
+        // Permet l'affichage de la date et l'heure en format fr
         setlocale(LC_TIME, "fr_FR");
-
         $startTime = new \DateTime($start);
         $startTime = strftime("%A %e %B %Y à %k:%M", $startTime->getTimestamp());
 
         // On définie une date de fin min avec un interval de 30 min
         $startEvent = new \DateTime($start);
-        $interval = 1800;
+        $interval = 3600;
         $startEvent->add((new \DateInterval('PT' . $interval . 'S' )));
         $endEvent = $startEvent->format('d-m-Y H:i:s');
 
@@ -216,6 +217,7 @@ class EventsController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('start', 'datetime', array('label' => 'Début de l\'évènement'));
 
         return $form;
     }
@@ -240,7 +242,7 @@ class EventsController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('events_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('agenda_homepage'));
         }
 
         return $this->render('AgendaBundle:Events:edit.html.twig', array(

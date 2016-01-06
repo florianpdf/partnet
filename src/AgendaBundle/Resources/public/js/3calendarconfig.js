@@ -30,13 +30,13 @@ console.log(user);
         weekends: false, // affichage des weekends
         allDaySlot: false, // recapitulatif de la journée en haut du calendar
         slotLabelFormat: 'HH:mm', // format de l'heure sur les slots
+        timeFormat: 'HH:mm',
         minTime: "08:00:00", // heure de début du calendar
         maxTime: '20:00:00', // heure de fin du calendar
         scrollTime: '09:00:00', // heure sur laquelle le calendar pointe par default
         slotEventOverlap: false, // Les évènements ne se chevauchent pas
         height: 'auto',
         forceEventDuration: true, // on oblige le user à mettre une heure de fin à l'evenement
-
 
         events: Routing.generate('events'),
 
@@ -48,9 +48,7 @@ console.log(user);
 
         eventRender: function(event, element) {
             element.each(function() {
-             //   element.append('<h3>' + event.idUser['organisme'] + '</h3><br/>');
-                element.append('<strong>' + event.titre + '</strong><br/><br/>');
-             //   element.append(event.contenu + '<br/>');
+                element.append('<strong>' + event.titre + '</strong>');
             })
         },
 
@@ -58,7 +56,6 @@ console.log(user);
             console.log(calEvent.idUser.username);
             if (user == calEvent.idUser.username) {
                 window.location = Routing.generate('events') + calEvent.id + '/edit';
-
             }
         }
     });
