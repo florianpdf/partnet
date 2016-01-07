@@ -282,7 +282,7 @@ class User extends BaseUser
      */
     public function getTelephone()
     {
-        return $this->telephone;
+        return chunk_split($this->telephone, 2, " ");
     }
 
     /**

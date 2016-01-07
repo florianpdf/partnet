@@ -1,8 +1,52 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-    {{ form_widget(form) }}
+    <ul class="profile-data">
+        <li>
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+        </li>
+        <li>
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+        </li>
+        <li>
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        </li>
+        <li>
+            {{ form_label(form.organisme) }}
+            {{ form_widget(form.organisme) }}
+        </li>
+        <li>
+            {{ form_label(form.poste) }}
+            {{ form_widget(form.poste) }}
+        </li>
+        <li>
+            {{ form_label(form.telephone) }}
+            {{ form_widget(form.telephone) }}
+        </li>
+        <li class="upload-field">
+            {{ form_label(form.file) }}
+            {{ form_widget(form.file) }}
+        </li>
+        <li>
+            {{ form_label(form.current_password) }}
+            {{ form_widget(form.current_password) }}
+        </li>
+    </ul>
+
+    {{ form_errors(form.prenom) }}
+    {{ form_errors(form.nom) }}
+    {{ form_errors(form.email) }}
+    {{ form_errors(form.organisme) }}
+    {{ form_errors(form.poste) }}
+    {{ form_errors(form.telephone) }}
+    {{ form_errors(form.file) }}
+    {{ form_errors(form.current_password) }}
+
     <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+        <input class="main-submit" type="submit" value="Mettre à jour" />
     </div>
+    {{ form_end(form) }}
 </form>
