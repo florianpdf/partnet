@@ -17,6 +17,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session;
+
 
 /**
  * Events controller.
@@ -86,13 +88,20 @@ class EventsController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $startEvent = $form->getViewData()->getStart();
-            $endEvent = $entity->getEnd();
-            $diffTime = date_diff($startEvent, $endEvent)->i;
+        // On récupère la date de début et de fin d'évènement afin de les comparer
+        $startEvent = $form->getViewData()->getStart();
+        $startEvent_string = strftime("%A %e %B %Y à %k:%M", $startEvent->getTimestamp());
+        $endEvent = $form->getViewData()->getEnd();
 
-            if ($diffTime <= 59) {
-                date_sub($endEvent, date_interval_create_from_date_string($diffTime . 'min'));
+        if ($form->isValid()) {
+
+            // On détermine la différence entre les heures et les minutes
+            $diffTime_min = date_diff($startEvent, $endEvent)->i;
+            $diffTime_hour = date_diff($startEvent, $endEvent)->h;
+
+            // Si la durée de l'event est inferieur à une heure, alors, on le met à une heure automatiquement
+            if ($diffTime_min <= 59 && $diffTime_hour == 0) {
+                date_sub($endEvent, date_interval_create_from_date_string($diffTime_min . 'min'));
                 $entity->setEnd($endEvent->modify('+1 hours'));
             }
 
@@ -109,9 +118,14 @@ class EventsController extends Controller
             return $this->redirect($this->generateUrl('agenda_homepage'));
         }
 
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Vous ne pouvez créer un évènement avec une date de fin inférieur à la date de début');
+
         return $this->render('AgendaBundle:Events:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'startEvent' => $startEvent_string,
         ));
     }
 

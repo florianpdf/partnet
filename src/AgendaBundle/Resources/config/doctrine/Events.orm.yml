@@ -29,7 +29,7 @@ AgendaBundle\Entity\Events:
                 fixed: false
         contenu:
             type: text
-            nullable: false
+            nullable: true
             length: null
             options:
                 fixed: false

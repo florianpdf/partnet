@@ -10,14 +10,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Events
 {
 
-//    public function isDateValid(ExecutionContextInterface $context)
-//    {
-//        if ($this->end->getTimestamp() == $this->start->getTimestamp()) {
-//            $context->buildViolation('La durée minimum d\'un évènement est d\'une heures')
-//                ->atPath('end')
-//                ->addViolation();
-//        }
-//    }
+    public function isDateValid(ExecutionContextInterface $context)
+    {
+        if ($this->end->getTimestamp() <= $this->start->getTimestamp()) {
+            $context->buildViolation('Le date de fin ne peut être avant la date de début d\'évènement')
+                ->atPath('end')
+                ->addViolation();
+        }
+    }
 
     // GENERATED CODE //
 
