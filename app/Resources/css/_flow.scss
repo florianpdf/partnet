@@ -33,6 +33,7 @@ body {
 \* /////////////////////////////////////// */
 
 a { text-decoration: none !important; }
+a:hover, a:active, a:focus { color: inherit; }
 
 
 /* //////////////// login //////////////// *\
@@ -95,7 +96,7 @@ a { text-decoration: none !important; }
 // invalid login data
 
 .invalid {
-  background: #B88E8D;
+  background: $field-error;
   font-style: italic;
   color: #fff;
   padding: 5px 40px;
@@ -322,9 +323,63 @@ main {
 }
 .deep-main {
   max-width: 1000px;
-  padding: $h1-height + 30px 50px 30px;
+  padding: $h1-height + 40px 50px 40px;
   background: $login-wrapper-bg;
 }
+.profile-data li {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  height: 40px;
+  background: none;
+  transition: background .5s;
+}
+.profile-data li:hover { background: $login-bg; }
+.profile-data li + li { border-top: 1px solid $login-bg; }
+.profile-data li span + span { font-weight: bold; }
+.avatar { text-align: center; margin-bottom: 10px; }
+
+.main-submit {
+  display: block; text-align: center;
+  width: 70%; height: $main-submit; line-height: $main-submit;
+  margin: 20px auto 0;
+  border: 0;
+  background: $login-submit-bg; color: #fff; border-radius: 5px;
+  transition: background 0.5s;
+}
+.main-submit-double { text-align: center; }
+.main-submit-double a {
+  display: inline-block; width: auto;
+  padding: 0 50px;
+  margin-left: 3px; margin-right: 3px;
+}
+.main-submit:hover, .main-submit:active, .main-submit:focus {
+  background: $login-submit-hover-bg;
+  color: #fff;
+}
+
+// fields
+
+.profile-data label {
+  font-weight: normal;
+}
+.profile-data input, .profile-data select {
+  border: none;
+  width: 40%; min-width: 200px; height: 27px;
+  padding: 0 30px;
+}
+.profile-data input:focus { outline: 1px solid $login-submit-bg; }
+.upload-field input {
+  width: auto; padding: 0;
+}
+.deep-main form ul + ul {
+  background: $field-error; color: #fff;
+  font-size: 0.9em; font-style: italic;
+  list-style: none;
+  text-align: center;
+}
+.deep-main form ul:nth-child(2) { margin-top: 30px; }
+.deep-main form ul:last-of-type { margin-bottom: 30px; }
 
 
 /* //////////////// back office //////////////// *\
@@ -384,10 +439,18 @@ h1 {
 .flashbag {
   position: absolute;
   text-align: center;
-  top: $top-bar-height; //left: 50%; transform: translateX(-50%);
+  top: $top-bar-height;
   padding: 5px 15%;
   border-radius: 0 0 5px 5px;
   background: #2BB58E; color: #fff;
+}
+.flash-success {
+  position: absolute; top: $h1-height; left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 2px 0;
+  background: #2BB58E; color: #fff;
+  font-size: 0.9em;
 }
 
 
@@ -428,7 +491,7 @@ h1 {
   font-style: italic;
 }
 .admin-form > form button[type="submit"] {
-  display: block;
+display: block;
   width: 70%;
   margin: 70px auto 0;
   background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;

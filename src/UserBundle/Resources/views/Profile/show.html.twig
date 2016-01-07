@@ -23,3 +23,13 @@
         {% endblock fos_user_content %}
     </main>
 {% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        // fadeout pour le flashbag
+        window.setTimeout(function() {
+            $( '.flash-success' ).fadeOut( 1250 );
+        }, 1750);
+    </script>
+{% endblock %}
