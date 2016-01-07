@@ -1,0 +1,4 @@
+## src/AgendaBundle/Resources/config/validation.yml
+#AgendaBundle\Entity\Events:
+#    constraints:
+#        - Callback: [validate]
