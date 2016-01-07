@@ -326,7 +326,7 @@ main {
   padding: $h1-height + 40px 50px 40px;
   background: $login-wrapper-bg;
 }
-.profile-data li, #fos_user_change_password_form div {
+.profile-data li {
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 0 30px;
@@ -334,8 +334,8 @@ main {
   background: none;
   transition: background .5s;
 }
-.profile-data li:hover, #fos_user_change_password_form div:hover { background: $login-bg; }
-.profile-data li + li, #fos_user_change_password_form div + div { border-top: 1px solid $login-bg; }
+.profile-data li:hover { background: $login-bg; }
+.profile-data li + li { border-top: 1px solid $login-bg; }
 .profile-data li span + span { font-weight: bold; }
 .avatar { text-align: center; margin-bottom: 10px; }
 
@@ -360,15 +360,15 @@ main {
 
 // fields
 
-.profile-data label, #fos_user_change_password_form label {
+.profile-data label {
   font-weight: normal;
 }
-.profile-data input, .profile-data select,
-#fos_user_change_password_form input {
+.profile-data input, .profile-data select {
   border: none;
   width: 40%; min-width: 200px; height: 27px;
   padding: 0 30px;
 }
+.profile-data input:focus { outline: 1px solid $login-submit-bg; }
 .upload-field input {
   width: auto; padding: 0;
 }
