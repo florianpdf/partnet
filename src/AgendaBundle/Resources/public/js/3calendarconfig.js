@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    var current_date_time = new Date();
+
     $('#calendar').fullCalendar({
         header: { // Contenu du header
             left: 'month, agendaWeek',
@@ -38,8 +40,14 @@ $(document).ready(function() {
         events: Routing.generate('events'),
 
         dayClick: function(date) {
-            if (admin != null){
+            console.log(date._d);
+            console.log(Date);
+            console.log(current_date_time);
+            if (admin != null && date._d > current_date_time){
                 window.location = Routing.generate('events') + date.format() + '/new';
+            }
+            else{
+                alert('Date invalide');
             }
         },
 
@@ -51,9 +59,6 @@ $(document).ready(function() {
 
         eventClick:  function(calEvent){
 
-            //console.log($(this));
-            //console.log(calEvent.idUser.username);
-
             var day = moment(calEvent.start._d).format("dddd Do MMMM YYYY");
             var ponctuation = ' de ';
             var startTime = moment(calEvent.start._i).format('HH:mm à ');
@@ -61,10 +66,6 @@ $(document).ready(function() {
             var Time = day + ponctuation + startTime + endTime;
             var editEvent = Routing.generate('events') + calEvent.id + '/edit';
             var deleteEvent = Routing.generate('events') + calEvent.id + '/delete';
-
-            console.log(deleteEvent);
-            console.log(calEvent.id);
-            console.log(editEvent);
 
             $('#modalTime').html(Time);
             $('#modalTitle').html(calEvent.titre);

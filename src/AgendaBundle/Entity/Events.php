@@ -2,11 +2,25 @@
 
 namespace AgendaBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * Events
  */
 class Events
 {
+
+//    public function isDateValid(ExecutionContextInterface $context)
+//    {
+//        if ($this->end->getTimestamp() == $this->start->getTimestamp()) {
+//            $context->buildViolation('La durée minimum d\'un évènement est d\'une heures')
+//                ->atPath('end')
+//                ->addViolation();
+//        }
+//    }
+
+    // GENERATED CODE //
+
     /**
      * @var integer
      */

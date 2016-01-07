@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AgendaBundle\Entity\Events;
+use Symfony\Component\Translation\Interval;
+use Symfony\Component\Validator\Constraints\DateTime;
 use UserBundle\Entity\User;
 
 use AgendaBundle\Form\EventsType;
@@ -85,6 +87,15 @@ class EventsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $startEvent = $form->getViewData()->getStart();
+            $endEvent = $entity->getEnd();
+            $diffTime = date_diff($startEvent, $endEvent)->i;
+
+            if ($diffTime <= 59) {
+                date_sub($endEvent, date_interval_create_from_date_string($diffTime . 'min'));
+                $entity->setEnd($endEvent->modify('+1 hours'));
+            }
+
             $em = $this->getDoctrine()->getManager();
 
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -135,14 +146,14 @@ class EventsController extends Controller
 
         // Permet l'affichage de la date et l'heure en format fr
         setlocale(LC_TIME, "fr_FR");
-        $startTime = new \DateTime($start);
-        $startTime = strftime("%A %e %B %Y à %k:%M", $startTime->getTimestamp());
+        $startEvent = new \DateTime($start);
+        $startEvent = strftime("%A %e %B %Y à %k:%M", $startEvent->getTimestamp());
 
         // On définie une date de fin min avec un interval de 30 min
-        $startEvent = new \DateTime($start);
+        $newTime = new \DateTime($start);
         $interval = 3600;
-        $startEvent->add((new \DateInterval('PT' . $interval . 'S' )));
-        $endEvent = $startEvent->format('d-m-Y H:i:s');
+        $newTime->add(new \DateInterval('PT' . $interval . 'S' ));
+        $endEvent = $newTime->format('d-m-Y H:i:s');
 
         $entity->setEnd(new \DateTime($endEvent));
 
@@ -151,7 +162,7 @@ class EventsController extends Controller
         return $this->render('AgendaBundle:Events:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'startTime' =>$startTime,
+            'startEvent' => $startEvent,
         ));
 
     }
