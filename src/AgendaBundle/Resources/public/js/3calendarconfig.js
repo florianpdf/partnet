@@ -40,12 +40,8 @@ $(document).ready(function() {
         events: Routing.generate('events'),
 
         dayClick: function(date) {
-
             if (admin != null && date._d >= current_date_time){
-                window.location = Routing.generate('events') + date.format() + '/new';
-            }
-            else{
-                alert('Date invalide');
+                window.location = Routing.generate('dashboard') + 'event/ ' + date.format() + '/new';
             }
         },
 
@@ -62,8 +58,8 @@ $(document).ready(function() {
             var startTime = moment(calEvent.start._i).format('HH:mm à ');
             var endTime = moment(calEvent.end._i).format("HH:mm");
             var Time = day + ponctuation + startTime + endTime;
-            var editEvent = Routing.generate('events') + calEvent.id + '/edit';
-            var deleteEvent = Routing.generate('events') + calEvent.id + '/delete';
+            var editEvent = Routing.generate('dashboard') + 'event/' + calEvent.id + '/edit';
+            var deleteEvent = Routing.generate('dashboard') + 'event/' + calEvent.id + '/delete';
 
             $('#modalTime').html(Time);
             $('#modalTitle').html(calEvent.titre);
