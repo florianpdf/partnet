@@ -1,0 +1,5 @@
+events:
+    path:     /
+    defaults: { _controller: "AgendaBundle:Events:index" }
+    options:
+        expose: true

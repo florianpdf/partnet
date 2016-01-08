@@ -54,3 +54,7 @@ admin:
 user_validation:
     resource: "@AppBundle/Resources/config/routing/user.yml"
     prefix:   /user
+
+# Permet de renvoyer un click sur js vers une route
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
