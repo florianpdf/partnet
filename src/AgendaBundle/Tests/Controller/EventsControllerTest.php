@@ -164,11 +164,6 @@ class EventsControllerTest extends WebTestCase
         $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
-        // A approfondir, test sur contenu generer par du js
-        // Vérification que l'evenemtn est bien dans le calendrier
-        //$crawler = $client->request('GET', '/agenda/');
-        //$this->assertGreaterThan(0, $crawler->filter('html:contains("Test evenement valide + de 1H")')->count());
-
         // Test de l'enregistrement dans la BDD
         $kernel = static::createKernel();
         $kernel->boot();
@@ -199,10 +194,42 @@ class EventsControllerTest extends WebTestCase
         $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
-        // A approfondir, test sur contenu generer par du js
-        // Vérification que l'evenemtn est bien dans le calendrier
-        //$crawler = $client->request('GET', '/agenda/');
-        //$this->assertGreaterThan(0, $crawler->filter('html:contains("Test evenement valide + de 1H")')->count());
+        // Test de l'enregistrement dans la BDD que l'évènement enregistré dure une heure
+        // Ici la date de début d'event est à 9h, donc date de fin == 10h
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        $query = $em->createQuery('SELECT count(e.id) FROM AgendaBundle:Events e WHERE e.titre = :titre AND e.contenu = :contenu AND e.end = :dateEnd');
+        $query->setParameter('titre', 'Test evenement invalide - de 1H');
+        $query->setParameter('contenu', 'Test evenement de 30min');
+        $query->setParameter('dateEnd', '2016-01-01 10:00:00');
+        $this->assertTrue(1 == $query->getSingleScalarResult());
+    }
+
+    public function testFormEdit()
+    {
+        $client = $this->AdminConnection();
+
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $id = $em->getRepository('AgendaBundle:Events')->findOneByTitre('Test evenement invalide - de 1H')->getId();
+
+        $crawler = $client->request('GET', 'admin/event/' . $id . '/edit');
+
+        // Création du document
+        $client = $this->createEvent(array(
+            'agendabundle_events[end][time][hour]' => 11,
+            'agendabundle_events[end][time][minute]' => 30,
+            'agendabundle_events[titre]' => 'Test edit evenement',
+            'agendabundle_events[contenu]' => 'Test edit evenement'));
+
+        $client->followRedirect();
+
+        // Vérification de la redirection suite à la soumission du formulaire
+        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
 
         // Test de l'enregistrement dans la BDD que l'évènement enregistré dure une heure
         // Ici la date de début d'event est à 9h, donc date de fin == 10h
@@ -211,10 +238,44 @@ class EventsControllerTest extends WebTestCase
         $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
 
         $query = $em->createQuery('SELECT count(e.id) from AgendaBundle:Events e WHERE e.titre = :titre AND e.contenu = :contenu AND e.end = :dateEnd');
-        $query->setParameter('titre', 'Test evenement invalide - de 1H');
-        $query->setParameter('contenu', 'Test evenement de 30min');
-        $query->setParameter('dateEnd', '2016-01-01 10:00:00');
+        $query->setParameter('titre', 'Test edit evenement');
+        $query->setParameter('contenu', 'Test edit evenement');
+        $query->setParameter('dateEnd', '2016-01-01 11:30:00');
         $this->assertTrue(1 == $query->getSingleScalarResult());
+    }
+
+    public function DeleteEvent()
+    {
+        $client = $this->AdminConnection();
+
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $id = $em->getRepository('AgendaBundle:Events')->findBy(array('Titre' => array('Test edit evenement', 'Test evenement valide + de 1H')))->getId();
+
+        // Suppression du 1er event
+        $client->request('GET', 'admin/event/' . $id[0] . '/delete');
+        $client->followRedirect();
+        // Vérification de la redirection suite à la soumission du formulaire
+        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Suppression du 2ème event
+        $client->request('GET', 'admin/event/' . $id[1] . '/delete');
+        $client->followRedirect();
+        // Vérification de la redirection suite à la soumission du formulaire
+        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // On vérifie que les deux event ont été supprimé
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        $query = $em->createQuery('SELECT count(e.id) from AgendaBundle:Events e WHERE e.titre = :titre AND e.titre = :titre2');
+        $query->setParameter('titre', 'Test edit evenement');
+        $query->setParameter('titre2', 'Test evenement valide + de 1H');
+        $this->assertTrue(0 == $query->getSingleScalarResult());
     }
     /*
     public function testCompleteScenario()
