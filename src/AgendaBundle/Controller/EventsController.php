@@ -62,19 +62,25 @@ class EventsController extends Controller
     {
         $organisme = $this->container->get('security.token_storage')->getToken()->getUser()->getOrganisme();
 
-        if ( $organisme == "Pole emploi" ) {
+        if ( $organisme == "Pôle emploi" ) {
             $entity->setBackgroundColor("red");
         }
 
-        else if ( $organisme == "CAP Emploi" ) {
+        else if ( $organisme == "Cap emploi" ) {
             $entity->setBackgroundColor("orange");
         }
 
+        else if ( $organisme == "Mission locale" ) {
+            $entity->setBackgroundColor("blue");
+        }
         else if ( $organisme == "Sous-préfecture" ) {
-            $entity->setBackgroundColor("yellow");
+            $entity->setBackgroundColor("green");
+        }
+        else if ( $organisme == "DIRECCTE" ) {
+            $entity->setBackgroundColor("purple");
         }
     }
-
+    
     /**
      * Creates a new Events entity.
      *
