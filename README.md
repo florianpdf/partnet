@@ -33,6 +33,8 @@ PHP Composer :
 Node JS : (pour le fonctionnement de Grunt)
 [- Installation sous Ubuntu ](http://doc.ubuntu-fr.org/nodejs)
 
-
-
+----------
+Cron Task :
+----------------------
+[ php app/console partnet:cleanup ] ==> Permet la suppression de tous les docs arrivant en fin de vie et de tous les events de plus de 5 mois
 
