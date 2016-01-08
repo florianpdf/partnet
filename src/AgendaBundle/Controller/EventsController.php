@@ -70,7 +70,7 @@ class EventsController extends Controller
             $entity->setBackgroundColor("orange");
         }
 
-        else if ( $organisme == "Mission Local" ) {
+        else if ( $organisme == "Sous-préfecture" ) {
             $entity->setBackgroundColor("yellow");
         }
     }

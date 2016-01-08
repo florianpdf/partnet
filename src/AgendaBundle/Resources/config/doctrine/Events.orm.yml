@@ -1,6 +1,7 @@
 AgendaBundle\Entity\Events:
     type: entity
     table: events
+    repositoryClass: AgendaBundle\Entity\EventsRepository
     indexes:
         event_user:
             columns:
