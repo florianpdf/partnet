@@ -6,9 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AgendaBundle\Entity\Events;
-use Symfony\Component\Translation\Interval;
-use Symfony\Component\Validator\Constraints\DateTime;
-use UserBundle\Entity\User;
 
 use AgendaBundle\Form\EventsType;
 
@@ -117,10 +114,6 @@ class EventsController extends Controller
 
             return $this->redirect($this->generateUrl('agenda_homepage'));
         }
-
-        $request->getSession()
-            ->getFlashBag()
-            ->add('success', 'Vous ne pouvez créer un évènement avec une date de fin inférieur à la date de début');
 
         return $this->render('AgendaBundle:Events:new.html.twig', array(
             'entity' => $entity,

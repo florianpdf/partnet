@@ -13,7 +13,7 @@ class Events
     public function isDateValid(ExecutionContextInterface $context)
     {
         if ($this->end->getTimestamp() <= $this->start->getTimestamp()) {
-            $context->buildViolation('Le date de fin ne peut être avant la date de début d\'évènement')
+            $context->buildViolation('La date de fin ne peut être avant la date de début d\'évènement')
                 ->atPath('end')
                 ->addViolation();
         }

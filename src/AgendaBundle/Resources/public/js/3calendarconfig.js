@@ -40,9 +40,7 @@ $(document).ready(function() {
         events: Routing.generate('events'),
 
         dayClick: function(date) {
-            console.log(date._d);
-            console.log(Date);
-            console.log(current_date_time);
+
             if (admin != null && date._d >= current_date_time){
                 window.location = Routing.generate('events') + date.format() + '/new';
             }
