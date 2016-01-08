@@ -3,6 +3,7 @@
 namespace AgendaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AgendaBundle\Entity\events;
 
 class DefaultController extends Controller
 {

@@ -19,7 +19,7 @@ class EventsType extends AbstractType
             ->add('end', 'datetime', array(
                 'label' => 'Fin de l\'évènement',
                 'required' => true,
-                'hours' => range(9, 18),
+                'hours' => range(8, 20),
                 'minutes' => range(0, 30, 30)
             ))
             ->add('titre', 'text', array('label' => 'Titre de l\'évènement: ', 'required'=>true))

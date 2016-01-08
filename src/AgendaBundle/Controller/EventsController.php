@@ -65,7 +65,6 @@ class EventsController extends Controller
         if ( $organisme == "Pôle emploi" ) {
             $entity->setBackgroundColor("red");
         }
-
         else if ( $organisme == "Cap emploi" ) {
             $entity->setBackgroundColor("orange");
         }
@@ -80,7 +79,7 @@ class EventsController extends Controller
             $entity->setBackgroundColor("purple");
         }
     }
-    
+
     /**
      * Creates a new Events entity.
      *
@@ -111,6 +110,9 @@ class EventsController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+            $entity->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
+            $entity->setContenu(htmlspecialchars($form->getViewData()->getContenu()));
             $entity->setIdUser($user);
 
             $this->colorEvent($entity);
@@ -142,7 +144,7 @@ class EventsController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer l\'évènement'));
 
         return $form;
     }
@@ -264,6 +266,10 @@ class EventsController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $entity->setTitre(htmlspecialchars($entity->getTitre()));
+            $entity->setContenu(htmlspecialchars($entity->getContenu()));
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('agenda_homepage'));

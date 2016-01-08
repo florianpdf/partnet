@@ -5,6 +5,9 @@ AgendaBundle\Entity\Events:
     properties:
         titre:
             - NotBlank: ~
-        contenu:
             - Length:
-                max: 200
+                max: 50
+        contenu:
+            - NotBlank: ~
+            - Length:
+                max: 400
