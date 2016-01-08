@@ -1,15 +1,4 @@
-admin_create_user:
-    path:     /user/create
-    defaults: { _controller: "UserBundle:Registration:register" }
-    requirements:
-        id:  \d+
-
-user_delete:
-    path:     /user/{id}/delete
-    defaults: { _controller: "UserBundle:User:delete" }
-    requirements:
-        id:  \d+
-
+# Route admin pour la GED
 documents_new:
     path:     /documents/nouveau
     defaults: { _controller: "GedBundle:Documents:new" }
@@ -31,5 +20,44 @@ documents_update:
 documents_delete:
     path:     /documents/{id}/delete
     defaults: { _controller: "GedBundle:Documents:delete" }
+    requirements:
+        id:  \d+
+
+# Route admin pour la gestion utilisateur
+fos_user_registration_register:
+    path:     /register
+    defaults: { _controller: "UserBundle:Registration:register" }
+    requirements:
+        id:  \d+
+
+user_delete:
+    path:     /user/{id}/delete
+    defaults: { _controller: "UserBundle:User:delete" }
+    requirements:
+        id:  \d+
+
+# Route admin pour la gestion des évènements AgendaBundle
+
+events_new:
+    path:     event/{start}/new
+    defaults: { _controller: "AgendaBundle:Events:new" }
+
+events_create:
+    path:     event/create
+    defaults: { _controller: "AgendaBundle:Events:create" }
+    methods:  POST
+
+events_edit:
+    path:     event/{id}/edit
+    defaults: { _controller: "AgendaBundle:Events:edit" }
+
+events_update:
+    path:     event/{id}/update
+    defaults: { _controller: "AgendaBundle:Events:update" }
+    methods:  [POST, PUT]
+
+events_delete:
+    path:     event/{id}/delete
+    defaults: { _controller: "AgendaBundle:Events:delete" }
     requirements:
         id:  \d+

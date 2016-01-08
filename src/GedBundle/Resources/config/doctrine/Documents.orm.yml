@@ -3,7 +3,7 @@ GedBundle\Entity\Documents:
     table: documents
     repositoryClass: GedBundle\Entity\DocumentsRepository
     indexes:
-        id_user:
+        document_user:
             columns:
                 - id_user
         id_user_2:

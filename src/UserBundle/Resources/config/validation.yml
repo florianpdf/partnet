@@ -10,10 +10,10 @@ UserBundle\Entity\User:
 #            - NotBlank: ~
             - Length:
                 max: 50
-                maxMessage: "Le prenom ne peut contenir plus de 50 caractères"
+                maxMessage: "Le prénom ne peut contenir plus de 50 caractères"
             - Type:
                 type: string
-                message: "Ce champ ne peut contenir que des caractères alphabétique"
+                message: "Ce champ ne peut contenir que des caractères alphabétiques"
         nom:
 #            - NotBlank: ~
             - Length:
@@ -21,12 +21,12 @@ UserBundle\Entity\User:
                 maxMessage: "Le nom ne peut contenir plus de 50 caractères"
             - Type:
                 type: string
-                message: "Ce champ ne peut contenir que des caractères alphabétique"
+                message: "Ce champ ne peut contenir que des caractères alphabétiques"
         file:
             - File:
-                maxSize: 20M
+                maxSize: 5M
                 mimeTypes: [image/*]
-                mimeTypesMessage: "Merci d'uploader un document pdf valid"
+                mimeTypesMessage: "Merci d'uploader une image de moins de 5 Mo"
 
         telephone:
             - Regex:

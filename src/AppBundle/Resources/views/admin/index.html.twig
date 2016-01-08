@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block body_class %}<body id="accueil">{% endblock %}
+{% block body_class %}<body>{% endblock %}
 
 {% block main_content %}
 {{ include('includes/topbar.html.twig') }}
+{{ include('includes/sidebar.html.twig') }}
 
-<main>
-    <div class="aligner">
-        <div>Interface Administrateur</div>
-        <div class="login-wrapper">
-            <ul>
-                <li><a href="{{ path('annuaire_homepage') }}">Gérer les utilisateurs</a></li>
-                <li><a href="{{ path('documents') }}">Gérer les documents</a> </li>
-            </ul>
-        </div>
-
+<main class="deep-main">
+    <h1>Interface administrateur</h1>
+    <ul class="fil">
+        <li><a href="{{ path('documents') }}">Documents</a> > <a href="{{ path('documents_new') }}">Ajouter un document</a></li>
+        <li><a href="{{ path('annuaire_homepage') }}">Utilisateurs</a> > <a href="{{ path('fos_user_registration_register') }}">Enregistrer un utilisateur</a></li>
+    </ul>
 </main>
 {% endblock %}

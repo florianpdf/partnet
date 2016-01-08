@@ -1,12 +1,15 @@
 // background colors
+////////////////////
 
-$login-bg          : #EEEDEB; // used by the top bar too
-$login-wrapper-bg  : #dbd7ce;
-$login-title-bg    : #86817A;
-$login-submit-bg   : #ADA597;
+$login-bg              : #EEEDEB; // used by the top bar too
+$login-wrapper-bg      : #dbd7ce;
+$login-title-bg        : #86817A;
+$login-submit-bg       : #ADA597;
 $login-submit-hover-bg : #8A7F6D;
-$tiles-bg          : #e4e3e1;
+$tiles-bg              : #e4e3e1;
+$top-bar-bg            : #87827B;
 
+// tiles colors
 $tile1 : #9bcedc;
 $tile2 : #e1d85d;
 $tile3 : #a1d68a;
@@ -14,6 +17,7 @@ $tile4 : #e0a494;
 $tile5 : #abb7d2;
 $tile6 : #e8ac79;
 
+// body backgrounds
 $tile1-bg : #D7EBF1;
 $tile2-bg : #F1ECB1;
 $tile3-bg : #D1EBC5;
@@ -21,16 +25,56 @@ $tile4-bg : #F2D9D2;
 $tile5-bg : #D3D9E7;
 $tile6-bg : #F4D7BE;
 
-$topbar-bg : #87827B;
-$menu-trigger-bg : #87827B;
+// DataTables rows
+$documents-head-rows-bg   : #fff;
+$documents-odd-rows-bg    : #fff;
+$documents-even-rows-bg   : #fff;
+$agenda-head-rows-bg      : #fff;
+$agenda-odd-rows-bg       : #fff;
+$agenda-even-rows-bg      : #fff;
+$annuaire-head-rows-bg    : #fff;
+$annuaire-odd-rows-bg     : #fff;
+$annuaire-even-rows-bg    : #fff;
+$emploi-head-rows-bg      : #fff;
+$emploi-odd-rows-bg       : #fff;
+$emploi-even-rows-bg      : #fff;
+$formations-head-rows-bg  : #fff;
+$formations-odd-rows-bg   : #fff;
+$formations-even-rows-bg  : #fff;
+$dialogue-head-rows-bg    : #fff;
+$dialogue-odd-rows-bg     : #fff;
+$dialogue-even-rows-bg    : #fff;
+
+// main > h1 backgrounds
+$documents-main-title-bg  : #fff;
+$agenda-main-title-bg     : #fff;
+$annuaire-main-title-bg   : #fff;
+$emploi-main-title-bg     : #fff;
+$formations-main-title-bg : #fff;
+$dialogue-main-title-bg   : #fff;
+
+// main backgrounds
+$documents-main-bg  : #D0E6EC;
+$agenda-main-bg     : #fff;
+$annuaire-main-bg   : #fff;
+$emploi-main-bg     : #fff;
+$formations-main-bg : #fff;
+$dialogue-main-bg   : #fff;
+
+// fields errors
+$field-error: #B88E8D;
 
 
 // dimensions
+/////////////
 
 $top-bar-height : 80px;
 $menu-trigger-w : 10px;
+$h1-height      : 50px;
+$main-submit    : 40px;
 
 
 // autre
+////////
 
 $datatables-name : "donnees";

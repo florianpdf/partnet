@@ -12,32 +12,42 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-//        // Test page d'accueil
-//        $crawler = $client->request('GET', '/');
-//        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $client->request('GET', '/annuaire');
+        // Test page d'accueil
+        $crawler = $client->request('GET', '/');
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $client->followRedirect();
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+            $client->getRequest()->attributes->get('_controller'));
 
+        $crawler = $client->request('GET', '/annuaire/');
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+            $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/message/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+            $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/documents/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+            $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/profile/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/login/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
-
-        $crawler = $client->request('GET', '/register/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+            $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/admin/');
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+            $client->getRequest()->attributes->get('_controller'));
 
 //        $this->assertContains(
 //            'class="alert alert-danger alert-error"',
@@ -93,7 +103,7 @@ class DefaultControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien Annuaire
@@ -175,7 +185,7 @@ class DefaultControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('FOS\UserBundle\Controller\ProfileController::showAction',
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien Annuaire
@@ -205,7 +215,7 @@ class DefaultControllerTest extends WebTestCase
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\UserController::indexAction',
+        $this->assertEquals('AppBundle\Controller\DefaultController::adminAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"

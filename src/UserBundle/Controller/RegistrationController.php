@@ -61,8 +61,8 @@ class RegistrationController extends Controller
                 'options'  => array(
                     'label' => false,
                     'choices'  => array(
-                        'ROLE_ADMIN' => 'ROLE_ADMIN',
-                        'ROLE_USER'     => 'ROLE_USER',
+                        'ROLE_ADMIN' => 'Administrateur',
+                        'ROLE_USER'     => 'Utilisateur',
                     ),
                 ),
             ))
@@ -102,15 +102,6 @@ class RegistrationController extends Controller
         return $this->render('@User/Registration/user_register.html.twig', array(
             'form' => $form->createView(),
         ));
-
-        // EN CAS BESOIN
-        /*
-          // Récuperer la saisie
-           $data = [];
-           foreach ( $form as $key => $value) {
-               $data[$key] = $value->getData();
-           }
-          */
     }
 
 

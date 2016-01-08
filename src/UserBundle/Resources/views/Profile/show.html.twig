@@ -1,7 +1,35 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block fos_user_content %}
+{% block main_content %}
+    {% if (app.request.get('_route') == 'fos_user_profile_show') or (app.request.get('_route') == 'fos_user_profile_edit') %}
+        {{ include('includes/topbar.html.twig') }}
+        {{ include('includes/sidebar.html.twig') }}
+    {% endif %}
 
-{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+    <main class="deep-main">
+        <h1>Mes informations</h1>
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
 
-{% endblock fos_user_content %}
+        {% block fos_user_content %}
+            {% include "FOSUserBundle:Profile:show_content.html.twig" %}
+        {% endblock fos_user_content %}
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        // fadeout pour le flashbag
+        window.setTimeout(function() {
+            $( '.flash-success' ).fadeOut( 1250 );
+        }, 1750);
+    </script>
+{% endblock %}

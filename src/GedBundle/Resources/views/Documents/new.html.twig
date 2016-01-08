@@ -6,7 +6,7 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main class="admin-form">
+    <main class="admin-form deep-main">
         <h1>Ajout d'un document</h1>
         {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -48,6 +48,5 @@
         </div>
 
         {{ form_end(form) }}
-
     </main>
 {% endblock %}

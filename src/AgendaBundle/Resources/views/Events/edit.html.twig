@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="deep-main">
+        <h1>Events edit</h1>
+
+        {{ form(edit_form) }}
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('agenda_homepage') }}">
+                    Retourner à l'agenda
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </main>
+
+
+{% endblock %}

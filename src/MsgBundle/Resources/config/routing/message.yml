@@ -23,15 +23,6 @@ message_create:
     defaults: { _controller: "MsgBundle:Message:create" }
     methods:  POST
 
-#message_edit:
-#    path:     /{id}/edit
-#    defaults: { _controller: "MsgBundle:Message:edit" }
-
-message_update:
-    path:     /{id}/update
-    defaults: { _controller: "MsgBundle:Message:update" }
-    methods:  [POST, PUT]
-
 message_delete:
     path:     /{id}/delete
     defaults: { _controller: "MsgBundle:Message:delete" }

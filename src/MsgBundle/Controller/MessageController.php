@@ -21,7 +21,7 @@ class MessageController extends Controller
     {
         // Fonction d'envoi de mail
         $message = \Swift_Message::newInstance()
-            ->setSubject('Un nouveau message privée est arrivée dans votre Messagerie P@rtnet\'Emploi')
+            ->setSubject('Un nouveau message privé est arrivé dans votre messagerie P@rtnet\'Emploi')
             ->setFrom($from)
             ->setTo($to)
             ->setBody($content);
@@ -47,11 +47,6 @@ class MessageController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->getUser())
-        {
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         // Récupère les messages selon le nom d'utilisateur
@@ -84,7 +79,7 @@ class MessageController extends Controller
                 // Auto completion champ Sender
                 $entity->setSender($this->getUser()->getEmail());
 
-                //Auto completion du champ sender_name
+                // Auto completion du champ sender_name
                 $entity->setSenderName($this->getUser()->getNom().' '.$this->getUser()->getPrenom());
 
                 // Visible dans la boite du receveur, Si il est sur 0 alors il est considéré comme supprimé dans la boite du receveur
@@ -96,7 +91,8 @@ class MessageController extends Controller
                 $em->flush();
 
                 // Envoi du mail
-                $this->mailAction($this->getUser()->getEmail(), $form->get('recipient')->getData(), 'Pour consulter le message : http://'.$_SERVER['HTTP_HOST'].$this->generateUrl('message_show', array('id' => $entity->getId())));
+                $link = 'http://'.$_SERVER['HTTP_HOST'].$this->generateUrl('message_show', array('id' => $entity->getId()));
+                $this->mailAction($this->getUser()->getEmail(), $form->get('recipient')->getData(), 'Consulter le message : '.$link );
 
                 return $this->redirect($this->generateUrl('message_show', array('id' => $entity->getId())));
             } else {
