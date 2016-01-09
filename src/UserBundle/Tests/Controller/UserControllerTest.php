@@ -4,7 +4,7 @@ namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class UserControllerTest extends WebTestCase
 {
     // Création d'un client User
     public function UserConnection()
@@ -27,7 +27,7 @@ class DefaultControllerTest extends WebTestCase
             ->filter('a:contains("Émilie")')
             ->eq(0)
             ->link();
-        $crawler = $client->click($link);
+        $client->click($link);
         $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
     }
@@ -40,18 +40,25 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/profile/');
 
         // Verification de l'affichage des infos du profile
-        $this->assertEquals(1, $crawler->filter('html:contains("Prenom: Émilie")')->count());
-        $this->assertEquals(1, $crawler->filter('html:contains("Nom: Perrin")')->count());
-        $this->assertEquals(1, $crawler->filter('html:contains("Email: user@user.com")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Émilie")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Perrin")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("user@user.com")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Organisme")')->count());
-        $this->assertEquals(1, $crawler->filter('html:contains("Fonction: Chargée d\'accueil")')->count());
-        $this->assertEquals(1, $crawler->filter('html:contains("Téléphone: 0368474510")')->count());
-        $this->assertEquals(1, $crawler->filter('html:contains("Modifier mon profil")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Chargée d\'accueil")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("03 68 47 45 10")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Mettre à jour mes informations")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Modifier mon mot de passe")')->count());
 
-        // Vérification de l'action cibler lors du click sur "Modifier mon profil"
-        $link = $crawler->selectLink('Modifier mon profil')->link();
-        $crawler = $client->click($link);
+        // Vérification de l'action cibler lors du click sur "Mettre à jour mes informations"
+        $link = $crawler->selectLink('Mettre à jour mes informations')->link();
+        $client->click($link);
         $this->assertEquals('UserBundle\Controller\ProfileController::editAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Vérification de l'action cibler lors du click sur "Modifier mon mot de passe"
+        $link = $crawler->selectLink('Modifier mon mot de passe')->link();
+        $client->click($link);
+        $this->assertEquals('FOS\UserBundle\Controller\ChangePasswordController::changePasswordAction',
             $client->getRequest()->attributes->get('_controller'));
     }
 
