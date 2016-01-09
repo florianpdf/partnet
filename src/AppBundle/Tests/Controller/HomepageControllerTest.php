@@ -6,58 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'ANONYME //
-
-    public function testLinkAnonyme()
-    {
-        $client = static::createClient();
-
-        // Test page d'accueil
-        $crawler = $client->request('GET', '/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
-            $client->getRequest()->attributes->get('_controller'));
-
-        $crawler = $client->request('GET', '/annuaire/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
-            $client->getRequest()->attributes->get('_controller'));
-
-        $crawler = $client->request('GET', '/message/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
-            $client->getRequest()->attributes->get('_controller'));
-
-        $crawler = $client->request('GET', '/documents/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
-            $client->getRequest()->attributes->get('_controller'));
-
-        $crawler = $client->request('GET', '/profile/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
-            $client->getRequest()->attributes->get('_controller'));
-
-        $crawler = $client->request('GET', '/admin/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
-            $client->getRequest()->attributes->get('_controller'));
-
-//        $this->assertContains(
-//            'class="alert alert-danger alert-error"',
-//            $client->getResponse()->getContent()
-//        );
-    }
-
-    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'Utilisateur //
-
-    // Test des liens de la page documents //
     public function UserConnection()
     {
         // Connexion en tant qu'user
@@ -68,6 +16,19 @@ class DefaultControllerTest extends WebTestCase
         return $client;
     }
 
+    public function AdminConnection()
+    {
+        // Connexion en tant qu'admin
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW' => 'admin',
+        ));
+        return $client;
+    }
+
+    // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'Utilisateur //
+
+    // On test les lien de la page d'accueil en tant que user
     public function testLinkUser()
     {
         $client = $this->UserConnection();
@@ -126,6 +87,16 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals('MsgBundle\Controller\MessageController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
+        // Test du lien Agenda
+        $crawler = $client->request('GET', '/');
+        $link = $crawler
+            ->filter('a:contains("Agenda")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
         // Test du lien "déconnexion"
         $crawler = $client->request('GET', '/');
         $link = $crawler
@@ -139,17 +110,7 @@ class DefaultControllerTest extends WebTestCase
 
     // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'ADMINISTRATEUR //
 
-    // Test des liens de la page documents //
-    public function AdminConnection()
-    {
-        // Connexion en tant qu'admin
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin@admin.com',
-            'PHP_AUTH_PW' => 'admin',
-        ));
-        return $client;
-    }
-
+    // On est les liens de la page d'accueil en tant qu'admin
     public function testLinkAdmin()
     {
         $client = $this->AdminConnection();
@@ -206,6 +167,16 @@ class DefaultControllerTest extends WebTestCase
             ->link();
         $crawler = $client->click($link);
         $this->assertEquals('MsgBundle\Controller\MessageController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        // Test du lien Agenda
+        $crawler = $client->request('GET', '/');
+        $link = $crawler
+            ->filter('a:contains("Agenda")')
+            ->eq(0)
+            ->link();
+        $crawler = $client->click($link);
+        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien Interface d'administration

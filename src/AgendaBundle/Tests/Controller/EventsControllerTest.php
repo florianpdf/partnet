@@ -67,8 +67,8 @@ class EventsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
     }
 
-    // Vérification que l'action de '/documents' est bien 'DocumentsController::indexAction'
-    public function testGetDocument()
+    // Vérification que l'action de '/agenda' est bien 'DefaultController::indexAction'
+    public function testAgenda()
     {
         $client = $this->AdminConnection();
 
@@ -77,8 +77,8 @@ class EventsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
     }
 
-    // Vérification que l'action de '/documents/nouveau' est bien 'DocumentsController::newAction'
-    public function testGetDocumentNouveau()
+    // Vérification que l'action de '/admin/event{id}/new' est bien 'EventsController::newAction'
+    public function testEventNew()
     {
         $client = $this->AdminConnection();
 
@@ -163,11 +163,6 @@ class EventsControllerTest extends WebTestCase
         // Vérification de la redirection suite à la soumission du formulaire
         $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
-
-        // A approfondir, test sur contenu generer par du js
-        // Vérification que l'evenemtn est bien dans le calendrier
-        //$crawler = $client->request('GET', '/agenda/');
-        //$this->assertGreaterThan(0, $crawler->filter('html:contains("Test evenement valide + de 1H")')->count());
 
         // Test de l'enregistrement dans la BDD
         $kernel = static::createKernel();
