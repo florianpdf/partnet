@@ -84,24 +84,22 @@ class RouteControllerTest extends WebTestCase
     // On test l'accès au route en tant que User
     public function testRouteUser()
     {
-        $client = static::createClient();
+        $client = $this->UserConnection();
 
         $crawler = $client->request('GET', '/');
         $this->assertEquals('AppBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/annuaire/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $client->followRedirect();
         $this->assertEquals('AnnuaireBundle\Controller\DefaultController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/message/');
-        $this->assertEquals('MsgBundle\Controller\DefaultController::indexAction',
+        $this->assertEquals('MsgBundle\Controller\MessageController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/documents/');
-        $this->assertEquals('GedBundle\Controller\DefaultController::indexAction',
+        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction',
             $client->getRequest()->attributes->get('_controller'));
 
         $crawler = $client->request('GET', '/agenda/');
@@ -114,7 +112,44 @@ class RouteControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $this->assertEquals('UserBundle\Controller\SecurityController::loginAction',
+
+//        $this->assertContains(
+//            'class="alert alert-danger alert-error"',
+//            $client->getResponse()->getContent()
+//        );
+    }
+
+    // On test l'accès au route en tant que User
+    public function testRouteAdmin()
+    {
+        $client = $this->AdminConnection();
+
+        $client->request('GET', '/');
+        $this->assertEquals('AppBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        $crawler = $client->request('GET', '/annuaire/');
+        $this->assertEquals('AnnuaireBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        $crawler = $client->request('GET', '/message/');
+        $this->assertEquals('MsgBundle\Controller\MessageController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        $crawler = $client->request('GET', '/documents/');
+        $this->assertEquals('GedBundle\Controller\DocumentsController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        $crawler = $client->request('GET', '/agenda/');
+        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        $crawler = $client->request('GET', '/profile/');
+        $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
+            $client->getRequest()->attributes->get('_controller'));
+
+        $crawler = $client->request('GET', '/admin/');
+        $this->assertEquals('AppBundle\Controller\DefaultController::adminAction',
             $client->getRequest()->attributes->get('_controller'));
 
 //        $this->assertContains(
@@ -122,3 +157,4 @@ class RouteControllerTest extends WebTestCase
 //            $client->getResponse()->getContent()
 //        );
     }
+}
