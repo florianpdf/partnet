@@ -1,7 +1,14 @@
 <div id="top-bar">
-    <a href="{{ path('homepage') }}">P@rtnet'emploi du Perche</a>
+    <div id="gradient-icon"></div>
+    <div>
+        <a href="{{ path('homepage') }}">P@rtnet'emploi du Perche</a>
+    </div>
     <div>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+            {% if (app.user.picture != null) %}
+                <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
+            {% endif %}
 
             {% if (app.user.prenom) and (app.user.nom) %}
                 <a href="{{ path('fos_user_profile_show') }}">{{ app.user.prenom }}&nbsp;{{ app.user.nom }}&nbsp;&nbsp;</a>
@@ -9,11 +16,9 @@
                 <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}&nbsp;&nbsp;</a>
             {% endif %}
 
-            <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+            <a href="{{ path('fos_user_security_logout') }}" title="déconnexion"><span id="cross"></span></a>
+            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
 
-            {% if (app.user.picture != null) %}
-                <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
-            {% endif %}
         {% endif %}
     </div>
 </div>
