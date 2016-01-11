@@ -405,7 +405,7 @@ class DocumentsControllerTest extends WebTestCase
         $this->assertEquals(0, $crawler->filter('html:contains("Supprimer")')->count());
     }
 
-    // Test dowload action
+    // Création d'un document pour tester le download pour un utilisateur
     public function uploadDocumentForTestUser()
     {
         // Création du document en tant qu'Admin
@@ -421,6 +421,7 @@ class DocumentsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
     }
 
+    // Test du download
     public function testDownloadUser()
     {
         $client = $this->uploadDocumentForTestUser();

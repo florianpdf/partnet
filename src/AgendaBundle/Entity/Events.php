@@ -2,11 +2,25 @@
 
 namespace AgendaBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * Events
  */
 class Events
 {
+
+    public function isDateValid(ExecutionContextInterface $context)
+    {
+        if ($this->end->getTimestamp() <= $this->start->getTimestamp()) {
+            $context->buildViolation('La date de fin ne peut être avant la date de début d\'évènement')
+                ->atPath('end')
+                ->addViolation();
+        }
+    }
+
+    // GENERATED CODE //
+
     /**
      * @var integer
      */
@@ -166,5 +180,34 @@ class Events
     public function getIdUser()
     {
         return $this->idUser;
+    }
+    /**
+     * @var string
+     */
+    private $backgroundColor;
+
+
+    /**
+     * Set backgroundColor
+     *
+     * @param string $backgroundColor
+     *
+     * @return Events
+     */
+    public function setBackgroundColor($backgroundColor)
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * Get backgroundColor
+     *
+     * @return string
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
     }
 }

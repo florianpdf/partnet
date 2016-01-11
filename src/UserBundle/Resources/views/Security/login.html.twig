@@ -7,7 +7,7 @@
     <div class="invalid">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-<form id="login" action="{{ path("fos_user_security_check") }}" method="post">
+<form id="login-form" action="{{ path("fos_user_security_check") }}" method="post">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
     <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans }}" required autofocus />
@@ -21,7 +21,6 @@
         <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
         <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
     </div>
-
 </form>
 
     {#<a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>#}
