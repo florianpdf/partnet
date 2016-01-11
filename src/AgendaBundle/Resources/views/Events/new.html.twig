@@ -7,22 +7,19 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main class="deep-main">
-            <h1>Events creation</h1>
+    <main class="deep-main agenda_form">
+            <h1>Création d'un évènement</h1>
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
-        <div id="date_start_event">
+
+        <h3>{{ startEvent }}</h3>
+
+        <div id="date_start_event_new">
             {{ form_label(form.start) }}
             {{ form_errors(form.start) }}
             {{ form_widget(form.start) }}
-            {{ startEvent }}
-        </div>
 
-        <div>
-            {{ form_label(form.end) }}
-            {{ form_errors(form.end) }}
-            {{ form_widget(form.end) }}
         </div>
 
         <div>
@@ -37,15 +34,16 @@
             {{ form_widget(form.contenu) }}
         </div>
 
+        <div id="date_end_event">
+            {{ form_label(form.end) }}
+            {{ form_errors(form.end) }}
+            {{ form_widget(form.end) }}
+        </div>
+
         {{ form_end(form) }}
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('agenda_homepage') }}">
-                    Retourner au calendrier
-                </a>
-            </li>
-        </ul>
     </main>
+
+
 
 {% endblock %}

@@ -13,8 +13,8 @@ class EventsRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder = $this->_em->createQueryBuilder()
             ->select('e')
             ->from($this->_entityName, 'e')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
-            ->Where('e.start >= :date_end')
-            ->setParameter('date_end', date('Y-m-d', time() - 3600 * 24 *30 * 5));
+            ->Where('e.start <= :old')
+            ->setParameter('old', date('Y-m-d', time() - 3600 * 24 *30 * 5)); // date now moin 5 mois
         return $queryBuilder->getQuery()->getResult();
     }
 }
