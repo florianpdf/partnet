@@ -1,4 +1,4 @@
-FormBundle\Entity\Formations:
+AppBundle\Entity\Organisme:
     type: entity
     table: null
     id:
@@ -8,20 +8,17 @@ FormBundle\Entity\Formations:
             generator:
                 strategy: AUTO
     fields:
-        organisme:
+        photo:
             type: string
             length: 255
-            column: organisme
-        titre:
+        nom:
             type: string
             length: 255
-        nbPlace:
-            type: integer
-            column: nb_place
-        lieu:
-            type: string
-            length: 255
-        resume:
+        description:
             type: text
-
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

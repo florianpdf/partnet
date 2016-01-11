@@ -35,3 +35,41 @@ user_delete:
     defaults: { _controller: "UserBundle:User:delete" }
     requirements:
         id:  \d+
+
+# Route pour la gestion des organismes
+
+admin_organisme:
+    path:     /organisme/
+    defaults: { _controller: "AppBundle:Organisme:index" }
+
+admin_organisme_show:
+    path:     /organisme/{id}/show
+    defaults: { _controller: "AppBundle:Organisme:show" }
+
+admin_organisme_new:
+    path:     /organisme/new
+    defaults: { _controller: "AppBundle:Organisme:new" }
+
+admin_organisme_create:
+    path:     /organisme/create
+    defaults: { _controller: "AppBundle:Organisme:create" }
+    methods:  POST
+
+admin_organisme_edit:
+    path:     /organisme/{id}/edit
+    defaults: { _controller: "AppBundle:Organisme:edit" }
+
+admin_organisme_update:
+    path:     /organisme/{id}/update
+    defaults: { _controller: "AppBundle:Organisme:update" }
+    methods:  [POST, PUT]
+
+admin_organisme_delete:
+    path:     /organisme/{id}/delete
+    defaults: { _controller: "AppBundle:Organisme:delete" }
+    methods:  [POST, DELETE]
+
+organisme_get_picture:
+    path:      /organisme/{picture}
+    defaults: { _controller: "AppBundle:Organisme:PictureOrganisme" }
+    methods: [GET]

@@ -2,11 +2,13 @@
 
 namespace FormBundle\Controller;
 
+use AppBundle\Entity\Organisme;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use FormBundle\Entity\Formations;
 use FormBundle\Form\FormationsType;
+use FormBundle\Entity\FormationsRepository;
 
 /**
  * Formations controller.
@@ -36,11 +38,27 @@ class FormationsController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Formations();
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $user = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
+
+            var_dump($user->getOrganisme());// nom de l'organisme string
+
+            $organisme = $em->getRepository('AppBundle:Organisme')->findAll();
+
+            foreach ($organisme as $value) {
+                var_dump($value);
+            }
+
+
+            // SET url photo de l'organisme
+            $entity->setPhotoOrganisme();
+
             $em->persist($entity);
             $em->flush();
 
