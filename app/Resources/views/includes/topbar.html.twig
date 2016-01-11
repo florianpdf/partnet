@@ -6,14 +6,14 @@
     <div>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-            {% if (app.user.picture != null) %}
-                <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
-            {% endif %}
-
             {% if (app.user.prenom) and (app.user.nom) %}
                 <a href="{{ path('fos_user_profile_show') }}">{{ app.user.prenom }}&nbsp;{{ app.user.nom }}&nbsp;&nbsp;</a>
             {% else %}
                 <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}&nbsp;&nbsp;</a>
+            {% endif %}
+
+            {% if (app.user.picture != null) %}
+                <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
             {% endif %}
 
             <a href="{{ path('fos_user_security_logout') }}" title="déconnexion"><span id="cross"></span></a>
