@@ -8,22 +8,21 @@
  * Time: 15:22
  */
 
-namespace GedBundle\Command;
+namespace AppBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use GedBundle\Entity\Documents;
+use AgendaBundle\Entity\Events;
 
 class CleanUpCommand extends ContainerAwareCommand {
 
     protected function configure()
     {
         $this
-            ->setName('partnet:ged:cleanup')
-            ->setDescription('Cleanup GedBundle database')
+            ->setName('partnet:cleanup')
+            ->setDescription('Cleanup old docs and events from database')
         ;
     }
 
@@ -31,14 +30,17 @@ class CleanUpCommand extends ContainerAwareCommand {
     {
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
         $oldDocuments = $em->getRepository('GedBundle:Documents')->findByOld();
+        $oldEvents = $em->getRepository('AgendaBundle:Events')->findByOld();
 
         foreach ($oldDocuments as $oldDocument) {
             $em->remove($oldDocument);
         }
 
+        foreach ($oldEvents as $oldEvent) {
+            $em->remove($oldEvent);
+        }
+
         $em->flush();
-
-
-        $output->writeln(sprintf('Removed %d documents', count($oldDocuments)));
+        $output->writeln(sprintf('Removed %d documents and %s events', count($oldDocuments), count($oldEvents)));
     }
 }
