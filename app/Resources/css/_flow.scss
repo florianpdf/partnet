@@ -1,76 +1,102 @@
+// links
+// login
+//    containers
+//    fields
+//    submit button
+//    checkbox & password forgotten
+//    invalid login data
+// top bar
+// menu (side bar)
+// tiles
+//    news ticker
+//    positioning
+//    colors
+//    content
+// statistics
+// backgrounds
+// <main> containers
+// back office
+// headers
+// buttons + flashbag
+// edit forms
+// media queries
+
+
 body {
   background: $login-bg;
   font-family: Arial, sans-serif;
   font-size: 16px;
 }
-#accueil {
-  background: $tiles-bg;
-  transition: background 1s;
-}
 
 
+/* //////////////// links //////////////// *\
+\* /////////////////////////////////////// */
+
+a { text-decoration: none !important; }
+a:hover, a:active, a:focus { color: inherit; }
 
 
+/* //////////////// login //////////////// *\
+\* /////////////////////////////////////// */
 
+// containers
 
-.aligner {
-  max-width: 600px; margin: auto;
-  height: 100%; display: flex;
+#login {
+  height: 100%; max-width: 600px;
+  display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: -2% auto 0;
+  border: 20px solid transparent;
 }
-.aligner > div:first-child {
-  margin: -8% 0 2px;
-  padding: 15px 0;
-  background: $login-title-bg;
-  color: #edecea; //#21618A;
-  font-size: 2.8rem; font-weight: bold;
-  text-align: center;
-}
-
 .login-wrapper {
-  padding: 60px 90px;
+  padding: 60px 15%;
   background: $login-wrapper-bg;
 }
 
-#login input[type="text"],
-#login input[type="password"],
-#login input[type="submit"] {
-  display: block; width: 100%;
-  height: 50px;
-  border: 0; outline: none;
+// fields
+
+#login-form input[type="text"],
+#login-form input[type="password"],
+#login-form input[type="submit"] {
+  display: block; width: 100%; height: 50px;
   margin-bottom: 15px;
   padding: 5px 40px;
+  border: 0; outline: none;
   transition: background .75s;
 }
-#login ::-webkit-input-placeholder {
-  font-style: italic;
-}
+#login-form ::-webkit-input-placeholder { font-style: italic; }
 
-#login input[type="submit"] {
+// submit button
+
+#login-form input[type="submit"] {
   margin: 25px 0 10px;
-  color: #fff; //#CBDDEB;
+  color: #fff;
   background: $login-submit-bg;
 }
-#login input[type="submit"]:hover, #login input[type="submit"]:active, #login input[type="submit"]:focus {
+#login-form input[type="submit"]:hover,
+#login-form input[type="submit"]:active,
+#login-form input[type="submit"]:focus {
   background: $login-submit-hover-bg;
 }
-#login input[type="checkbox"] {
-  margin-left: 40px;
-}
-#login > div {
-  position: relative;
-  height: 25px; line-height: 25px;
-}
-#login label, #login a {
+
+// checkbox & password forgotten
+
+#login-form input[type="checkbox"] { margin-left: 40px; }
+#login-form a { float: right; margin-right: 40px; }
+#login-form label, #login-form a {
   font-size: 0.8em;
   font-weight: normal; // écrase Bootstrap (?)
 }
-#login a {
-  float: right; margin-right: 40px;
+#login-form > div {
+  position: relative;
+  height: 25px; line-height: 25px;
 }
+
+// invalid login data
+
 .invalid {
-  background: #B88E8D;
+  background: $field-error;
   font-style: italic;
   color: #fff;
   padding: 5px 40px;
@@ -78,51 +104,34 @@ body {
 }
 
 
-
-
-.button-ajout {
-  width: 400px;
-  margin-left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: 50px;
-}
-
-#example_wrapper {
-  max-width: 1400px;
-  margin: auto;
-}
+/* //////////////// top bar //////////////// *\
+\* ///////////////////////////////////////// */
 
 #top-bar {
   position: fixed; z-index: 9; top: 0;
-  //margin-bottom: 30px;
   width: 100%;
   height: $top-bar-height; line-height: $top-bar-height;
   padding: 0 10%;
-  background: $topbar-bg;
-  color: #fff;
-  //border-bottom: 1px solid #fff;
-}
-#accueil #top-bar {
-  position: fixed; z-index: 9; top: 0;
+  background: $top-bar-bg; color: #fff;
 }
 #top-bar div { float: right; }
 #top-bar a {
   display: inline-block;
   height: 100%;
-  text-decoration: none;
   padding: 0 10px;
   color: #fff;
+  background: none;
+  transition: background .5s;
 }
-#top-bar a:hover {
-  background: rgba(255,255,255,0.15);
-}
+#top-bar a:hover { background: rgba(255,255,255,0.15); }
 
 
-/* //////////////// MENU //////////////// *\
-\* ////////////////////////////////////// */
+/* //////////////// menu (side bar) //////////////// *\
+\* ///////////////////////////////////////////////// */
+
 #menu-wrapper {
   position: fixed; z-index: 9;
-  height: calc(100% - #{$top-bar-height}); margin-top: $top-bar-height;
+  height: calc(100% - #{$top-bar-height}); margin-top: -50px;
   width: 20%; max-width: 350px; min-width: 200px;
   transform: translateX(-100%);
   transition: transform 0.5s;
@@ -131,7 +140,7 @@ body {
 #menu-trigger {
   position: absolute; top: 0; right: -$menu-trigger-w;
   height: 100%; width: $menu-trigger-w;
-  background: $menu-trigger-bg;
+  background: $top-bar-bg;
 }
 .arrow-right {
   position: absolute;
@@ -165,17 +174,37 @@ nav img {
   margin-left: 7%;
   width: 20%;
 }
-nav a + a { border-top: 1px solid $menu-trigger-bg; }
+nav a + a { border-top: 1px solid $top-bar-bg; }
 nav a:hover img { opacity: 1; }
 nav a:hover span { opacity: 0.5; }
 
 
-/* //////////////// TILES //////////////// *\
+/* //////////////// tiles //////////////// *\
 \* /////////////////////////////////////// */
+
+// news ticker
+
+#marquee {
+  position: absolute;
+  display: block; width: 100%;
+  margin-top: 100px;
+  height: 25px; line-height: 25px;
+  overflow: hidden;
+  list-style: none;
+
+}
+#marquee li {
+  position: absolute;
+  top: -999em;
+  display: inline-block; width: 100%;
+  text-align: center;
+}
+
+// positioning
 
 #tiles-wrapper {
   list-style: none;
-  max-width: 1300px; margin: 0 auto 0; height: 100%; padding: $top-bar-height 0 0;
+  max-width: 1300px; margin: 0 auto 0; min-height: 100%; padding: $top-bar-height + 60px 30px 60px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center; align-content: center;
@@ -183,10 +212,12 @@ nav a:hover span { opacity: 0.5; }
 #tiles-wrapper li {
   position: relative;
   flex: auto;
-  width: 400px; height: 265px;
+  width: 30%; min-width: 350px; height: 265px;
   margin: 5px;
-  //border: 1px solid #fff;
 }
+
+// colors
+
 #tiles-wrapper li:nth-child(1), .tile1 { background: $tile1; }
 #tiles-wrapper li:nth-child(2), .tile2 { background: $tile2; }
 #tiles-wrapper li:nth-child(3), .tile3 { background: $tile3; }
@@ -200,16 +231,8 @@ nav a:hover span { opacity: 0.5; }
 #accueil.tile5 { background: $tile5-bg; }
 #accueil.tile6 { background: $tile6-bg; }
 
-#data-wrapper {
-  background: $topbar-bg;
-  padding: 0 15%;
-  height: 300px;
-  padding-top: 50px;
-  //border-top: 1px solid #fff;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-}
+// content
+
 #tiles-wrapper a {
   display: block;
   width: 100%; height: 100%;
@@ -223,11 +246,13 @@ nav a:hover span { opacity: 0.5; }
   opacity: 0.3;
   transition: opacity 1s;
 }
-#tiles-wrapper li:hover a, #tiles-wrapper li:active a, #tiles-wrapper li:focus a {
-  text-decoration: none;
-}
-#tiles-wrapper li:hover span, #tiles-wrapper li:active span, #tiles-wrapper li:focus span {
+#tiles-wrapper li:hover .rubrique, #tiles-wrapper li:active .rubrique, #tiles-wrapper li:focus .rubrique {
   opacity: 0.5;
+}
+#tiles-wrapper .rubrique + span {
+  position: absolute;
+  bottom: 5px; right: 20px;
+  font-size: 0.75em;
 }
 #tiles-wrapper li:hover img, #tiles-wrapper li:active img, #tiles-wrapper li:focus img {
   opacity: 1;
@@ -240,10 +265,22 @@ nav a:hover span { opacity: 0.5; }
 }
 
 
-/////////// STATISTIQUES ///////////
+/* //////////////// statistics //////////////// *\
+\* ////////////////////////////////////////////// */
+
+#data-wrapper {
+  background: $top-bar-bg;
+  padding: 0 15%;
+  height: 300px;
+  padding-top: 50px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
 #data-uploads {
-  width: 700px;
+  width: 60%; max-width: 700px;
   color: #fff;
+  margin-right: 5%;
 }
 #data-uploads tr + tr {
   border-top: 1px solid #cbddeb;
@@ -251,88 +288,142 @@ nav a:hover span { opacity: 0.5; }
 #data-uploads td {
   padding: 10px 20px;
 }
+#data-uploads + div {
+  width: 30%; max-width: 350px; min-width: 275px;
+}
 #data-wrapper a {
   display: block;
   background: rgba(255,255,255,0.6);
-  width: 400px; height: 50px; line-height: 50px;
-  padding-left: 55px;
+  height: 50px; line-height: 50px;
+  padding: 0 10%;
   color: #000;
   border-radius: 5px;
   margin-bottom: 13px;
 }
 
 
-/* //////////////// GED //////////////// *\
-\* ///////////////////////////////////// */
+/* //////////////// backgrounds //////////////// *\
+\* ///////////////////////////////////////////// */
+
+#accueil {
+  background: $tiles-bg;
+  transition: background 1s;
+}
 #ged { background: #E5F6F1; }
 #annuaire { background: #e9f6e4; }
 
 
+/* //////////////// <main> containers //////////////// *\
+\* /////////////////////////////////////////////////// */
+
 main {
   position: relative;
   max-width: 85%;
-  margin: 0 auto 0;
-  padding-top: $top-bar-height + 50px;
+  margin: $top-bar-height + 50px auto 50px;
 }
-#donnees {
-  border: 0px solid #18889D;
+.deep-main {
+  max-width: 1000px;
+  padding: $h1-height + 40px 50px 40px;
+  background: $login-wrapper-bg;
 }
-th { border-bottom: 2px solid #E5F6F1 !important; }
-.row-border td {
-  border-bottom: 1px solid #E5F6F1 !important;
-  border-top: 0 !important;
+.profile-data li {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  height: 40px;
+  background: none;
+  transition: background .5s;
 }
-##{$datatables-name} thead th {
-  background: #559FB2;
+.profile-data li:hover { background: $login-bg; }
+.profile-data li + li { border-top: 1px solid $login-bg; }
+.profile-data li span + span { font-weight: bold; }
+.avatar { text-align: center; margin-bottom: 10px; }
+
+.main-submit {
+  display: block; text-align: center;
+  width: 70%; height: $main-submit; line-height: $main-submit;
+  margin: 20px auto 0;
+  border: 0;
+  background: $login-submit-bg; color: #fff; border-radius: 5px;
+  transition: background 0.5s;
+}
+.main-submit-double { text-align: center; }
+.main-submit-double a {
+  display: inline-block; width: auto;
+  padding: 0 50px;
+  margin-left: 3px; margin-right: 3px;
+}
+.main-submit:hover, .main-submit:active, .main-submit:focus {
+  background: $login-submit-hover-bg;
   color: #fff;
+}
+
+// fields
+
+.profile-data label {
   font-weight: normal;
 }
-##{$datatables-name}_filter {
-  display: block; width: 35%; height: 40px;
-  min-width: 400px;
-  margin-bottom: 30px;
+.profile-data input, .profile-data select {
+  border: none;
+  width: 40%; min-width: 200px; height: 27px;
+  padding: 0 30px;
 }
-##{$datatables-name}_filter label { width: 100%; height: 100%; }
-##{$datatables-name}_filter input[type="search"] {
-  width: 100%; height: 100%;
-  float: right;
-  padding: 0 40px;
-  border: 1px solid rgba(0,0,0,0.5); outline: 0;
-  border-radius: 4px;
+.profile-data input:focus { outline: 1px solid $login-submit-bg; }
+.upload-field input {
+  width: auto; padding: 0;
 }
-##{$datatables-name}_filter ::-webkit-input-placeholder {
-  color: #B8B8B8;
-  font-style: italic;
-  text-align: right;
+.deep-main form ul + ul {
+  background: $field-error; color: #fff;
+  font-size: 0.9em; font-style: italic;
+  list-style: none;
+  text-align: center;
 }
-
-#donnees tr.child { background: transparent; }
-#donnees td.child {
-  padding: 20px 5%;
-}
-
-.actions a + a {
-  position: relative;z-index: 500;
-  margin-left: 10px;
-}
-
-//tr.child, td.child, .slider,
-.slider {
-  display: block !important;
-  max-width: 500px !important;
-  word-wrap: break-word !important;
-}
+.deep-main form ul:nth-child(2) { margin-top: 30px; }
+.deep-main form ul:last-of-type { margin-bottom: 30px; }
 
 
-.not-expandable:before {
-  content: '' !important;
-  background: red !important;
-  color: green !important;
-}
+/* //////////////// back office //////////////// *\
+\* ///////////////////////////////////////////// */
 
+.fil li + li { margin-top: 10px; }
+.fil a {
+  display: inline-block;
+  height: 30px; line-height: 30px;
+  padding: 0 20px; margin: 0 5px;
+  color: #000;
+  background: $login-bg;
+  border-radius: 5px;
+  transition: background .5s;
+}
+.fil a:hover, .fil a:focus, .fil a:active { background: #fff; }
+
+
+/* //////////////// headers //////////////// *\
+\* ///////////////////////////////////////// */
+
+#login h1 {
+  position: static; margin: 0;
+  font-size: 1.5em;
+  height: 70px; line-height: 70px;
+}
+h1 {
+  position: absolute; top: 0; left: 0;
+  width: 100%;
+  background: $top-bar-bg;
+  margin: 0 0 30px;
+  height: $h1-height; line-height: $h1-height;
+  text-align: center;
+  font-size: 1.3em;
+  color: #fff;
+}
+#ged h1 { background: #559FB2; }
+
+
+/* //////////////// buttons + flashbag //////////////// *\
+\* //////////////////////////////////////////////////// */
 
 .button-add, .button-add:visited {
-  display: block; position: relative; z-index: 9; width: 30%; min-width: 250px; margin: -32px auto 0;
+  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
   text-align: center;
   padding: 15px 10px;
   background: #3DB2A8;
@@ -342,17 +433,30 @@ th { border-bottom: 2px solid #E5F6F1 !important; }
   transition: background 0.3s;
 }
 .button-add:hover, .button-add:active {
-  text-decoration: none;
   color: #fff;
   background: #35988F;
 }
-
-
-
-main {
-  position: relative;
-  margin-bottom: 50px;
+.flashbag {
+  position: absolute;
+  text-align: center;
+  top: $top-bar-height;
+  padding: 5px 15%;
+  border-radius: 0 0 5px 5px;
+  background: #2BB58E; color: #fff;
 }
+.flash-success {
+  position: absolute; top: $h1-height; left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 2px 0;
+  background: #2BB58E; color: #fff;
+  font-size: 0.9em;
+}
+
+
+/* //////////////// edit forms //////////////// *\
+\* //////////////////////////////////////////// */
+
 .admin-form > form {
   max-width: 1000px; margin: auto;
   padding: 2% 5%;
@@ -362,7 +466,6 @@ main {
   position: relative;
   height: 40px; line-height: 40px;
   margin: 15px 0;clear: both;
-  //background: yellow;
 }
 .admin-form > form input,
 .admin-form > form textarea {
@@ -379,16 +482,16 @@ main {
 #gedbundle_documents_finDeVie {
   float: right; margin: 0;
 }
-.admin-form > form select {
-  height: 40px; width: 100px;
-  margin-left: 5px;
-  border: 0; outline: 0;
-}
+//.admin-form > form select {
+//  height: 40px; width: 100px;
+//  margin-left: 5px;
+//  border: 0; outline: 0;
+//}
 .admin-form > form p {
   font-style: italic;
 }
 .admin-form > form button[type="submit"] {
-  display: block;
+display: block;
   width: 70%;
   margin: 70px auto 0;
   background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
@@ -397,44 +500,65 @@ main {
 .admin-form > form button[type="submit"]:hover {
   background: #35988F;
 }
-h1 {
-  max-width: 1000px;
-  background: #559FB2;
-  margin: 0 auto;
-  padding: 15px 0;
-  text-align: center;
-  font-size: 1.3em;
-  color: #fff;
+
+/* ////////// Formulaire de l'agenda ////////// *\
+\* //////////////////////////////////////////// */
+
+.agenda_form > form {
+  max-width: 1000px; margin: auto;
+  padding: 2% 5%;
+  background: #e1d85d;
 }
-.flashbag {
-  position: absolute;
-  text-align: center;
-  top: $top-bar-height; //left: 50%; transform: translateX(-50%);
-  padding: 5px 15%;
-  border-radius: 0 0 5px 5px;
-  background: #2BB58E; color: #fff;
+.agenda_form > form div {
+  position: relative;
+  height: 40px; line-height: 40px;
+  margin: 15px 0;clear: both;
 }
-
-
-
-
-
-#document_save {
-  background: #275C8B;
-  border: none;
-  width: 300px;
-  color: #fff;
-  padding: 10px;
-  margin: 30px auto 20px;
+.agenda_form > form input,
+.agenda_form > form textarea {
+  float: right;
+  width: 60%; height: 100%;
+  border: 0; outline: 0;
+  padding: 5px 30px;
+}
+.agenda_form > form textarea {
+  height: 100px;
+  margin-bottom: 15px;
+  resize: none;
+}
+#date_start_event_new {
+  display: none;
+}
+.agenda_form h3 {
+  text-align: center;
+  margin: 10px 0 30px 0;
+}
+#date_end_event_new {
+  float: right; margin: 0;
+}
+.agenda_form > form select {
+  height: 40px; width: 100px;
+  margin-left: 5px;
+  border: 0; outline: 0;
+}
+.agenda_form > form button[type="submit"] {
   display: block;
-  border-radius: 5px;
+  width: 70%;
+  margin: 70px auto 0;
+  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
+  transition: background 0.3s;
+}
+.agenda_form > form button[type="submit"]:hover {
+  background: #35988F;
 }
 
-@media screen and (max-width: 800px) {
-  .flashbag {
-    left: 0; right: 0;
-  }
-  ##{$datatables-name}_filter {
-    width: 100%;
-  }
+
+
+/* //////////////// media queries //////////////// *\
+\* /////////////////////////////////////////////// */
+
+@media screen and (max-width: 800px)
+{
+  .flashbag { left: 0; right: 0; }
+  ##{$datatables-name}_filter { width: 100%; }
 }

@@ -14,9 +14,20 @@ table.dataTable {
    * Body styles
    */
 }
+#donnees { border: 0; }
+.actions a + a { margin-left: 10px; }
+
+// child rows
+#donnees tr.child { background: transparent; }
+#donnees td.child { padding: 20px 5%; }
+.slider div + div { margin-top: 5px; }
+
 table.dataTable thead th,
 table.dataTable tfoot th {
-  font-weight: bold;
+  background: #559FB2;
+  color: #fff;
+  font-weight: normal;
+  border-bottom: 2px solid #E5F6F1 !important;
 }
 table.dataTable thead th,
 table.dataTable thead td {
@@ -72,7 +83,7 @@ table.dataTable tbody td {
   padding: 8px 10px;
 }
 table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
-  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #E5F6F1;
 }
 table.dataTable.row-border tbody tr:first-child th,
 table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th,
@@ -176,6 +187,9 @@ table.dataTable.no-footer {
 }
 table.dataTable.nowrap th, table.dataTable.nowrap td {
   white-space: nowrap;
+}
+table.dataTable.nowrap th.child, table.dataTable.nowrap td.child {
+  white-space: normal;
 }
 table.dataTable.compact thead th,
 table.dataTable.compact thead td {
@@ -284,9 +298,22 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_filter {
   float: right;
   text-align: right;
+  display: block; width: 35%; height: 40px;
+  min-width: 400px;
+  margin-bottom: 30px;
 }
+.dataTables_wrapper .dataTables_filter label { width: 100%; height: 100%; }
 .dataTables_wrapper .dataTables_filter input {
-  margin-left: 0.5em;
+  width: 100%; height: 100%;
+  float: right;
+  padding: 0 40px;
+  border: 1px solid rgba(0,0,0,0.5); outline: 0;
+  border-radius: 4px;
+}
+.dataTables_wrapper .dataTables_filter ::-webkit-input-placeholder {
+  color: #B8B8B8;
+  font-style: italic;
+  text-align: right;
 }
 .dataTables_wrapper .dataTables_info {
   clear: both;

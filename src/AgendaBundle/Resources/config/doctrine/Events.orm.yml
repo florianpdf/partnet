@@ -1,8 +1,9 @@
 AgendaBundle\Entity\Events:
     type: entity
     table: events
+    repositoryClass: AgendaBundle\Entity\EventsRepository
     indexes:
-        id_user:
+        event_user:
             columns:
                 - id_user
     id:
@@ -29,10 +30,12 @@ AgendaBundle\Entity\Events:
                 fixed: false
         contenu:
             type: text
-            nullable: false
+            nullable: true
             length: null
             options:
                 fixed: false
+        backgroundColor:
+            type: string
     manyToOne:
         idUser:
             targetEntity: UserBundle\Entity\User

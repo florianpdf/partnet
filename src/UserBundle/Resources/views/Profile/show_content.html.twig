@@ -1,14 +1,17 @@
-
 <div class="fos_user_user_show">
-    <p>Prenom: {{ user.prenom }}</p>
-    <p>Nom: {{ user.nom }}</p>
-    <p>Nom d'utilisateur: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Organisme: {{ user.organisme }}</p>
-    <p>Fonction: {{ user.poste }}</p>
-    <p>Téléphone: {{ user.telephone }}</p>
     {% if (app.user.picture != null) %}
-        <img width="50" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" />
+        <div class="avatar"><img width="100" src="{{ path('user_get_picture', {'picture': app.user.picture}) }}" /></div>
     {% endif %}
-    <a href="{{ path('fos_user_profile_edit') }}">Modifier mon profil</a>
+    <ul class="profile-data">
+        <li><span>Prénom</span><span>{{ user.prenom }}</span></li>
+        <li><span>Nom</span><span>{{ user.nom }}</span></li>
+        <li><span>Email</span><span>{{ user.email }}</span></li>
+        <li><span>Organisme</span><span>{{ user.organisme }}</span></li>
+        <li><span>Fonction</span><span>{{ user.poste }}</span></li>
+        <li><span>Téléphone</span><span>{{ user.telephone }}</span></li>
+    </ul>
+    <div class="main-submit-double">
+        <a class="main-submit" href="{{ path('fos_user_profile_edit') }}">Mettre à jour mes informations</a>
+        <a class="main-submit" href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a>
+    </div>
 </div>
