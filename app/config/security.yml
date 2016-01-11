@@ -33,3 +33,4 @@ security:
         - { path: ^/message/, role: ROLE_USER }
         - { path: ^/agenda/, role: ROLE_USER }
         - { path: ^/profile/, role: ROLE_USER }
+        - { path: ^/*, role: [IS_AUTHENTICATED, ROLE_USER] }

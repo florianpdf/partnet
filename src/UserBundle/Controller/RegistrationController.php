@@ -108,7 +108,7 @@ class RegistrationController extends Controller
     /**
      * Tell the user to check his email provider
      */
-    public function checkEmailAction()
+    public function checkEmailAction(Request $request)
     {
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
         $this->get('session')->remove('fos_user_send_confirmation_email/email');
@@ -120,7 +120,7 @@ class RegistrationController extends Controller
 
         $user->setCreationCompte(new \DateTime());
 
-        return $this->redirectToRoute('fos_user_security_login', array(
+        return $this->redirectToRoute('annuaire_homepage', array(
             'user' => $user,
         ));
 
@@ -171,11 +171,11 @@ class RegistrationController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->redirectToRoute('fos_user_resetting_request');
-        /*return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
+//        return $this->redirectToRoute('fos_user_resetting_request');
+        return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
-        ));*/
+        ));
     }
 
     private function getTargetUrlFromSession()
