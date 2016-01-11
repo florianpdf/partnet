@@ -1,7 +1,23 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block fos_user_content %}
+{% block main_content %}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
 
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    <main class="deep-main">
+        <h1>Enregistrer un utilisateur</h1>
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
 
-{% endblock fos_user_content %}
+        {% block fos_user_content %}
+            {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+        {% endblock fos_user_content %}
+    </main>
+{% endblock %}

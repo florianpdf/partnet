@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new AgendaBundle\AgendaBundle(),
             new AnnuaireBundle\AnnuaireBundle(),
             new MsgBundle\MsgBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
         );
 

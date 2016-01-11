@@ -1,5 +1,25 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block fos_user_content %}
-{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block main_content %}
+    {% if (app.request.get('_route') == 'fos_user_profile_show') or (app.request.get('_route') == 'fos_user_profile_edit') %}
+        {{ include('includes/topbar.html.twig') }}
+        {{ include('includes/sidebar.html.twig') }}
+    {% endif %}
+
+    <main class="deep-main">
+        <h1>Mise à jour des informations</h1>
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        {% block fos_user_content %}
+            {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+        {% endblock fos_user_content %}
+    </main>
+{% endblock %}

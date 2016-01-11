@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}
+<body id="agenda" xmlns="http://www.w3.org/1999/html">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="deep-main">
+            <h1>Events creation</h1>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div id="date_start_event">
+            {{ form_label(form.start) }}
+            {{ form_errors(form.start) }}
+            {{ form_widget(form.start) }}
+            {{ startEvent }}
+        </div>
+
+        <div>
+            {{ form_label(form.end) }}
+            {{ form_errors(form.end) }}
+            {{ form_widget(form.end) }}
+        </div>
+
+        <div>
+            {{ form_label(form.titre) }}
+            {{ form_errors(form.titre) }}
+            {{ form_widget(form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(form.contenu) }}
+            {{ form_errors(form.contenu) }}
+            {{ form_widget(form.contenu) }}
+        </div>
+
+        {{ form_end(form) }}
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('agenda_homepage') }}">
+                    Retourner au calendrier
+                </a>
+            </li>
+        </ul>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="error">{% endblock %}
+
+{% block main_content %}
+{{ include('includes/topbar.html.twig') }}
+<main class="deep-main">
+    <h1>403</h1>
+
+    {# example security usage, see below #}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %}
+
+    <p>
+        Vous n'avez pas les droits pour accéder à cette page <br/>
+        <a href="{{ path('homepage') }}">Retourner à la page d'accueil</a>.
+    </p>
+</main>
+{% endblock %}
