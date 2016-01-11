@@ -405,22 +405,6 @@ class DocumentsControllerTest extends WebTestCase
         $this->assertEquals(0, $crawler->filter('html:contains("Supprimer")')->count());
     }
 
-    // Test dowload action
-    public function uploadDocumentForTestUser()
-    {
-        // Création du document en tant qu'Admin
-        $client = $this->createDocument(array('gedbundle_documents[titre]' => 'testUserDocument'));
-        $client->followRedirect();
-        $crawler = $client->request('GET', '/documents/');
-        $link = $crawler
-            ->filter('a:contains("déconnexion")')
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
-            $client->getRequest()->attributes->get('_controller'));
-    }
-
     public function testDownloadUser()
     {
         $client = $this->uploadDocumentForTestUser();
