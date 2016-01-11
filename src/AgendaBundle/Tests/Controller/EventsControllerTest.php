@@ -96,7 +96,7 @@ class EventsControllerTest extends WebTestCase
 
         // Tests de la présence des champs
         $this->assertTrue($crawler->filter('div#agendabundle_events_start')->count() == 1);
-        $this->assertTrue($crawler->filter('div#date_start_event')->count() == 1);
+        $this->assertTrue($crawler->filter('div#date_start_event_new')->count() == 1);
         $this->assertTrue($crawler->filter('html:contains(Vendredi janvier)')->count() == 1);
         $this->assertTrue($crawler->filter('form select[name="agendabundle_events[end][date][day]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form select[name="agendabundle_events[end][date][month]"]')->count() == 1);
@@ -106,19 +106,6 @@ class EventsControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('form input[name="agendabundle_events[titre]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form textarea[name="agendabundle_events[contenu]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form button[name="agendabundle_events[submit]"]')->count() == 1);
-        $this->assertTrue($crawler->filter('a:contains(Retourner au calendrier)')->count() == 1);
-    }
-
-    // On vérifie la redirection du lien "Retourner au calendrier"
-    public function testLinkNewEvent() {
-        $client = $this->AdminConnection();
-
-        $crawler = $client->request('GET', 'admin/event/%202016-01-01T09:00:00/new');
-        $link = $crawler->filter('a:contains("Retourner au calendrier")')->link();
-        $crawler = $client->click($link);
-        $client->followRedirects();
-        $this->assertEquals('AgendaBundle\Controller\DefaultController::indexAction',
-            $client->getRequest()->attributes->get('_controller'));
     }
 
     // Fonction permettant de créer un evènement
