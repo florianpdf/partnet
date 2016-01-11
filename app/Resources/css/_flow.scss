@@ -583,12 +583,16 @@ display: block;
 .agenda_form > form button[type="submit"] {
   display: block;
   width: 70%;
-  margin: 70px auto 0;
+  margin: 140px auto 0;
   background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
   transition: background 0.3s;
 }
 .agenda_form > form button[type="submit"]:hover {
   background: #35988F;
+}
+
+.agenda_form .titre{
+  margin-top: 140px;
 }
 
 
