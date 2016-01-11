@@ -482,11 +482,11 @@ h1 {
 #gedbundle_documents_finDeVie {
   float: right; margin: 0;
 }
-.admin-form > form select {
-  height: 40px; width: 100px;
-  margin-left: 5px;
-  border: 0; outline: 0;
-}
+//.admin-form > form select {
+//  height: 40px; width: 100px;
+//  margin-left: 5px;
+//  border: 0; outline: 0;
+//}
 .admin-form > form p {
   font-style: italic;
 }
@@ -500,6 +500,58 @@ display: block;
 .admin-form > form button[type="submit"]:hover {
   background: #35988F;
 }
+
+/* ////////// Formulaire de l'agenda ////////// *\
+\* //////////////////////////////////////////// */
+
+.agenda_form > form {
+  max-width: 1000px; margin: auto;
+  padding: 2% 5%;
+  background: #e1d85d;
+}
+.agenda_form > form div {
+  position: relative;
+  height: 40px; line-height: 40px;
+  margin: 15px 0;clear: both;
+}
+.agenda_form > form input,
+.agenda_form > form textarea {
+  float: right;
+  width: 60%; height: 100%;
+  border: 0; outline: 0;
+  padding: 5px 30px;
+}
+.agenda_form > form textarea {
+  height: 100px;
+  margin-bottom: 15px;
+  resize: none;
+}
+#date_start_event_new {
+  display: none;
+}
+.agenda_form h3 {
+  text-align: center;
+  margin: 10px 0 30px 0;
+}
+#date_end_event_new {
+  float: right; margin: 0;
+}
+.agenda_form > form select {
+  height: 40px; width: 100px;
+  margin-left: 5px;
+  border: 0; outline: 0;
+}
+.agenda_form > form button[type="submit"] {
+  display: block;
+  width: 70%;
+  margin: 70px auto 0;
+  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
+  transition: background 0.3s;
+}
+.agenda_form > form button[type="submit"]:hover {
+  background: #35988F;
+}
+
 
 
 /* //////////////// media queries //////////////// *\
