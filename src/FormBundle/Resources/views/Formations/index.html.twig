@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block main_content -%}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+    <main>
+        <table id="donnees" class="display" width="100%">
+            <thead>
+                <tr>
+                    <th colspan="3">Liste des formations</th>
+                </tr>
+
+            </thead>
+            {% for entity in entities %}
+
+                <tr>
+                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.photoOrganisme}) }}" /></td>
+                    <td>
+                        <ul>
+                            <li><strong>Titre : </strong>{{ entity.titre }}</li>
+                            <li><strong>Places disponibles : </strong>{{ entity.nbPlace }}</li>
+                            <li><strong>Lieu : </strong>{{ entity.lieu }}</li>
+                            <li><strong>Résumé : </strong>{{ entity.resume }}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('formations_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('formations_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+
+                </tr>
+
+
+
+            {% endfor %}
+        </table>
+
+
+
+
+        <ul>
+            <li>
+                <a href="{{ path('formations_new') }}">
+                    Create a new entry
+                </a>
+            </li>
+        </ul></main>
+    {% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    }
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: '.target',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden && col.data != "" ?
+                                '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "5%" },
+                    { "width": "37.5%" },
+                    { "width": "17.5%" },
+
+                ],
+                "columnDefs": [],
+
+            });
+
+
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+
+            // fadeout pour le flashbag
+            window.setTimeout(function() {
+                $( '.flashbag' ).fadeOut( 1750 );
+            }, 2250);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% block main_content -%}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+    <main><h1>Formations</h1>
+
+        <table class="record_properties">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Photoorganisme</th>
+                <td>{{ entity.photoOrganisme }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ entity.titre }}</td>
+            </tr>
+            <tr>
+                <th>Nbplace</th>
+                <td>{{ entity.nbPlace }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ entity.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Resume</th>
+                <td>{{ entity.resume }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('formations') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('formations_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul></main>
+{% endblock %}

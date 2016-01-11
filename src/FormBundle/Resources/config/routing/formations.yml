@@ -1,0 +1,30 @@
+formations:
+    path:     /
+    defaults: { _controller: "FormBundle:Formations:index" }
+
+formations_show:
+    path:     /{id}/show
+    defaults: { _controller: "FormBundle:Formations:show" }
+
+formations_new:
+    path:     /new
+    defaults: { _controller: "FormBundle:Formations:new" }
+
+formations_create:
+    path:     /create
+    defaults: { _controller: "FormBundle:Formations:create" }
+    methods:  POST
+
+formations_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FormBundle:Formations:edit" }
+
+formations_update:
+    path:     /{id}/update
+    defaults: { _controller: "FormBundle:Formations:update" }
+    methods:  [POST, PUT]
+
+formations_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FormBundle:Formations:delete" }
+    methods:  [POST, DELETE]

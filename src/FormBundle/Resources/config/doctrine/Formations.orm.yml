@@ -1,4 +1,4 @@
-MsgBundle\Entity\ResponseMessage:
+FormBundle\Entity\Formations:
     type: entity
     table: null
     id:
@@ -8,20 +8,20 @@ MsgBundle\Entity\ResponseMessage:
             generator:
                 strategy: AUTO
     fields:
-        idMessage:
+        organisme:
+            type: string
+            length: 255
+            column: organisme
+        titre:
+            type: string
+            length: 255
+        nbPlace:
             type: integer
-            column: id_message
-        sender:
+            column: nb_place
+        lieu:
             type: string
             length: 255
-        sender_name:
-            type: string
-            length: 255
-        subject:
-            type: string
-            length: 255
-        message:
+        resume:
             type: text
-        date:
-            type: datetime
+
     lifecycleCallbacks: {  }

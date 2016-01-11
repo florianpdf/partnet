@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block main_content -%}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+<main>
+    <h1>Organisme creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_organisme') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+    </main>
+{% endblock %}

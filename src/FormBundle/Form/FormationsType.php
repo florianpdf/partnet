@@ -1,13 +1,12 @@
 <?php
 
-namespace MsgBundle\Form;
+namespace FormBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 
-class MessageType extends AbstractType
+class FormationsType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,17 +14,13 @@ class MessageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        // MULTIPLE : true (plusieurs destinataire) false, l'inverse
         $builder
-            ->add('recipient', 'text', array(
-                'label' => 'Destinataire', 'attr' => array(
-                'placeholder' => 'adresse mail')
-            ))
-            ->add('message', 'textarea', array('label' => 'Message'))
 
+            ->add('titre')
+            ->add('nbPlace')
+            ->add('lieu')
+            ->add('resume')
         ;
-
     }
     
     /**
@@ -34,7 +29,7 @@ class MessageType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MsgBundle\Entity\Message'
+            'data_class' => 'FormBundle\Entity\Formations'
         ));
     }
 
@@ -43,6 +38,6 @@ class MessageType extends AbstractType
      */
     public function getName()
     {
-        return 'msgbundle_message';
+        return 'formbundle_formations';
     }
 }

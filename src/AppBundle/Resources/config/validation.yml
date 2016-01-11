@@ -1,0 +1,16 @@
+AppBundle\Entity\Oganisme:
+    properties:
+        nom:
+            - NotBlank: ~
+            - Length:
+                max: 50
+                maxMessage: "Le nom ne peut contenir plus de 50 caractères."
+        description:
+            - Type:
+                type: string
+                message: "Ce champ ne peut contenir que des caractères alphabétiques."
+        photo:
+            - File:
+                maxSize: 3M
+                mimeTypes: [image/jpeg, image/jpg]
+                mimeTypesMessage: "Merci d'uploader une image valide."
