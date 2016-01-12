@@ -215,4 +215,79 @@ class Organisme
     {
         return $this->description;
     }
+    /**
+     * @var string
+     */
+    private $backgroundColor;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $fos_user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fos_user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set backgroundColor
+     *
+     * @param string $backgroundColor
+     *
+     * @return Organisme
+     */
+    public function setBackgroundColor($backgroundColor)
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * Get backgroundColor
+     *
+     * @return string
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    /**
+     * Add fosUser
+     *
+     * @param \UserBundle\Entity\User $fosUser
+     *
+     * @return Organisme
+     */
+    public function addFosUser(\UserBundle\Entity\User $fosUser)
+    {
+        $this->fos_user[] = $fosUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove fosUser
+     *
+     * @param \UserBundle\Entity\User $fosUser
+     */
+    public function removeFosUser(\UserBundle\Entity\User $fosUser)
+    {
+        $this->fos_user->removeElement($fosUser);
+    }
+
+    /**
+     * Get fosUser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFosUser()
+    {
+        return $this->fos_user;
+    }
 }

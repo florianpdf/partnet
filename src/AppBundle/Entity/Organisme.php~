@@ -25,7 +25,7 @@ class Organisme
 
     protected function getUploadRootDir()
     {
-        return __DIR__.'../../../app/'.$this->getUploadDir();
+        return __DIR__.'/../../../app/'.$this->getUploadDir();
     }
 
     public function getWebPath()
@@ -83,6 +83,11 @@ class Organisme
      * @var integer
      */
     private $id;
+
+    /**
+     * @var file
+     */
+    public $file;
 
     /**
      * @var integer
