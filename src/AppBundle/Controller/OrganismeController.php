@@ -261,6 +261,17 @@ class OrganismeController extends Controller
 
             $em->remove($entity);
             $em->flush();
+        } else {
+            // pour la Méthode GET
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('AppBundle:Organisme')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Organisme entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
         }
 
         return $this->redirect($this->generateUrl('admin_organisme'));

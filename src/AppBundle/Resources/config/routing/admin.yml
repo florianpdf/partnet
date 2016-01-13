@@ -67,7 +67,7 @@ admin_organisme_update:
 admin_organisme_delete:
     path:     /organisme/{id}/delete
     defaults: { _controller: "AppBundle:Organisme:delete" }
-    methods:  [POST, DELETE]
+    methods:  [POST, DELETE, GET]
 
 organisme_get_picture:
     path:      /organisme/{picture}

@@ -22,21 +22,26 @@
                 </td>
                 <td>{{ entity.nom }}</td>
                 <td>{{ entity.description }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_organisme_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_organisme_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+
+                <td class="actions">
+
+                        <a href="{{ path('admin_organisme_edit', { 'id': entity.id }) }}" title="Editer">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('admin_organisme_delete', { 'id': entity.id }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                        <a href="{{ path('admin_organisme_show', { 'id': entity.id }) }}" title="Afficher">
+                            <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                        </a>
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>
     </table>
     <a class="button-add" href="{{ path('admin_organisme_new') }}">Ajouter</a>
+    {% include '@App/Organisme/delete.html.twig' %}
     </main>
     {% endblock %}
 {% block scripts %}
@@ -73,9 +78,9 @@
                 "autoWidth": false,
                 "columns": [
                     { "width": "5%" },
-                    { "width": "37.5%" },
-                    { "width": "17.5%" },
-                    { "width": "17.5%" },
+                    { "width": "10.5%" },
+                    { "width": "54.5%" },
+                    { "width": "7.5%" },
 
                 ],
                 "columnDefs": [],
