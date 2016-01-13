@@ -18,12 +18,20 @@ $tile5 : #abb7d2;
 $tile6 : #e8ac79;
 
 // body backgrounds
-$tile1-bg : #D7EBF1;
-$tile2-bg : #F1ECB1;
-$tile3-bg : #D1EBC5;
-$tile4-bg : #F2D9D2;
-$tile5-bg : #D3D9E7;
-$tile6-bg : #F4D7BE;
+$tile1-bg      : #D7EBF1;
+$tile2-bg      : #F1ECB1;
+$tile3-bg      : #D1EBC5;
+$tile4-bg      : #F2D9D2;
+$tile5-bg      : #D3D9E7;
+$tile6-bg      : #F4D7BE;
+
+$ged-bg        : #E5F6F1;
+$agenda-bg     : #F8F5D6;
+$annuaire-bg   : #E7EFFF;
+$emploi-bg     : #F2D9D2;
+$formations-bg : #D3D9E7;
+$emploi-bg     : #F4D7BE;
+
 
 // DataTables rows
 $documents-head-rows-bg   : #fff;
@@ -46,20 +54,29 @@ $dialogue-odd-rows-bg     : #fff;
 $dialogue-even-rows-bg    : #fff;
 
 // main > h1 backgrounds
-$documents-main-title-bg  : #fff;
-$agenda-main-title-bg     : #fff;
-$annuaire-main-title-bg   : #fff;
+$documents-main-title-bg  : #559FB2;
+$agenda-main-title-bg     : #A29F79;
+$annuaire-main-title-bg   : #939EB3;
 $emploi-main-title-bg     : #fff;
 $formations-main-title-bg : #fff;
 $dialogue-main-title-bg   : #fff;
 
 // main backgrounds
 $documents-main-bg  : #D0E6EC;
-$agenda-main-bg     : #fff;
-$annuaire-main-bg   : #fff;
+$agenda-main-bg     : #EFEAA7;
+$annuaire-main-bg   : #D4DDEC;
 $emploi-main-bg     : #fff;
 $formations-main-bg : #fff;
 $dialogue-main-bg   : #fff;
+
+// main submit button backgrounds
+$default-submit-bg    : #A7A39E;
+$documents-submit-bg  : #82B9C7;
+$agenda-submit-bg     : #BBB99D;
+$annuaire-submit-bg   : #B0B8C7;
+$emploi-submit-bg     : #fff;
+$formations-submit-bg : #fff;
+$dialogue-submit-bg   : #fff;
 
 // fields errors
 $field-error: #B88E8D;

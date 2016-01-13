@@ -79,6 +79,7 @@ class ProfileController extends Controller
         if ($form->isValid()) {
 
             $user->setUsername($this->getUser()->getEmail());
+            //$form->setData(str_replace($form->get('telephone'), " ", ""));
 
 
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
@@ -86,6 +87,11 @@ class ProfileController extends Controller
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
+
+            //$user->setTelephone(str_replace($user->getTelephone(), " ", ""));
+            
+            //$raw_tel = $form->get('telephone')->getData();
+            //$form->setData(str_replace($raw_tel, " ", ""));
 
             $userManager->updateUser($user);
 
