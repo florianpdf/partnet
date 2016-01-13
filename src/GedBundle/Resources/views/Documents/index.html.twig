@@ -38,7 +38,10 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                <td class="target">{{ doc.dateUpload|date('m/d/Y') }}</td>
+                <td class="target">
+                    <span style="display:none">{{ doc.dateUpload|date('Y/m/d') }}{{ doc.dateUpload|date('H:i:s') }}</span>
+                    {{ doc.dateUpload|date('d/m/Y') }}
+                </td>
                 <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Editer">

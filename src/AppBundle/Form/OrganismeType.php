@@ -15,7 +15,7 @@ class OrganismeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', array('label' => 'Image associé', 'attr' => array('accept' => 'image/*')))
+            ->add('file', 'file', array('required' => false, 'label' => 'Image associé', 'attr' => array('accept' => 'image/*')))
             ->add('nom')
             ->add('description')
         ;

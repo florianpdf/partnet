@@ -11,11 +11,21 @@ AppBundle\Entity\Organisme:
         photo:
             type: string
             length: 255
+            nullable: true
         nom:
             type: string
             length: 255
         description:
             type: text
+        backgroundColor:
+            type: string
+            nullable: true
+
+    oneToMany:
+        fos_user:
+            targetEntity: UserBundle\Entity\User
+            mappedBy: organisme
+
     lifecycleCallbacks:
         prePersist: [ preUpload ]
         preUpdate: [ preUpload ]
