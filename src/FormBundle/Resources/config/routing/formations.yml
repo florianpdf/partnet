@@ -2,10 +2,6 @@ formations:
     path:     /
     defaults: { _controller: "FormBundle:Formations:index" }
 
-formations_show:
-    path:     /{id}/show
-    defaults: { _controller: "FormBundle:Formations:show" }
-
 formations_new:
     path:     /new
     defaults: { _controller: "FormBundle:Formations:new" }

@@ -85,7 +85,7 @@ class FormationsController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer'));
 
         return $form;
     }
@@ -105,27 +105,6 @@ class FormationsController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a Formations entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FormBundle:Formations')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Formations entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('FormBundle:Formations:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing Formations entity.
@@ -142,12 +121,10 @@ class FormationsController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('FormBundle:Formations:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -165,7 +142,7 @@ class FormationsController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
 
         return $form;
     }
@@ -183,7 +160,6 @@ class FormationsController extends Controller
             throw $this->createNotFoundException('Unable to find Formations entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -196,7 +172,6 @@ class FormationsController extends Controller
         return $this->render('FormBundle:Formations:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
@@ -205,7 +180,6 @@ class FormationsController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -230,13 +204,5 @@ class FormationsController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('formations_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
+
 }
