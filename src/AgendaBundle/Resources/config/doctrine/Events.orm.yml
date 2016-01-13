@@ -36,6 +36,9 @@ AgendaBundle\Entity\Events:
                 fixed: false
         backgroundColor:
             type: string
+        fil_actu:
+            type: boolean
+
     manyToOne:
         idUser:
             targetEntity: UserBundle\Entity\User
@@ -47,4 +50,5 @@ AgendaBundle\Entity\Events:
                 id_user:
                     referencedColumnName: id
             orphanRemoval: false
+
     lifecycleCallbacks: {  }

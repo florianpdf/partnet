@@ -2,6 +2,7 @@
 
 namespace AgendaBundle\Controller;
 
+use AppBundle\Entity\Actu;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -87,6 +88,7 @@ class EventsController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Events();
+        $actu = new Actu();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -111,6 +113,7 @@ class EventsController extends Controller
 
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
+            // On se protège de la faille XSS
             $entity->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
             $entity->setContenu(htmlspecialchars($form->getViewData()->getContenu()));
             $entity->setIdUser($user);
@@ -118,6 +121,16 @@ class EventsController extends Controller
             $this->colorEvent($entity);
 
             $em->persist($entity);
+
+            // Si la checkbox du fil d'actu est coché, on met à jour la table actu avec l'event
+            if ($form->getViewData()->getFilActu() == true){
+                $actu->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
+                $actu->setDateAjout(new \DateTime());
+                $actu->setType('évènement');
+                $actu->setIdEvents($entity);
+                $em->persist($actu);
+            }
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('agenda_homepage'));
@@ -256,6 +269,7 @@ class EventsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AgendaBundle:Events')->find($id);
+        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idEvents' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Events entity.');
@@ -290,7 +304,7 @@ class EventsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AgendaBundle:Events')->find($id);
-        $entities = $em->getRepository('AgendaBundle:Events')->findAll();
+        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idEvents' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException(
@@ -299,6 +313,7 @@ class EventsController extends Controller
         }
 
         $em->remove($entity);
+        $em->remove($actu);
         $em->flush();
 
         return $this->redirect($this->generateUrl('agenda_homepage'));

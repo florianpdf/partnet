@@ -1,6 +1,7 @@
 AppBundle\Entity\Organisme:
     type: entity
     table: null
+    repositoryClass: AppBundle\Entity\OrganismeRepository
     id:
         id:
             type: integer

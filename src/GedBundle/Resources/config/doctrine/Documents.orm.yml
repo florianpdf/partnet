@@ -68,6 +68,8 @@ GedBundle\Entity\Documents:
         nbdocument:
             type: integer
             nullable: true
+        fil_actu:
+            type: boolean
 
     manyToOne:
         user:

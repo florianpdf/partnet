@@ -429,4 +429,33 @@ class Documents
     {
         return $this->nbdocument;
     }
+    /**
+     * @var boolean
+     */
+    private $fil_actu;
+
+
+    /**
+     * Set filActu
+     *
+     * @param boolean $filActu
+     *
+     * @return Documents
+     */
+    public function setFilActu($filActu)
+    {
+        $this->fil_actu = $filActu;
+
+        return $this;
+    }
+
+    /**
+     * Get filActu
+     *
+     * @return boolean
+     */
+    public function getFilActu()
+    {
+        return $this->fil_actu;
+    }
 }

@@ -26,6 +26,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('08/15/2015'));
         $document->setFinDeVie(new \DateTime('01/01/2016'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -37,6 +38,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('08/30/2015'));
         $document->setFinDeVie(new \DateTime('06/01/2016'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -48,6 +50,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('07/10/2015'));
         $document->setFinDeVie(new \DateTime('01/01/2017'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -59,6 +62,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('09/01/2015'));
         $document->setFinDeVie(new \DateTime('02/01/2016'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -70,6 +74,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('09/07/2015'));
         $document->setFinDeVie(new \DateTime('06/01/2018'));
+        $document->setFilActu('0');
         $manager->persist($document);
 
         $document = new Documents();
@@ -81,6 +86,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('10/16/2015'));
         $document->setFinDeVie(new \DateTime('01/01/2018'));
+        $document->setFilActu('0');
         $manager->persist($document);
 
         $document = new Documents();
@@ -92,6 +98,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('08/20/2015'));
         $document->setFinDeVie(new \DateTime('05/01/2017'));
+        $document->setFilActu('0');
         $manager->persist($document);
 
         $document = new Documents();
@@ -103,6 +110,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('08/23/2015'));
         $document->setFinDeVie(new \DateTime('04/01/2019'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -114,6 +122,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('07/27/2015'));
         $document->setFinDeVie(new \DateTime('09/01/2017'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -125,6 +134,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('09/04/2015'));
         $document->setFinDeVie(new \DateTime('06/01/2016'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -136,6 +146,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('05/14/2015'));
         $document->setFinDeVie(new \DateTime('02/01/2018'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -147,6 +158,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('05/02/2015'));
         $document->setFinDeVie(new \DateTime('01/01/2017'));
+        $document->setFilActu('1');
         $manager->persist($document);
 
         $document = new Documents();
@@ -158,6 +170,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('08/09/2015'));
         $document->setFinDeVie(new \DateTime('03/01/2016'));
+        $document->setFilActu('0');
         $manager->persist($document);
 
         $document = new Documents();
@@ -169,6 +182,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('08/18/2015'));
         $document->setFinDeVie(new \DateTime('07/01/2017'));
+        $document->setFilActu('0');
         $manager->persist($document);
 
         $document = new Documents();
@@ -180,6 +194,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setFileName('test_upload.pdf');
         $document->setDateUpload(new \DateTime('10/05/2015'));
         $document->setFinDeVie(new \DateTime('08/01/2020'));
+        $document->setFilActu('0');
         $manager->persist($document);
 
         $manager->flush();

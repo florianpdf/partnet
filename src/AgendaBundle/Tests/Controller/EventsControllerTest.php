@@ -106,6 +106,7 @@ class EventsControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('form input[name="agendabundle_events[titre]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form textarea[name="agendabundle_events[contenu]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form button[name="agendabundle_events[submit]"]')->count() == 1);
+        $this->assertEquals(1, $crawler->filter('html:contains("Ajouter au fil d\'actualité")')->count());
     }
 
     // Fonction permettant de créer un evènement

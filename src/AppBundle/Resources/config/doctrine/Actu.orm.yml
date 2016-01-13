@@ -1,0 +1,36 @@
+AppBundle\Entity\Actu:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Entity\ActuRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        titre:
+            type: string
+            length: 255
+        dateAjout:
+            type: datetime
+            column: date_ajout
+        type:
+            type: string
+            length: 255
+
+    manyToOne:
+        idEvents:
+            targetEntity: AgendaBundle\Entity\Events
+            inversedBy: null
+            joinColumn:
+                name: id_event
+                referencedColumnName: id
+        idDocuments:
+            targetEntity: GedBundle\Entity\Documents
+            inversedBy: null
+            joinColumn:
+                name: id_document
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

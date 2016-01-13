@@ -19,7 +19,7 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', array(
             'nb' => $nb,
-            'nb_month' => $nb_month
+            'nb_month' => $nb_month,
         ));
     }
 

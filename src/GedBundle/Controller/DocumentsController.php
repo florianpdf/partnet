@@ -2,6 +2,7 @@
 
 namespace GedBundle\Controller;
 
+use AppBundle\Entity\Actu;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -44,6 +45,7 @@ class DocumentsController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Documents();
+        $actu = new Actu();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -56,6 +58,16 @@ class DocumentsController extends Controller
             $entity->getUser()->setNbUploads($nbUploads + 1);
 
             $em->persist($entity);
+
+            // Si la checkbox du fil d'actu est coché, on met à jour la table actu avec le document
+            if ($form->getViewData()->getFilActu() == true){
+                $actu->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
+                $actu->setDateAjout(new \DateTime());
+                $actu->setType('document');
+                $actu->setIdDocuments($entity);
+                $em->persist($actu);
+            }
+
             $em->flush();
 
             $request->getSession()
@@ -158,6 +170,7 @@ class DocumentsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('GedBundle:Documents')->find($id);
+        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idDocuments' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Documents entity.');
@@ -173,6 +186,7 @@ class DocumentsController extends Controller
 
         if ($editForm->isValid()) {
             $entity->preUpload();
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('documents'));
@@ -192,6 +206,7 @@ class DocumentsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('GedBundle:Documents')->find($id);
+        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idDocuments'=> $id));
         $entities = $em->getRepository('GedBundle:Documents')->findAll();
         $list_users = $em->getRepository('UserBundle:User')->findAll();
 
@@ -202,6 +217,7 @@ class DocumentsController extends Controller
         }
 
         $em->remove($entity);
+        $em->remove($actu);
         $em->flush();
 
         return $this->redirect($this->generateUrl('documents', array(
