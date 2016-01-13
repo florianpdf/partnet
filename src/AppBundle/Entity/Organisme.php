@@ -14,16 +14,15 @@ class Organisme
 {
 
 
-    public function getFixturesPath()
-    {
-        return $this->getAbsolutePath() . 'app/Resources/images/';
-    }
-
     protected function getUploadDir()
     {
         return 'uploads/organismes_pictures/';
     }
 
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'app/Resources/images/';
+    }
 //    public function getFixturesPath()
 //    {
 //        return $this->getAbsolutePath() . 'app/uploads/documents/fixtures/';
@@ -53,7 +52,7 @@ class Organisme
     {
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
-            $this->photo = $this->photo;
+            $this->photo = uniqid().'.'.$this->file->guessExtension();
         }
     }
 
@@ -83,6 +82,7 @@ class Organisme
             unlink($file);
         }
     }
+
 
     /// GENERATED CODE
     /**

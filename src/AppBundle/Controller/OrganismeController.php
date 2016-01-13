@@ -49,6 +49,7 @@ class OrganismeController extends Controller
 
     public function PictureOrganismeAction($picture)
     {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('fos_user_security_login');
         }
@@ -105,7 +106,7 @@ class OrganismeController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_organisme_show', array('id' => $entity->getId())));
+            return $this->redirectToRoute('admin_organisme');
         }
 
         return $this->render('AppBundle:Organisme:new.html.twig', array(
@@ -208,7 +209,7 @@ class OrganismeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_organisme_edit', array('id' => $id)));
+            return $this->redirectToRoute('admin_organisme');
         }
 
         return $this->render('AppBundle:Organisme:edit.html.twig', array(
@@ -221,22 +222,10 @@ class OrganismeController extends Controller
      * Deletes a Organisme entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Organisme')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Organisme entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        } else {
             // pour la Méthode GET
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:Organisme')->find($id);
@@ -247,7 +236,6 @@ class OrganismeController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
 
         return $this->redirect($this->generateUrl('admin_organisme'));
     }
