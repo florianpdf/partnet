@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Organisme
 {
 
+
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'app/Resources/images/';
+    }
+
     protected function getUploadDir()
     {
         return 'uploads/organismes_pictures/';
@@ -47,7 +53,7 @@ class Organisme
     {
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
-            $this->photo = uniqid().'.'.$this->file->guessExtension();
+            $this->photo = $this->photo;
         }
     }
 
