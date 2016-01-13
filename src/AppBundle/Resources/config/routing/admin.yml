@@ -42,10 +42,6 @@ admin_organisme:
     path:     /organisme/
     defaults: { _controller: "AppBundle:Organisme:index" }
 
-admin_organisme_show:
-    path:     /organisme/{id}/show
-    defaults: { _controller: "AppBundle:Organisme:show" }
-
 admin_organisme_new:
     path:     /organisme/new
     defaults: { _controller: "AppBundle:Organisme:new" }
