@@ -13,11 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Organisme
 {
 
+
     protected function getUploadDir()
     {
         return 'uploads/organismes_pictures/';
     }
 
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'app/Resources/images/';
+    }
 //    public function getFixturesPath()
 //    {
 //        return $this->getAbsolutePath() . 'app/uploads/documents/fixtures/';
@@ -77,6 +82,7 @@ class Organisme
             unlink($file);
         }
     }
+
 
     /// GENERATED CODE
     /**

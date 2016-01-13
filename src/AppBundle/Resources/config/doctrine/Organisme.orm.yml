@@ -11,6 +11,7 @@ AppBundle\Entity\Organisme:
         photo:
             type: string
             length: 255
+            nullable: true
         nom:
             type: string
             length: 255
