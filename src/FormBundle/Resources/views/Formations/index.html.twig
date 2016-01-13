@@ -14,7 +14,7 @@
             {% for entity in entities %}
 
                 <tr>
-                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.photoOrganisme}) }}" /></td>
+                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.image}) }}" /></td>
                     <td>
                         <ul>
                             <li><strong>Titre : </strong>{{ entity.titre }}</li>
@@ -39,13 +39,16 @@
 
 
 
+
             {% endfor %}
         </table>
 
 
 
         <a class="button-add" href="{{ path('formations_new') }}">Ajouter</a>
-        </main>
+        {% include '@Form/Formations/delete.html.twig' %}
+
+    </main>
     {% endblock %}
 {% block scripts %}
     {{ parent() }}

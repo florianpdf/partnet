@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FormBundle\Entity\Formations;
 use FormBundle\Form\FormationsType;
 use FormBundle\Entity\FormationsRepository;
+use Symfony\Component\Security\Core\User\User;
 
 /**
  * Formations controller.
@@ -24,6 +25,7 @@ class FormationsController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
 
         $entities = $em->getRepository('FormBundle:Formations')->findAll();
 
@@ -47,22 +49,20 @@ class FormationsController extends Controller
 
             $user = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
-            var_dump($user->getOrganisme());// nom de l'organisme string
+            $entity->setOrganisme($user->getOrganisme());
 
-            $organisme = $em->getRepository('AppBundle:Organisme')->findAll();
+            $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
 
-            foreach ($organisme as $value) {
-                var_dump($value);
+            foreach ($organismes as $organisme) {
+                if($this->getUser()->getOrganisme() == $organisme->getNom()) {
+                    $entity->setImage($organisme->getPhoto());
+                }
             }
-
-
-            // SET url photo de l'organisme
-            $entity->setPhotoOrganisme();
 
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('formations_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('formations'));
         }
 
         return $this->render('FormBundle:Formations:new.html.twig', array(
@@ -98,6 +98,7 @@ class FormationsController extends Controller
     {
         $entity = new Formations();
         $form   = $this->createCreateForm($entity);
+
 
         return $this->render('FormBundle:Formations:new.html.twig', array(
             'entity' => $entity,
@@ -166,7 +167,7 @@ class FormationsController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('formations_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('formations'));
         }
 
         return $this->render('FormBundle:Formations:edit.html.twig', array(
@@ -178,11 +179,9 @@ class FormationsController extends Controller
      * Deletes a Formations entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('FormBundle:Formations')->find($id);
 
@@ -192,7 +191,7 @@ class FormationsController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+
 
         return $this->redirect($this->generateUrl('formations'));
     }

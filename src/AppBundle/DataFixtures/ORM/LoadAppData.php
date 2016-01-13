@@ -59,7 +59,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
         copy($organisme->getFixturesPath() . 'sousprefecture.jpg', 'app/uploads/organismes_pictures/sousprefecture.jpg');
 
         $organisme->setPhoto('sousprefecture.jpg');
-        $organisme->setNom('Sous préfecture');
+        $organisme->setNom('Sous-préfecture');
         $organisme->setDescription('Bureaux de l\'administration préfectorale');
         $manager->persist($organisme);
 
