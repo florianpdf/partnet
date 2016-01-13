@@ -51,10 +51,10 @@ GedBundle\Entity\Documents:
             type: string
             nullage: false
             length: 255
-        dateUpload:
+        dateAjout:
             type: datetime
             nullable: true
-            column: date_upload
+            column: date_ajout
         dateModif:
             type: datetime
             nullable: true

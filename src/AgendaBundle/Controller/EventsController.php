@@ -116,6 +116,7 @@ class EventsController extends Controller
             // On se protège de la faille XSS
             $entity->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
             $entity->setContenu(htmlspecialchars($form->getViewData()->getContenu()));
+            $entity->setDateAjout(new \DateTime());
             $entity->setIdUser($user);
 
             $this->colorEvent($entity);

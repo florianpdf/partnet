@@ -51,7 +51,7 @@ class DocumentsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setDateUpload(new \DateTime());
+            $entity->setDateAjout(new \DateTime());
             $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
 
             $nbUploads = $entity->getUser()->getNbUploads();

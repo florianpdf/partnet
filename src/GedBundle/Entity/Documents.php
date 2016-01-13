@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Documents
 {
+    protected $type;
+
+    public function getType(){
+        return $this->type = 'documents';
+    }
+
     protected function getUploadDir()
     {
         return 'uploads/documents';
@@ -457,5 +463,34 @@ class Documents
     public function getFilActu()
     {
         return $this->fil_actu;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $dateAjout;
+
+
+    /**
+     * Set dateAjout
+     *
+     * @param \DateTime $dateAjout
+     *
+     * @return Documents
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAjout
+     *
+     * @return \DateTime
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
     }
 }

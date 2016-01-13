@@ -36,6 +36,10 @@ AgendaBundle\Entity\Events:
                 fixed: false
         backgroundColor:
             type: string
+        dateAjout:
+            type: datetime
+            nullable: true
+            column: date_ajout
         fil_actu:
             type: boolean
 
