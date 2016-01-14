@@ -28,7 +28,7 @@ AgendaBundle\Entity\Events:
             length: 255
             options:
                 fixed: false
-        contenu:
+        resume:
             type: text
             nullable: true
             length: null

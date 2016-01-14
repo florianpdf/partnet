@@ -2,7 +2,6 @@
 
 namespace AgendaBundle\Controller;
 
-use AppBundle\Entity\Actu;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -114,7 +113,7 @@ class EventsController extends Controller
 
             // On se protège de la faille XSS
             $entity->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
-            $entity->setContenu(htmlspecialchars($form->getViewData()->getContenu()));
+            $entity->setResume(htmlspecialchars($form->getViewData()->getResume()));
             $entity->setDateAjout(new \DateTime());
             $entity->setIdUser($user);
 
@@ -260,7 +259,6 @@ class EventsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AgendaBundle:Events')->find($id);
-        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idEvents' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Events entity.');
@@ -273,7 +271,7 @@ class EventsController extends Controller
         if ($editForm->isValid()) {
 
             $entity->setTitre(htmlspecialchars($entity->getTitre()));
-            $entity->setContenu(htmlspecialchars($entity->getContenu()));
+            $entity->setResume(htmlspecialchars($entity->getResume()));
 
             $em->flush();
 

@@ -18,6 +18,8 @@
 
         {% block external_fonts %}{% endblock %}
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
         {% block ie_comments %}
             <!--[if lte IE 9]>
             {% if app.environment == 'dev' %}
@@ -36,7 +38,6 @@
     {% block body_class %}<body>{% endblock %}
         {% block main_content %}{% endblock %}
         {% block scripts %}
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             {% if app.environment == 'dev' %}
                 <script src="{{ asset('js/dev/scripts.js') }}"></script>
             {% else %}

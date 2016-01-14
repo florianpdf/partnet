@@ -5,45 +5,63 @@
 {% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     <ul id="marquee">
-        <li>
-            <span>10/10/2007</span><a class="confirmModalLink" href="#">The first thing ...</a>
-            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <span>The first thing ...</span>
-                        </div>
-                        <div class="modal-body">
-                            <p>Etes-vous sûr de vouloir supprimer ce document ?</p>
+        {% for result in results %}
+            <li>
+                <span>
+                    {% if result.type == 'events' %}
+                        Nouvel évènement : Ajouté le
+                    {% elseif result.type == 'documents' %}
+                        Nouveau document : Ajouté le
+                    {% elseif result.type == 'formations' %}
+                        Nouvelle formation : Ajouté le
+                    {% endif %}
+
+                    {{ result.dateAjout | date('d/m/Y') }} &nbsp;&nbsp;
+                </span>
+                <script>
+                    sessionStorage.setItem('id', '{{ result.id }}');
+                    console.log(sessionStorage.getItem('id'));
+                </script>
+                <a class="confirmModalLink" href="#">{{ result.titre }}</a>
+                <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <span>{{ result.titre }}</span>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ result.resume }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </li>
-        {% for result in results %}
-            <li>
-                {% if result.type == 'events' %}
-                    Nouvel évènement : Ajouté le
-                {% elseif result.type == 'documents' %}
-                    Nouveau document : Ajouté le
-                {% elseif result.type == 'formations' %}
-                    Nouvelle formation : Ajouté le
-                {% endif %}
-
-                {{ result.dateAjout | date('d/m/Y') }} &nbsp;&nbsp;
-
-                {% if result.type == 'events' %}
-                    <a href="{{ path('events') }}">{{ result.titre }}</a>
-                {% elseif result.type == 'documents' %}
-                    <a href="{{ path('documents') }}">{{ result.titre }}</a>
-                {% elseif result.type == 'formations' %}
-                    <a href="{{ path('documents') }}">{{ result.titre }}</a>
-                {% endif %}
             </li>
+            <script>
+                $('#myModal').on('shown.bs.modal', function () {
+                    $('#myInput').focus()
+                })
+
+                $(document).ready(function () {
+                    var theHREF;
+                    $(".confirmModalLink").click(function(e) {
+                        e.preventDefault();
+                        theHREF = $(this).attr("href");
+                        $(this).next().modal("show");
+                    });
+
+                    $("#confirmModalNo").click(function(e) {
+                        $("#confirmModal").modal("hide");
+                    });
+
+                    $("#confirmModalYes").click(function(e) {
+                        window.location.href = theHREF;
+                    });
+
+                });
+            </script>
         {% endfor %}
     </ul>
-
     <ul id="tiles-wrapper">
         <li><a href="{{ path('documents') }}"><span>Documents</span><img src="{{ asset('images/icone-documents.png') }}" alt="icône documents"></a></li>
         <li><a href="{{ path('agenda_homepage') }}"><span>Agenda</span><img src="{{ asset('images/icone-agenda.png') }}" alt="icône agenda"></a></li>
@@ -71,6 +89,8 @@
             </div>
         </div>
     {% endif %}
+
+    {{ dump(results) }}
 {% endblock %}
 
 {% block scripts %}

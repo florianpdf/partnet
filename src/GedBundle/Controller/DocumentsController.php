@@ -2,7 +2,6 @@
 
 namespace GedBundle\Controller;
 
-use AppBundle\Entity\Actu;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -160,7 +159,6 @@ class DocumentsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('GedBundle:Documents')->find($id);
-        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idDocuments' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Documents entity.');
