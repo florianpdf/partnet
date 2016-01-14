@@ -19,8 +19,9 @@ class DefaultController extends Controller
 
         $documents = $em->getRepository('GedBundle:Documents')->findBy(array('fil_actu' => 1));
         $events = $em->getRepository('AgendaBundle:Events')->findBy(array('fil_actu' => 1));
+        $formations = $em->getRepository('FormBundle:Formations')->findBy(array('fil_actu' => 1));
 
-        $actus = array_merge($documents, $events);
+        $actus = array_merge($documents, $events, $formations);
         function getSort()
         {
             return function ($a, $b) {
