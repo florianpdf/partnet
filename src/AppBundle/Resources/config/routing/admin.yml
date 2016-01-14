@@ -96,3 +96,27 @@ events_delete:
     requirements:
         id:  \d+
 
+# Route pour la gestion de formations
+
+formations_new:
+    path:     /formations/new
+    defaults: { _controller: "FormBundle:Formations:new" }
+
+formations_create:
+    path:     /formations/create
+    defaults: { _controller: "FormBundle:Formations:create" }
+    methods:  POST
+
+formations_edit:
+    path:     /formations/{id}/edit
+    defaults: { _controller: "FormBundle:Formations:edit" }
+
+formations_update:
+    path:     /formations/{id}/update
+    defaults: { _controller: "FormBundle:Formations:update" }
+    methods:  [POST, PUT]
+
+formations_delete:
+    path:     /formations/{id}/delete
+    defaults: { _controller: "FormBundle:Formations:delete" }
+    methods:  [DELETE, GET]
