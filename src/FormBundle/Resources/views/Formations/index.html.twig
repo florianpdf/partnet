@@ -14,7 +14,7 @@
             {% for entity in entities %}
 
                 <tr>
-                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.photoOrganisme}) }}" /></td>
+                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.image}) }}" /></td>
                     <td>
                         <ul>
                             <li><strong>Titre : </strong>{{ entity.titre }}</li>
@@ -23,18 +23,20 @@
                             <li><strong>Résumé : </strong>{{ entity.resume }}</li>
                         </ul>
                     </td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('formations_show', { 'id': entity.id }) }}">show</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('formations_edit', { 'id': entity.id }) }}">edit</a>
-                            </li>
-                        </ul>
+
+                    <td class="actions">
+
+                        <a href="{{ path('formations_edit', { 'id': entity.id }) }}" title="Editer">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('formations_delete', { 'id': entity.id }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+
                     </td>
 
                 </tr>
+
 
 
 
@@ -43,14 +45,10 @@
 
 
 
+        <a id="main-btn" href="{{ path('formations_new') }}">Ajouter</a>
+        {% include '@Form/Formations/delete.html.twig' %}
 
-        <ul>
-            <li>
-                <a href="{{ path('formations_new') }}">
-                    Create a new entry
-                </a>
-            </li>
-        </ul></main>
+    </main>
     {% endblock %}
 {% block scripts %}
     {{ parent() }}
