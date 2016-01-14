@@ -44,8 +44,11 @@
         </table>
 
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <a id="main-btn" href="{{ path('formations_new') }}">Ajouter</a>
+        {% endif %}
+        
 
-        <a id="main-btn" href="{{ path('formations_new') }}">Ajouter</a>
         {% include '@Form/Formations/delete.html.twig' %}
 
     </main>
