@@ -7,7 +7,7 @@ AgendaBundle\Entity\Events:
             - NotBlank: ~
             - Length:
                 max: 50
-        contenu:
+        resume:
             - NotBlank: ~
             - Length:
                 max: 400

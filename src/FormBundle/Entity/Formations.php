@@ -7,6 +7,15 @@ namespace FormBundle\Entity;
  */
 class Formations
 {
+
+    protected $type;
+
+    public function getType(){
+        return $this->type = 'formations';
+    }
+
+    // GENERATED CODE
+
     /**
      * @var integer
      */
@@ -282,5 +291,63 @@ class Formations
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * @var boolean
+     */
+    private $fil_actu;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateAjout;
+
+
+    /**
+     * Set filActu
+     *
+     * @param boolean $filActu
+     *
+     * @return Formations
+     */
+    public function setFilActu($filActu)
+    {
+        $this->fil_actu = $filActu;
+
+        return $this;
+    }
+
+    /**
+     * Get filActu
+     *
+     * @return boolean
+     */
+    public function getFilActu()
+    {
+        return $this->fil_actu;
+    }
+
+    /**
+     * Set dateAjout
+     *
+     * @param \DateTime $dateAjout
+     *
+     * @return Formations
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAjout
+     *
+     * @return \DateTime
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
     }
 }

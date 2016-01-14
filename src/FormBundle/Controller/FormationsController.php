@@ -50,6 +50,7 @@ class FormationsController extends Controller
             $user = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
             $entity->setOrganisme($user->getOrganisme());
+            $entity->setDateAjout(new \DateTime());
 
             $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
 

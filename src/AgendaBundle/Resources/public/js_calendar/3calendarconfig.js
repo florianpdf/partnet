@@ -63,7 +63,7 @@ $(document).ready(function() {
 
             $('#modalTime').html(Time);
             $('#modalTitle').html(calEvent.titre);
-            $('#modalBody').html(calEvent.contenu);
+            $('#modalBody').html(calEvent.resume);
             $('#fullCalModal').modal();
 
             if (user == calEvent.idUser.username){

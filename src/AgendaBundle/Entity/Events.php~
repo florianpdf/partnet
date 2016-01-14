@@ -10,6 +10,12 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Events
 {
 
+    protected $type;
+
+    public function getType(){
+        return $this->type = 'events';
+    }
+
     public function isDateValid(ExecutionContextInterface $context)
     {
         if ($this->end->getTimestamp() <= $this->start->getTimestamp()) {
@@ -313,5 +319,34 @@ class Events
     public function getEvents()
     {
         return $this->events;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $dateAjout;
+
+
+    /**
+     * Set dateAjout
+     *
+     * @param \DateTime $dateAjout
+     *
+     * @return Events
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAjout
+     *
+     * @return \DateTime
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
     }
 }
