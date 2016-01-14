@@ -16,9 +16,9 @@
                 <th>Téléphone</th>
                 <th>E-mail</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Création du compte</th>
                     <th>Uploads</th>
                     <th>Dernière connexion</th>
+                    <th>Création du compte</th>
                 {% endif %}
                 <th>Actions</th>
             </tr>
@@ -32,11 +32,11 @@
                     <td>{{ entity.telephone }}</td>
                     <td><a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a></td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td>{{ entity.creationCompte|date('d-m-Y') }}</td>
                         <td>{{ entity.nbUploads }}</td>
-                        <td>{{ entity.lastLogin|date('d/m/Y à H:i:s') }}</td>
+                        <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
+                        <td>{{ entity.creationCompte|date('d/m/Y') }}</td>
                     {% endif %}
-                    <td>
+                    <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />

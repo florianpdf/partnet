@@ -39,8 +39,8 @@
                     {% endfor %}
                 </td>
                 <td class="target">
-                    <span style="display:none">{{ doc.dateUpload|date('Y/m/d') }}{{ doc.dateUpload|date('H:i:s') }}</span>
-                    {{ doc.dateUpload|date('d/m/Y') }}
+                    <span style="display:none">{{ doc.dateAjout|date('Y/m/d H:i:s') }}</span>
+                    {{ doc.dateAjout|date('d/m/Y') }}
                 </td>
                 <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
