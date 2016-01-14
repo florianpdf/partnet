@@ -286,13 +286,8 @@ nav a:hover span { opacity: 0.5; }
   opacity: 0.3;
   transition: opacity 1s;
 }
-#tiles-wrapper li:hover .rubrique, #tiles-wrapper li:active .rubrique, #tiles-wrapper li:focus .rubrique {
+#tiles-wrapper li:hover span, #tiles-wrapper li:active span, #tiles-wrapper li:focus span {
   opacity: 0.5;
-}
-#tiles-wrapper .rubrique + span {
-  position: absolute;
-  bottom: 5px; right: 20px;
-  font-size: 0.75em;
 }
 #tiles-wrapper li:hover img, #tiles-wrapper li:active img, #tiles-wrapper li:focus img {
   opacity: 1;
@@ -302,6 +297,11 @@ nav a:hover span { opacity: 0.5; }
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   transition: opacity 1s;
+}
+.tuiles-infos {
+  position: absolute;
+  bottom: 10px; right: 30px;
+  font-size: 0.75em;
 }
 
 
