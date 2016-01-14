@@ -420,7 +420,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
   display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
   text-align: center;
   padding: 15px 10px;
-  background: #3DB2A8;
+  background: $default-submit-bg;
   font-weight: bold;
   color: #fff;
   border-radius: 5px;
@@ -550,12 +550,10 @@ h1 {
 display: block;
   width: 70%;
   margin: 70px auto 0;
-  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
+  color: #fff; border-radius: 5px; border: 0;
   transition: background 0.3s;
 }
-.admin-form > form button[type="submit"]:hover {
-  background: #35988F;
-}
+
 
 /* ////////// Formulaire de l'agenda ////////// *\
 \* //////////////////////////////////////////// */

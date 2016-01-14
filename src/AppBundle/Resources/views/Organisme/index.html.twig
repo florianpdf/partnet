@@ -3,10 +3,9 @@
 {% block main_content -%}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-<main>
-    <h2>Organismes</h2>
 
-    <table id="donnees" class="records_list">
+<main>
+    <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Photo</th>
@@ -24,11 +23,11 @@
                     {% endif %}
                 </td>
                 <td>{{ entity.nom }}</td>
-                <td>{{ entity.description }}</td>
+                <td style="white-space: normal;">{{ entity.description }}</td>
 
                 <td class="actions">
 
-                        <a href="{{ path('admin_organisme_edit', { 'id': entity.id }) }}" title="Editer">
+                        <a href="{{ path('admin_organisme_edit', { 'id': entity.id }) }}" title="Éditer">
                             <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
                         </a>
                         <a class="confirmModalLink" href="{{ path('admin_organisme_delete', { 'id': entity.id }) }}" title="Supprimer">
@@ -60,35 +59,14 @@
                         next:     '›'
                     }
                 },
-                "responsive": {
-                    details: {
-                        type: 'column',
-                        target: '.target',
-                        renderer: function ( api, rowIdx, columns ) {
-                            var data = $.map( columns, function ( col, i ) {
-                                return col.hidden && col.data != "" ?
-                                '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
-                            } ).join('');
-
-                            return data ?
-                                    $('<div class="slider"/>').append( data ) :
-                                    false;
-                        }
-                    }
-                },
                 "autoWidth": false,
                 "columns": [
                     { "width": "5%" },
-                    { "width": "10.5%" },
-                    { "width": "54.5%" },
-                    { "width": "7.5%" },
-
-                ],
-                "columnDefs": [],
-
+                    { "width": "10%" },
+                    { "width": "77,5%" },
+                    { "width": "7,5%" }
+                ]
             });
-
-
 
             // autofocus et placeholder pour le champ de recherche
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
