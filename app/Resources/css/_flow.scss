@@ -17,7 +17,7 @@
 // <main> containers
 // back office
 // headers
-// buttons + flashbag
+// flashbag
 // edit forms
 // media queries
 
@@ -388,13 +388,13 @@ main {
 .profile-data li span + span { font-weight: bold; }
 .avatar { text-align: center; margin-bottom: 10px; }
 
-#ged button[type="submit"], #ged input[type="submit"]               { background: $documents-submit-bg; }
-#agenda button[type="submit"], #agenda input[type="submit"]         { background: $agenda-submit-bg; }
-#annuaire button[type="submit"], #annuaire input[type="submit"]     { background: $annuaire-submit-bg; }
-#emploi button[type="submit"], #emploi input[type="submit"]         { background: $emploi-submit-bg; }
-#formations button[type="submit"], #formations input[type="submit"] { background: $formations-submit-bg; }
-#dialogue button[type="submit"], #dialogue input[type="submit"]     { background: $dialogue-submit-bg; }
-button[type="submit"], input[type="submit"] {
+#ged button[type="submit"], #ged input[type="submit"], #ged #main-btn                      { background: $documents-submit-bg; }
+#agenda button[type="submit"], #agenda input[type="submit"], #agenda #main-btn             { background: $agenda-submit-bg; }
+#annuaire button[type="submit"], #annuaire input[type="submit"], #annuaire #main-btn       { background: $annuaire-submit-bg; }
+#emploi button[type="submit"], #emploi input[type="submit"], #emploi #main-btn             { background: $emploi-submit-bg; }
+#formations button[type="submit"], #formations input[type="submit"], #formations #main-btn { background: $formations-submit-bg; }
+#dialogue button[type="submit"], #dialogue input[type="submit"], #dialogue #main-btn       { background: $dialogue-submit-bg; }
+button[type="submit"], input[type="submit"], .main-submit-double a {
   display: block; text-align: center;
   width: 70%; height: $main-submit; line-height: $main-submit;
   margin: 20px auto 0;
@@ -410,9 +410,21 @@ button[type="submit"], input[type="submit"] {
   margin-left: 3px; margin-right: 3px;
 }
 button[type="submit"]:hover, button[type="submit"]:active, button[type="submit"]:focus,
-input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus {
+input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus,
+#main-btn:hover, #main-btn:active, #main-btn:focus,
+.main-submit-double a:hover, .main-submit-double a:active, .main-submit-double a:focus {
   background: rgba(0,0,0,0.3) !important;
   color: #fff;
+}
+#main-btn, #main-btn:visited {
+  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
+  text-align: center;
+  padding: 15px 10px;
+  background: #3DB2A8;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
 
 // fields
@@ -481,23 +493,9 @@ h1 {
 #dialogue h1   { background: $dialogue-main-title-bg; }
 
 
-/* //////////////// buttons + flashbag //////////////// *\
-\* //////////////////////////////////////////////////// */
+/* //////////////// flashbag //////////////// *\
+\* ////////////////////////////////////////// */
 
-.button-add, .button-add:visited {
-  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
-  text-align: center;
-  padding: 15px 10px;
-  background: #3DB2A8;
-  font-weight: bold;
-  color: #fff;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-.button-add:hover, .button-add:active {
-  color: #fff;
-  background: #35988F;
-}
 .flashbag {
   position: absolute;
   text-align: center;

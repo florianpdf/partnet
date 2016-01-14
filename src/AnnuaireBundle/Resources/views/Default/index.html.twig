@@ -7,20 +7,20 @@
     {{ include('includes/sidebar.html.twig') }}
 
     <main>
-        <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
+        <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>Nom Prénom</th>
+                <th>Nom et prénom</th>
                 <th>Organisme</th>
                 <th>Poste</th>
-                <th>Telephone</th>
+                <th>Téléphone</th>
                 <th>E-mail</th>
                 {% if is_granted('ROLE_ADMIN') %}
                     <th>Création du compte</th>
-                    <th>Nombre d'uploads</th>
+                    <th>Uploads</th>
                     <th>Dernière connexion</th>
                 {% endif %}
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>{{ entity.creationCompte|date('d-m-Y') }}</td>
                         <td>{{ entity.nbUploads }}</td>
-                        <td>{{ entity.lastLogin|date('d.m.Y à H:i:s') }}</td>
+                        <td>{{ entity.lastLogin|date('d/m/Y à H:i:s') }}</td>
                     {% endif %}
                     <td>
                     {% if is_granted('ROLE_ADMIN') %}
@@ -52,7 +52,7 @@
         </table>
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="button-add" href="{{ path('fos_user_registration_register') }}">Enregistrer un utilisateur</a>
+            <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Enregistrer un utilisateur</a>
         {% endif %}
         {% include '@Annuaire/Default/delete.html.twig' %}
     </main>
