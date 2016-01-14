@@ -42,7 +42,9 @@ class Documents
     {
         $token = uniqid().".".$ext;
         $this->setDocument($token);
-        fopen("app/uploads/documents/" . $token, "w");
+        $test_file = fopen("app/uploads/documents/" . $token, "w");
+        fwrite($test_file, 'Some content.');
+        fclose($test_file);
         $this->setExtension($ext);
     }
 
@@ -426,5 +428,34 @@ class Documents
     public function getNbdocument()
     {
         return $this->nbdocument;
+    }
+    /**
+     * @var boolean
+     */
+    private $fil_actu;
+
+
+    /**
+     * Set filActu
+     *
+     * @param boolean $filActu
+     *
+     * @return Documents
+     */
+    public function setFilActu($filActu)
+    {
+        $this->fil_actu = $filActu;
+
+        return $this;
+    }
+
+    /**
+     * Get filActu
+     *
+     * @return boolean
+     */
+    public function getFilActu()
+    {
+        return $this->fil_actu;
     }
 }
