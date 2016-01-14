@@ -17,7 +17,7 @@
 // <main> containers
 // back office
 // headers
-// buttons + flashbag
+// flashbag
 // edit forms
 // media queries
 
@@ -134,17 +134,18 @@ a:hover, a:active, a:focus { color: inherit; }
           transparent 60%, transparent 70%, #fff 70%, #fff 90%,
           transparent 90%, transparent 100%);
 }
+#accueil #gradient-icon { display: none; }
 #top-bar img {
   margin: 0 10px;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1200px) {
   #gradient-icon { display: none; }
 }
 @media (max-width: 1100px) {
   #top-bar { padding: 0  5% 0 calc(5% + 60px); }
 }
-@media (max-width: 900px) {
+@media (max-width: 800px) {
   #top-bar img { display: none; }
 }
 
@@ -348,8 +349,12 @@ nav a:hover span { opacity: 0.5; }
   background: $tiles-bg;
   transition: background 1s;
 }
-#ged { background: #E5F6F1; }
-#annuaire { background: #e9f6e4; }
+#ged        { background: $ged-bg; }
+#agenda     { background: $agenda-bg; }
+#annuaire   { background: $annuaire-bg; }
+#emploi     { background: $emploi-bg; }
+#formations { background: $formations-bg; }
+#emploi     { background: $emploi-bg; }
 
 
 /* //////////////// <main> containers //////////////// *\
@@ -365,6 +370,11 @@ main {
   padding: $h1-height + 40px 50px 40px;
   background: $login-wrapper-bg;
 }
+#ged .deep-main        { background: $documents-main-bg; }
+#agenda .deep-main     { background: $agenda-main-bg; }
+#annuaire .deep-main   { background: $annuaire-main-bg; }
+#emploi .deep-main     { background: $emploi-main-bg; }
+#formations .deep-main { background: $formations-main-bg; }
 .profile-data li {
   display: flex; align-items: center;
   justify-content: space-between;
@@ -373,17 +383,24 @@ main {
   background: none;
   transition: background .5s;
 }
-.profile-data li:hover { background: $login-bg; }
-.profile-data li + li { border-top: 1px solid $login-bg; }
+.profile-data li:hover { background: rgba(255,255,255,0.35); }
+.profile-data li + li { border-top: 1px solid rgba(255,255,255,0.7); }
 .profile-data li span + span { font-weight: bold; }
 .avatar { text-align: center; margin-bottom: 10px; }
 
-.main-submit {
+#ged button[type="submit"], #ged input[type="submit"], #ged #main-btn                      { background: $documents-submit-bg; }
+#agenda button[type="submit"], #agenda input[type="submit"], #agenda #main-btn             { background: $agenda-submit-bg; }
+#annuaire button[type="submit"], #annuaire input[type="submit"], #annuaire #main-btn       { background: $annuaire-submit-bg; }
+#emploi button[type="submit"], #emploi input[type="submit"], #emploi #main-btn             { background: $emploi-submit-bg; }
+#formations button[type="submit"], #formations input[type="submit"], #formations #main-btn { background: $formations-submit-bg; }
+#dialogue button[type="submit"], #dialogue input[type="submit"], #dialogue #main-btn       { background: $dialogue-submit-bg; }
+button[type="submit"], input[type="submit"], .main-submit-double a {
   display: block; text-align: center;
   width: 70%; height: $main-submit; line-height: $main-submit;
   margin: 20px auto 0;
   border: 0;
-  background: $login-submit-bg; color: #fff; border-radius: 5px;
+  color: #fff; border-radius: 5px;
+  background: $default-submit-bg;
   transition: background 0.5s;
 }
 .main-submit-double { text-align: center; }
@@ -392,9 +409,22 @@ main {
   padding: 0 50px;
   margin-left: 3px; margin-right: 3px;
 }
-.main-submit:hover, .main-submit:active, .main-submit:focus {
-  background: $login-submit-hover-bg;
+button[type="submit"]:hover, button[type="submit"]:active, button[type="submit"]:focus,
+input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus,
+#main-btn:hover, #main-btn:active, #main-btn:focus,
+.main-submit-double a:hover, .main-submit-double a:active, .main-submit-double a:focus {
+  background: rgba(0,0,0,0.3) !important;
   color: #fff;
+}
+#main-btn, #main-btn:visited {
+  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
+  text-align: center;
+  padding: 15px 10px;
+  background: #3DB2A8;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
 
 // fields
@@ -455,26 +485,17 @@ h1 {
   font-size: 1.3em;
   color: #fff;
 }
-#ged h1 { background: #559FB2; }
+#ged h1        { background: $documents-main-title-bg; }
+#agenda h1     { background: $agenda-main-title-bg; }
+#annuaire h1   { background: $annuaire-main-title-bg; }
+#emploi h1     { background: $emploi-main-title-bg; }
+#formations h1 { background: $formations-main-title-bg; }
+#dialogue h1   { background: $dialogue-main-title-bg; }
 
 
-/* //////////////// buttons + flashbag //////////////// *\
-\* //////////////////////////////////////////////////// */
+/* //////////////// flashbag //////////////// *\
+\* ////////////////////////////////////////// */
 
-.button-add, .button-add:visited {
-  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
-  text-align: center;
-  padding: 15px 10px;
-  background: #3DB2A8;
-  font-weight: bold;
-  color: #fff;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-.button-add:hover, .button-add:active {
-  color: #fff;
-  background: #35988F;
-}
 .flashbag {
   position: absolute;
   text-align: center;
@@ -496,11 +517,6 @@ h1 {
 /* //////////////// edit forms //////////////// *\
 \* //////////////////////////////////////////// */
 
-.admin-form > form {
-  max-width: 1000px; margin: auto;
-  padding: 2% 5%;
-  background: #D0E6EC;
-}
 .admin-form > form div {
   position: relative;
   height: 40px; line-height: 40px;
@@ -512,6 +528,7 @@ h1 {
   width: 80%; height: 100%;
   border: 0; outline: 0;
   padding: 5px 30px;
+  line-height: 1.3;
 }
 .admin-form > form textarea {
   height: 170px;
@@ -543,11 +560,6 @@ display: block;
 /* ////////// Formulaire de l'agenda ////////// *\
 \* //////////////////////////////////////////// */
 
-.agenda_form > form {
-  max-width: 1000px; margin: auto;
-  padding: 2% 5%;
-  background: #e1d85d;
-}
 .agenda_form > form div {
   position: relative;
   height: 40px; line-height: 40px;
@@ -605,6 +617,16 @@ display: block;
   .flashbag { left: 0; right: 0; }
   ##{$datatables-name}_filter { width: 100%; }
 }
+
+@media screen and (max-width: 650px)
+{
+  #top-bar { position: static; display: block; text-align: center; line-height: 0; height: auto; padding: 10px 20px; }
+  #top-bar > div { height: 40px; line-height: 40px; }
+  #gradient-icon, #top-bar img, #menu-wrapper { display: none !important; }
+  #top-bar div:nth-child(2) a { display: block; }
+  #top-bar > div + div + div { display: inline-block; }
+}
+
 
 
 

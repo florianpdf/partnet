@@ -24,11 +24,17 @@ table.dataTable {
 
 table.dataTable thead th,
 table.dataTable tfoot th {
-  background: #559FB2;
+  background: $default-head-rows-bg;
   color: #fff;
   font-weight: normal;
   border-bottom: 2px solid #E5F6F1 !important;
 }
+#ged table.dataTable thead th, #ged .paginate_button               { background: $documents-head-rows-bg !important; }
+#agenda table.dataTable thead th, #agenda .paginate_button         { background: $agenda-head-rows-bg !important; }
+#annuaire table.dataTable thead th, #annuaire .paginate_button     { background: $annuaire-head-rows-bg !important; }
+#emploi table.dataTable thead th, #emploi .paginate_button         { background: $emploi-head-rows-bg !important; }
+#formations table.dataTable thead th, #formations .paginate_button { background: $formations-head-rows-bg !important; }
+#dialogue table.dataTable thead th, #dialogue .paginate_button     { background: $dialogue-head-rows-bg !important; }
 table.dataTable thead th,
 table.dataTable thead td {
   padding: 10px 18px;
@@ -72,9 +78,13 @@ table.dataTable thead .sorting_asc_disabled {
 table.dataTable thead .sorting_desc_disabled {
   background-image: url("../../images/sort_desc_disabled.png");
 }
-table.dataTable tbody tr {
-  background-color: #C3DFE7;
-}
+table.dataTable tbody tr             { background-color: $default-even-rows-bg; }
+#ged table.dataTable tbody tr        { background-color: $documents-even-rows-bg; }
+#agenda table.dataTable tbody tr     { background-color: $agenda-even-rows-bg; }
+#annuaire table.dataTable tbody tr   { background-color: $annuaire-even-rows-bg; }
+#emploi table.dataTable tbody tr     { background-color: $emploi-even-rows-bg; }
+#formations table.dataTable tbody tr { background-color: $formations-even-rows-bg; }
+#dialogue table.dataTable tbody tr   { background-color: $dialogue-even-rows-bg; }
 table.dataTable tbody tr.selected {
   background-color: #B0BED9;
 }
@@ -102,9 +112,13 @@ table.dataTable.cell-border tbody tr:first-child th,
 table.dataTable.cell-border tbody tr:first-child td {
   border-top: none;
 }
-table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
-  background-color: #D0E6EC;
-}
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd                         { background-color: $default-odd-rows-bg; }
+#ged table.dataTable.stripe tbody tr.odd, #ged table.dataTable.display tbody tr.odd               { background-color: $documents-odd-rows-bg; }
+#agenda table.dataTable.stripe tbody tr.odd, #agenda table.dataTable.display tbody tr.odd         { background-color: $agenda-odd-rows-bg; }
+#annuaire table.dataTable.stripe tbody tr.odd, #annuaire table.dataTable.display tbody tr.odd     { background-color: $annuaire-odd-rows-bg; }
+#emploi table.dataTable.stripe tbody tr.odd, #emploi table.dataTable.display tbody tr.odd         { background-color: $emploi-odd-rows-bg; }
+#formations table.dataTable.stripe tbody tr.odd, #formations table.dataTable.display tbody tr.odd { background-color: $formations-odd-rows-bg; }
+#dialogue table.dataTable.stripe tbody tr.odd, #dialogue table.dataTable.display tbody tr.odd     { background-color: $dialogue-odd-rows-bg; }
 table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
   background-color: #acbad4;
 }
