@@ -34,27 +34,34 @@ $emploi-bg     : #F4D7BE;
 
 
 // DataTables rows
-$default-head-rows-bg    : #87827B;
-$default-odd-rows-bg     : #fff;
-$default-even-rows-bg    : #fff;
-$documents-head-rows-bg  : #559FB2;
-$documents-odd-rows-bg   : #D0E6EC;
-$documents-even-rows-bg  : #C3DFE7;
-$agenda-head-rows-bg     : #fff;
-$agenda-odd-rows-bg      : #fff;
-$agenda-even-rows-bg     : #fff;
-$annuaire-head-rows-bg   : #8E99AF;
-$annuaire-odd-rows-bg    : #D2D8E7;
-$annuaire-even-rows-bg   : #C7CFE1;
-$emploi-head-rows-bg     : #fff;
-$emploi-odd-rows-bg      : #fff;
-$emploi-even-rows-bg     : #fff;
-$formations-head-rows-bg : #fff;
-$formations-odd-rows-bg  : #fff;
-$formations-even-rows-bg : #fff;
-$dialogue-head-rows-bg   : #fff;
-$dialogue-odd-rows-bg    : #fff;
-$dialogue-even-rows-bg   : #fff;
+$default-head-rows-bg     : #87827B;
+$default-odd-rows-bg      : #DDDCDA;
+$default-even-rows-bg     : #D0CFCD;
+$default-rows-hover-bg    : #CAC9C7;
+$documents-head-rows-bg   : #559FB2;
+$documents-odd-rows-bg    : #D0E6EC;
+$documents-even-rows-bg   : #C3DFE7;
+$documents-rows-hover-bg  : #B3D7E0;
+$agenda-head-rows-bg      : #fff;
+$agenda-odd-rows-bg       : #fff;
+$agenda-even-rows-bg      : #fff;
+$agenda-rows-hover-bg     : #fff;
+$annuaire-head-rows-bg    : #8E99AF;
+$annuaire-odd-rows-bg     : #D2D8E7;
+$annuaire-even-rows-bg    : #C7CFE1;
+$annuaire-rows-hover-bg   : #C1C9DA;
+$emploi-head-rows-bg      : #fff;
+$emploi-odd-rows-bg       : #fff;
+$emploi-even-rows-bg      : #fff;
+$emploi-rows-hover-bg     : #fff;
+$formations-head-rows-bg  : #fff;
+$formations-odd-rows-bg   : #fff;
+$formations-even-rows-bg  : #fff;
+$formations-rows-hover-bg : #fff;
+$dialogue-head-rows-bg    : #fff;
+$dialogue-odd-rows-bg     : #fff;
+$dialogue-even-rows-bg    : #fff;
+$dialogue-rows-hover-bg   : #fff;
 
 // main > h1 backgrounds
 $documents-main-title-bg  : $documents-head-rows-bg;

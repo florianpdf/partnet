@@ -18,7 +18,7 @@ table.dataTable {
 .actions a + a { margin-left: 10px; }
 
 // child rows
-#donnees tr.child { background: transparent; }
+#donnees tr.child { background: transparent !important; }
 #donnees td.child { padding: 20px 5%; }
 .slider div + div { margin-top: 5px; }
 
@@ -85,8 +85,9 @@ table.dataTable tbody tr             { background-color: $default-even-rows-bg; 
 #emploi table.dataTable tbody tr     { background-color: $emploi-even-rows-bg; }
 #formations table.dataTable tbody tr { background-color: $formations-even-rows-bg; }
 #dialogue table.dataTable tbody tr   { background-color: $dialogue-even-rows-bg; }
+
 table.dataTable tbody tr.selected {
-  background-color: #B0BED9;
+  background-color: #B0BED9 !important;
 }
 table.dataTable tbody th,
 table.dataTable tbody td {
@@ -122,9 +123,14 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd       
 table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
   background-color: #acbad4;
 }
-table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-  background-color: #B3D7E0;
-}
+// & table.dataTable.display tbody tr:hover
+table.dataTable.hover tbody tr:hover             { background: $default-rows-hover-bg !important; }
+#ged table.dataTable.hover tbody tr:hover        { background: $documents-rows-hover-bg !important; }
+#agenda table.dataTable.hover tbody tr:hover     { background: $agenda-rows-hover-bg !important; }
+#annuaire table.dataTable.hover tbody tr:hover   { background: $annuaire-rows-hover-bg !important; }
+#emploi table.dataTable.hover tbody tr:hover     { background: $emploi-rows-hover-bg !important; }
+#formations table.dataTable.hover tbody tr:hover { background: $formations-rows-hover-bg !important; }
+#dialogue table.dataTable.hover tbody tr:hover   { background: $dialogue-rows-hover-bg !important; }
 table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
   background-color: #aab7d1;
 }
