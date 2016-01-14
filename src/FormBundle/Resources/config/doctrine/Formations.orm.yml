@@ -33,5 +33,11 @@ FormBundle\Entity\Formations:
             length: 255
         resume:
             type: text
+        fil_actu:
+            type: boolean
+        dateAjout:
+            type: datetime
+            nullable: true
+            column: date_ajout
 
     lifecycleCallbacks: {  }

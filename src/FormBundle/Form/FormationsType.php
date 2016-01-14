@@ -20,7 +20,10 @@ class FormationsType extends AbstractType
             ->add('nbPlace')
             ->add('lieu')
             ->add('resume')
-        ;
+            ->add('fil_actu', 'checkbox', array(
+                'label' => 'Ajouter au fil d\'actualité',
+                'required' => false,
+            ));
     }
     
     /**

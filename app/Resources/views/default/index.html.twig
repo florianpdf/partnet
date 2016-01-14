@@ -27,6 +27,8 @@
                     Nouvel évènement : Ajouté le
                 {% elseif result.type == 'documents' %}
                     Nouveau document : Ajouté le
+                {% elseif result.type == 'formations' %}
+                    Nouvelle formation : Ajouté le
                 {% endif %}
 
                 {{ result.dateAjout | date('d/m/Y') }} &nbsp;&nbsp;
@@ -34,6 +36,8 @@
                 {% if result.type == 'events' %}
                     <a href="{{ path('events') }}">{{ result.titre }}</a>
                 {% elseif result.type == 'documents' %}
+                    <a href="{{ path('documents') }}">{{ result.titre }}</a>
+                {% elseif result.type == 'formations' %}
                     <a href="{{ path('documents') }}">{{ result.titre }}</a>
                 {% endif %}
             </li>
