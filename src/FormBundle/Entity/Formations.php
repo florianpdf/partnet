@@ -225,4 +225,62 @@ class Formations
     {
         return $this->user;
     }
+    /**
+     * @var \AppBundle\Entity\Organisme
+     */
+    private $address;
+
+
+    /**
+     * Set address
+     *
+     * @param \AppBundle\Entity\Organisme $address
+     *
+     * @return Formations
+     */
+    public function setAddress(\AppBundle\Entity\Organisme $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \AppBundle\Entity\Organisme
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+    /**
+     * @var string
+     */
+    private $image;
+
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Formations
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 }

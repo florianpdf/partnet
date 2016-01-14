@@ -1,5 +1,12 @@
 FormBundle\Entity\Formations:
     type: entity
+    manyToOne:
+        address:
+          targetEntity: AppBundle\Entity\Organisme
+          joinColumn:
+            name: nom
+            referencedColumnName: id
+
     table: null
     id:
         id:
@@ -12,6 +19,9 @@ FormBundle\Entity\Formations:
             type: string
             length: 255
             column: organisme
+        image:
+            type: string
+            length: 255
         titre:
             type: string
             length: 255

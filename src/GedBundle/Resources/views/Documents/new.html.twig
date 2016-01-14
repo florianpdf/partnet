@@ -47,6 +47,12 @@
             <p>Seuls les documents au format PDF sont autorisés.</p>
         </div>
 
+        <div>
+            {{ form_label(form.fil_actu) }}
+            {{ form_errors(form.fil_actu) }}
+            {{ form_widget(form.fil_actu) }}
+        </div>
+
         {{ form_end(form) }}
     </main>
 {% endblock %}

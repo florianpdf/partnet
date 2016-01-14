@@ -2,6 +2,7 @@
 
 namespace AgendaBundle\Controller;
 
+use AppBundle\Entity\Actu;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -111,13 +112,16 @@ class EventsController extends Controller
 
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
+            // On se protège de la faille XSS
             $entity->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
             $entity->setContenu(htmlspecialchars($form->getViewData()->getContenu()));
+            $entity->setDateAjout(new \DateTime());
             $entity->setIdUser($user);
 
             $this->colorEvent($entity);
 
             $em->persist($entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('agenda_homepage'));
@@ -256,6 +260,7 @@ class EventsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AgendaBundle:Events')->find($id);
+        $actu = $em->getRepository('AppBundle:Actu')->findOneBy(array('idEvents' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Events entity.');
@@ -290,7 +295,6 @@ class EventsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AgendaBundle:Events')->find($id);
-        $entities = $em->getRepository('AgendaBundle:Events')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException(

@@ -4,7 +4,6 @@
 
 {% block main_content %}
     {{ include('includes/topbar.html.twig') }}
-
     <ul id="marquee">
         <li>
             <span>10/10/2007</span><a class="confirmModalLink" href="#">The first thing ...</a>
@@ -22,10 +21,23 @@
                 </div>
             </div>
         </li>
-        <li><span>10/10/2007</span><a href="#">End up doing is ...</a></li>
-        <li><span>10/10/2007</span><a href="#">The code that you ...</a></li>
-        <li><span>10/10/2007</span><a href="#">fsdfsdfsdfds ...</a></li>
-        <li><span>10/10/2007</span><a href="#">fdg dfgdfdfg dgf g df ...</a></li>
+        {% for result in results %}
+            <li>
+                {% if result.type == 'events' %}
+                    Nouvel évènement : Ajouté le
+                {% elseif result.type == 'documents' %}
+                    Nouveau document : Ajouté le
+                {% endif %}
+
+                {{ result.dateAjout | date('d/m/Y') }} &nbsp;&nbsp;
+
+                {% if result.type == 'events' %}
+                    <a href="{{ path('events') }}">{{ result.titre }}</a>
+                {% elseif result.type == 'documents' %}
+                    <a href="{{ path('documents') }}">{{ result.titre }}</a>
+                {% endif %}
+            </li>
+        {% endfor %}
     </ul>
 
     <ul id="tiles-wrapper">

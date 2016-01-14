@@ -24,6 +24,9 @@ class EventsType extends AbstractType
             ))
             ->add('titre', 'text', array('label' => 'Titre de l\'évènement: ', 'required'=>true))
             ->add('contenu', 'textarea', array('label' => 'Description de l\'évènement: ', 'required'=>false))
+            ->add('fil_actu', 'checkbox', array(
+                'label' => 'Ajouter au fil d\'actualité',
+                'required' => false))
         ;
     }
 
