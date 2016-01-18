@@ -33,7 +33,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class RegistrationController extends Controller
 {
 
-    public function registerAction(Request $request)
+
+    public function registerAction(Request $request, $contact = null)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');

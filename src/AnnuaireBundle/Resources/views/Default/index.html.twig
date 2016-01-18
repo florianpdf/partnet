@@ -52,7 +52,17 @@
         </table>
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Enregistrer un utilisateur</a>
+            <table align="center">
+                <tr>
+                    <td>
+                        <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                    </td>
+
+                    <td>
+                        <a id="main-btn" href="{{ path('fos_user_registration_register_contact') }}">Nouveau contact</a>
+                    </td>
+                </tr>
+            </table>
         {% endif %}
         {% include '@Annuaire/Default/delete.html.twig' %}
     </main>
