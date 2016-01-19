@@ -427,6 +427,13 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
   transition: background 0.3s;
 }
 
+.double-h1 {
+  margin-top: -18px;
+  text-align: center;
+}
+.double-h1 a {
+  display: inline-block !important;
+}
 // fields
 
 .profile-data label {
