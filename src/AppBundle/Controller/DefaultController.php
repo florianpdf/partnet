@@ -14,14 +14,17 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         $nb = $em->getRepository('GedBundle:Documents')->getNbDocuments();
         $nb_month = $em->getRepository('GedBundle:Documents')->getNbDocumentsMonth();
 
         $documents = $em->getRepository('GedBundle:Documents')->findBy(array('fil_actu' => 1));
         $events = $em->getRepository('AgendaBundle:Events')->findBy(array('fil_actu' => 1));
         $formations = $em->getRepository('FormBundle:Formations')->findBy(array('fil_actu' => 1));
+        $actu = $em->getRepository('ActuBundle:Actu')->findAll();
 
-        $actus = array_merge($documents, $events, $formations);
+        $actus = array_merge($documents, $events, $formations, $actu);
+
         function getSort()
         {
             return function ($a, $b) {

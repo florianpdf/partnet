@@ -1,0 +1,30 @@
+actu:
+    path:     /
+    defaults: { _controller: "ActuBundle:Actu:index" }
+
+actu_show:
+    path:     /{id}/show
+    defaults: { _controller: "ActuBundle:Actu:show" }
+
+actu_new:
+    path:     /new
+    defaults: { _controller: "ActuBundle:Actu:new" }
+
+actu_create:
+    path:     /create
+    defaults: { _controller: "ActuBundle:Actu:create" }
+    methods:  POST
+
+actu_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ActuBundle:Actu:edit" }
+
+actu_update:
+    path:     /{id}/update
+    defaults: { _controller: "ActuBundle:Actu:update" }
+    methods:  [POST, PUT]
+
+actu_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ActuBundle:Actu:delete" }
+    methods:  [POST, DELETE]

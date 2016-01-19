@@ -1,0 +1,18 @@
+ActuBundle\Entity\Actu:
+    type: entity
+    table: null
+    repositoryClass: ActuBundle\Entity\ActuRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        titre:
+            type: text
+        resume:
+            type: text
+        dateAjout:
+            type: datetime
+    lifecycleCallbacks: {  }
