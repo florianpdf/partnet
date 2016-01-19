@@ -13,25 +13,21 @@
 
         <div>
             {{ form_label(form.titre, 'Titre') }}
-            {{ form_errors(form.titre) }}
             {{ form_widget(form.titre) }}
         </div>
 
         <div>
             {{ form_label(form.auteur) }}
-            {{ form_errors(form.auteur) }}
             {{ form_widget(form.auteur) }}
         </div>
 
         <div>
             {{ form_label(form.resume) }}
-            {{ form_errors(form.resume) }}
             {{ form_widget(form.resume) }}
         </div>
 
         <div>
             {{ form_label(form.finDeVie) }}
-            {{ form_errors(form.finDeVie) }}
             {{ form_widget(form.finDeVie) }}
         </div>
 
@@ -41,17 +37,21 @@
             {% endfor %}
         {% endif %}
         <div>
-            {{ form_label(form.file) }}
-            {{ form_errors(form.file) }}
+            {{ form_label(form.file, 'Document (.pdf)') }}
             {{ form_widget(form.file) }}
-            <p>Seuls les documents au format PDF sont autorisés.</p>
         </div>
 
         <div>
             {{ form_label(form.fil_actu) }}
-            {{ form_errors(form.fil_actu) }}
             {{ form_widget(form.fil_actu) }}
         </div>
+
+        {{ form_errors(form.titre) }}
+        {{ form_errors(form.auteur) }}
+        {{ form_errors(form.resume) }}
+        {{ form_errors(form.finDeVie) }}
+        {{ form_errors(form.file) }}
+        {{ form_errors(form.fil_actu) }}
 
         {{ form_end(form) }}
     </main>

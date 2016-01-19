@@ -12,13 +12,6 @@ class ProfileFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('organisme', 'choice', array('choices' => array(
-                'Cap emploi' => 'Cap emploi',
-                'DIRECCTE' => 'DIRECCTE',
-                'Mission locale' => 'Mission locale',
-                'Pôle emploi' => 'Pôle emploi',
-                'Sous-préfecture' => 'Sous-préfecture'
-                )))
             ->add('telephone', 'text', array('label' => 'Téléphone'))
             ->remove('username')
             ->remove('PlainPassword')
