@@ -2,9 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -18,35 +16,16 @@ class DefaultController extends Controller
         $nb = $em->getRepository('GedBundle:Documents')->getNbDocuments();
         $nb_month = $em->getRepository('GedBundle:Documents')->getNbDocumentsMonth();
 
-        $documents = $em->getRepository('GedBundle:Documents')->findBy(array('fil_actu' => 1));
-        $events = $em->getRepository('AgendaBundle:Events')->findBy(array('fil_actu' => 1));
-        $formations = $em->getRepository('FormBundle:Formations')->findBy(array('fil_actu' => 1));
-        $actu = $em->getRepository('ActuBundle:Actu')->findAll();
-
-        $actus = array_merge($documents, $events, $formations, $actu);
-
-
-        usort($actus, $this->getSort());
-
-        $results = array_slice($actus, 0, 10);
+        $actus = $this->container->get('app.actu')->getActualités();
 
         return $this->render('default/index.html.twig', array(
             'nb' => $nb,
             'nb_month' => $nb_month,
-            'results' => $results
+            'results' => $actus
         ));
     }
 
-    public function getSort()
-    {
-        return function ($a, $b) {
-            if ($a->getDateAjout() < $b->getDateAjout())
-                return 1;
-            if ($a->getDateAjout() > $b->getDateAjout())
-                return -1;
-            return 0;
-        };
-    }
+
 
     public function adminAction()
     {
