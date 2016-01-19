@@ -6,20 +6,26 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main class="deep-main agenda_form">
+    <main class="deep-main admin-form">
         <h1>Création d'un évènement</h1>
 
         {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
 
-        <div id="date_start_event_end">
+        <div>
             {{ form_label(edit_form.start) }}
             {{ form_errors(edit_form.start) }}
             {{ form_widget(edit_form.start) }}
 
         </div>
 
-        <div class="titre">
+        <div>
+            {{ form_label(edit_form.end) }}
+            {{ form_errors(edit_form.end) }}
+            {{ form_widget(edit_form.end) }}
+        </div>
+
+        <div>
             {{ form_label(edit_form.titre) }}
             {{ form_errors(edit_form.titre) }}
             {{ form_widget(edit_form.titre) }}
@@ -29,12 +35,6 @@
             {{ form_label(edit_form.resume) }}
             {{ form_errors(edit_form.resume) }}
             {{ form_widget(edit_form.resume) }}
-        </div>
-
-        <div id="date_end_event">
-            {{ form_label(edit_form.end) }}
-            {{ form_errors(edit_form.end) }}
-            {{ form_widget(edit_form.end) }}
         </div>
 
         <div>
