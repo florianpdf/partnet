@@ -9,33 +9,24 @@
     <main>
 
         <div id='calendar'></div>
+        <a id="main-btn" href="{{ path('events_new') }}">Ajouter un évènement</a>
 
     </main>
 
     {% include '@Agenda/Events/eventrender.html.twig' %}
-
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <script>
-            var admin = '{{ app.user }}';
-            var user = '{{ app.user }}';
-        </script>
-    {% else %}
-        <script>
-            var admin = null;
-            var user = '{{ app.user }}';
-        </script>
-    {% endif %}
+    <script>
+        var user = '{{ app.user }}';
+    </script>
 
-{{ parent() }}
     <script src="{{ asset('bundles/agenda/js_calendar/1moment.min.js') }}"></script>
     <script src="{{ asset('bundles/agenda/js_calendar/2fullcalendar.js') }}"></script>
     <script src="{{ asset('bundles/agenda/js_calendar/3calendarconfig.js') }}"></script>
     <script src="{{ asset('bundles/agenda/js_calendar/lang/fr.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-
 {% endblock %}

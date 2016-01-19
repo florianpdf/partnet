@@ -68,7 +68,6 @@ class EventsController extends Controller
         else if ( $organisme == "Cap emploi" ) {
             $entity->setBackgroundColor("orange");
         }
-
         else if ( $organisme == "Mission locale" ) {
             $entity->setBackgroundColor("blue");
         }
@@ -92,7 +91,7 @@ class EventsController extends Controller
 
         // On récupère la date de début et de fin d'évènement afin de les comparer
         $startEvent = $form->getViewData()->getStart();
-        $startEvent_string = strftime("%A %e %B %Y à %k:%M", $startEvent->getTimestamp());
+        $startEvent_string = strftime("%A %#d %B %Y à %k:%M", $startEvent->getTimestamp());
         $endEvent = $form->getViewData()->getEnd();
 
         if ($form->isValid()) {
@@ -160,27 +159,34 @@ class EventsController extends Controller
     {
         $entity = new Events();
         // On définie la date de début d'évènement
-        $entity->setStart(new \DateTime($start));
 
-        // Permet l'affichage de la date et l'heure en format fr
-        setlocale(LC_TIME, "fr_FR");
-        $startEvent = new \DateTime($start);
-        $startEvent = strftime("%A %e %B %Y à %k:%M", $startEvent->getTimestamp());
 
-        // On définie une date de fin min avec un interval de 30 min
-        $newTime = new \DateTime($start);
+        if ($start == 0) {
+            $newTime = new \DateTime();
+            $interval = 3600;
+            $newTime->add(new \DateInterval('PT' . $interval . 'S' ));
+            $startEvent = $newTime->format('d-m-Y H:i:s');
+            $entity->setStart(new \DateTime($startEvent));
+
+        } else {
+            $entity->setStart(new \DateTime($start));
+            $newTime = new \DateTime($start);
+        }
+
+
+        // On définie une date de fin min avec un interval de 1 h
         $interval = 3600;
         $newTime->add(new \DateInterval('PT' . $interval . 'S' ));
         $endEvent = $newTime->format('d-m-Y H:i:s');
 
         $entity->setEnd(new \DateTime($endEvent));
 
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('AgendaBundle:Events:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'startEvent' => $startEvent,
+            //'startEvent' => $startEvent,
         ));
 
     }
