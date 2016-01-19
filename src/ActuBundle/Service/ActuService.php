@@ -10,11 +10,23 @@ class ActuService
 {
     private $em;
 
-    private $actualités;
+    private $actualites;
 
-    public function getActualités()
+    public function getActualites()
     {
-        return $this->actualités;
+        return $this->actualites;
+    }
+
+    public function getActualitesById($id)
+    {
+        $document = $this->em->getRepository('GedBundle:Documents')->find($id);
+        $event = $this->em->getRepository('AgendaBundle:Events')->find($id);
+        $formation = $this->em->getRepository('FormBundle:Formations')->find($id);
+        $actualite = $this->em->getRepository('ActuBundle:Actu')->find($id);
+
+        $actus = [$document, $event, $formation, $actualite];
+
+        return $actus;
     }
 
     public function __construct(EntityManager $entityManager)
@@ -30,7 +42,7 @@ class ActuService
 
         usort($actus, $this->getSort());
 
-        $this->actualités = array_slice($actus, 0, 10);
+        $this->actualites = array_slice($actus, 0, 10);
     }
 
     public function getSort()

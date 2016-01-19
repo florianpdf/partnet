@@ -25,6 +25,8 @@ actu_update:
     methods:  [POST, PUT]
 
 actu_delete:
-    path:     /{id}/delete
+    path:     /{id}/{type}/delete
     defaults: { _controller: "ActuBundle:Actu:delete" }
-    methods:  [POST, DELETE]
+    requirements:
+        id:  \d+
+

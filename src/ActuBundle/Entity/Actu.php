@@ -7,6 +7,14 @@ namespace ActuBundle\Entity;
  */
 class Actu
 {
+
+    protected $type = 'actus';
+
+    public function getType(){
+        return $this->type;
+    }
+
+    // GENERATED CODE //
     /**
      * @var integer
      */

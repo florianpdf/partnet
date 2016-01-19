@@ -16,7 +16,7 @@ class DefaultController extends Controller
         $nb = $em->getRepository('GedBundle:Documents')->getNbDocuments();
         $nb_month = $em->getRepository('GedBundle:Documents')->getNbDocumentsMonth();
 
-        $actus = $this->container->get('app.actu')->getActualités();
+        $actus = $this->container->get('app.actu')->getActualites();
 
         return $this->render('default/index.html.twig', array(
             'nb' => $nb,

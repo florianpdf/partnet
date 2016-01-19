@@ -2,6 +2,9 @@
 
 namespace ActuBundle\Controller;
 
+use AgendaBundle\Entity\Events;
+use FormBundle\Entity\Formations;
+use GedBundle\Entity\Documents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -21,12 +24,15 @@ class ActuController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $entities = $em->getRepository('ActuBundle:Actu')->findAll();
 
-        $entities = $em->getRepository('ActuBundle:Actu')->findAll();
+        $actus = $this->container->get('app.actu')->getActualites();
 
         return $this->render('ActuBundle:Actu:index.html.twig', array(
-            'entities' => $entities,
+            'actus' => $actus
+
         ));
     }
     /**
@@ -85,28 +91,6 @@ class ActuController extends Controller
         return $this->render('ActuBundle:Actu:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Actu entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ActuBundle:Actu')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Actu entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('ActuBundle:Actu:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -182,44 +166,43 @@ class ActuController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
-     * Deletes a Actu entity.
+     * Remove an existing record or un-checked doc, event, or formation.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+    public function deleteAction($id, $type) {
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ActuBundle:Actu')->find($id);
+        $em = $this->getDoctrine()->getManager();
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Actu entity.');
+        $actus = $this->container->get('app.actu')->getActualitesById($id);
+
+        foreach ($actus as $actu)
+        {
+            if($type == 'documents' && $actu instanceof Documents)
+            {
+                $actu->setFilActu(false);
+                $em->flush();
             }
-
-            $em->remove($entity);
-            $em->flush();
+            elseif($type == 'events' && $actu instanceof Events)
+            {
+                $actu->setFilActu(false);
+                $em->flush();
+            }
+            elseif($type == 'formations' && $actu instanceof Formations)
+            {
+                $actu->setFilActu(false);
+                $em->flush();
+            }
+            elseif ($type == 'actus' && $actu instanceof Actu)
+            {
+                $em->remove($actu);
+                $em->flush();
+            }
         }
 
-        return $this->redirect($this->generateUrl('actu'));
-    }
-
-    /**
-     * Creates a form to delete a Actu entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('actu_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('actu', array(
+            'actus' => $actus
+        )));
     }
 }
