@@ -25,17 +25,8 @@ class DefaultController extends Controller
 
         $actus = array_merge($documents, $events, $formations, $actu);
 
-        function getSort()
-        {
-            return function ($a, $b) {
-                if ($a->getDateAjout() < $b->getDateAjout())
-                    return 1;
-                if ($a->getDateAjout() > $b->getDateAjout())
-                    return -1;
-                return 0;
-            };
-        }
-        usort($actus, getSort());
+
+        usort($actus, $this->getSort());
 
         $results = array_slice($actus, 0, 10);
 
@@ -44,6 +35,17 @@ class DefaultController extends Controller
             'nb_month' => $nb_month,
             'results' => $results
         ));
+    }
+
+    public function getSort()
+    {
+        return function ($a, $b) {
+            if ($a->getDateAjout() < $b->getDateAjout())
+                return 1;
+            if ($a->getDateAjout() > $b->getDateAjout())
+                return -1;
+            return 0;
+        };
     }
 
     public function adminAction()
