@@ -11,6 +11,7 @@
             <thead>
             <tr>
                 <th>Nom et prénom</th>
+                <th>Rôle</th>
                 <th>Organisme</th>
                 <th>Poste</th>
                 <th>Téléphone</th>
@@ -27,10 +28,30 @@
             {% for entity in entities %}
                 <tr>
                     <td>{{ entity.nom }} {{ entity.prenom }}</td>
+                    <td>
+
+                        {% for role in entity.roles %}
+                            {% if role == 'ROLE_SUPER_ADMIN' %}
+                                Super-Administrateur
+                            {% elseif role == 'ROLE_ADMIN' %}
+                                Administrateur
+                            {% elseif role == 'ROLE_USER' %}
+                                Utilisateur
+                            {% endif %}
+                        {% endfor %}
+
+
+                    </td>
                     <td>{{ entity.organisme }}</td>
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
-                    <td><a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a></td>
+                    <td>
+                        {% if entity.enabled == 1 %}
+                            <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a>
+                        {% else %}
+                            <a href="mailto:{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a>
+                        {% endif %}
+                    </td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>{{ entity.nbUploads }}</td>
                         <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
@@ -113,6 +134,7 @@
                     { "width": "10%" },
                     { "width": "10%" },
                     { "width": "10%"},
+                    { "width": "10%"},
                     { "width": "5%"}
                 ],
                 "columnDefs": [
@@ -168,6 +190,7 @@
                     { "width": "10%" },
                     { "width": "10%" },
                     { "width": "10%" },
+                    { "width": "10%"},
                     { "width": "10%"},
                     { "width": "5%"}
                 ],
