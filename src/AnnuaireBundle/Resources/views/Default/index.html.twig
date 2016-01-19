@@ -28,18 +28,13 @@
                 <tr>
                     <td>{{ entity.nom }} {{ entity.prenom }}</td>
                     <td>
-
-                        {% for role in entity.roles %}
-                            {% if role == 'ROLE_SUPER_ADMIN' %}
-                                Super-Administrateur
-                            {% elseif role == 'ROLE_ADMIN' %}
-                                Administrateur
-                            {% elseif role == 'ROLE_USER' %}
-                                Utilisateur
-                            {% endif %}
-                        {% endfor %}
-
-
+                        {% if entity.roles[0] == 'ROLE_SUPER_ADMIN' %}
+                            Super-Administrateur
+                        {% elseif entity.roles[0] == 'ROLE_ADMIN' %}
+                            Administrateur
+                        {% elseif entity.roles[0] == 'ROLE_USER' %}
+                            Utilisateur
+                        {% endif %}
                     </td>
                     <td>{{ entity.organisme }}</td>
                     <td>{{ entity.poste }}</td>
