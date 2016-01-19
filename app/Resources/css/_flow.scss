@@ -286,13 +286,8 @@ nav a:hover span { opacity: 0.5; }
   opacity: 0.3;
   transition: opacity 1s;
 }
-#tiles-wrapper li:hover .rubrique, #tiles-wrapper li:active .rubrique, #tiles-wrapper li:focus .rubrique {
+#tiles-wrapper li:hover span, #tiles-wrapper li:active span, #tiles-wrapper li:focus span {
   opacity: 0.5;
-}
-#tiles-wrapper .rubrique + span {
-  position: absolute;
-  bottom: 5px; right: 20px;
-  font-size: 0.75em;
 }
 #tiles-wrapper li:hover img, #tiles-wrapper li:active img, #tiles-wrapper li:focus img {
   opacity: 1;
@@ -302,6 +297,11 @@ nav a:hover span { opacity: 0.5; }
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   transition: opacity 1s;
+}
+.tuiles-infos {
+  position: absolute;
+  bottom: 10px; right: 30px;
+  font-size: 0.75em;
 }
 
 
@@ -426,6 +426,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
   border-radius: 5px;
   transition: background 0.3s;
 }
+#agenda #main-btn { margin-top: 30px; }
 
 // fields
 
@@ -520,7 +521,7 @@ h1 {
 .admin-form > form div {
   position: relative;
   height: 40px; line-height: 40px;
-  margin: 15px 0;clear: both;
+  margin: 15px 0; clear: both;
 }
 .admin-form > form input,
 .admin-form > form textarea {
@@ -530,6 +531,10 @@ h1 {
   padding: 5px 30px;
   line-height: 1.3;
 }
+.admin-form input[type="checkbox"] {
+  width: 35px; height: 35px;
+  background: red !important;
+}
 .admin-form > form textarea {
   height: 170px;
   margin-bottom: 15px;
@@ -538,72 +543,24 @@ h1 {
 #gedbundle_documents_finDeVie {
   float: right; margin: 0;
 }
-//.admin-form > form select {
-//  height: 40px; width: 100px;
-//  margin-left: 5px;
-//  border: 0; outline: 0;
-//}
-.admin-form > form p {
-  font-style: italic;
-}
-.admin-form > form button[type="submit"] {
-display: block;
-  width: 70%;
-  margin: 70px auto 0;
-  color: #fff; border-radius: 5px; border: 0;
-  transition: background 0.3s;
-}
-
-
-/* ////////// Formulaire de l'agenda ////////// *\
-\* //////////////////////////////////////////// */
-
-.agenda_form > form div {
-  position: relative;
-  height: 40px; line-height: 40px;
-  margin: 15px 0;clear: both;
-}
-.agenda_form > form input,
-.agenda_form > form textarea {
-  float: right;
-  width: 60%; height: 100%;
-  border: 0; outline: 0;
-  padding: 5px 30px;
-}
-.agenda_form > form textarea {
-  height: 100px;
-  margin-bottom: 15px;
-  resize: none;
-}
-#date_start_event_new {
-  display: none;
-}
-.agenda_form h3 {
-  text-align: center;
-  margin: 10px 0 30px 0;
-}
-#date_end_event_new {
-  float: right; margin: 0;
-}
-.agenda_form > form select {
+.admin-form form select {
   height: 40px; width: 100px;
   margin-left: 5px;
+  text-align: center;
   border: 0; outline: 0;
 }
-.agenda_form > form button[type="submit"] {
-  display: block;
-  width: 70%;
-  margin: 140px auto 0;
-  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
-  transition: background 0.3s;
+#agendabundle_events_start,
+#agendabundle_events_end {
+  position: absolute; top: 0; right: 0; margin-top: 0;
 }
-.agenda_form > form button[type="submit"]:hover {
-  background: #35988F;
+#agendabundle_events_start div,
+#agendabundle_events_end div {
+  display: inline-block;
+  margin-top: 0;
+  margin-left: 20px;
 }
 
-.agenda_form .titre{
-  margin-top: 140px;
-}
+
 
 
 
