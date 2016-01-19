@@ -17,7 +17,6 @@
                 <th>Téléphone</th>
                 <th>E-mail</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Uploads</th>
                     <th>Dernière connexion</th>
                     <th>Création du compte</th>
                 {% endif %}
@@ -53,7 +52,6 @@
                         {% endif %}
                     </td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td>{{ entity.nbUploads }}</td>
                         <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
                         <td>{{ entity.creationCompte|date('d/m/Y') }}</td>
                     {% endif %}
@@ -63,9 +61,15 @@
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                         </a>
                     {% endif %}
-                        <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
-                            <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
-                        </a>
+                        {% if entity.enabled == 1 %}
+                            <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
+                                <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% else %}
+                            <a href="mailto:{{  entity.email }}" title="Envoyer un e-mail">
+                                <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -126,7 +130,6 @@
                 },
                 "autoWidth": false,
                 "columns": [
-                    { "width": "10%" },
                     { "width": "10%" },
                     { "width": "10%" },
                     { "width": "10%" },
