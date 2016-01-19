@@ -560,8 +560,31 @@ h1 {
   margin-left: 20px;
 }
 
+// champ d'upload
 
-
+.fileUpload {
+  position: relative;
+  float: right;
+  padding: 0 !important; margin-top: 0 !important;
+  display: inline-block;
+  overflow: hidden;
+  width: 80%; height: 50px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.3);
+  transition: background .2s;
+}
+.fileUpload:hover { background: #fff; cursor: pointer; }
+.fileUpload span {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(0,0,0,0.7);
+  font-size: 0.9em;
+}
+.fileUpload input {
+  width: 100% !important; height: 100%;
+  opacity: 0;margin: 0 !important;
+}
 
 
 /* //////////////// media queries //////////////// *\
@@ -581,8 +604,6 @@ h1 {
   #top-bar div:nth-child(2) a { display: block; }
   #top-bar > div + div + div { display: inline-block; }
 }
-
-
 
 
 

@@ -71,7 +71,7 @@
         <li><a href="{{ path('message') }}"><span>Dialogue</span><img src="{{ asset('images/icone-dialogue.png') }}" alt="icône agenda"></a></li>
     </ul>
 
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
         <div id="data-wrapper">
             <table id="data-uploads">
                 <tr>
