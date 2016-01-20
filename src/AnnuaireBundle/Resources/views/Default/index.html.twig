@@ -7,6 +7,12 @@
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="datatables-page">
+        {% if app.session.flashBag.has('success') %}
+            {% for msg in app.session.flashBag.get('success') %}
+                <p class="flashbag">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+
         <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
             <thead>
             <tr>
