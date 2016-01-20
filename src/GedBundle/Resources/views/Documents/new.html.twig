@@ -27,6 +27,14 @@
         </div>
 
         <div>
+            {{ form_label(form.file, 'Document (.pdf)') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file) }}
+            </div>
+        </div>
+
+        <div>
             {{ form_label(form.finDeVie) }}
             {{ form_widget(form.finDeVie) }}
         </div>
@@ -36,14 +44,11 @@
                 {{ msg }}
             {% endfor %}
         {% endif %}
-        <div>
-            {{ form_label(form.file, 'Document (.pdf)') }}
-            {{ form_widget(form.file) }}
-        </div>
 
         <div>
             {{ form_label(form.fil_actu) }}
             {{ form_widget(form.fil_actu) }}
+            <label for="gedbundle_documents_fil_actu" class="checkbox"></label>
         </div>
 
         {{ form_errors(form.titre) }}
@@ -55,4 +60,17 @@
 
         {{ form_end(form) }}
     </main>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $( "#gedbundle_documents_file" ).change(function() {
+            var selected_file = $( this ).val();
+            // if true : évite que l'input ne soit vidé si l'utilisateur clique sur "Annuler"
+            if (selected_file) {
+                $( ".fileUpload span" ).text( selected_file );
+            }
+        });
+    </script>
 {% endblock %}
