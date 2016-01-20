@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+{{ include('includes/topbar.html.twig') }}
+{{ include('includes/sidebar.html.twig') }}
+
+    <main class="admin-form deep-main">
+        <h1>Actu edit</h1>
+
+        {{ form(edit_form) }}
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('actu') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
+    </main>
+
+{% endblock %}

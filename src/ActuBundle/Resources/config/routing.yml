@@ -1,0 +1,3 @@
+actu_actu:
+    resource: "@ActuBundle/Resources/config/routing/actu.yml"
+    prefix:   /admin/actu
