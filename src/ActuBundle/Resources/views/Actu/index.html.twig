@@ -23,7 +23,7 @@
             {% for actu in actus %}
                 <tr>
                     <td>{{ actu.id }}</td>
-                    <td>{{ actu.type }}</td>
+                    <td>{{ actu.type | replace({'actus': 'Actualité'})}}</td>
                     <td>{{ actu.titre }}</td>
                     <td>{{ actu.resume }}</td>
                     <td>{% if actu.dateAjout %}{{ actu.dateAjout|date('Y-m-d H:i:s') }}{% endif %}</td>
