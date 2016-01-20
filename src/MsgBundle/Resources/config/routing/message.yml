@@ -26,4 +26,4 @@ message_create:
 message_delete:
     path:     /{id}/delete
     defaults: { _controller: "MsgBundle:Message:delete" }
-    methods:  [POST, DELETE]
+    methods:  [POST, DELETE, GET]

@@ -17,8 +17,10 @@
 // <main> containers
 // back office
 // headers
-// buttons + flashbag
+// flashbag
 // edit forms
+//    champ d'upload
+//    checkbox
 // media queries
 
 
@@ -26,6 +28,7 @@ body {
   background: $login-bg;
   font-family: Arial, sans-serif;
   font-size: 16px;
+  overflow-y: hidden;
 }
 
 
@@ -46,7 +49,7 @@ a:hover, a:active, a:focus { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: -2% auto 0;
+  top: -5%;
   border: 20px solid transparent;
 }
 .login-wrapper {
@@ -134,17 +137,18 @@ a:hover, a:active, a:focus { color: inherit; }
           transparent 60%, transparent 70%, #fff 70%, #fff 90%,
           transparent 90%, transparent 100%);
 }
+#accueil #gradient-icon { display: none; }
 #top-bar img {
   margin: 0 10px;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1200px) {
   #gradient-icon { display: none; }
 }
 @media (max-width: 1100px) {
   #top-bar { padding: 0  5% 0 calc(5% + 60px); }
 }
-@media (max-width: 900px) {
+@media (max-width: 800px) {
   #top-bar img { display: none; }
 }
 
@@ -170,7 +174,7 @@ a:hover, a:active, a:focus { color: inherit; }
 
 #menu-wrapper {
   position: fixed; z-index: 9;
-  height: calc(100% - #{$top-bar-height}); margin-top: -50px;
+  height: calc(100% - #{$top-bar-height}); margin-top: $top-bar-height;
   width: 20%; max-width: 350px; min-width: 200px;
   transform: translateX(-100%);
   transition: transform 0.5s;
@@ -285,13 +289,8 @@ nav a:hover span { opacity: 0.5; }
   opacity: 0.3;
   transition: opacity 1s;
 }
-#tiles-wrapper li:hover .rubrique, #tiles-wrapper li:active .rubrique, #tiles-wrapper li:focus .rubrique {
+#tiles-wrapper li:hover span, #tiles-wrapper li:active span, #tiles-wrapper li:focus span {
   opacity: 0.5;
-}
-#tiles-wrapper .rubrique + span {
-  position: absolute;
-  bottom: 5px; right: 20px;
-  font-size: 0.75em;
 }
 #tiles-wrapper li:hover img, #tiles-wrapper li:active img, #tiles-wrapper li:focus img {
   opacity: 1;
@@ -301,6 +300,11 @@ nav a:hover span { opacity: 0.5; }
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   transition: opacity 1s;
+}
+.tuiles-infos {
+  position: absolute;
+  bottom: 10px; right: 30px;
+  font-size: 0.75em;
 }
 
 
@@ -348,23 +352,33 @@ nav a:hover span { opacity: 0.5; }
   background: $tiles-bg;
   transition: background 1s;
 }
-#ged { background: #E5F6F1; }
-#annuaire { background: #e9f6e4; }
+#ged        { background: $ged-bg; }
+#agenda     { background: $agenda-bg; }
+#annuaire   { background: $annuaire-bg; }
+#emploi     { background: $emploi-bg; }
+#formations { background: $formations-bg; }
+#emploi     { background: $emploi-bg; }
 
 
 /* //////////////// <main> containers //////////////// *\
 \* /////////////////////////////////////////////////// */
 
 main {
-  position: relative;
+  position: relative; top: $top-bar-height + 50px;
   max-width: 85%;
-  margin: $top-bar-height + 50px auto 50px;
+  margin: 0 auto 50px;
 }
+.datatables-page { opacity: 0; }
 .deep-main {
   max-width: 1000px;
   padding: $h1-height + 40px 50px 40px;
   background: $login-wrapper-bg;
 }
+#ged .deep-main        { background: $documents-main-bg; }
+#agenda .deep-main     { background: $agenda-main-bg; }
+#annuaire .deep-main   { background: $annuaire-main-bg; }
+#emploi .deep-main     { background: $emploi-main-bg; }
+#formations .deep-main { background: $formations-main-bg; }
 .profile-data li {
   display: flex; align-items: center;
   justify-content: space-between;
@@ -373,17 +387,24 @@ main {
   background: none;
   transition: background .5s;
 }
-.profile-data li:hover { background: $login-bg; }
-.profile-data li + li { border-top: 1px solid $login-bg; }
+.profile-data li:hover { background: rgba(255,255,255,0.35); }
+.profile-data li + li { border-top: 1px solid rgba(255,255,255,0.7); }
 .profile-data li span + span { font-weight: bold; }
 .avatar { text-align: center; margin-bottom: 10px; }
 
-.main-submit {
+#ged button[type="submit"], #ged input[type="submit"], #ged #main-btn                      { background: $documents-submit-bg; }
+#agenda button[type="submit"], #agenda input[type="submit"], #agenda #main-btn             { background: $agenda-submit-bg; }
+#annuaire button[type="submit"], #annuaire input[type="submit"], #annuaire #main-btn       { background: $annuaire-submit-bg; }
+#emploi button[type="submit"], #emploi input[type="submit"], #emploi #main-btn             { background: $emploi-submit-bg; }
+#formations button[type="submit"], #formations input[type="submit"], #formations #main-btn { background: $formations-submit-bg; }
+#dialogue button[type="submit"], #dialogue input[type="submit"], #dialogue #main-btn       { background: $dialogue-submit-bg; }
+button[type="submit"], input[type="submit"], .main-submit-double a {
   display: block; text-align: center;
   width: 70%; height: $main-submit; line-height: $main-submit;
   margin: 20px auto 0;
   border: 0;
-  background: $login-submit-bg; color: #fff; border-radius: 5px;
+  color: #fff; border-radius: 5px;
+  background: $default-submit-bg;
   transition: background 0.5s;
 }
 .main-submit-double { text-align: center; }
@@ -392,11 +413,32 @@ main {
   padding: 0 50px;
   margin-left: 3px; margin-right: 3px;
 }
-.main-submit:hover, .main-submit:active, .main-submit:focus {
-  background: $login-submit-hover-bg;
+button[type="submit"]:hover, button[type="submit"]:active, button[type="submit"]:focus,
+input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus,
+#main-btn:hover, #main-btn:active, #main-btn:focus,
+.main-submit-double a:hover, .main-submit-double a:active, .main-submit-double a:focus {
+  background: rgba(0,0,0,0.3) !important;
   color: #fff;
 }
+#main-btn, #main-btn:visited {
+  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
+  text-align: center;
+  padding: 15px 10px;
+  background: $default-submit-bg;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+#agenda #main-btn { margin-top: 30px; }
 
+.double-h1 {
+  margin-top: -18px;
+  text-align: center;
+}
+.double-h1 a {
+  display: inline-block !important;
+}
 // fields
 
 .profile-data label {
@@ -455,30 +497,21 @@ h1 {
   font-size: 1.3em;
   color: #fff;
 }
-#ged h1 { background: #559FB2; }
+#ged h1        { background: $documents-main-title-bg; }
+#agenda h1     { background: $agenda-main-title-bg; }
+#annuaire h1   { background: $annuaire-main-title-bg; }
+#emploi h1     { background: $emploi-main-title-bg; }
+#formations h1 { background: $formations-main-title-bg; }
+#dialogue h1   { background: $dialogue-main-title-bg; }
 
 
-/* //////////////// buttons + flashbag //////////////// *\
-\* //////////////////////////////////////////////////// */
+/* //////////////// flashbag //////////////// *\
+\* ////////////////////////////////////////// */
 
-.button-add, .button-add:visited {
-  display: block; position: relative; width: 30%; min-width: 250px; margin: -32px auto 0;
-  text-align: center;
-  padding: 15px 10px;
-  background: #3DB2A8;
-  font-weight: bold;
-  color: #fff;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-.button-add:hover, .button-add:active {
-  color: #fff;
-  background: #35988F;
-}
 .flashbag {
   position: absolute;
   text-align: center;
-  top: $top-bar-height;
+  top: -50px;
   padding: 5px 15%;
   border-radius: 0 0 5px 5px;
   background: #2BB58E; color: #fff;
@@ -496,15 +529,10 @@ h1 {
 /* //////////////// edit forms //////////////// *\
 \* //////////////////////////////////////////// */
 
-.admin-form > form {
-  max-width: 1000px; margin: auto;
-  padding: 2% 5%;
-  background: #D0E6EC;
-}
 .admin-form > form div {
   position: relative;
   height: 40px; line-height: 40px;
-  margin: 15px 0;clear: both;
+  margin: 15px 0; clear: both;
 }
 .admin-form > form input,
 .admin-form > form textarea {
@@ -512,6 +540,7 @@ h1 {
   width: 80%; height: 100%;
   border: 0; outline: 0;
   padding: 5px 30px;
+  line-height: 1.3;
 }
 .admin-form > form textarea {
   height: 170px;
@@ -521,80 +550,69 @@ h1 {
 #gedbundle_documents_finDeVie {
   float: right; margin: 0;
 }
-//.admin-form > form select {
-//  height: 40px; width: 100px;
-//  margin-left: 5px;
-//  border: 0; outline: 0;
-//}
-.admin-form > form p {
-  font-style: italic;
-}
-.admin-form > form button[type="submit"] {
-display: block;
-  width: 70%;
-  margin: 70px auto 0;
-  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
-  transition: background 0.3s;
-}
-.admin-form > form button[type="submit"]:hover {
-  background: #35988F;
-}
-
-/* ////////// Formulaire de l'agenda ////////// *\
-\* //////////////////////////////////////////// */
-
-.agenda_form > form {
-  max-width: 1000px; margin: auto;
-  padding: 2% 5%;
-  background: #e1d85d;
-}
-.agenda_form > form div {
-  position: relative;
-  height: 40px; line-height: 40px;
-  margin: 15px 0;clear: both;
-}
-.agenda_form > form input,
-.agenda_form > form textarea {
-  float: right;
-  width: 60%; height: 100%;
-  border: 0; outline: 0;
-  padding: 5px 30px;
-}
-.agenda_form > form textarea {
-  height: 100px;
-  margin-bottom: 15px;
-  resize: none;
-}
-#date_start_event_new {
-  display: none;
-}
-.agenda_form h3 {
-  text-align: center;
-  margin: 10px 0 30px 0;
-}
-#date_end_event_new {
-  float: right; margin: 0;
-}
-.agenda_form > form select {
+.admin-form form select {
   height: 40px; width: 100px;
   margin-left: 5px;
+  text-align: center;
   border: 0; outline: 0;
 }
-.agenda_form > form button[type="submit"] {
-  display: block;
-  width: 70%;
-  margin: 140px auto 0;
-  background: #3DB2A8; color: #fff; border-radius: 5px; border: 0;
-  transition: background 0.3s;
+#agendabundle_events_start,
+#agendabundle_events_end {
+  position: absolute; top: 0; right: 0; margin-top: 0;
 }
-.agenda_form > form button[type="submit"]:hover {
-  background: #35988F;
-}
-
-.agenda_form .titre{
-  margin-top: 140px;
+#agendabundle_events_start div,
+#agendabundle_events_end div {
+  display: inline-block;
+  margin-top: 0;
+  margin-left: 20px;
 }
 
+// champ d'upload
+
+.fileUpload {
+  position: relative;
+  float: right;
+  padding: 0 !important; margin-top: 0 !important;
+  display: inline-block;
+  overflow: hidden;
+  width: 80%; height: 50px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.3);
+  transition: background .2s;
+}
+.fileUpload:hover { background: #fff; cursor: pointer; }
+.fileUpload span {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(0,0,0,0.7);
+  font-size: 0.9em;
+}
+.fileUpload input {
+  width: 100% !important; height: 100%;
+  opacity: 0;margin: 0 !important;
+}
+
+// checkbox
+
+input[type="checkbox"] { display: none; }
+.checkbox {
+  position: absolute; top: -10px; right: 0;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  background: #fff; border: 1px solid rgba(0,0,0,0.3);
+}
+.checkbox:after {
+  opacity: 0;
+  content: '';
+  position: absolute; top: 11px; left: 7px;
+  width: 25px; height: 12px;
+  border: 4px solid #000;
+  border-top: none; border-right: none;
+  transform: rotate(-45deg);
+}
+.checkbox:hover::after {opacity: 0.15; }
+input[type="checkbox"]:checked + label:after { opacity: 0.7; }
 
 
 /* //////////////// media queries //////////////// *\
@@ -606,6 +624,14 @@ display: block;
   ##{$datatables-name}_filter { width: 100%; }
 }
 
+@media screen and (max-width: 650px)
+{
+  #top-bar { position: static; display: block; text-align: center; line-height: 0; height: auto; padding: 10px 20px; }
+  #top-bar > div { height: 40px; line-height: 40px; }
+  #gradient-icon, #top-bar img, #menu-wrapper { display: none !important; }
+  #top-bar div:nth-child(2) a { display: block; }
+  #top-bar > div + div + div { display: inline-block; }
+}
 
 
 

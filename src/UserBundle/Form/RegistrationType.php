@@ -13,14 +13,14 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->remove('username')
-            ->add('organisme', 'choice', array('choices' => array(
-                'Pôle emploi' => 'Pôle emploi',
-                'Cap emploi' => 'Cap emploi',
-                'Mission locale' => 'Mission locale',
-                'Sous-préfecture' => 'Sous-préfecture',
-                'DIRECCTE' => 'DIRECCTE'
-            )))
-        ;
+            ->add('roles', 'choice', array('label' => 'Statut'))
+            ->add('id_organisme', 'entity', array(
+                'class'    => 'AppBundle:Organisme',
+                'property' => 'id',
+                'choice_label' => 'nom',
+                'label' => 'Organisme',
+                'multiple' => false
+            ));
     }
 
     public function getParent()

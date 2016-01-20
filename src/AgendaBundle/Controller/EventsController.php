@@ -68,7 +68,6 @@ class EventsController extends Controller
         else if ( $organisme == "Cap emploi" ) {
             $entity->setBackgroundColor("orange");
         }
-
         else if ( $organisme == "Mission locale" ) {
             $entity->setBackgroundColor("blue");
         }
@@ -92,7 +91,7 @@ class EventsController extends Controller
 
         // On récupère la date de début et de fin d'évènement afin de les comparer
         $startEvent = $form->getViewData()->getStart();
-        $startEvent_string = strftime("%A %e %B %Y à %k:%M", $startEvent->getTimestamp());
+        $startEvent_string = strftime("%A %#d %B %Y à %k:%M", $startEvent->getTimestamp());
         $endEvent = $form->getViewData()->getEnd();
 
         if ($form->isValid()) {
@@ -111,13 +110,16 @@ class EventsController extends Controller
 
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
+            // On se protège de la faille XSS
             $entity->setTitre(htmlspecialchars($form->getViewData()->getTitre()));
-            $entity->setContenu(htmlspecialchars($form->getViewData()->getContenu()));
+            $entity->setResume(htmlspecialchars($form->getViewData()->getResume()));
+            $entity->setDateAjout(new \DateTime());
             $entity->setIdUser($user);
 
             $this->colorEvent($entity);
 
             $em->persist($entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('agenda_homepage'));
@@ -157,27 +159,34 @@ class EventsController extends Controller
     {
         $entity = new Events();
         // On définie la date de début d'évènement
-        $entity->setStart(new \DateTime($start));
 
-        // Permet l'affichage de la date et l'heure en format fr
-        setlocale(LC_TIME, "fr_FR");
-        $startEvent = new \DateTime($start);
-        $startEvent = strftime("%A %e %B %Y à %k:%M", $startEvent->getTimestamp());
 
-        // On définie une date de fin min avec un interval de 30 min
-        $newTime = new \DateTime($start);
+        if ($start == 0) {
+            $newTime = new \DateTime();
+            $interval = 3600;
+            $newTime->add(new \DateInterval('PT' . $interval . 'S' ));
+            $startEvent = $newTime->format('d-m-Y H:i:s');
+            $entity->setStart(new \DateTime($startEvent));
+
+        } else {
+            $entity->setStart(new \DateTime($start));
+            $newTime = new \DateTime($start);
+        }
+
+
+        // On définie une date de fin min avec un interval de 1 h
         $interval = 3600;
         $newTime->add(new \DateInterval('PT' . $interval . 'S' ));
         $endEvent = $newTime->format('d-m-Y H:i:s');
 
         $entity->setEnd(new \DateTime($endEvent));
 
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('AgendaBundle:Events:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'startEvent' => $startEvent,
+            //'startEvent' => $startEvent,
         ));
 
     }
@@ -268,7 +277,7 @@ class EventsController extends Controller
         if ($editForm->isValid()) {
 
             $entity->setTitre(htmlspecialchars($entity->getTitre()));
-            $entity->setContenu(htmlspecialchars($entity->getContenu()));
+            $entity->setResume(htmlspecialchars($entity->getResume()));
 
             $em->flush();
 
@@ -290,7 +299,6 @@ class EventsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AgendaBundle:Events')->find($id);
-        $entities = $em->getRepository('AgendaBundle:Events')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException(

@@ -49,13 +49,14 @@ class DocumentsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setDateUpload(new \DateTime());
+            $entity->setDateAjout(new \DateTime());
             $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
 
             $nbUploads = $entity->getUser()->getNbUploads();
             $entity->getUser()->setNbUploads($nbUploads + 1);
 
             $em->persist($entity);
+
             $em->flush();
 
             $request->getSession()
@@ -144,7 +145,7 @@ class DocumentsController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Éditer'));
         $form->remove('file');
 
         return $form;
@@ -173,6 +174,7 @@ class DocumentsController extends Controller
 
         if ($editForm->isValid()) {
             $entity->preUpload();
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('documents'));

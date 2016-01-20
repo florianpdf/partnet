@@ -14,6 +14,12 @@ MsgBundle\Entity\ResponseMessage:
         sender:
             type: string
             length: 255
+        sender_name:
+            type: string
+            length: 255
+        subject:
+            type: string
+            length: 255
         message:
             type: text
         date:

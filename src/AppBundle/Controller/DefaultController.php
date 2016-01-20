@@ -2,9 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -14,14 +12,20 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         $nb = $em->getRepository('GedBundle:Documents')->getNbDocuments();
         $nb_month = $em->getRepository('GedBundle:Documents')->getNbDocumentsMonth();
 
+        $actus = $this->container->get('app.actu')->getActualites();
+
         return $this->render('default/index.html.twig', array(
             'nb' => $nb,
-            'nb_month' => $nb_month
+            'nb_month' => $nb_month,
+            'results' => $actus
         ));
     }
+
+
 
     public function adminAction()
     {

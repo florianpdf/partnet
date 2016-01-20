@@ -394,4 +394,33 @@ class User extends BaseUser
     }
 
 
+    /**
+     * @var \AppBundle\Entity\Organisme
+     */
+    private $id_organisme;
+
+
+    /**
+     * Set idOrganisme
+     *
+     * @param \AppBundle\Entity\Organisme $idOrganisme
+     *
+     * @return User
+     */
+    public function setIdOrganisme(\AppBundle\Entity\Organisme $idOrganisme = null)
+    {
+        $this->id_organisme = $idOrganisme;
+
+        return $this;
+    }
+
+    /**
+     * Get idOrganisme
+     *
+     * @return \AppBundle\Entity\Organisme
+     */
+    public function getIdOrganisme()
+    {
+        return $this->id_organisme;
+    }
 }

@@ -138,4 +138,62 @@ class ResponseMessage
     {
         return $this->date;
     }
+    /**
+     * @var string
+     */
+    private $sender_name;
+
+
+    /**
+     * Set senderName
+     *
+     * @param string $senderName
+     *
+     * @return ResponseMessage
+     */
+    public function setSenderName($senderName)
+    {
+        $this->sender_name = $senderName;
+
+        return $this;
+    }
+
+    /**
+     * Get senderName
+     *
+     * @return string
+     */
+    public function getSenderName()
+    {
+        return $this->sender_name;
+    }
+    /**
+     * @var string
+     */
+    private $subject;
+
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     *
+     * @return ResponseMessage
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 }

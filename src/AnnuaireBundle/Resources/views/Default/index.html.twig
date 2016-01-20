@@ -6,45 +6,65 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main>
-        <table id="donnees" class="display no-wrap" cellspacing="0" width="100%">
+    <main class="datatables-page">
+        <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>Nom Prénom</th>
+                <th>Nom et prénom</th>
+                <th>Rôle</th>
                 <th>Organisme</th>
                 <th>Poste</th>
-                <th>Telephone</th>
+                <th>Téléphone</th>
                 <th>E-mail</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Création du compte</th>
-                    <th>Nombre d'uploads</th>
                     <th>Dernière connexion</th>
+                    <th>Création du compte</th>
                 {% endif %}
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for entity in entities %}
                 <tr>
                     <td>{{ entity.nom }} {{ entity.prenom }}</td>
+                    <td>
+                        {% if entity.roles[0] == 'ROLE_SUPER_ADMIN' %}
+                            Super-Administrateur
+                        {% elseif entity.roles[0] == 'ROLE_ADMIN' %}
+                            Administrateur
+                        {% elseif entity.roles[0] == 'ROLE_USER' %}
+                            Utilisateur
+                        {% endif %}
+                    </td>
                     <td>{{ entity.organisme }}</td>
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
-                    <td><a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a></td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <td>{{ entity.creationCompte|date('d-m-Y') }}</td>
-                        <td>{{ entity.nbUploads }}</td>
-                        <td>{{ entity.lastLogin|date('d.m.Y à H:i:s') }}</td>
-                    {% endif %}
                     <td>
+                        {% if entity.enabled == 1 %}
+                            <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a>
+                        {% else %}
+                            <a href="mailto:{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a>
+                        {% endif %}
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
+                        <td>{{ entity.creationCompte|date('d/m/Y') }}</td>
+                    {% endif %}
+                    <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                         </a>
                     {% endif %}
-                        <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
-                            <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
-                        </a>
+                        {% if entity.enabled == 1 %}
+                            <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
+                                <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% else %}
+                            <a href="mailto:{{  entity.email }}" title="Envoyer un e-mail">
+                                <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -52,7 +72,10 @@
         </table>
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="button-add" href="{{ path('fos_user_registration_register') }}">Enregistrer un utilisateur</a>
+            <div class="double-h1">
+                <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                <a id="main-btn" href="{{ path('fos_user_registration_register_contact') }}">Nouveau contact</a>
+            </div>
         {% endif %}
         {% include '@Annuaire/Default/delete.html.twig' %}
     </main>
@@ -101,7 +124,7 @@
                     { "width": "10%" },
                     { "width": "10%" },
                     { "width": "10%" },
-                    { "width": "10%" },
+                    { "width": "10%"},
                     { "width": "10%"},
                     { "width": "5%"}
                 ],
@@ -119,6 +142,7 @@
                 "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
             });
 
+            // autofocus et placeholder pour le champ de recherche
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
@@ -159,6 +183,7 @@
                     { "width": "10%" },
                     { "width": "10%" },
                     { "width": "10%"},
+                    { "width": "10%"},
                     { "width": "5%"}
                 ],
                 "columnDefs": [
@@ -175,6 +200,7 @@
                 "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
             });
 
+            // autofocus et placeholder pour le champ de recherche
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>

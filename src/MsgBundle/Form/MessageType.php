@@ -23,6 +23,7 @@ class MessageType extends AbstractType
                 'placeholder' => 'adresse mail')
             ))
             ->add('message', 'textarea', array('label' => 'Message'))
+
         ;
 
     }

@@ -1,0 +1,43 @@
+FormBundle\Entity\Formations:
+    type: entity
+    manyToOne:
+        address:
+          targetEntity: AppBundle\Entity\Organisme
+          joinColumn:
+            name: nom
+            referencedColumnName: id
+
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        organisme:
+            type: string
+            length: 255
+            column: organisme
+        image:
+            type: string
+            length: 255
+        titre:
+            type: string
+            length: 255
+        nbPlace:
+            type: integer
+            column: nb_place
+        lieu:
+            type: string
+            length: 255
+        resume:
+            type: text
+        fil_actu:
+            type: boolean
+        dateAjout:
+            type: datetime
+            nullable: true
+            column: date_ajout
+
+    lifecycleCallbacks: {  }

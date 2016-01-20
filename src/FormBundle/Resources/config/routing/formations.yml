@@ -1,0 +1,4 @@
+formations:
+    path:     /
+    defaults: { _controller: "FormBundle:Formations:index" }
+

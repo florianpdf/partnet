@@ -63,14 +63,14 @@ class DocumentsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"
-        $crawler = $client->request('GET', '/documents/');
-        $link = $crawler
-            ->filter('a:contains("déconnexion")')
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
-            $client->getRequest()->attributes->get('_controller'));
+//        $crawler = $client->request('GET', '/documents/');
+//        $link = $crawler
+//            ->filter('a:contains("déconnexion")')
+//            ->eq(0)
+//            ->link();
+//        $crawler = $client->click($link);
+//        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
+//            $client->getRequest()->attributes->get('_controller'));
     }
 
     // Vérification que l'action de '/documents' est bien 'DocumentsController::indexAction'
@@ -109,6 +109,7 @@ class DocumentsControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('form select[name="gedbundle_documents[finDeVie][year]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="gedbundle_documents[file]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form button[name="gedbundle_documents[submit]"]')->count() == 1);
+        $this->assertEquals(1, $crawler->filter('html:contains("Ajouter au fil d\'actualité")')->count());
     }
 
     // Fonction permettant de créer un document
@@ -230,7 +231,7 @@ class DocumentsControllerTest extends WebTestCase
         $this->assertEquals('GedBundle\Controller\DocumentsController::editAction',
             $client->getRequest()->attributes->get('_controller'));
 
-        $form = $crawler->selectButton('Update')->form(array(
+        $form = $crawler->selectButton('Éditer')->form(array(
             'gedbundle_documents[titre]' => 'edit_test_titre',
             'gedbundle_documents[auteur]' => 'edit_test_auteur',
         ));
@@ -383,14 +384,14 @@ class DocumentsControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"
-        $crawler = $client->request('GET', '/documents/');
-        $link = $crawler
-            ->filter('a:contains("déconnexion")')
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
-            $client->getRequest()->attributes->get('_controller'));
+//        $crawler = $client->request('GET', '/documents/');
+//        $link = $crawler
+//            ->filter('a:contains("déconnexion")')
+//            ->eq(0)
+//            ->link();
+//        $crawler = $client->click($link);
+//        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
+//            $client->getRequest()->attributes->get('_controller'));
     }
 
     // Verification que certain champs ne sont pas présent pour l'utilisateur
@@ -410,15 +411,6 @@ class DocumentsControllerTest extends WebTestCase
     {
         // Création du document en tant qu'Admin
         $client = $this->createDocument(array('gedbundle_documents[titre]' => 'testUserDocument'));
-        $client->followRedirect();
-        $crawler = $client->request('GET', '/documents/');
-        $link = $crawler
-            ->filter('a:contains("déconnexion")')
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
-            $client->getRequest()->attributes->get('_controller'));
     }
 
     // Test du download

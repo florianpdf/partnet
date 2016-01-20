@@ -6,7 +6,7 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main>
+    <main class="datatables-page">
     {% if app.session.flashBag.has('success') %}
         {% for msg in app.session.flashBag.get('success') %}
             <p class="flashbag">{{ msg }}</p>
@@ -38,7 +38,10 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                <td class="target">{{ doc.dateUpload|date('m/d/Y') }}</td>
+                <td class="target">
+                    <span style="display:none">{{ doc.dateAjout|date('Y/m/d H:i:s') }}</span>
+                    {{ doc.dateAjout|date('d/m/Y') }}
+                </td>
                 <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Editer">
@@ -62,7 +65,7 @@
     </table>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a class="button-add" href="{{ path('documents_new') }}">Ajouter un document</a>
+        <a id="main-btn" href="{{ path('documents_new') }}">Ajouter un document</a>
         {% include '@Ged/Documents/delete.html.twig' %}
     {% endif %}
 
@@ -71,6 +74,30 @@
 
 {% block scripts %}
     {{ parent() }}
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+
+        $(document).ready(function () {
+            var theHREF;
+
+            $(".confirmModalLink").click(function(e) {
+                e.preventDefault();
+                theHREF = $(this).attr("href");
+                $("#confirmModal").modal("show");
+            });
+
+            $("#confirmModalNo").click(function(e) {
+                $("#confirmModal").modal("hide");
+            });
+
+            $("#confirmModalYes").click(function(e) {
+                window.location.href = theHREF;
+            });
+
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $( '#donnees' ).dataTable( {
@@ -131,11 +158,6 @@
 
             // autofocus et placeholder pour le champ de recherche
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
-
-            // fadeout pour le flashbag
-            window.setTimeout(function() {
-                $( '.flashbag' ).fadeOut( 1750 );
-            }, 2250);
         });
     </script>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace GedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -20,6 +21,10 @@ class DocumentsType extends AbstractType
             ->add('auteur', 'text', array('required' => false))
             ->add('finDeVie', 'date', array('label' => 'Fin de validité', 'required' => false))
             ->add('file', 'file', array('label' => 'Document', 'attr' => array('accept' => 'application/pdf, application/xpdf')))
+            ->add('fil_actu', 'checkbox', array(
+                'label' => 'Ajouter au fil d\'actualité',
+                'required' => false,
+            ));
         ;
     }
     

@@ -1,49 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block body_class %}
-<body id="agenda" xmlns="http://www.w3.org/1999/html">{% endblock %}
+<body id="agenda">{% endblock %}
 
 {% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main class="deep-main agenda_form">
-            <h1>Création d'un évènement</h1>
+    <main class="admin-form deep-main">
+        <h1>Création d'un évènement</h1>
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        <h3>{{ startEvent }}</h3>
-
-        <div id="date_start_event_new">
+        <div>
             {{ form_label(form.start) }}
-            {{ form_errors(form.start) }}
             {{ form_widget(form.start) }}
+        </div>
 
+        <div>
+            {{ form_label(form.end) }}
+            {{ form_widget(form.end) }}
         </div>
 
         <div>
             {{ form_label(form.titre) }}
-            {{ form_errors(form.titre) }}
             {{ form_widget(form.titre) }}
         </div>
 
         <div>
-            {{ form_label(form.contenu) }}
-            {{ form_errors(form.contenu) }}
-            {{ form_widget(form.contenu) }}
+            {{ form_label(form.resume) }}
+            {{ form_widget(form.resume) }}
         </div>
 
-        <div id="date_end_event">
-            {{ form_label(form.end) }}
-            {{ form_errors(form.end) }}
-            {{ form_widget(form.end) }}
+        <div>
+            {{ form_label(form.fil_actu) }}
+            {{ form_widget(form.fil_actu) }}
+            <label for="agendabundle_events_fil_actu" class="checkbox"></label>
         </div>
+
+        {{ form_errors(form.start) }}
+        {{ form_errors(form.end) }}
+        {{ form_errors(form.titre) }}
+        {{ form_errors(form.resume) }}
+        {{ form_errors(form.fil_actu) }}
 
         {{ form_end(form) }}
 
     </main>
+{% endblock %}
 
-
-
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $( "#agendabundle_events_start_date_year" ).appendTo( "#agendabundle_events_start_date" );
+            $( "#agendabundle_events_start_date_day" ).prependTo( "#agendabundle_events_start_date" );
+            $( "#agendabundle_events_end_date_year" ).appendTo( "#agendabundle_events_end_date" );
+            $( "#agendabundle_events_end_date_day" ).prependTo( "#agendabundle_events_end_date" );
+        });
+    </script>
 {% endblock %}

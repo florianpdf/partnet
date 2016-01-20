@@ -80,12 +80,14 @@ class ProfileController extends Controller
 
             $user->setUsername($this->getUser()->getEmail());
 
-
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
+
+            $raw_tel = $form->get('telephone')->getData();
+            $user->setTelephone(str_replace(" ", "", $raw_tel));
 
             $userManager->updateUser($user);
 

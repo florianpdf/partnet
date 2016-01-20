@@ -226,4 +226,3 @@ class Message
         return $this->date;
     }
 }
-

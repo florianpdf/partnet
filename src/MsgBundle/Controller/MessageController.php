@@ -174,6 +174,7 @@ class MessageController extends Controller
         }
 
         $comment = new ResponseMessage();
+        $message = new Message();
         // On génère le formulaire
         $formBuilder = $this->get('form.factory')->createBuilder('form', $comment);
         $formBuilder
@@ -191,8 +192,24 @@ class MessageController extends Controller
             $comment->setIdMessage($id);
             $comment->setSender($this->getUser()->getEmail());
 
+            // Ajout du Re:
+            if(empty($comment->getSubject())) {
+                $comment->setSubject('Re:');
+            } else {
+                for($i = 0; $i < count($comment->getSubject()); $i++) {
+                    $comment->setSubject($comment->setSubject('Re:') . $comment->getSubject());
+                }
+            }
+
+            // Auto completion Sender Name
+            $comment->setSenderName($this->getUser()->getNom().' '.$this->getUser()->getPrenom());
+
             //Ajout de la date d'envoi
             $comment->setDate(new \DateTime('now'));
+
+            // Envoi du mail
+            $link = 'http://'.$_SERVER['HTTP_HOST'].$this->generateUrl('message_show', array('id' => $entity->getId()));
+            $this->mailAction($this->getUser()->getEmail(), $message->getRecipient(),'Consulter le message : '.$link );
 
             $em->persist($comment);
             $em->flush();
@@ -222,6 +239,7 @@ class MessageController extends Controller
 
 
         if ($form->isValid()) {
+            // Methode POST
             $em = $this->getDoctrine()->getManager();
 
             // recupère le message
@@ -255,6 +273,37 @@ class MessageController extends Controller
             }
 
 
+        } else {
+            // Méthode GET
+            $em = $this->getDoctrine()->getManager();
+            $message = $em->getRepository('MsgBundle:Message')->find($id);
+
+            if($message->getSender() == $this->getUser()->getUsername())
+            {
+                // recupère les réponses associées au message en question
+                $response_message = $em->getRepository('MsgBundle:ResponseMessage')->findByIdMessage($id);
+
+                // si il y'a des réponses au message principal
+                if ($response_message != null) {
+                    // compte le nombre de message et les liste
+                    for ($i=0; $i < count($response_message); $i++) {
+                        // supprime les messages
+                        $em->remove($response_message[$i]);
+                    }
+                }
+
+                // supprime le message principal
+                $em->remove($message);
+
+                $em->flush();
+            } else {
+
+                $message->setVisibleInBoxReceiver(false);
+
+                $em->persist($message);
+                $em->flush();
+
+            }
         }
 
         return $this->redirect($this->generateUrl('message'));

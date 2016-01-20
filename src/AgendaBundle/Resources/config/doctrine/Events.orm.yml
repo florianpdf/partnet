@@ -28,7 +28,7 @@ AgendaBundle\Entity\Events:
             length: 255
             options:
                 fixed: false
-        contenu:
+        resume:
             type: text
             nullable: true
             length: null
@@ -36,6 +36,13 @@ AgendaBundle\Entity\Events:
                 fixed: false
         backgroundColor:
             type: string
+        dateAjout:
+            type: datetime
+            nullable: true
+            column: date_ajout
+        fil_actu:
+            type: boolean
+
     manyToOne:
         idUser:
             targetEntity: UserBundle\Entity\User
@@ -47,4 +54,5 @@ AgendaBundle\Entity\Events:
                 id_user:
                     referencedColumnName: id
             orphanRemoval: false
+
     lifecycleCallbacks: {  }

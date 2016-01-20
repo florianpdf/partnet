@@ -105,6 +105,28 @@ class User extends BaseUser
         }
     }
 
+    /* Override original functions */
+    public function setEmail($email)
+    {
+        parent::setEmail($email);
+        $this->username = $email;
+        return $this;
+    }
+    public function setEmailCanonical($emailCanonical)
+    {
+        parent::setEmailCanonical($emailCanonical);
+        $this->usernameCanonical = $emailCanonical;
+        return $this;
+    }
+
+    public function setPlainPassword($password)
+    {
+        parent::setPlainPassword($password);
+        $this->password = $password;
+        return $this;
+    }
+
+
     //Generated Code
 
     /**
@@ -260,7 +282,7 @@ class User extends BaseUser
      */
     public function getTelephone()
     {
-        return $this->telephone;
+        return chunk_split($this->telephone, 2, " ");
     }
 
     /**
@@ -369,5 +391,36 @@ class User extends BaseUser
     public function getPicture()
     {
         return $this->picture;
+    }
+
+
+    /**
+     * @var \AppBundle\Entity\Organisme
+     */
+    private $id_organisme;
+
+
+    /**
+     * Set idOrganisme
+     *
+     * @param \AppBundle\Entity\Organisme $idOrganisme
+     *
+     * @return User
+     */
+    public function setIdOrganisme(\AppBundle\Entity\Organisme $idOrganisme = null)
+    {
+        $this->id_organisme = $idOrganisme;
+
+        return $this;
+    }
+
+    /**
+     * Get idOrganisme
+     *
+     * @return \AppBundle\Entity\Organisme
+     */
+    public function getIdOrganisme()
+    {
+        return $this->id_organisme;
     }
 }

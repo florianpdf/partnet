@@ -30,34 +30,74 @@ fos_user_registration_register:
     requirements:
         id:  \d+
 
+fos_user_registration_register_contact:
+    path:     /register/contact
+    defaults: { _controller: "UserBundle:User:create" }
+    requirements:
+        id:  \d+
+
+
 user_delete:
     path:     /user/{id}/delete
     defaults: { _controller: "UserBundle:User:delete" }
     requirements:
         id:  \d+
 
-# Route admin pour la gestion des évènements AgendaBundle
+# Route pour la gestion des organismes
 
-events_new:
-    path:     event/{start}/new
-    defaults: { _controller: "AgendaBundle:Events:new" }
+admin_organisme:
+    path:     /organisme/
+    defaults: { _controller: "AppBundle:Organisme:index" }
 
-events_create:
-    path:     event/create
-    defaults: { _controller: "AgendaBundle:Events:create" }
+admin_organisme_new:
+    path:     /organisme/new
+    defaults: { _controller: "AppBundle:Organisme:new" }
+
+admin_organisme_create:
+    path:     /organisme/create
+    defaults: { _controller: "AppBundle:Organisme:create" }
     methods:  POST
 
-events_edit:
-    path:     event/{id}/edit
-    defaults: { _controller: "AgendaBundle:Events:edit" }
+admin_organisme_edit:
+    path:     /organisme/{id}/edit
+    defaults: { _controller: "AppBundle:Organisme:edit" }
 
-events_update:
-    path:     event/{id}/update
-    defaults: { _controller: "AgendaBundle:Events:update" }
+admin_organisme_update:
+    path:     /organisme/{id}/update
+    defaults: { _controller: "AppBundle:Organisme:update" }
     methods:  [POST, PUT]
 
-events_delete:
-    path:     event/{id}/delete
-    defaults: { _controller: "AgendaBundle:Events:delete" }
-    requirements:
-        id:  \d+
+admin_organisme_delete:
+    path:     /organisme/{id}/delete
+    defaults: { _controller: "AppBundle:Organisme:delete" }
+    methods:  [POST, DELETE, GET]
+
+organisme_get_picture:
+    path:      /organisme/{picture}
+    defaults: { _controller: "AppBundle:Organisme:PictureOrganisme" }
+    methods: [GET]
+
+# Route pour la gestion de formations
+
+formations_new:
+    path:     /formations/new
+    defaults: { _controller: "FormBundle:Formations:new" }
+
+formations_create:
+    path:     /formations/create
+    defaults: { _controller: "FormBundle:Formations:create" }
+    methods:  POST
+
+formations_edit:
+    path:     /formations/{id}/edit
+    defaults: { _controller: "FormBundle:Formations:edit" }
+
+formations_update:
+    path:     /formations/{id}/update
+    defaults: { _controller: "FormBundle:Formations:update" }
+    methods:  [POST, PUT]
+
+formations_delete:
+    path:     /formations/{id}/delete
+    defaults: { _controller: "FormBundle:Formations:delete" }
+    methods:  [DELETE, GET]

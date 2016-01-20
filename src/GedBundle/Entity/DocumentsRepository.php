@@ -32,7 +32,7 @@ class DocumentsRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('id')
             ->select('COUNT(id)')
-            ->where('id.dateUpload > :create_at')
+            ->where('id.dateAjout > :create_at')
             ->setParameter('create_at', date('Y-m-d', time() - 86400 * 30) )
             ->getQuery()
             ->getSingleScalarResult();

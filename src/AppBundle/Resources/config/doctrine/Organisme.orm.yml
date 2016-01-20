@@ -1,0 +1,35 @@
+AppBundle\Entity\Organisme:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Entity\OrganismeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        photo:
+            type: string
+            length: 255
+            nullable: true
+        nom:
+            type: string
+            length: 255
+        description:
+            type: text
+        backgroundColor:
+            type: string
+            nullable: true
+
+    oneToMany:
+        fos_user:
+            targetEntity: UserBundle\Entity\User
+            mappedBy: organisme
+
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

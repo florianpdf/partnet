@@ -18,48 +18,76 @@ $tile5 : #abb7d2;
 $tile6 : #e8ac79;
 
 // body backgrounds
-$tile1-bg : #D7EBF1;
-$tile2-bg : #F1ECB1;
-$tile3-bg : #D1EBC5;
-$tile4-bg : #F2D9D2;
-$tile5-bg : #D3D9E7;
-$tile6-bg : #F4D7BE;
+$tile1-bg      : #D7EBF1;
+$tile2-bg      : #F1ECB1;
+$tile3-bg      : #D1EBC5;
+$tile4-bg      : #F2D9D2;
+$tile5-bg      : #D3D9E7;
+$tile6-bg      : #F4D7BE;
+
+$ged-bg        : #E5F6F1;
+$agenda-bg     : #E9F6E4;
+$annuaire-bg   : #E7EFFF;
+$emploi-bg     : #F8F5D6;
+$formations-bg : #D3D9E7;
+$emploi-bg     : #F4D7BE;
+
 
 // DataTables rows
-$documents-head-rows-bg   : #fff;
-$documents-odd-rows-bg    : #fff;
-$documents-even-rows-bg   : #fff;
-$agenda-head-rows-bg      : #fff;
-$agenda-odd-rows-bg       : #fff;
-$agenda-even-rows-bg      : #fff;
-$annuaire-head-rows-bg    : #fff;
-$annuaire-odd-rows-bg     : #fff;
-$annuaire-even-rows-bg    : #fff;
-$emploi-head-rows-bg      : #fff;
+$default-head-rows-bg     : #87827B;
+$default-odd-rows-bg      : #DDDCDA;
+$default-even-rows-bg     : #D0CFCD;
+$default-rows-hover-bg    : #CAC9C7;
+$documents-head-rows-bg   : #559FB2;
+$documents-odd-rows-bg    : #D0E6EC;
+$documents-even-rows-bg   : #C3DFE7;
+$documents-rows-hover-bg  : #B3D7E0;
+$agenda-head-rows-bg      : #7AAF74;
+$agenda-odd-rows-bg       : #CCE9C0;
+$agenda-even-rows-bg      : #C1E4B2;
+$agenda-rows-hover-bg     : #BCDDAD;
+$annuaire-head-rows-bg    : #8E99AF;
+$annuaire-odd-rows-bg     : #D2D8E7;
+$annuaire-even-rows-bg    : #C7CFE1;
+$annuaire-rows-hover-bg   : #C1C9DA;
+$emploi-head-rows-bg      : #A29F79;
 $emploi-odd-rows-bg       : #fff;
 $emploi-even-rows-bg      : #fff;
+$emploi-rows-hover-bg     : #fff;
 $formations-head-rows-bg  : #fff;
 $formations-odd-rows-bg   : #fff;
 $formations-even-rows-bg  : #fff;
+$formations-rows-hover-bg : #fff;
 $dialogue-head-rows-bg    : #fff;
 $dialogue-odd-rows-bg     : #fff;
 $dialogue-even-rows-bg    : #fff;
+$dialogue-rows-hover-bg   : #fff;
 
 // main > h1 backgrounds
-$documents-main-title-bg  : #fff;
-$agenda-main-title-bg     : #fff;
-$annuaire-main-title-bg   : #fff;
-$emploi-main-title-bg     : #fff;
-$formations-main-title-bg : #fff;
-$dialogue-main-title-bg   : #fff;
+$default-main-title-bg    : $default-head-rows-bg;
+$documents-main-title-bg  : $documents-head-rows-bg;
+$agenda-main-title-bg     : $agenda-head-rows-bg;
+$annuaire-main-title-bg   : $annuaire-head-rows-bg;
+$emploi-main-title-bg     : $emploi-head-rows-bg;
+$formations-main-title-bg : $formations-head-rows-bg;
+$dialogue-main-title-bg   : $dialogue-head-rows-bg;
 
 // main backgrounds
-$documents-main-bg  : #D0E6EC;
-$agenda-main-bg     : #fff;
-$annuaire-main-bg   : #fff;
-$emploi-main-bg     : #fff;
-$formations-main-bg : #fff;
-$dialogue-main-bg   : #fff;
+$documents-main-bg  : $documents-odd-rows-bg;
+$agenda-main-bg     : $agenda-odd-rows-bg;
+$annuaire-main-bg   : $annuaire-odd-rows-bg;
+$emploi-main-bg     : $emploi-odd-rows-bg;
+$formations-main-bg : $formations-odd-rows-bg;
+$dialogue-main-bg   : $dialogue-odd-rows-bg;
+
+// main submit button backgrounds
+$default-submit-bg    : #A7A39E;
+$documents-submit-bg  : #82B9C7;
+$agenda-submit-bg     : #9DC499;
+$annuaire-submit-bg   : #B0B8C7;
+$emploi-submit-bg     : #BBB99D;
+$formations-submit-bg : #fff;
+$dialogue-submit-bg   : #fff;
 
 // fields errors
 $field-error: #B88E8D;

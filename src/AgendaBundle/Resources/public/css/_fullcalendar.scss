@@ -29,7 +29,7 @@ body .fc { /* extra precedence to overcome jqui */
 .fc-unthemed .fc-divider,
 .fc-unthemed .fc-row,
 .fc-unthemed .fc-popover {
-	border-color: #ddd;
+	border-color: $agenda-head-rows-bg;
 }
 
 .fc-unthemed .fc-popover {
@@ -46,7 +46,7 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 .fc-unthemed .fc-today {
-	background: #fcf8e3;
+	background: $agenda-even-rows-bg;
 }
 
 .fc-highlight { /* when user is selecting cells */
@@ -56,14 +56,15 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 .fc-bgevent { /* default look for background events */
-	background: rgb(143, 223, 130);
-	opacity: .3;
+	//background: rgb(143, 223, 130);
+	//opacity: .3;
 	filter: alpha(opacity=30); /* for IE */
 }
 
 .fc-nonbusiness { /* default look for non-business-hours areas */
 	/* will inherit .fc-bgevent's styles */
-	background: #d7d7d7;
+	//background: #d7d7d7;
+	display: none;
 }
 
 
@@ -516,6 +517,7 @@ temporary rendered events).
 	background-color: #3a87ad; /* default BACKGROUND color */
 	font-weight: normal; /* undo jqui's ui-widget-header bold */
 }
+.fc-event-container { max-width: 90%; margin-left: 0; }
 
 /* overpower some of bootstrap's and jqui's styles on <a> tags */
 .fc-event,
@@ -954,7 +956,7 @@ a.fc-more:hover {
 }
 
 .fc-ltr .fc-time-grid .fc-event-container { /* space on the sides of events for LTR (default) */
-	margin: 0 2.5% 0 2px;
+	margin: 0 2.5% 0 0;
 }
 
 .fc-rtl .fc-time-grid .fc-event-container { /* space on the sides of events for RTL */
@@ -1067,3 +1069,41 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-resizer:after {
 	content: "=";
 }
+
+///////////////////////////////////////////////
+
+.fc-view-container {
+	background: $agenda-odd-rows-bg;
+}
+.fc-head, .fc-time, .fc-week-number {
+	background: $agenda-head-rows-bg;
+	color: #fff;
+}
+.fc-day:hover {
+	background: $agenda-rows-hover-bg;
+	cursor: pointer;
+}
+.fc-slats, /*horizontals*/
+.fc-content-skeleton, /*day numbers*/
+.fc-bgevent-skeleton, /*events container*/ {
+	pointer-events: none;
+}
+.fc-bgevent,
+.fc-event-container {
+	pointer-events: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
