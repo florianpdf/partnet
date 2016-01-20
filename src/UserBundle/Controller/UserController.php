@@ -49,6 +49,10 @@ class UserController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le contact a bien été ajouté à l\'annuaire.');
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

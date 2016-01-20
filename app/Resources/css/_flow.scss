@@ -245,7 +245,10 @@ nav a:hover span { opacity: 0.5; }
 
 // positioning
 
+
+#tiles-wrapper, #tiles-wrapper li { transition: all 1.5s; }
 #tiles-wrapper {
+  opacity: 0; transform: scale(2,2);
   list-style: none;
   max-width: 1300px; margin: 0 auto 0; min-height: 100%; padding: $top-bar-height + 60px 30px 60px;
   display: flex;
@@ -258,6 +261,12 @@ nav a:hover span { opacity: 0.5; }
   width: 30%; min-width: 350px; height: 265px;
   margin: 5px;
 }
+#tiles-wrapper li:nth-child(1) { transform: translate(-25%,-25%); }
+#tiles-wrapper li:nth-child(2) { transform: translate(0,-25%); }
+#tiles-wrapper li:nth-child(3) { transform: translate(25%,-25%); }
+#tiles-wrapper li:nth-child(4) { transform: translate(-25%,25%); }
+#tiles-wrapper li:nth-child(5) { transform: translate(0,25%); }
+#tiles-wrapper li:nth-child(6) { transform: translate(25%,25%); }
 
 // colors
 
@@ -579,6 +588,9 @@ h1 {
   background: rgba(255,255,255,0.5);
   border: 1px solid rgba(0,0,0,0.3);
   transition: background .2s;
+}
+.profile-data .fileUpload {
+  height: 27px; width: 40%; min-width: 200px; // mêmes valeurs que dans '<main> containers'
 }
 .fileUpload:hover { background: #fff; cursor: pointer; }
 .fileUpload span {
