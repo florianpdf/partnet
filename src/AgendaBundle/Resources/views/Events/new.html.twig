@@ -51,10 +51,12 @@
 
 {% block scripts %}
     {{ parent() }}
-    {#<script>
+    <script>
         $(document).ready(function() {
             $( "#agendabundle_events_start_date_year" ).appendTo( "#agendabundle_events_start_date" );
-            $( "#agendabundle_events_end_date" ).appendTo( "#agendabundle_events_end_date_year" );
+            $( "#agendabundle_events_start_date_day" ).prependTo( "#agendabundle_events_start_date" );
+            $( "#agendabundle_events_end_date_year" ).appendTo( "#agendabundle_events_end_date" );
+            $( "#agendabundle_events_end_date_day" ).prependTo( "#agendabundle_events_end_date" );
         });
-    </script>#}
+    </script>
 {% endblock %}
