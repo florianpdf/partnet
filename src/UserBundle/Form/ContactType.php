@@ -13,13 +13,13 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email', 'email', array('label' => 'Email'))
-            ->add('organisme', 'choice', array('choices' => array(
-                'Cap emploi' => 'Cap emploi',
-                'DIRECCTE' => 'DIRECCTE',
-                'Mission locale' => 'Mission locale',
-                'Pôle emploi' => 'Pôle emploi',
-                'Sous-préfecture' => 'Sous-préfecture'
-                )))
+            ->add('id_organisme', 'entity', array(
+                'class'    => 'AppBundle:Organisme',
+                'property' => 'id',
+                'choice_label' => 'nom',
+                'label' => 'Organisme',
+                'multiple' => false
+            ))
             ->add('telephone', 'text', array('label' => 'Téléphone'))
 
             ->add('poste', 'text', array('label' => 'Fonction'))
