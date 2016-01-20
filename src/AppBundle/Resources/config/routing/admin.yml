@@ -30,6 +30,13 @@ fos_user_registration_register:
     requirements:
         id:  \d+
 
+fos_user_registration_register_contact:
+    path:     /register/contact
+    defaults: { _controller: "UserBundle:User:create" }
+    requirements:
+        id:  \d+
+
+
 user_delete:
     path:     /user/{id}/delete
     defaults: { _controller: "UserBundle:User:delete" }
