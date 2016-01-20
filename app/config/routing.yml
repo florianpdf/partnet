@@ -1,3 +1,7 @@
+actu:
+    resource: "@ActuBundle/Resources/config/routing.yml"
+    prefix:   /
+
 form:
     resource: "@FormBundle/Resources/config/routing.yml"
     prefix:   /

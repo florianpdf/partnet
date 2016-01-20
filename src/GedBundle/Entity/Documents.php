@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Documents
 {
-    protected $type;
+    protected $type = 'documents';
 
     public function getType(){
         return $this->type = 'documents';

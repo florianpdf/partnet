@@ -74,7 +74,6 @@ class UserControllerTest extends WebTestCase
         // Tests de la présence des champs
         $this->assertTrue($crawler->filter('form input[name="fos_user_profile_form[email]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="fos_user_profile_form[current_password]"]')->count() == 1);
-        $this->assertTrue($crawler->filter('form select[name="fos_user_profile_form[organisme]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="fos_user_profile_form[telephone]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="fos_user_profile_form[poste]"]')->count() == 1);
         $this->assertTrue($crawler->filter('form input[name="fos_user_profile_form[nom]"]')->count() == 1);

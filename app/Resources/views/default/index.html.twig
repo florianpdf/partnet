@@ -8,12 +8,16 @@
         {% for result in results %}
             <li>
                 <span>
-                    {% if result.type == 'events' %}
-                        Nouvel évènement ajouté le
-                    {% elseif result.type == 'documents' %}
-                        Nouveau document ajouté le
-                    {% elseif result.type == 'formations' %}
-                        Nouvelle formation ajoutée le
+                    {% if result.type is defined %}
+                        {% if result.type == 'events' %}
+                            Nouvel évènement : Ajouté le
+                        {% elseif result.type == 'documents' %}
+                            Nouveau document : Ajouté le
+                        {% elseif result.type == 'formations' %}
+                            Nouvelle formation : Ajouté le
+                        {% endif %}
+                    {% else %}
+                        Nouvelle actu: Ajouté le
                     {% endif %}
 
                     {{ result.dateAjout | date('d/m/Y') }} &nbsp;&nbsp;

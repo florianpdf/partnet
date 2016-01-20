@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+{{ include('includes/topbar.html.twig') }}
+{{ include('includes/sidebar.html.twig') }}
+
+    <main>
+
+        <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Titre</th>
+                    <th>Resume</th>
+                    <th>Dateajout</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for actu in actus %}
+                <tr>
+                    <td>{{ actu.id }}</td>
+                    <td>{{ actu.type | replace({'actus': 'Actualité'})}}</td>
+                    <td>{{ actu.titre }}</td>
+                    <td>{{ actu.resume }}</td>
+                    <td>{% if actu.dateAjout %}{{ actu.dateAjout|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                    <ul>
+                        {% if actu.type == 'actus' %}
+                        <li>
+                            <a href="{{ path('actu_edit', { 'id': actu.id }) }}">edit</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a class="confirmModalLink" href="{{ path('actu_delete', {'id':  actu.Id, 'type': actu.type  }) }}" title="Supprimer">
+                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                            </a>
+                        </li>
+                    </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+            <ul>
+            <li>
+                <a href="{{ path('actu_new') }}">
+                    Create a new entry
+                </a>
+            </li>
+        </ul>
+    </main>
+
+{% endblock %}
+
