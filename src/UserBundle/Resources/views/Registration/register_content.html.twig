@@ -7,13 +7,13 @@
             {{ form_widget(form.email, {'attr' : { 'autofocus' : true }}) }}
         </li>
         <li>
-            {{ form_label(form.organisme) }}
-            {{ form_widget(form.organisme) }}
+            {{ form_label(form.id_organisme) }}
+            {{ form_widget(form.id_organisme) }}
         </li>
     </ul>
 
     {{ form_errors(form.email) }}
-    {{ form_errors(form.organisme) }}
+    {{ form_errors(form.id_organisme) }}
 
     <div>
         <input class="main-submit" type="submit" value="{{ 'registration.submit'|trans }}" />
