@@ -24,9 +24,6 @@ class ActuController extends Controller
      */
     public function indexAction()
     {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entities = $em->getRepository('ActuBundle:Actu')->findAll();
 
         $actus = $this->container->get('app.actu')->getActualites();
 
@@ -74,7 +71,7 @@ class ActuController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Ajouter'));
 
         return $form;
     }
@@ -130,7 +127,7 @@ class ActuController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Modifier'));
 
         return $form;
     }
@@ -177,22 +174,22 @@ class ActuController extends Controller
 
         foreach ($actus as $actu)
         {
-            if($type == 'documents' && $actu instanceof Documents)
+            if($type == 'Documents' && $actu instanceof Documents)
             {
                 $actu->setFilActu(false);
                 $em->flush();
             }
-            elseif($type == 'events' && $actu instanceof Events)
+            elseif($type == 'Evènement' && $actu instanceof Events)
             {
                 $actu->setFilActu(false);
                 $em->flush();
             }
-            elseif($type == 'formations' && $actu instanceof Formations)
+            elseif($type == 'Formations' && $actu instanceof Formations)
             {
                 $actu->setFilActu(false);
                 $em->flush();
             }
-            elseif ($type == 'actus' && $actu instanceof Actu)
+            elseif ($type == 'Actualité' && $actu instanceof Actu)
             {
                 $em->remove($actu);
                 $em->flush();

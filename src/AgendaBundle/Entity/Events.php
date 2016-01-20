@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Events
 {
 
-    protected $type = 'events';
+    protected $type = 'Evènement';
 
     public function getType(){
         return $this->type;
