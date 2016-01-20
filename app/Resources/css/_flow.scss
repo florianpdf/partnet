@@ -28,6 +28,7 @@ body {
   background: $login-bg;
   font-family: Arial, sans-serif;
   font-size: 16px;
+  overflow-y: hidden;
 }
 
 
@@ -365,7 +366,7 @@ nav a:hover span { opacity: 0.5; }
 main {
   position: relative; top: $top-bar-height + 50px;
   max-width: 85%;
-  margin: 0 auto;
+  margin: 0 auto 50px;
 }
 .datatables-page { opacity: 0; }
 .deep-main {
@@ -587,7 +588,7 @@ h1 {
 
 // checkbox
 
-#gedbundle_documents_fil_actu { display: none; }
+input[type="checkbox"] { display: none; }
 .checkbox {
   position: absolute; top: -10px; right: 0;
   width: 40px; height: 40px;

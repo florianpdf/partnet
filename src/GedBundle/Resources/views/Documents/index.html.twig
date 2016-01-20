@@ -155,6 +155,9 @@
                 ],
                 "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
             });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
 {% endblock %}

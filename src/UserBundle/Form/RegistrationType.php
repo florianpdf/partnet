@@ -13,6 +13,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->remove('username')
+            ->add('roles', 'choice', array('label' => 'Statut'))
             ->add('organisme', 'choice', array('choices' => array(
                 'Pôle emploi' => 'Pôle emploi',
                 'Cap emploi' => 'Cap emploi',

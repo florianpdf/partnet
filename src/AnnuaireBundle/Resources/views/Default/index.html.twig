@@ -6,7 +6,7 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main>
+    <main class="datatables-page">
         <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -119,6 +119,7 @@
                 "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
             });
 
+            // autofocus et placeholder pour le champ de recherche
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
@@ -175,6 +176,7 @@
                 "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
             });
 
+            // autofocus et placeholder pour le champ de recherche
             $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
         });
     </script>
