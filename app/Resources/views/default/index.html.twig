@@ -16,7 +16,7 @@
                         Nouvelle formation ajoutée le
                     {% endif %}
 
-                    {{ result.dateAjout | date('d/m/Y') }} &nbsp;&nbsp;
+                    {{ result.dateAjout | date('d/m/Y') }} –
                 </span>
                 <script>
                     sessionStorage.setItem('id', '{{ result.id }}');
@@ -109,8 +109,12 @@
         $(document).ready(function (){
             $( "#marquee" ).marquee( {
                 yScroll: "bottom",
-                showSpeed: 350
+                showSpeed: 350,
+                pauseOnHover: false
             });
+
+            $( '#tiles-wrapper' ).fadeTo( 500 , 1);
+            $( '#tiles-wrapper' ).css( "transform" , "scale(1,1)");
         });
     </script>
 {% endblock %}

@@ -246,6 +246,8 @@ nav a:hover span { opacity: 0.5; }
 // positioning
 
 #tiles-wrapper {
+  opacity: 0; transform: scale(2,2);
+  transition: all 1.5s;
   list-style: none;
   max-width: 1300px; margin: 0 auto 0; min-height: 100%; padding: $top-bar-height + 60px 30px 60px;
   display: flex;
