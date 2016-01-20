@@ -26,7 +26,6 @@ body {
   background: $login-bg;
   font-family: Arial, sans-serif;
   font-size: 16px;
-  //overflow-y: scroll;
 }
 
 
@@ -533,10 +532,6 @@ h1 {
   padding: 5px 30px;
   line-height: 1.3;
 }
-.admin-form input[type="checkbox"] {
-  width: 35px; height: 35px;
-  background: red !important;
-}
 .admin-form > form textarea {
   height: 170px;
   margin-bottom: 15px;
@@ -587,6 +582,27 @@ h1 {
   width: 100% !important; height: 100%;
   opacity: 0;margin: 0 !important;
 }
+
+// checkbox
+
+#gedbundle_documents_fil_actu { display: none; }
+.checkbox {
+  position: absolute; top: -10px; right: 0;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  background: #fff; border: 1px solid rgba(0,0,0,0.3);
+}
+.checkbox:after {
+  opacity: 0.15;
+  content: '';
+  position: absolute; top: 11px; left: 7px;
+  width: 25px; height: 12px;
+  border: 4px solid #000;
+  border-top: none; border-right: none;
+  transform: rotate(-45deg);
+}
+.checkbox:hover::after {opacity: 0.3; }
+input[type="checkbox"]:checked + label:after { opacity: 0.7; }
 
 
 /* //////////////// media queries //////////////// *\
