@@ -580,6 +580,9 @@ h1 {
   border: 1px solid rgba(0,0,0,0.3);
   transition: background .2s;
 }
+.profile-data .fileUpload {
+  height: 27px; width: 40%; min-width: 200px; // mêmes valeurs que dans '<main> containers'
+}
 .fileUpload:hover { background: #fff; cursor: pointer; }
 .fileUpload span {
   position: absolute;
