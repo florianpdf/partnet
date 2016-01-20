@@ -17,6 +17,7 @@ class RegistrationType extends AbstractType
                 'class'    => 'AppBundle:Organisme',
                 'property' => 'id',
                 'choice_label' => 'nom',
+                'label' => 'Organisme',
                 'multiple' => false
             ));
     }
