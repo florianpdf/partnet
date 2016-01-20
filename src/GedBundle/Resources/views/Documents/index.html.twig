@@ -6,7 +6,7 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main>
+    <main class="datatables-page">
     {% if app.session.flashBag.has('success') %}
         {% for msg in app.session.flashBag.get('success') %}
             <p class="flashbag">{{ msg }}</p>
@@ -155,14 +155,6 @@
                 ],
                 "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
             });
-
-            // autofocus et placeholder pour le champ de recherche
-            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
-
-            // fadeout pour le flashbag
-            window.setTimeout(function() {
-                $( '.flashbag' ).fadeOut( 1750 );
-            }, 2250);
         });
     </script>
 {% endblock %}

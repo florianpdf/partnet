@@ -1,0 +1,1 @@
+$( '.datatables-page' ).fadeTo( 1000 , 1);
