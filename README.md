@@ -18,6 +18,9 @@ Installation manuelle :
     $ composer install
     $ php app/console doctrine:database:create
     $ php app/console doctrine:schema:update --force
+    $ mkdir -pv app/uploads/documents
+    $ mkdir -pv app/uploads/organismes_pictures
+    $ mkdir -pv app/uploads/profile_pictures
     $ php app/console doctrine:fixtures:load
     $ sudo sh bash/chmod.sh
     $ sudo npm install
