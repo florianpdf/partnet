@@ -10,7 +10,8 @@ ActuBundle\Entity\Actu:
                 strategy: AUTO
     fields:
         titre:
-            type: text
+            type: string
+            length: 255
         resume:
             type: text
         dateAjout:

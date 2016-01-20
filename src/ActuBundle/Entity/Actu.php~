@@ -118,3 +118,4 @@ class Actu
         return $this->dateAjout;
     }
 }
+
