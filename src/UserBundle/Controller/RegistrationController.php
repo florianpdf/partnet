@@ -55,18 +55,16 @@ class RegistrationController extends Controller
 
         if (in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())) {
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
-            $form = $formFactory->createForm()->add('roles', 'collection', array(
-                'type'   => 'choice',
-                'options'  => array(
-                    'label' => false,
-                    'choices'  => array(
-                        'ROLE_USER'     => 'Utilisateur',
-                        'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
-                        'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'mploi',
-                        'ROLE_FORMATION_ADMIN' => 'Admin Formation',
-                        'ROLE_ADMIN' => 'Administrateur'
-                    ),
+            $form = $formFactory->createForm()->add('roles', 'choice', array(
+                'choices' => array(
+                    'ROLE_USER'     => 'Utilisateur',
+                    'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
+                    'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'emploi',
+                    'ROLE_FORMATION_ADMIN' => 'Admin Formation',
+                    'ROLE_ADMIN' => 'Administrateur'
                 ),
+                'multiple' => true,
+                'expanded' => true
             ))
                 ->add('plainPassword', 'hidden', array(
                     'data' => substr($tokenGenerator->generateToken(), 0, 8),
@@ -74,17 +72,15 @@ class RegistrationController extends Controller
         }
         else if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
-            $form = $formFactory->createForm()->add('roles', 'collection', array(
-                'type'   => 'choice',
-                'options'  => array(
-                    'label' => false,
-                    'choices'  => array(
-                        'ROLE_USER'     => 'Utilisateur',
-                        'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
-                        'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'emploi',
-                        'ROLE_FORMATION_ADMIN' => 'Admin Formation'
-                    ),
+            $form = $formFactory->createForm()->add('roles', 'choice', array(
+                'choices' => array(
+                    'ROLE_USER'     => 'Utilisateur',
+                    'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
+                    'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'emploi',
+                    'ROLE_FORMATION_ADMIN' => 'Admin Formation'
                 ),
+                'multiple' => true,
+                'expanded' => true
             ))
                 ->add('plainPassword', 'hidden', array(
                     'data' => substr($tokenGenerator->generateToken(), 0, 8),
