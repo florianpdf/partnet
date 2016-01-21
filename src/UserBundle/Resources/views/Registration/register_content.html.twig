@@ -10,10 +10,15 @@
             {{ form_label(form.id_organisme) }}
             {{ form_widget(form.id_organisme) }}
         </li>
+        <li>
+            {{ form_label(form.roles) }}
+            {{ form_widget(form.roles) }}
+        </li>
     </ul>
 
     {{ form_errors(form.email) }}
     {{ form_errors(form.id_organisme) }}
+    {{ form_errors(form.roles) }}
 
     <div>
         <input class="main-submit" type="submit" value="{{ 'registration.submit'|trans }}" />

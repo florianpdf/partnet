@@ -3,7 +3,7 @@
 {% block main_content -%}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-    <main>
+    <main class="datatables-page">
         <table id="donnees" class="display" width="100%">
             <thead>
                 <tr>
@@ -44,8 +44,11 @@
         </table>
 
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <a id="main-btn" href="{{ path('formations_new') }}">Ajouter</a>
+        {% endif %}
+        
 
-        <a id="main-btn" href="{{ path('formations_new') }}">Ajouter</a>
         {% include '@Form/Formations/delete.html.twig' %}
 
     </main>

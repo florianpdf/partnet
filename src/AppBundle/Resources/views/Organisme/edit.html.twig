@@ -27,7 +27,26 @@
         {{ form_widget(edit_form.file) }}
     </div>
 
+    <div>
+        {{ form_label(edit_form.backgroundColor) }}
+        {{ form_errors(edit_form.backgroundColor) }}
+        {{ form_widget(edit_form.backgroundColor) }}
+    </div>
+
     {{ form_end(edit_form) }}
 
 </main>
+{% endblock %}
+
+{% block external_css %}
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
+    <link href="{{ asset('bundles/app/css_colorpicker/evol.colorpicker.css') }}" rel="stylesheet" type="text/css">
+    {{ parent() }}
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bundles/app/js_colorPicker/evol.colorpicker.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bundles/app/js_colorPicker/colorpicker_config.js') }}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

@@ -19,6 +19,8 @@
 // headers
 // flashbag
 // edit forms
+//    champ d'upload
+//    checkbox
 // media queries
 
 
@@ -26,6 +28,7 @@ body {
   background: $login-bg;
   font-family: Arial, sans-serif;
   font-size: 16px;
+  overflow-y: hidden;
 }
 
 
@@ -46,7 +49,7 @@ a:hover, a:active, a:focus { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: -2% auto 0;
+  top: -5%;
   border: 20px solid transparent;
 }
 .login-wrapper {
@@ -171,7 +174,7 @@ a:hover, a:active, a:focus { color: inherit; }
 
 #menu-wrapper {
   position: fixed; z-index: 9;
-  height: calc(100% - #{$top-bar-height}); margin-top: -50px;
+  height: calc(100% - #{$top-bar-height}); margin-top: $top-bar-height;
   width: 20%; max-width: 350px; min-width: 200px;
   transform: translateX(-100%);
   transition: transform 0.5s;
@@ -242,7 +245,10 @@ nav a:hover span { opacity: 0.5; }
 
 // positioning
 
+
+#tiles-wrapper, #tiles-wrapper li { transition: all 1.5s; }
 #tiles-wrapper {
+  opacity: 0; transform: scale(2,2);
   list-style: none;
   max-width: 1300px; margin: 0 auto 0; min-height: 100%; padding: $top-bar-height + 60px 30px 60px;
   display: flex;
@@ -255,6 +261,12 @@ nav a:hover span { opacity: 0.5; }
   width: 30%; min-width: 350px; height: 265px;
   margin: 5px;
 }
+#tiles-wrapper li:nth-child(1) { transform: translate(-25%,-25%); }
+#tiles-wrapper li:nth-child(2) { transform: translate(0,-25%); }
+#tiles-wrapper li:nth-child(3) { transform: translate(25%,-25%); }
+#tiles-wrapper li:nth-child(4) { transform: translate(-25%,25%); }
+#tiles-wrapper li:nth-child(5) { transform: translate(0,25%); }
+#tiles-wrapper li:nth-child(6) { transform: translate(25%,25%); }
 
 // colors
 
@@ -361,10 +373,11 @@ nav a:hover span { opacity: 0.5; }
 \* /////////////////////////////////////////////////// */
 
 main {
-  position: relative;
+  position: relative; top: $top-bar-height + 50px;
   max-width: 85%;
-  margin: $top-bar-height + 50px auto 50px;
+  margin: 0 auto 50px;
 }
+.datatables-page { opacity: 0; }
 .deep-main {
   max-width: 1000px;
   padding: $h1-height + 40px 50px 40px;
@@ -538,10 +551,6 @@ h1 {
   padding: 5px 30px;
   line-height: 1.3;
 }
-.admin-form input[type="checkbox"] {
-  width: 35px; height: 35px;
-  background: red !important;
-}
 .admin-form > form textarea {
   height: 170px;
   margin-bottom: 15px;
@@ -567,8 +576,55 @@ h1 {
   margin-left: 20px;
 }
 
+// champ d'upload
 
+.fileUpload {
+  position: relative;
+  float: right;
+  padding: 0 !important; margin-top: 0 !important;
+  display: inline-block;
+  overflow: hidden;
+  width: 80%; height: 50px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.3);
+  transition: background .2s;
+}
+.profile-data .fileUpload {
+  height: 27px; width: 40%; min-width: 200px; // mêmes valeurs que dans '<main> containers'
+}
+.fileUpload:hover { background: #fff; cursor: pointer; }
+.fileUpload span {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(0,0,0,0.7);
+  font-size: 0.9em;
+}
+.fileUpload input {
+  width: 100% !important; height: 100%;
+  opacity: 0;margin: 0 !important;
+}
 
+// checkbox
+
+input[type="checkbox"] { display: none; }
+.checkbox {
+  position: absolute; top: -10px; right: 0;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  background: #fff; border: 1px solid rgba(0,0,0,0.3);
+}
+.checkbox:after {
+  opacity: 0;
+  content: '';
+  position: absolute; top: 11px; left: 7px;
+  width: 25px; height: 12px;
+  border: 4px solid #000;
+  border-top: none; border-right: none;
+  transform: rotate(-45deg);
+}
+.checkbox:hover::after {opacity: 0.15; }
+input[type="checkbox"]:checked + label:after { opacity: 0.7; }
 
 
 /* //////////////// media queries //////////////// *\
@@ -588,8 +644,6 @@ h1 {
   #top-bar div:nth-child(2) a { display: block; }
   #top-bar > div + div + div { display: inline-block; }
 }
-
-
 
 
 

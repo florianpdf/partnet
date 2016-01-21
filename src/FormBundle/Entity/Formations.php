@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Formations
 {
 
+
     // UPLOAD
     /**
      * @var file
@@ -101,10 +102,12 @@ class Formations
     }
     //
 
-    protected $type;
+
+    protected $type = 'Formations';
+
 
     public function getType(){
-        return $this->type = 'formations';
+        return $this->type;
     }
 
     // GENERATED CODE

@@ -17,3 +17,8 @@ services:
         class: UserBundle\Form\ProfileFormType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    app.actu:
+        class: ActuBundle\Service\ActuService
+        arguments:
+            - @doctrine.orm.default_entity_manager

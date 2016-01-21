@@ -32,8 +32,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  */
 class RegistrationController extends Controller
 {
-
-
     public function registerAction(Request $request)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -153,7 +151,7 @@ class RegistrationController extends Controller
         $userManager->updateUser($user);
 
         if (null === $response = $event->getResponse()) {
-            $url = $this->generateUrl('fos_user_registration_confirmed');
+            $url = $this->generateUrl('fos_user_resetting_request');
             $response = new RedirectResponse($url);
         }
 

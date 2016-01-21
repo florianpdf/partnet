@@ -98,14 +98,14 @@ class DefaultControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"
-        $crawler = $client->request('GET', '/');
-        $link = $crawler
-            ->filter('a:contains("déconnexion")')
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
-            $client->getRequest()->attributes->get('_controller'));
+//        $crawler = $client->request('GET', '/');
+//        $link = $crawler
+//            ->filter('a:contains("déconnexion")')
+//            ->eq(0)
+//            ->link();
+//        $crawler = $client->click($link);
+//        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
+//            $client->getRequest()->attributes->get('_controller'));
     }
 
     // TOUS LES TESTS CI DESSOUS SONT EXECUTES EN TANT QU'ADMINISTRATEUR //
@@ -190,13 +190,13 @@ class DefaultControllerTest extends WebTestCase
             $client->getRequest()->attributes->get('_controller'));
 
         // Test du lien "déconnexion"
-        $crawler = $client->request('GET', '/');
-        $link = $crawler
-            ->filter('a:contains("déconnexion")')
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
-            $client->getRequest()->attributes->get('_controller'));
+//        $crawler = $client->request('GET', '/');
+//        $link = $crawler
+//            ->filter('a:contains("déconnexion")')
+//            ->eq(0)
+//            ->link();
+//        $crawler = $client->click($link);
+//        $this->assertEquals('UserBundle\Controller\SecurityController::logoutAction',
+//            $client->getRequest()->attributes->get('_controller'));
     }
 }
