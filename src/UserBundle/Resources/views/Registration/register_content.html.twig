@@ -10,17 +10,18 @@
             {{ form_label(form.id_organisme) }}
             {{ form_widget(form.id_organisme) }}
         </li>
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') %}
             <li>
                 {{ form_label(form.roles) }}
                 {{ form_widget(form.roles) }}
             </li>
         {% endif %}
+
     </ul>
 
     {{ form_errors(form.email) }}
     {{ form_errors(form.id_organisme) }}
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
         {{ form_errors(form.roles) }}
     {% endif %}
 
