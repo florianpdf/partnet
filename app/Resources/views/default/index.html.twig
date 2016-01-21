@@ -110,6 +110,7 @@
         $( document ).ready( function(){
             $( '#tiles-wrapper' ).fadeTo( 500 , 1).css( "transform" , "scale(1,1)");
             $( '#tiles-wrapper li' ).css( "transform" , "translate(0,0)");
+
             setTimeout( function(){
                 $( "#marquee").marquee( {
                     yScroll: "bottom",
@@ -117,7 +118,6 @@
                     pauseOnHover: false
                 });
             }, 1600);
-
         });
     </script>
 {% endblock %}
