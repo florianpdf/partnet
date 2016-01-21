@@ -25,6 +25,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
         $poleemploi->setPhoto('poleemploi.jpg');
         $poleemploi->setNom('Pôle emploi');
         $poleemploi->setDescription('Pôle emploi est un établissement public à caractère administratif (EPA), chargé de l\'emploi en France. Créé le 19 décembre 2008, il est issu de la fusion entre l\'ANPE et les Assédic.');
+        $poleemploi->setBackgroundColor('#40A497');
         $manager->persist($poleemploi);
 
         $dirrecte = new Organisme();
@@ -33,6 +34,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
 
         $dirrecte->setPhoto('dirrecte.jpg');
         $dirrecte->setNom('DIRRECTE');
+        $dirrecte->setBackgroundColor('#4C3441');
         $dirrecte->setDescription('Les directions régionales des entreprises, de la concurrence, de la consommation, du travail et de l\'emploi (DIRECCTE ou DIECCTE dans les régions et départements d’outre-mer) sont des services déconcentrés de l\'Etat sous tutelle commune du Ministère du Travail, de l\'Emploi, de la Formation Professionnelle et du Dialogue Social et du ministère de l’Économie, des Finances et de l’Industrie.');
         $manager->persist($dirrecte);
 
@@ -42,6 +44,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
 
         $ml->setPhoto('ml.jpg');
         $ml->setNom('Mission Locale');
+        $ml->setBackgroundColor('#1AB26B');
         $ml->setDescription('Les missions locales pour l\'insertion professionnelle et sociale des jeunes (couramment appelées missions locales) sont, en France, des organismes chargés d’aider les jeunes à résoudre l’ensemble des problèmes que pose leur insertion professionnelle et sociale.');
         $manager->persist($ml);
 
@@ -51,6 +54,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
 
         $capemploi->setPhoto('capemploi.jpg');
         $capemploi->setNom('CAP Emploi');
+        $capemploi->setBackgroundColor('#B29E1A');
         $capemploi->setDescription('Cap emploi est un réseau d\'accompagnement des bénéficiaires de la loi de février 2005, dans leur parcours d\'insertion professionnelle (élaboration de projet, accès à la formation, accès à l\'emploi), en milieu ordinaire de travail. Il intervient également auprès des employeurs, privés ou publics, pour faciliter le recrutement, l\'intégration et le maintien en emploi des travailleurs handicapés.');
         $manager->persist($capemploi);
 
@@ -60,6 +64,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
 
         $sousprefecture->setPhoto('sousprefecture.jpg');
         $sousprefecture->setNom('Sous-préfecture');
+        $sousprefecture->setBackgroundColor('#B21A7A');
         $sousprefecture->setDescription('Bureaux de l\'administration préfectorale');
         $manager->persist($sousprefecture);
 

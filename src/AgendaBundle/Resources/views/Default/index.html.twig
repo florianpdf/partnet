@@ -19,6 +19,8 @@
 {% block scripts %}
     <script>
         var user = '{{ app.user }}';
+        var roles = '{{ app.user.roles[0] }}';
+        var organisme = '{{ app.user.idorganisme.id }}';
     </script>
     <script src="{{ asset('bundles/agenda/js_calendar/1moment.min.js') }}"></script>
     <script src="{{ asset('bundles/agenda/js_calendar/2fullcalendar.js') }}"></script>

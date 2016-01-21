@@ -44,7 +44,11 @@ class EventsController extends Controller
                 : '';
         };
 
-        $normalizer->setCallbacks(array('start' => $dateCallback, 'end' => $dateCallback));
+        $userCallback = function ($user) {
+            return [$user->getEmail(), $user->getRoles(), $user->getIdOrganisme()->getId()];
+        };
+
+        $normalizer->setCallbacks(array('start' => $dateCallback, 'end' => $dateCallback, 'idUser' => $userCallback));
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $jsonObject = $serializer->serialize($entities, 'json');
@@ -60,23 +64,24 @@ class EventsController extends Controller
      */
     public function colorEvent($entity)
     {
-        $organisme = $this->container->get('security.token_storage')->getToken()->getUser()->getOrganisme();
+        $organisme_color = $this->container->get('security.token_storage')->getToken()->getUser()->getIdOrganisme()->getBackgroundColor();
 
-        if ( $organisme == "Pôle emploi" ) {
-            $entity->setBackgroundColor("red");
-        }
-        else if ( $organisme == "Cap emploi" ) {
-            $entity->setBackgroundColor("orange");
-        }
-        else if ( $organisme == "Mission locale" ) {
-            $entity->setBackgroundColor("blue");
-        }
-        else if ( $organisme == "Sous-préfecture" ) {
-            $entity->setBackgroundColor("green");
-        }
-        else if ( $organisme == "DIRECCTE" ) {
-            $entity->setBackgroundColor("purple");
-        }
+        $entity->setBackgroundColor($organisme_color);
+//        if ( $organisme == "Pôle emploi" ) {
+//            $entity->setBackgroundColor("red");
+//        }
+//        else if ( $organisme == "Cap emploi" ) {
+//            $entity->setBackgroundColor("orange");
+//        }
+//        else if ( $organisme == "Mission locale" ) {
+//            $entity->setBackgroundColor("blue");
+//        }
+//        else if ( $organisme == "Sous-préfecture" ) {
+//            $entity->setBackgroundColor("green");
+//        }
+//        else if ( $organisme == "DIRECCTE" ) {
+//            $entity->setBackgroundColor("purple");
+//        }
     }
 
     /**

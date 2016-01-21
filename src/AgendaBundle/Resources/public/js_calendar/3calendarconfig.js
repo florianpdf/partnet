@@ -65,8 +65,8 @@ $(document).ready(function() {
             $('#modalTitle').html(calEvent.titre);
             $('#modalBody').html(calEvent.resume);
             $('#fullCalModal').modal();
-
-            if (user == calEvent.idUser.username){
+            
+            if ((user == calEvent.idUser[0]) || (roles == 'ROLE_SUPER_ADMIN') || (roles == 'ROLE_ADMIN' && organisme == calEvent.idUser[2])) {
                 $('#delete_event').show();
                 $('#delete_event').attr('href', deleteEvent);
                 $('#edit_event').show();

@@ -18,7 +18,7 @@
             <tr>
                 <th>Nom et prénom</th>
                 <th>Rôle</th>
-                {#<th>Organisme</th>#}
+                <th>Organisme</th>
                 <th>Poste</th>
                 <th>Téléphone</th>
                 <th>E-mail</th>
@@ -42,7 +42,9 @@
                             Utilisateur
                         {% endif %}
                     </td>
-                    {#<td>{{ entity.organisme }}</td>#}
+                    <td>
+                        {{ entity.idOrganisme.nom }}
+                    </td>
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
                     <td>
