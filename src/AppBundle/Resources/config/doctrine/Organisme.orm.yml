@@ -25,7 +25,7 @@ AppBundle\Entity\Organisme:
     oneToMany:
         fos_user:
             targetEntity: UserBundle\Entity\User
-            mappedBy: organisme
+            mappedBy: id_organisme
 
     lifecycleCallbacks:
         prePersist: [ preUpload ]

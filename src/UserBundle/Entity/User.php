@@ -142,11 +142,6 @@ class User extends BaseUser
     /**
      * @var string
      */
-    private $organisme;
-
-    /**
-     * @var string
-     */
     private $poste;
 
     /**
@@ -163,6 +158,21 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $creationCompte;
+
+    /**
+     * @var string
+     */
+    private $picture_name;
+
+    /**
+     * @var string
+     */
+    private $picture;
+
+    /**
+     * @var \AppBundle\Entity\Organisme
+     */
+    private $id_organisme;
 
 
     /**
@@ -214,30 +224,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set organisme
-     *
-     * @param string $organisme
-     *
-     * @return User
-     */
-    public function setOrganisme($organisme)
-    {
-        $this->organisme = $organisme;
-
-        return $this;
-    }
-
-    /**
-     * Get organisme
-     *
-     * @return string
-     */
-    public function getOrganisme()
-    {
-        return $this->organisme;
-    }
-
-    /**
      * Set poste
      *
      * @param string $poste
@@ -282,7 +268,7 @@ class User extends BaseUser
      */
     public function getTelephone()
     {
-        return chunk_split($this->telephone, 2, " ");
+        return $this->telephone;
     }
 
     /**
@@ -334,17 +320,6 @@ class User extends BaseUser
     }
 
     /**
-     * @var string
-     */
-    private $picture_name;
-
-    /**
-     * @var string
-     */
-    private $picture;
-
-
-    /**
      * Set pictureName
      *
      * @param string $pictureName
@@ -367,7 +342,6 @@ class User extends BaseUser
     {
         return $this->picture_name;
     }
-
 
     /**
      * Set picture
@@ -392,13 +366,6 @@ class User extends BaseUser
     {
         return $this->picture;
     }
-
-
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $id_organisme;
-
 
     /**
      * Set idOrganisme

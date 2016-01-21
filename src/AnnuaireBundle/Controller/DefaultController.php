@@ -13,6 +13,7 @@ class DefaultController extends Controller
         $entities = $em->getRepository('UserBundle:User')->findAll();
 
         return $this->render('AnnuaireBundle:Default:index.html.twig', array(
-            'entities' => $entities));
+            'entities' => $entities
+        ));
     }
 }

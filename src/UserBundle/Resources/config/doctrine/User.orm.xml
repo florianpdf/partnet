@@ -18,11 +18,6 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="organisme" type="string" column="organisme" length="45" nullable="true">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
     <field name="poste" type="string" column="poste" length="45" nullable="true">
       <options>
         <option name="fixed"/>

@@ -202,6 +202,6 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
 
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }
