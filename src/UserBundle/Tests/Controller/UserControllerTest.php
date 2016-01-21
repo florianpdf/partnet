@@ -45,7 +45,7 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('html:contains("user@user.com")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Organisme")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Chargée d\'accueil")')->count());
-        $this->assertEquals(1, $crawler->filter('html:contains("03 68 47 45 10")')->count());
+        //$this->assertEquals(1, $crawler->filter('html:contains("03 68 47 45 10")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Mettre à jour mes informations")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Modifier mon mot de passe")')->count());
 
@@ -68,6 +68,7 @@ class UserControllerTest extends WebTestCase
         $client = $this->UserConnection();
 
         $crawler = $client->request('GET', '/profile/edit');
+
         $this->assertEquals('UserBundle\Controller\ProfileController::editAction',
             $client->getRequest()->attributes->get('_controller'));
 
@@ -82,22 +83,21 @@ class UserControllerTest extends WebTestCase
     }
 
     // Test edition du profile
-    public function editUser()
+    public function testeditUser()
     {
         $client = $this->UserConnection();
 
-        $crawler = $client->request('GET', 'admin/documents/nouveau');
+        $crawler = $client->request('GET', '/profile/edit');
 
         // Soumission du formulaire avec les modifs
-        $form = $crawler->selectButton('Envoyer')->form(array_merge(array(
+        $form = $crawler->selectButton('Mettre à jour')->form(array_merge(array(
             'fos_user_profile_form[email]' => 'user_test_edit@user.com',
             'fos_user_profile_form[current_password]' => 'user',
-            'fos_user_profile_form[organisme]' => 'CAP Emploi',
             'fos_user_profile_form[telephone]' => '0123456789',
             'fos_user_profile_form[poste]' => 'Secretaire',
             'fos_user_profile_form[nom]' => 'name_user_test_edit',
             'fos_user_profile_form[prenom]' => 'username_test_edit',
-            'gedbundle_documents[file]' => __DIR__ . '/../../../../web/test_document/test.png'
+            'fos_user_profile_form[file]' => __DIR__ . '/../../../../web/test_document/test.png'
         )));
 
         $client->submit($form);
@@ -120,12 +120,13 @@ class UserControllerTest extends WebTestCase
         $kernel->boot();
         $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
 
-        $query = $em->createQuery('SELECT count(d.id) from UserBundle:User u WHERE u.Prenom = :prenom AND u.Nom = :nom AND u.Email = :email AND u.Fonction = :fonction AND u.Téléphone = :telephone');
+        $query = $em->createQuery('SELECT count(d.id) from UserBundle:User u WHERE u.Prenom = :prenom AND u.Nom = :nom AND u.Email = :email AND u.Fonction = :fonction AND u.Téléphone = :telephone AND u.PictureName = :picturename');
         $query->setParameter('prenom', 'username_test_edit');
         $query->setParameter('nom', 'name_user_test_edit');
         $query->setParameter('email', 'user_test_edit@user.com');
         $query->setParameter('fonction', 'Secretaire');
         $query->setParameter('telephone', '0123456789');
+        $query->setParameter('picturename', 'test.png');
         $this->assertTrue(0 < $query->getSingleScalarResult());
     }
 
