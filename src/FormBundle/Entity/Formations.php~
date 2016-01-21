@@ -2,6 +2,10 @@
 
 namespace FormBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Formations
  */
@@ -13,6 +17,7 @@ class Formations
      * @var file
      */
     public $file;
+    public $file2;
 
     protected function getUploadDir()
     {
@@ -47,7 +52,13 @@ class Formations
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
             $this->fichier_nom = $this->file->getClientOriginalName();
-            $this->fichier = $this->username.'.'.$this->file->guessExtension();
+            $this->fichier = uniqid().'.'.$this->file->guessExtension();
+        }
+
+        if (null !== $this->file2) {
+            // do whatever you want to generate a unique name
+            $this->second_fichier_nom = $this->file2->getClientOriginalName();
+            $this->second_fichier = uniqid().'.'.$this->file2->guessExtension();
         }
     }
 
@@ -60,12 +71,20 @@ class Formations
             return;
         }
 
+        if (null === $this->file2) {
+            return;
+        }
+
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
         $this->file->move($this->getUploadRootDir(), $this->fichier);
+        $this->file2->move($this->getUploadRootDir(), $this->second_fichier);
+
 
         unset($this->file);
+        unset($this->file2);
+
     }
 
     /**
@@ -75,6 +94,9 @@ class Formations
     {
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
+        }
+        if ($file2 = $this->getAbsolutePath()) {
+            unlink($file2);
         }
     }
     //

@@ -21,6 +21,7 @@ class FormationsType extends AbstractType
             ->add('lieu')
             ->add('resume')
             ->add('file', 'file', array('required' => false, 'label' => 'Fichier associé', 'attr' => array('accept' => 'application/pdf, application/xpdf')))
+            ->add('file2', 'file', array('required' => false, 'label' => 'Fichier associé n°2', 'attr' => array('accept' => 'application/pdf, application/xpdf')))
             ->add('fil_actu', 'checkbox', array(
                 'label' => 'Ajouter au fil d\'actualité',
                 'required' => false,

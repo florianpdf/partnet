@@ -28,9 +28,19 @@ FormBundle\Entity\Formations:
         fichier:
             type: string
             length: 255
+            nullable: true
         fichier_nom:
             type: string
             length: 255
+            nullable: true
+        second_fichier:
+            type: string
+            length: 255
+            nullable: true
+        second_fichier_nom:
+            type: string
+            length: 255
+            nullable: true
         nbPlace:
             type: integer
             column: nb_place

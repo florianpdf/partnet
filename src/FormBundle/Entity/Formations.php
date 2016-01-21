@@ -17,6 +17,7 @@ class Formations
      * @var file
      */
     public $file;
+    public $file2;
 
     protected function getUploadDir()
     {
@@ -53,6 +54,12 @@ class Formations
             $this->fichier_nom = $this->file->getClientOriginalName();
             $this->fichier = uniqid().'.'.$this->file->guessExtension();
         }
+
+        if (null !== $this->file2) {
+            // do whatever you want to generate a unique name
+            $this->second_fichier_nom = $this->file2->getClientOriginalName();
+            $this->second_fichier = uniqid().'.'.$this->file2->guessExtension();
+        }
     }
 
     /**
@@ -64,12 +71,20 @@ class Formations
             return;
         }
 
+        if (null === $this->file2) {
+            return;
+        }
+
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
         $this->file->move($this->getUploadRootDir(), $this->fichier);
+        $this->file2->move($this->getUploadRootDir(), $this->second_fichier);
+
 
         unset($this->file);
+        unset($this->file2);
+
     }
 
     /**
@@ -79,6 +94,9 @@ class Formations
     {
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
+        }
+        if ($file2 = $this->getAbsolutePath()) {
+            unlink($file2);
         }
     }
     //
@@ -121,6 +139,16 @@ class Formations
      * @var string
      */
     private $fichier_nom;
+
+    /**
+     * @var string
+     */
+    private $second_fichier;
+
+    /**
+     * @var string
+     */
+    private $second_fichier_nom;
 
     /**
      * @var integer
@@ -281,6 +309,54 @@ class Formations
     public function getFichierNom()
     {
         return $this->fichier_nom;
+    }
+
+    /**
+     * Set secondFichier
+     *
+     * @param string $secondFichier
+     *
+     * @return Formations
+     */
+    public function setSecondFichier($secondFichier)
+    {
+        $this->second_fichier = $secondFichier;
+
+        return $this;
+    }
+
+    /**
+     * Get secondFichier
+     *
+     * @return string
+     */
+    public function getSecondFichier()
+    {
+        return $this->second_fichier;
+    }
+
+    /**
+     * Set secondFichierNom
+     *
+     * @param string $secondFichierNom
+     *
+     * @return Formations
+     */
+    public function setSecondFichierNom($secondFichierNom)
+    {
+        $this->second_fichier_nom = $secondFichierNom;
+
+        return $this;
+    }
+
+    /**
+     * Get secondFichierNom
+     *
+     * @return string
+     */
+    public function getSecondFichierNom()
+    {
+        return $this->second_fichier_nom;
     }
 
     /**
