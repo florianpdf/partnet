@@ -11,3 +11,5 @@ AgendaBundle\Entity\Events:
             - NotBlank: ~
             - Length:
                 max: 400
+        start:
+            - GreaterThan: now
