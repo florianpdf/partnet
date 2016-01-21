@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Organisme
 {
 
+    /**
+     * @var file
+     */
+    public $file;
 
     protected function getUploadDir()
     {
@@ -85,20 +89,11 @@ class Organisme
 
 
     /// GENERATED CODE
+
     /**
      * @var integer
      */
     private $id;
-
-    /**
-     * @var file
-     */
-    public $file;
-
-    /**
-     * @var integer
-     */
-    private $idUser;
 
     /**
      * @var string
@@ -115,6 +110,23 @@ class Organisme
      */
     private $description;
 
+    /**
+     * @var string
+     */
+    private $backgroundColor;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $fos_user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fos_user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -124,30 +136,6 @@ class Organisme
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idUser
-     *
-     * @param integer $idUser
-     *
-     * @return Organisme
-     */
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
-
-    /**
-     * Get idUser
-     *
-     * @return integer
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
     }
 
     /**
@@ -220,23 +208,6 @@ class Organisme
     public function getDescription()
     {
         return $this->description;
-    }
-    /**
-     * @var string
-     */
-    private $backgroundColor;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $fos_user;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->fos_user = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

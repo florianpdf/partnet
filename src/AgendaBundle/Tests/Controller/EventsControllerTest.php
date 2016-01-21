@@ -200,7 +200,7 @@ class EventsControllerTest extends WebTestCase
         $kernel = static::createKernel();
         $kernel->boot();
         $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-        $id = $em->getRepository('AgendaBundle:Events')->findOneByTitre('Test evenement invalide - de 1H')->getId();
+//        $id = $em->getRepository('AgendaBundle:Events')->findOneByTitre('Test evenement invalide - de 1H')->getId();
 
         $crawler = $client->request('GET', 'event/' . $id . '/edit');
 

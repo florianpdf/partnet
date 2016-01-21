@@ -10,15 +10,19 @@
             {{ form_label(form.id_organisme) }}
             {{ form_widget(form.id_organisme) }}
         </li>
-        <li>
-            {{ form_label(form.roles) }}
-            {{ form_widget(form.roles) }}
-        </li>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li>
+                {{ form_label(form.roles) }}
+                {{ form_widget(form.roles) }}
+            </li>
+        {% endif %}
     </ul>
 
     {{ form_errors(form.email) }}
     {{ form_errors(form.id_organisme) }}
-    {{ form_errors(form.roles) }}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        {{ form_errors(form.roles) }}
+    {% endif %}
 
     <div>
         <input class="main-submit" type="submit" value="{{ 'registration.submit'|trans }}" />
