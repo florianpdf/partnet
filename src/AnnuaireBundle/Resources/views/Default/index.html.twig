@@ -40,6 +40,12 @@
                             Administrateur
                         {% elseif entity.roles[0] == 'ROLE_USER' %}
                             Utilisateur
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' %}
+                            Administrateur Annuaire
+                        {% elseif entity.roles[0] == 'ROLE_OFFRE_ADMIN' %}
+                            Administrateur Offres d'emploi
+                        {% elseif entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Formation
                         {% endif %}
                     </td>
                     <td>
