@@ -5,7 +5,6 @@ namespace AgendaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EventsType extends AbstractType
 {
@@ -16,18 +15,13 @@ class EventsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('start', DateType::class, array(
-                'input'  => 'datetime',
-                'widget' => 'choice',
+            ->add('start', 'datetime', array(
                 'label' => 'Date de début',
                 'required' => true,
                 'hours' => range(8, 20),
-                'minutes' => range(0, 30, 30),
-                'format' => 'dd-MM-yyyy'
+                'minutes' => range(0, 30, 30)
             ))
-            ->add('end', DateType::class, array(
-                'input'  => 'datetime',
-                'widget' => 'choice',
+            ->add('end', 'datetime', array(
                 'label' => 'Date de fin',
                 'required' => true,
                 'hours' => range(8, 20),

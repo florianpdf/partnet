@@ -79,9 +79,11 @@
             </tbody>
         </table>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ANNUAIRE_ADMIN') %}
             <div class="double-h1">
-                <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                {% endif %}
                 <a id="main-btn" href="{{ path('fos_user_registration_register_contact') }}">Nouveau contact</a>
             </div>
         {% endif %}

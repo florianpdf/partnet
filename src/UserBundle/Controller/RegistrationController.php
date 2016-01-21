@@ -60,15 +60,37 @@ class RegistrationController extends Controller
                 'options'  => array(
                     'label' => false,
                     'choices'  => array(
-                        'ROLE_ADMIN' => 'Administrateur',
                         'ROLE_USER'     => 'Utilisateur',
+                        'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
+                        'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'mploi',
+                        'ROLE_FORMATION_ADMIN' => 'Admin Formation',
+                        'ROLE_ADMIN' => 'Administrateur'
                     ),
                 ),
             ))
                 ->add('plainPassword', 'hidden', array(
                     'data' => substr($tokenGenerator->generateToken(), 0, 8),
                 ));
-        } else {
+        }
+        else if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $form = $formFactory->createForm()->add('roles', 'collection', array(
+                'type'   => 'choice',
+                'options'  => array(
+                    'label' => false,
+                    'choices'  => array(
+                        'ROLE_USER'     => 'Utilisateur',
+                        'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
+                        'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'emploi',
+                        'ROLE_FORMATION_ADMIN' => 'Admin Formation'
+                    ),
+                ),
+            ))
+                ->add('plainPassword', 'hidden', array(
+                    'data' => substr($tokenGenerator->generateToken(), 0, 8),
+                ));
+        }
+        else {
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
             $form = $formFactory->createForm()->add('plainPassword', 'hidden', array(
                 'data' => substr($tokenGenerator->generateToken(), 0, 8),
