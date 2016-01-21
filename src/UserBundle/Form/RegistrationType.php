@@ -16,6 +16,7 @@ class RegistrationType extends AbstractType
             ->add('roles', 'choice', array('label' => 'Statut'))
             ->add('id_organisme', 'entity', array(
                 'class'    => 'AppBundle:Organisme',
+                'property' => 'id',
                 'choice_label' => 'nom',
                 'label' => 'Organisme',
                 'multiple' => false
