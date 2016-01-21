@@ -1,41 +1,44 @@
 {% extends '::base.html.twig' %}
 
-{% block main_content -%}
+{% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-<main class="admin-form deep-main">
-    <h1>Édition d'un organisme</h1>
 
-    {{ form_start(edit_form) }}
-    {{ form_errors(edit_form) }}
+    <main class="admin-form deep-main">
+        <h1>Édition d'un organisme</h1>
 
-    <div>
-        {{ form_label(edit_form.nom, 'Nom') }}
+        {{ form_start(edit_form) }}
+
+        <div>
+            {{ form_label(edit_form.nom, 'Nom') }}
+            {{ form_widget(edit_form.nom) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.file, 'Image associée') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(edit_form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(edit_form.description, 'Description') }}
+            {{ form_widget(edit_form.description) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.backgroundColor, 'Couleur (agenda)') }}
+            {{ form_widget(edit_form.backgroundColor) }}
+        </div>
+
         {{ form_errors(edit_form.nom) }}
-        {{ form_widget(edit_form.nom) }}
-    </div>
-
-    <div>
-        {{ form_label(edit_form.description, 'Description') }}
-        {{ form_errors(edit_form.description) }}
-        {{ form_widget(edit_form.description) }}
-    </div>
-
-    <div>
-        {{ form_label(edit_form.file, 'Image associé') }}
         {{ form_errors(edit_form.file) }}
-        {{ form_widget(edit_form.file) }}
-    </div>
-
-    <div>
-        {{ form_label(edit_form.backgroundColor) }}
+        {{ form_errors(edit_form.description) }}
         {{ form_errors(edit_form.backgroundColor) }}
-        {{ form_widget(edit_form.backgroundColor) }}
-    </div>
 
-    {{ form_end(edit_form) }}
-
-</main>
+        {{ form_end(edit_form) }}
+    </main>
 {% endblock %}
 
 {% block external_css %}

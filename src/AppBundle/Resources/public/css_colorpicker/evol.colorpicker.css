@@ -14,11 +14,11 @@
   padding: 3px;
 }
 .evo-palette td {
-  font-size: 1px;
-  border: solid 1px #c0c0c0;
   padding: 7px;
   cursor: pointer;
 }
+.evo-palette tr:nth-child(1), .evo-palette tr:nth-child(2), .evo-palette tr:nth-child(3),
+.evo-palette tr:nth-child(9), .evo-palette tr:nth-child(10), .evo-more { display: none; }
 .evo-palette tr.top > td {
   border-bottom: 0;
 }
@@ -35,7 +35,7 @@
 .evo-palette,
 .evo-palette-ie {
   border-collapse: separate;
-  border-spacing: 4px 0px;
+  border-spacing: 0;
   *border-collapse: expression('separate', cellSpacing='2px');
 }
 .evo-palette th,

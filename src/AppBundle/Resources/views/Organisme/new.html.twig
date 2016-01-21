@@ -1,48 +1,53 @@
 {% extends '::base.html.twig' %}
 
-{% block main_content -%}
+{% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-<main class="admin-form deep-main">
-    <h1>Création d'un organisme</h1>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+    <main class="admin-form deep-main">
+        <h1>Ajout d'un organisme</h1>
 
+        {{ form_start(form) }}
 
-    <div>
-        {{ form_label(form.file, 'Image associé') }}
-        {{ form_errors(form.file) }}
-        {{ form_widget(form.file) }}
-    </div>
+        <div>
+            {{ form_label(form.nom, 'Nom') }}
+            {{ form_widget(form.nom) }}
+        </div>
 
-    <div>
-        {{ form_label(form.nom, 'Nom') }}
+        <div>
+            {{ form_label(form.file, 'Image associée') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description) }}
+        </div>
+
+        <div>
+            {{ form_label(form.backgroundColor, 'Couleur (agenda)') }}
+            {{ form_widget(form.backgroundColor) }}
+            <div class="color-picker">
+                <span>sélectionner</span>
+            </div>
+        </div>
+
         {{ form_errors(form.nom) }}
-        {{ form_widget(form.nom) }}
-    </div>
-
-    <div>
-        {{ form_label(form.description, 'Description') }}
+        {{ form_errors(form.file) }}
         {{ form_errors(form.description) }}
-        {{ form_widget(form.description) }}
-    </div>
-
-    <div>
-        {{ form_label(form.backgroundColor) }}
         {{ form_errors(form.backgroundColor) }}
-        {{ form_widget(form.backgroundColor) }}
-    </div>
 
-    {{ form_end(form) }}
-
-</main>
+        {{ form_end(form) }}
+    </main>
 {% endblock %}
 
 {% block external_css %}
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
-    <link href="{{ asset('bundles/app/css_colorpicker/evol.colorpicker.css') }}" rel="stylesheet" type="text/css">
     {{ parent() }}
+    {#<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">#}
+    <link href="{{ asset('bundles/app/css_colorpicker/evol.colorpicker.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block scripts %}

@@ -20,7 +20,7 @@ class OrganismeType extends AbstractType
             ->add('description')
             ->add('backgroundColor', null, array(
                 'attr' => array(
-                    'placeholder' => 'Choississez la couleur de l\'organisme'
+                    'placeholder' => 'sélectionner'
                 )
             ))
         ;
