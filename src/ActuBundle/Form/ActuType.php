@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form;
+namespace ActuBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OrganismeType extends AbstractType
+class ActuType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,14 +15,8 @@ class OrganismeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', array('required' => false, 'label' => 'Image associé', 'attr' => array('accept' => 'image/*')))
-            ->add('nom')
-            ->add('description')
-            ->add('backgroundColor', null, array(
-                'attr' => array(
-                    'placeholder' => 'Choississez la couleur de l\'organisme'
-                )
-            ))
+            ->add('titre')
+            ->add('resume')
         ;
     }
     
@@ -32,7 +26,7 @@ class OrganismeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Organisme'
+            'data_class' => 'ActuBundle\Entity\Actu'
         ));
     }
 
@@ -41,6 +35,6 @@ class OrganismeType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_organisme';
+        return 'actubundle_actu';
     }
 }

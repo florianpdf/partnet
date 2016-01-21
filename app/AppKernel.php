@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new MsgBundle\MsgBundle(),
             new FormBundle\FormBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-
+            new ActuBundle\ActuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

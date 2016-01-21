@@ -10,11 +10,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Events
 {
 
-    protected $type;
+    protected $type = 'Evènement';
 
     public function getType(){
-        return $this->type = 'events';
+        return $this->type;
     }
+
+
 
     public function isDateValid(ExecutionContextInterface $context)
     {
@@ -245,81 +247,7 @@ class Events
     {
         return $this->fil_actu;
     }
-    /**
-     * @var \AppBundle\Entity\Actu
-     */
-    private $idEvents;
 
-
-    /**
-     * Set idEvents
-     *
-     * @param \AppBundle\Entity\Actu $idEvents
-     *
-     * @return Events
-     */
-    public function setIdEvents(\AppBundle\Entity\Actu $idEvents = null)
-    {
-        $this->idEvents = $idEvents;
-
-        return $this;
-    }
-
-    /**
-     * Get idEvents
-     *
-     * @return \AppBundle\Entity\Actu
-     */
-    public function getIdEvents()
-    {
-        return $this->idEvents;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $events;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add event
-     *
-     * @param \AppBundle\Entity\Actu $event
-     *
-     * @return Events
-     */
-    public function addEvent(\AppBundle\Entity\Actu $event)
-    {
-        $this->events[] = $event;
-
-        return $this;
-    }
-
-    /**
-     * Remove event
-     *
-     * @param \AppBundle\Entity\Actu $event
-     */
-    public function removeEvent(\AppBundle\Entity\Actu $event)
-    {
-        $this->events->removeElement($event);
-    }
-
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEvents()
-    {
-        return $this->events;
-    }
     /**
      * @var \DateTime
      */
@@ -377,5 +305,9 @@ class Events
     public function getResume()
     {
         return $this->resume;
+    }
+
+    public function __construct(){
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

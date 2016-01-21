@@ -8,10 +8,10 @@ namespace FormBundle\Entity;
 class Formations
 {
 
-    protected $type;
+    protected $type = 'Formations';
 
     public function getType(){
-        return $this->type = 'formations';
+        return $this->type;
     }
 
     // GENERATED CODE
