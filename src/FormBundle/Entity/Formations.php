@@ -2,11 +2,86 @@
 
 namespace FormBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Formations
  */
 class Formations
 {
+
+    // UPLOAD
+    /**
+     * @var file
+     */
+    public $file;
+
+    protected function getUploadDir()
+    {
+        return '/formations_documents';
+    }
+
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'web/uploads/formations_documents/fixtures/';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../app/uploads'.$this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->fichier ? null : $this->getUploadDir().'/'.$this->fichier;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->fichier ? null : $this->getUploadRootDir().'/'.$this->fichier;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->fichier_nom = $this->file->getClientOriginalName();
+            $this->fichier = uniqid().'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->file->move($this->getUploadRootDir(), $this->fichier);
+
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+    //
 
     protected $type;
 
@@ -16,6 +91,7 @@ class Formations
 
     // GENERATED CODE
 
+
     /**
      * @var integer
      */
@@ -24,12 +100,27 @@ class Formations
     /**
      * @var string
      */
-    private $photoOrganisme;
+    private $organisme;
+
+    /**
+     * @var string
+     */
+    private $image;
 
     /**
      * @var string
      */
     private $titre;
+
+    /**
+     * @var string
+     */
+    private $fichier;
+
+    /**
+     * @var string
+     */
+    private $fichier_nom;
 
     /**
      * @var integer
@@ -46,6 +137,21 @@ class Formations
      */
     private $resume;
 
+    /**
+     * @var boolean
+     */
+    private $fil_actu;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateAjout;
+
+    /**
+     * @var \AppBundle\Entity\Organisme
+     */
+    private $address;
+
 
     /**
      * Get id
@@ -58,27 +164,51 @@ class Formations
     }
 
     /**
-     * Set photoOrganisme
+     * Set organisme
      *
-     * @param string $photoOrganisme
+     * @param string $organisme
      *
      * @return Formations
      */
-    public function setPhotoOrganisme($photoOrganisme)
+    public function setOrganisme($organisme)
     {
-        $this->photoOrganisme = $photoOrganisme;
+        $this->organisme = $organisme;
 
         return $this;
     }
 
     /**
-     * Get photoOrganisme
+     * Get organisme
      *
      * @return string
      */
-    public function getPhotoOrganisme()
+    public function getOrganisme()
     {
-        return $this->photoOrganisme;
+        return $this->organisme;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Formations
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
@@ -103,6 +233,54 @@ class Formations
     public function getTitre()
     {
         return $this->titre;
+    }
+
+    /**
+     * Set fichier
+     *
+     * @param string $fichier
+     *
+     * @return Formations
+     */
+    public function setFichier($fichier)
+    {
+        $this->fichier = $fichier;
+
+        return $this;
+    }
+
+    /**
+     * Get fichier
+     *
+     * @return string
+     */
+    public function getFichier()
+    {
+        return $this->fichier;
+    }
+
+    /**
+     * Set fichierNom
+     *
+     * @param string $fichierNom
+     *
+     * @return Formations
+     */
+    public function setFichierNom($fichierNom)
+    {
+        $this->fichier_nom = $fichierNom;
+
+        return $this;
+    }
+
+    /**
+     * Get fichierNom
+     *
+     * @return string
+     */
+    public function getFichierNom()
+    {
+        return $this->fichier_nom;
     }
 
     /**
@@ -176,132 +354,6 @@ class Formations
     {
         return $this->resume;
     }
-    /**
-     * @var string
-     */
-    private $organisme;
-
-
-    /**
-     * Set organisme
-     *
-     * @param string $organisme
-     *
-     * @return Formations
-     */
-    public function setOrganisme($organisme)
-    {
-        $this->organisme = $organisme;
-
-        return $this;
-    }
-
-    /**
-     * Get organisme
-     *
-     * @return string
-     */
-    public function getOrganisme()
-    {
-        return $this->organisme;
-    }
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $user;
-
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\Organisme $user
-     *
-     * @return Formations
-     */
-    public function setUser(\AppBundle\Entity\Organisme $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\Organisme
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $address;
-
-
-    /**
-     * Set address
-     *
-     * @param \AppBundle\Entity\Organisme $address
-     *
-     * @return Formations
-     */
-    public function setAddress(\AppBundle\Entity\Organisme $address = null)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return \AppBundle\Entity\Organisme
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-    /**
-     * @var string
-     */
-    private $image;
-
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Formations
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-    /**
-     * @var boolean
-     */
-    private $fil_actu;
-
-    /**
-     * @var \DateTime
-     */
-    private $dateAjout;
-
 
     /**
      * Set filActu
@@ -349,5 +401,29 @@ class Formations
     public function getDateAjout()
     {
         return $this->dateAjout;
+    }
+
+    /**
+     * Set address
+     *
+     * @param \AppBundle\Entity\Organisme $address
+     *
+     * @return Formations
+     */
+    public function setAddress(\AppBundle\Entity\Organisme $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \AppBundle\Entity\Organisme
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

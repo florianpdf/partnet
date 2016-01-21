@@ -20,6 +20,7 @@ class FormationsType extends AbstractType
             ->add('nbPlace')
             ->add('lieu')
             ->add('resume')
+            ->add('file', 'file', array('required' => false, 'label' => 'Fichier associé', 'attr' => array('accept' => 'application/pdf, application/xpdf')))
             ->add('fil_actu', 'checkbox', array(
                 'label' => 'Ajouter au fil d\'actualité',
                 'required' => false,

@@ -25,6 +25,12 @@ FormBundle\Entity\Formations:
         titre:
             type: string
             length: 255
+        fichier:
+            type: string
+            length: 255
+        fichier_nom:
+            type: string
+            length: 255
         nbPlace:
             type: integer
             column: nb_place
@@ -40,4 +46,9 @@ FormBundle\Entity\Formations:
             nullable: true
             column: date_ajout
 
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

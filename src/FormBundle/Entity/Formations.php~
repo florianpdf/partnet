@@ -7,280 +7,85 @@ namespace FormBundle\Entity;
  */
 class Formations
 {
-    /**
-     * @var integer
-     */
-    private $id;
 
+    // UPLOAD
     /**
-     * @var string
+     * @var file
      */
-    private $photoOrganisme;
+    public $file;
 
-    /**
-     * @var string
-     */
-    private $titre;
-
-    /**
-     * @var integer
-     */
-    private $nbPlace;
-
-    /**
-     * @var string
-     */
-    private $lieu;
-
-    /**
-     * @var string
-     */
-    private $resume;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    protected function getUploadDir()
     {
-        return $this->id;
+        return '/formations_documents';
+    }
+
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'web/uploads/formations_documents/fixtures/';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../app/uploads'.$this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->fichier ? null : $this->getUploadDir().'/'.$this->fichier;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->fichier ? null : $this->getUploadRootDir().'/'.$this->fichier;
     }
 
     /**
-     * Set photoOrganisme
-     *
-     * @param string $photoOrganisme
-     *
-     * @return Formations
+     * @ORM\PrePersist
      */
-    public function setPhotoOrganisme($photoOrganisme)
+    public function preUpload()
     {
-        $this->photoOrganisme = $photoOrganisme;
-
-        return $this;
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->fichier_nom = $this->file->getClientOriginalName();
+            $this->fichier = $this->username.'.'.$this->file->guessExtension();
+        }
     }
 
     /**
-     * Get photoOrganisme
-     *
-     * @return string
+     * @ORM\PostPersist
      */
-    public function getPhotoOrganisme()
+    public function upload()
     {
-        return $this->photoOrganisme;
+        if (null === $this->file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->file->move($this->getUploadRootDir(), $this->fichier);
+
+        unset($this->file);
     }
 
     /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Formations
+     * @ORM\PostRemove
      */
-    public function setTitre($titre)
+    public function removeUpload()
     {
-        $this->titre = $titre;
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+    //
 
-        return $this;
+    protected $type;
+
+    public function getType(){
+        return $this->type = 'formations';
     }
 
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    /**
-     * Set nbPlace
-     *
-     * @param integer $nbPlace
-     *
-     * @return Formations
-     */
-    public function setNbPlace($nbPlace)
-    {
-        $this->nbPlace = $nbPlace;
-
-        return $this;
-    }
-
-    /**
-     * Get nbPlace
-     *
-     * @return integer
-     */
-    public function getNbPlace()
-    {
-        return $this->nbPlace;
-    }
-
-    /**
-     * Set lieu
-     *
-     * @param string $lieu
-     *
-     * @return Formations
-     */
-    public function setLieu($lieu)
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    /**
-     * Get lieu
-     *
-     * @return string
-     */
-    public function getLieu()
-    {
-        return $this->lieu;
-    }
-
-    /**
-     * Set resume
-     *
-     * @param string $resume
-     *
-     * @return Formations
-     */
-    public function setResume($resume)
-    {
-        $this->resume = $resume;
-
-        return $this;
-    }
-
-    /**
-     * Get resume
-     *
-     * @return string
-     */
-    public function getResume()
-    {
-        return $this->resume;
-    }
-    /**
-     * @var string
-     */
-    private $organisme;
+    // GENERATED CODE
 
 
-    /**
-     * Set organisme
-     *
-     * @param string $organisme
-     *
-     * @return Formations
-     */
-    public function setOrganisme($organisme)
-    {
-        $this->organisme = $organisme;
-
-        return $this;
-    }
-
-    /**
-     * Get organisme
-     *
-     * @return string
-     */
-    public function getOrganisme()
-    {
-        return $this->organisme;
-    }
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $user;
-
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\Organisme $user
-     *
-     * @return Formations
-     */
-    public function setUser(\AppBundle\Entity\Organisme $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\Organisme
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $address;
-
-
-    /**
-     * Set address
-     *
-     * @param \AppBundle\Entity\Organisme $address
-     *
-     * @return Formations
-     */
-    public function setAddress(\AppBundle\Entity\Organisme $address = null)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return \AppBundle\Entity\Organisme
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-    /**
-     * @var string
-     */
-    private $image;
-
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Formations
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
 }
