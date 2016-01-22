@@ -47,12 +47,14 @@
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                         </a>
                     {% endif %}
-                    <a href="{{ path("document_download", {'document': entity.document}) }}" title="Télécharger">
-                        <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
-                    </a>
-                    <a href="{{ path('document_visual', {'document': entity.document }) }}" title="Afficher">
-                        <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
-                    </a>
+                    {% if entity.document %}
+                        <a href="{{ path("document_download", {'document': entity.document}) }}" title="Télécharger">
+                            <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                        </a>
+                        <a href="{{ path('document_visual', {'document': entity.document }) }}" title="Afficher">
+                            <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                        </a>
+                    {% endif %}
                 </td>
                 <td class="target">{{ entity.resume }}</td>
             </tr>
