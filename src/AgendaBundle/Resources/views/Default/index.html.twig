@@ -10,7 +10,13 @@
 
         <div id='calendar'></div>
         <a id="main-btn" href="{{ path('events_new') }}">Ajouter un évènement</a>
-
+        <div style="text-align: center; margin-top: 30px">
+            {% for organisme in organismes %}
+                <div style="display: inline-block; margin: 0 20px">
+                    <p>{{ organisme.nom }}</p><div style="background-color: {{ organisme.BackgroundColor }}; width: 20px; height: 20px;"></div>
+                </div>
+            {% endfor %}
+        </div>
     </main>
 
     {% include '@Agenda/Events/eventrender.html.twig' %}
