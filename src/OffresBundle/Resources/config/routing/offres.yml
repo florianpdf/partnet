@@ -1,0 +1,30 @@
+offres-emploi:
+    path:     /
+    defaults: { _controller: "OffresBundle:Offres:index" }
+
+offres-emploi__show:
+    path:     /{id}/show
+    defaults: { _controller: "OffresBundle:Offres:show" }
+
+offres-emploi__new:
+    path:     /new
+    defaults: { _controller: "OffresBundle:Offres:new" }
+
+offres-emploi__create:
+    path:     /create
+    defaults: { _controller: "OffresBundle:Offres:create" }
+    methods:  POST
+
+offres-emploi__edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OffresBundle:Offres:edit" }
+
+offres-emploi__update:
+    path:     /{id}/update
+    defaults: { _controller: "OffresBundle:Offres:update" }
+    methods:  [POST, PUT]
+
+offres-emploi__delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OffresBundle:Offres:delete" }
+    methods:  [POST, DELETE]
