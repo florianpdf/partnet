@@ -3,45 +3,43 @@
 {% block main_content -%}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-    <main class="admin-form deep-main"><h1>Nouvelle formation</h1>
+
+    <main class="admin-form deep-main"><h1>Ajout d'une formation</h1>
 
         {{ form_start(form) }}
-        {{ form_errors(form) }}
-
 
         <div>
             {{ form_label(form.titre, 'Titre') }}
-            {{ form_errors(form.titre) }}
             {{ form_widget(form.titre) }}
         </div>
 
         <div>
-            {{ form_label(form.nbPlace, 'Places') }}
-            {{ form_errors(form.nbPlace) }}
+            {{ form_label(form.nbPlace, 'Places restantes') }}
             {{ form_widget(form.nbPlace) }}
         </div>
 
         <div>
             {{ form_label(form.lieu, 'Lieu') }}
-            {{ form_errors(form.lieu) }}
             {{ form_widget(form.lieu) }}
         </div>
 
         <div>
-            {{ form_label(form.resume, 'Résumé') }}
-            {{ form_errors(form.resume) }}
+            {{ form_label(form.resume, 'Descriptif') }}
             {{ form_widget(form.resume) }}
         </div>
 
         <div>
             {{ form_label(form.fil_actu) }}
-            {{ form_errors(form.fil_actu) }}
             {{ form_widget(form.fil_actu) }}
+            <label for="formbundle_formations_fil_actu" class="checkbox"></label>
         </div>
 
+        {{ form_errors(form.titre) }}
+        {{ form_errors(form.nbPlace) }}
+        {{ form_errors(form.lieu) }}
+        {{ form_errors(form.resume) }}
+        {{ form_errors(form.fil_actu) }}
+
         {{ form_end(form) }}
-
     </main>
-
-
 {% endblock %}

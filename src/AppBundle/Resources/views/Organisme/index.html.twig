@@ -4,11 +4,11 @@
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
-<main>
+<main class="datatables-page">
     <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Photo</th>
+                <th></th>
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Actions</th>
@@ -24,7 +24,6 @@
                 </td>
                 <td>{{ entity.nom }}</td>
                 <td style="white-space: normal;">{{ entity.description }}</td>
-
                 <td class="actions">
 
                         <a href="{{ path('admin_organisme_edit', { 'id': entity.id }) }}" title="Éditer">
@@ -35,12 +34,11 @@
                         </a>
 
                 </td>
-
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a id="main-btn" href="{{ path('admin_organisme_new') }}">Ajouter</a>
+    <a id="main-btn" href="{{ path('admin_organisme_new') }}">Ajouter un organisme</a>
     {% include '@App/Organisme/delete.html.twig' %}
     </main>
     {% endblock %}

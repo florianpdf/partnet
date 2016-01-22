@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block body_class %}<body id="ged">{% endblock %}
+{% block body_class %}<body id="emploi">{% endblock %}
 
 {% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="admin-form deep-main">
-        <h1><i>{{ doc.titre }}</i></h1>
+        <h1><i>{{ entity.titre }}</i></h1>
 
-        {{ form_start(edit_form) }}
+    {{ form_start(edit_form) }}
 
         <div>
-            {{ form_label(edit_form.titre, 'Titre') }}
+            {{ form_label(edit_form.titre) }}
             {{ form_errors(edit_form.titre) }}
             {{ form_widget(edit_form.titre) }}
         </div>

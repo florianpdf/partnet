@@ -129,7 +129,7 @@ class OrganismeController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Créer'));
+        $form->add('submit', 'submit', array('label' => 'Ajouter'));
 
         return $form;
     }
@@ -186,7 +186,7 @@ class OrganismeController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
+        $form->add('submit', 'submit', array('label' => 'Éditer'));
         return $form;
     }
     /**

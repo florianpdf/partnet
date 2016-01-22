@@ -40,7 +40,7 @@
                 </td>
                 <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Editer">
+                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer">
                             <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
                         </a>
                         <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">

@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form;
+namespace OffresBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OrganismeType extends AbstractType
+class OffresType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,14 +15,12 @@ class OrganismeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', array('required' => false, 'label' => 'Image associé', 'attr' => array('accept' => 'image/*')))
-            ->add('nom')
-            ->add('description')
-            ->add('backgroundColor', null, array(
-                'attr' => array(
-                    'placeholder' => 'sélectionner'
-                )
-            ))
+            ->add('titre')
+            ->add('entreprise')
+            ->add('lieu')
+            ->add('resume')
+            ->add('fil_actu')
+            ->add('file', 'file', array('label' => 'Company logo', 'required' => false))
         ;
     }
     
@@ -32,7 +30,7 @@ class OrganismeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Organisme'
+            'data_class' => 'OffresBundle\Entity\Offres'
         ));
     }
 
@@ -41,6 +39,6 @@ class OrganismeType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_organisme';
+        return 'offresbundle_offres';
     }
 }
