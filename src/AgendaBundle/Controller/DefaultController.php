@@ -9,6 +9,12 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AgendaBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
+
+        return $this->render('AgendaBundle:Default:index.html.twig', array(
+            'organismes' => $organismes
+        ));
     }
 }
