@@ -45,10 +45,12 @@ class EventsController extends Controller
         };
 
         $userCallback = function ($user) {
-            return [$user->getEmail(), $user->getRoles(), $user->getIdOrganisme()->getId()];
+            return array(
+                "email" => $user->getEmail(), "roles" => $user->getRoles(), "id_organisme" => $user->getIdOrganisme()->getId()
+            );
         };
 
-        $normalizer->setCallbacks(array('start' => $dateCallback, 'end' => $dateCallback, 'idUser' => $userCallback));
+        $normalizer->setCallbacks(array('start' => $dateCallback, 'end' => $dateCallback, 'idUser' => (object)$userCallback));
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $jsonObject = $serializer->serialize($entities, 'json');

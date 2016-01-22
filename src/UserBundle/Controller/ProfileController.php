@@ -74,10 +74,9 @@ class ProfileController extends Controller
 
         //$user->setPlainPassword($form->get('current_password')->getData());
 
-
-
         if ($form->isValid()) {
 
+            $user->preUpload();
             $user->setUsername($this->getUser()->getEmail());
 
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
