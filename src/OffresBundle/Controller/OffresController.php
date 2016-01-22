@@ -71,7 +71,7 @@ class OffresController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Ajouter'));
 
         return $form;
     }

@@ -19,7 +19,7 @@ class OffresType extends AbstractType
             ->add('entreprise')
             ->add('lieu')
             ->add('resume')
-            ->add('fil_actu')
+            ->add('fil_actu', 'checkbox')
             ->add('file', 'file', array('label' => 'Company logo', 'required' => false))
         ;
     }
