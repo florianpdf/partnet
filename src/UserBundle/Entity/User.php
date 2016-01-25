@@ -129,6 +129,7 @@ class User extends BaseUser
 
     //Generated Code
 
+    
     /**
      * @var string
      */
@@ -268,7 +269,7 @@ class User extends BaseUser
      */
     public function getTelephone()
     {
-        return chunk_split($this->telephone, 2, " ");
+        return $this->telephone;
     }
 
     /**

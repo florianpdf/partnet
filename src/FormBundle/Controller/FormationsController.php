@@ -47,18 +47,9 @@ class FormationsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
+            $entity->setImage($this->getUser()->getIdOrganisme()->getPhoto());
 
-            $entity->setOrganisme($user->getOrganisme());
             $entity->setDateAjout(new \DateTime());
-
-            $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
-
-            foreach ($organismes as $organisme) {
-                if($this->getUser()->getOrganisme() == $organisme->getNom()) {
-                    $entity->setImage($organisme->getPhoto());
-                }
-            }
 
             $em->persist($entity);
             $em->flush();

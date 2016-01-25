@@ -30,20 +30,6 @@ class Formations
         return $this->getAbsolutePath() . 'web/uploads/formations_documents/fixtures/';
     }
 
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../app/uploads'.$this->getUploadDir();
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->fichier ? null : $this->getUploadDir().'/'.$this->fichier;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->fichier ? null : $this->getUploadRootDir().'/'.$this->fichier;
-    }
 
     /**
      * @ORM\PrePersist
@@ -70,22 +56,17 @@ class Formations
     {
         if (null === $this->file) {
             return;
+        } else {
+            $this->file->move(__DIR__.'/../../../app/uploads'.$this->getUploadDir(), $this->fichier);
+            unset($this->file);
         }
 
         if (null === $this->file2) {
             return;
+        } else {
+            $this->file2->move(__DIR__.'/../../../app/uploads'.$this->getUploadDir(), $this->second_fichier);
+            unset($this->file2);
         }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->file->move($this->getUploadRootDir(), $this->fichier);
-        $this->file2->move($this->getUploadRootDir(), $this->second_fichier);
-
-
-        unset($this->file);
-        unset($this->file2);
-
     }
 
     /**
@@ -93,10 +74,10 @@ class Formations
      */
     public function removeUpload()
     {
-        if ($file = $this->getAbsolutePath()) {
+        if ($file = null === $this->fichier ? null : __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/'.$this->fichier) {
             unlink($file);
         }
-        if ($file2 = $this->getAbsolutePath()) {
+        if ($file2 = null === $this->fichier ? null : __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/'.$this->fichier) {
             unlink($file2);
         }
     }
@@ -112,16 +93,10 @@ class Formations
 
     // GENERATED CODE
 
-
     /**
      * @var integer
      */
     private $id;
-
-    /**
-     * @var string
-     */
-    private $organisme;
 
     /**
      * @var string
@@ -178,11 +153,6 @@ class Formations
      */
     private $dateAjout;
 
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $address;
-
 
     /**
      * Get id
@@ -192,30 +162,6 @@ class Formations
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set organisme
-     *
-     * @param string $organisme
-     *
-     * @return Formations
-     */
-    public function setOrganisme($organisme)
-    {
-        $this->organisme = $organisme;
-
-        return $this;
-    }
-
-    /**
-     * Get organisme
-     *
-     * @return string
-     */
-    public function getOrganisme()
-    {
-        return $this->organisme;
     }
 
     /**
@@ -480,29 +426,5 @@ class Formations
     public function getDateAjout()
     {
         return $this->dateAjout;
-    }
-
-    /**
-     * Set address
-     *
-     * @param \AppBundle\Entity\Organisme $address
-     *
-     * @return Formations
-     */
-    public function setAddress(\AppBundle\Entity\Organisme $address = null)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return \AppBundle\Entity\Organisme
-     */
-    public function getAddress()
-    {
-        return $this->address;
     }
 }
