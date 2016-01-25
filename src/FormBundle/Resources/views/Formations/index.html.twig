@@ -21,6 +21,24 @@
                             <li><strong>Places disponibles : </strong>{{ entity.nbPlace }}</li>
                             <li><strong>Lieu : </strong>{{ entity.lieu }}</li>
                             <li><strong>Résumé : </strong>{{ entity.resume }}</li>
+                            <li><strong>Fichier(s) associé(s) : </strong>{% if entity.fichier %}<br />
+                                {{ entity.fichierNom }} :
+                                <a href="{{ path("formation_document_download", {'document': entity.fichier}) }}" title="Télécharger">
+                                    <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                                </a>
+                                <a href="{{ path('formation_document_visual', {'document': entity.fichier }) }}" title="Afficher">
+                                    <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                                </a>
+                                {% endif %}
+                                {% if entity.secondFichier %}<br />
+                                    {{ entity.secondFichierNom }} :
+                                    <a href="{{ path("formation_document_download", {'document': entity.secondFichier}) }}" title="Télécharger">
+                                        <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                                    </a>
+                                    <a href="{{ path('formation_document_visual', {'document': entity.secondFichier }) }}" title="Afficher">
+                                        <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                                    </a>
+                                {% endif %}</li>
                         </ul>
                     </td>
 

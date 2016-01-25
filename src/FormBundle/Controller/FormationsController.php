@@ -19,6 +19,63 @@ class FormationsController extends Controller
 {
 
     /**
+     * Download an existing file.
+     *
+     */
+    public function DownloadAction($document)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('GedBundle:Documents')->findOneBy(array('document'=> $document));
+        $filename = $entity->getFileName();
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $document;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    public function VisualAction($document)
+    {
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $document;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'inline; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());                                  // filename
+
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    /**
      * Lists all Formations entities.
      *
      */
@@ -109,6 +166,7 @@ class FormationsController extends Controller
 
         $entity = $em->getRepository('FormBundle:Formations')->find($id);
 
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Formations entity.');
         }
@@ -157,6 +215,7 @@ class FormationsController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->preUpload();
             $em->flush();
 
             return $this->redirect($this->generateUrl('formations'));

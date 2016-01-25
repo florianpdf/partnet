@@ -1,4 +1,14 @@
+# Formation Homepage
 formations:
     path:     /
     defaults: { _controller: "FormBundle:Formations:index" }
 
+# Route action de telechargement
+formation_document_download:
+    path:     /download/{document}
+    defaults: { _controller: "FormBundle:Formations:Download" }
+
+# Route action de visualisation
+formation_document_visual:
+    path:     /visual/{document}
+    defaults: { _controller: "FormBundle:Formations:Visual" }
