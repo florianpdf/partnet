@@ -394,6 +394,7 @@ main {
 #emploi .deep-main     { background: $emploi-main-bg; }
 #formations .deep-main { background: $formations-main-bg; }
 .profile-data li {
+  position: relative;
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 0 30px;
@@ -475,6 +476,16 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 }
 .deep-main form ul:nth-child(2) { margin-top: 30px; }
 .deep-main form ul:last-of-type { margin-bottom: 30px; }
+
+.legend {
+  text-align: center;
+  margin-top: 30px;
+}
+.legend div {
+  display: inline-block;
+  margin-right: 10px;
+}
+.legend div div:first-child { margin-right: 5px; }
 
 
 /* //////////////// back office //////////////// *\
@@ -612,7 +623,24 @@ h1 {
 
 // checkbox
 
-input[type="checkbox"] { display: none; }
+input[type="checkbox"][name*="fil_actu"] { display: none; }
+.fos_user_registration_register li:nth-child(3) { height: 165px; }
+#fos_user_registration_form_roles {
+  position: absolute; top: 5px; right: 30px;
+  width: 50%;
+  text-align: right;
+}
+#fos_user_registration_form_roles label {
+  display: block; height: 30px; line-height: 30px;
+  padding-right: 10px; margin: 0 30px 0 0;
+}
+#fos_user_registration_form_roles input {
+  margin: 0 0 0 10px; min-width: 0; width: 20px;
+  float: right;
+}
+#fos_user_registration_form_roles label:hover {
+  background: $annuaire-main-bg;
+}
 .checkbox {
   position: absolute; top: -10px; right: 0;
   width: 40px; height: 40px;
@@ -630,6 +658,18 @@ input[type="checkbox"] { display: none; }
 }
 .checkbox:hover::after {opacity: 0.15; }
 input[type="checkbox"]:checked + label:after { opacity: 0.7; }
+
+.infos {
+  position: absolute; top: 10px;
+  height: calc(100% - 20px); width: 35%;
+}
+.infos div {
+  background: $annuaire-main-bg;
+  height: 100%;
+  padding: 10px;
+  font-size: 0.8em;
+  display: none;
+}
 
 
 /* //////////////// media queries //////////////// *\
