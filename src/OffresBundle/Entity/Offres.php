@@ -36,6 +36,16 @@ class Offres
         return null === $this->document ? null : $this->getUploadRootDir().'/'.$this->document;
     }
 
+    // used in fixtures
+    public function createFile($ext)
+    {
+        $token = uniqid().".".$ext;
+        $this->setDocument($token);
+        $test_file = fopen("app/uploads/offres/" . $token, "w");
+        fwrite($test_file, 'Détail de l\'offre.');
+        fclose($test_file);
+    }
+
     /**
      * @var file
      */
