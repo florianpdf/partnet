@@ -257,3 +257,4 @@ class FormationsController extends Controller
      */
 
 }
+
