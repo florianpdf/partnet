@@ -119,7 +119,7 @@ class FormationsController extends Controller
             'form'   => $form->createView(),
         ));
     }
-    
+
 
     /**
      * Creates a form to create a Formations entity.

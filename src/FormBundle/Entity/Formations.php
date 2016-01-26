@@ -74,15 +74,21 @@ class Formations
      */
     public function removeUpload()
     {
-        if ($file = null === $this->fichier ? null : __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/'.$this->fichier) {
-            unlink($file);
+
+        $target = __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/';
+
+        if($this->fichier) {
+
+            unlink($target.$this->fichier);
+
         }
-        if ($file2 = null === $this->fichier ? null : __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/'.$this->fichier) {
-            unlink($file2);
+
+        if($this->second_fichier) {
+
+            unlink($target.$this->second_fichier);
+
         }
     }
-    //
-
 
     protected $type = 'Formations';
 
