@@ -29,8 +29,38 @@ class FormationsController extends Controller
     public function DownloadAction($fichier)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('FormBundle:Formations')->findOneBy(array('fichier'=> $fichier, 'second_fichier' => $fichier));
-        $filename = $entity->getFileName();
+        $entity = $em->getRepository('FormBundle:Formations')->findOneBy(array('fichier'=> $fichier));
+        $filename = $entity->getFichier();
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $fichier;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    public function DownloadSecondAction($fichier)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('FormBundle:Formations')->findOneBy(array('second_fichier' => $fichier));
+        $filename = $entity->getSecondFichier();
 
         // Generate response
         $response = new Response();

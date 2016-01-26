@@ -23,7 +23,7 @@
                             <li><strong>Résumé : </strong>{{ entity.resume }}</li>
                             <li><strong>Fichier(s) associé(s) : </strong>{% if entity.fichier %}<br />
                                 {{ entity.fichierNom }} :
-                                <a href="{{ path("formation_document_download", {'document': entity.fichier}) }}" title="Télécharger">
+                                <a href="{{ path("formation_document_download", {'fichier': entity.fichier}) }}" title="Télécharger">
                                     <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
                                 </a>
                                 <a href="{{ path('formation_document_visual', {'document': entity.fichier }) }}" title="Afficher">
@@ -32,7 +32,7 @@
                                 {% endif %}
                                 {% if entity.secondFichier %}<br />
                                     {{ entity.secondFichierNom }} :
-                                    <a href="{{ path("formation_document_download", {'document': entity.secondFichier}) }}" title="Télécharger">
+                                    <a href="{{ path("formation_document_download_second", {'fichier': entity.secondFichier}) }}" title="Télécharger">
                                         <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
                                     </a>
                                     <a href="{{ path('formation_document_visual', {'document': entity.secondFichier }) }}" title="Afficher">

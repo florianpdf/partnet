@@ -8,6 +8,10 @@ formation_document_download:
     path:     /download/{fichier}
     defaults: { _controller: "FormBundle:Formations:Download" }
 
+formation_document_download_second:
+    path:     /download/2/{fichier}
+    defaults: { _controller: "FormBundle:Formations:DownloadSecond" }
+
 # Route action de visualisation
 formation_document_visual:
     path:     /visual/{document}
