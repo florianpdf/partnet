@@ -2,14 +2,18 @@
 
 namespace FormBundle\Controller;
 
-use AppBundle\Entity\Organisme;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use FormBundle\Entity\Formations;
 use FormBundle\Form\FormationsType;
-use FormBundle\Entity\FormationsRepository;
-use Symfony\Component\Security\Core\User\User;
+
+
+use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * Formations controller.
@@ -22,17 +26,17 @@ class FormationsController extends Controller
      * Download an existing file.
      *
      */
-    public function DownloadAction($document)
+    public function DownloadAction($fichier)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('GedBundle:Documents')->findOneBy(array('document'=> $document));
+        $entity = $em->getRepository('FormBundle:Formations')->findOneBy(array('fichier'=> $fichier, 'second_fichier' => $fichier));
         $filename = $entity->getFileName();
 
         // Generate response
         $response = new Response();
 
         // Set headers
-        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $document;
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $fichier;
 
         $oFile = new File($filepath);
 
@@ -216,7 +220,23 @@ class FormationsController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->preUpload();
+
+           // Edition upload
+            if($editForm->get('file')->getData() != null) {
+                if($entity->getFichier() != null) {
+                    unlink(__DIR__.'/../../../app/uploads/formations_documents/'.$entity->getFichier());
+                    $entity->setFichier(null);
+                }
+            }
+
+            if($editForm->get('file2')->getData() != null) {
+                if($entity->getSecondFichier() != null) {
+                    unlink(__DIR__.'/../../../app/uploads/formations_documents/'.$entity->getSecondFichier());
+                    $entity->setSecondFichier(null);
+                }
+            }
+
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('formations'));

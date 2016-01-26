@@ -5,7 +5,7 @@ formations:
 
 # Route action de telechargement
 formation_document_download:
-    path:     /download/{document}
+    path:     /download/{fichier}
     defaults: { _controller: "FormBundle:Formations:Download" }
 
 # Route action de visualisation
