@@ -8,6 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use OffresBundle\Entity\Offres;
 use OffresBundle\Form\OffresType;
 
+use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 /**
  * Offres controller.
  *
@@ -47,6 +52,10 @@ class OffresController extends Controller
 
             $em->persist($entity);
             $em->flush();
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'L\'offre a bien été ajoutée sur le portail.');
 
             return $this->redirect($this->generateUrl('offres-emploi', array('id' => $entity->getId())));
         }
@@ -151,7 +160,8 @@ class OffresController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Éditer'));
+        $form->remove('file');
 
         return $form;
     }
@@ -169,6 +179,10 @@ class OffresController extends Controller
             throw $this->createNotFoundException('Unable to find Offres entity.');
         }
 
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'L\'offre a bien été modifiée.');
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -176,7 +190,7 @@ class OffresController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('offres-emploi__edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('offres-emploi', array('id' => $id)));
         }
 
         return $this->render('OffresBundle:Offres:edit.html.twig', array(
@@ -189,24 +203,19 @@ class OffresController extends Controller
      * Deletes a Offres entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OffresBundle:Offres')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OffresBundle:Offres')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Offres entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Offres entity.');
         }
 
-        return $this->redirect($this->generateUrl('offres-emploi_'));
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('offres-emploi'));
     }
 
     /**
@@ -224,5 +233,62 @@ class OffresController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+     * Download an existing file.
+     *
+     */
+    public function DownloadAction($document)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OffresBundle:Offres')->findOneBy(array('document'=> $document));
+        $filename = $entity->getFileName();
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/offres/". $document;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    public function VisualAction($document)
+    {
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/offres/". $document;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'inline; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());                                  // filename
+
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
     }
 }

@@ -66,9 +66,11 @@
                     {% endif %}
                     <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
-                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
-                        </a>
+                        {% if entity.roles[0] == 'ROLE_USER' %}
+                            <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                            </a>
+                        {% endif %}
                     {% endif %}
                         {% if entity.enabled == 1 %}
                             <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">

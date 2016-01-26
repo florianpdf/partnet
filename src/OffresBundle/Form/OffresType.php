@@ -19,8 +19,15 @@ class OffresType extends AbstractType
             ->add('entreprise')
             ->add('lieu')
             ->add('resume')
-            ->add('fil_actu', 'checkbox')
-            ->add('file', 'file', array('label' => 'Company logo', 'required' => false))
+            ->add('file', 'file', array(
+                'label' => 'Document (.pdf)',
+                'attr' => array('accept' => 'application/pdf, application/xpdf'),
+                'required' => false
+            ))
+            ->add('fil_actu', 'checkbox', array(
+                'label' => 'Ajouter au fil d\'actualité',
+                'required' => false,
+            ));
         ;
     }
     

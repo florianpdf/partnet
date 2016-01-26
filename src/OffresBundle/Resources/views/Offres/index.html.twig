@@ -43,15 +43,15 @@
                         <a href="{{  path('offres-emploi__edit', { 'id': entity.id }) }}" title="Éditer">
                             <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
                         </a>
-                        <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                        <a class="confirmModalLink" href="{{ path('offres-emploi__delete', {'id':  entity.id  }) }}" title="Supprimer">
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                         </a>
                     {% endif %}
                     {% if entity.document %}
-                        <a href="{{ path("document_download", {'document': entity.document}) }}" title="Télécharger">
+                        <a href="{{ path("offres-emploi_download", {'document': entity.document}) }}" title="Télécharger">
                             <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
                         </a>
-                        <a href="{{ path('document_visual', {'document': entity.document }) }}" title="Afficher">
+                        <a href="{{ path('offres-emploi_visual', {'document': entity.document }) }}" title="Afficher">
                             <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
                         </a>
                     {% endif %}
@@ -63,7 +63,7 @@
     </table>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a id="main-btn" href="{{ path('offres-emploi__new') }}">Ajouter un document</a>
+        <a id="main-btn" href="{{ path('offres-emploi__new') }}">Ajouter une offre d'emploi</a>
         {% include '@Offres/Offres/delete.html.twig' %}
     {% endif %}
 
@@ -153,7 +153,7 @@
                 { responsivePriority: 2, targets: 2 },
                 { responsivePriority: 1, targets: 4 }
             ],
-            "order": [[ 4, 'desc' ], [ 2, 'asc' ]]
+            "order": [[ 5, 'desc' ], [ 2, 'asc' ]]
         });
 
         // autofocus et placeholder pour le champ de recherche

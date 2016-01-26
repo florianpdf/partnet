@@ -1,5 +1,5 @@
 <?php
-// src/GedBundle/DataFixtures/ORM/LoadGedData.php
+// src/GedBundle/DataFixtures/ORM/LoadOffresData.php
 // loading fixtures: php app/console doctrine:fixtures:load (--append)
 
 namespace GedBundle\DataFixtures\ORM;

@@ -58,9 +58,9 @@ class RegistrationController extends Controller
             $form = $formFactory->createForm()->add('roles', 'choice', array(
                 'choices' => array(
                     'ROLE_USER'     => 'Utilisateur',
-                    'ROLE_ANNUAIRE_ADMIN' => 'Admin Annuaire',
-                    'ROLE_OFFRE_ADMIN' => 'Admin Offres d\'emploi',
-                    'ROLE_FORMATION_ADMIN' => 'Admin Formation',
+                    'ROLE_ANNUAIRE_ADMIN' => 'Admin [annuaire]',
+                    'ROLE_OFFRE_ADMIN' => 'Admin [offres d\'emploi]',
+                    'ROLE_FORMATION_ADMIN' => 'Admin [formations]',
                     'ROLE_ADMIN' => 'Administrateur'
                 ),
                 'multiple' => true,
