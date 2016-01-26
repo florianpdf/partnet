@@ -79,12 +79,19 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
   text-align: center;
   line-height: 16px;
   content: '+';
-  background-color: #559FB2;
+  background-color: $default-head-rows-bg;
 }
+#ged table.dataTable.dtr-column > tbody > tr > td.control:before { background-color: $documents-head-rows-bg; }
+#agenda table.dataTable.dtr-column > tbody > tr > td.control:before { background-color: $agenda-head-rows-bg; }
+#annuaire table.dataTable.dtr-column > tbody > tr > td.control:before { background-color: $annuaire-head-rows-bg; }
+#emploi table.dataTable.dtr-column > tbody > tr > td.control:before { background-color: $emploi-head-rows-bg; }
+#formations table.dataTable.dtr-column > tbody > tr > td.control:before { background-color: $formations-head-rows-bg; }
+#dialogue table.dataTable.dtr-column > tbody > tr > td.control:before { background-color: $dialogue-head-rows-bg; }
+
 table.dataTable.dtr-column > tbody > tr.parent td.control:before,
 table.dataTable.dtr-column > tbody > tr.parent th.control:before {
   content: '-';
-  background-color: #87827B;
+  background-color: #87827B !important;
 }
 table.dataTable > tbody > tr.child {
   padding: 0.5em 1em;

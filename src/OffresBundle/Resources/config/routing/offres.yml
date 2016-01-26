@@ -27,4 +27,14 @@ offres-emploi__update:
 offres-emploi__delete:
     path:     /{id}/delete
     defaults: { _controller: "OffresBundle:Offres:delete" }
-    methods:  [POST, DELETE]
+    methods:  [GET, DELETE]
+
+# Téléchargement
+offres-emploi_download:
+    path:     /download/{document}
+    defaults: { _controller: "OffresBundle:Offres:Download" }
+
+# Visualisation
+offres-emploi_visual:
+    path:     /visual/{document}
+    defaults: { _controller: "OffresBundle:Offres:Visual" }
