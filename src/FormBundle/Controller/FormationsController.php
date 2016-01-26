@@ -2,14 +2,18 @@
 
 namespace FormBundle\Controller;
 
-use AppBundle\Entity\Organisme;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use FormBundle\Entity\Formations;
 use FormBundle\Form\FormationsType;
-use FormBundle\Entity\FormationsRepository;
-use Symfony\Component\Security\Core\User\User;
+
+
+use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * Formations controller.
@@ -17,6 +21,93 @@ use Symfony\Component\Security\Core\User\User;
  */
 class FormationsController extends Controller
 {
+
+    /**
+     * Download an existing file.
+     *
+     */
+    public function DownloadAction($fichier)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('FormBundle:Formations')->findOneBy(array('fichier'=> $fichier));
+        $filename = $entity->getFichier();
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $fichier;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    public function DownloadSecondAction($fichier)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('FormBundle:Formations')->findOneBy(array('second_fichier' => $fichier));
+        $filename = $entity->getSecondFichier();
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $fichier;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());
+        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+
+        $response->headers->set('Content-Disposition', $d);
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
+
+    public function VisualAction($document)
+    {
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $document;
+
+        $oFile = new File($filepath);
+
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $oFile->getMimeType());
+        $response->headers->set('Content-Disposition', 'inline; filepath="' . $oFile->getBasename() . '";');
+        $response->headers->set('Content-length', $oFile->getSize());                                  // filename
+
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
+    }
 
     /**
      * Lists all Formations entities.
@@ -47,18 +138,9 @@ class FormationsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
+            $entity->setImage($this->getUser()->getIdOrganisme()->getPhoto());
 
-            $entity->setOrganisme($user->getOrganisme());
             $entity->setDateAjout(new \DateTime());
-
-            $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
-
-            foreach ($organismes as $organisme) {
-                if($this->getUser()->getOrganisme() == $organisme->getNom()) {
-                    $entity->setImage($organisme->getPhoto());
-                }
-            }
 
             $em->persist($entity);
             $em->flush();
@@ -71,6 +153,7 @@ class FormationsController extends Controller
             'form'   => $form->createView(),
         ));
     }
+
 
     /**
      * Creates a form to create a Formations entity.
@@ -117,6 +200,7 @@ class FormationsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('FormBundle:Formations')->find($id);
+
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Formations entity.');
@@ -166,6 +250,23 @@ class FormationsController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+           // Edition upload
+            if($editForm->get('file')->getData() != null) {
+                if($entity->getFichier() != null) {
+                    unlink(__DIR__.'/../../../app/uploads/formations_documents/'.$entity->getFichier());
+                    $entity->setFichier(null);
+                }
+            }
+
+            if($editForm->get('file2')->getData() != null) {
+                if($entity->getSecondFichier() != null) {
+                    unlink(__DIR__.'/../../../app/uploads/formations_documents/'.$entity->getSecondFichier());
+                    $entity->setSecondFichier(null);
+                }
+            }
+
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('formations'));
@@ -206,3 +307,4 @@ class FormationsController extends Controller
      */
 
 }
+

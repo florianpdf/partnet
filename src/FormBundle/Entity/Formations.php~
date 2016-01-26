@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Formations
 {
 
+
     // UPLOAD
     /**
      * @var file
@@ -29,20 +30,6 @@ class Formations
         return $this->getAbsolutePath() . 'web/uploads/formations_documents/fixtures/';
     }
 
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../app/uploads'.$this->getUploadDir();
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->fichier ? null : $this->getUploadDir().'/'.$this->fichier;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->fichier ? null : $this->getUploadRootDir().'/'.$this->fichier;
-    }
 
     /**
      * @ORM\PrePersist
@@ -69,22 +56,17 @@ class Formations
     {
         if (null === $this->file) {
             return;
+        } else {
+            $this->file->move(__DIR__.'/../../../app/uploads'.$this->getUploadDir(), $this->fichier);
+            unset($this->file);
         }
 
         if (null === $this->file2) {
             return;
+        } else {
+            $this->file2->move(__DIR__.'/../../../app/uploads'.$this->getUploadDir(), $this->second_fichier);
+            unset($this->file2);
         }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->file->move($this->getUploadRootDir(), $this->fichier);
-        $this->file2->move($this->getUploadRootDir(), $this->second_fichier);
-
-
-        unset($this->file);
-        unset($this->file2);
-
     }
 
     /**
@@ -92,22 +74,23 @@ class Formations
      */
     public function removeUpload()
     {
-        if ($file = $this->getAbsolutePath()) {
+        if ($file = null === $this->fichier ? null : __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/'.$this->fichier) {
             unlink($file);
         }
-        if ($file2 = $this->getAbsolutePath()) {
+        if ($file2 = null === $this->fichier ? null : __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/'.$this->fichier) {
             unlink($file2);
         }
     }
     //
 
-    protected $type;
+
+    protected $type = 'Formations';
+
 
     public function getType(){
-        return $this->type = 'formations';
+        return $this->type;
     }
 
     // GENERATED CODE
-
 
 }
