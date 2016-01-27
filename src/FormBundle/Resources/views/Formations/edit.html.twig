@@ -30,6 +30,22 @@
         </div>
 
         <div>
+            {{ form_label(edit_form.file, 'Document 1 (.pdf)') }}
+            <div class="fileUpload">
+                <span>{% if entity.fichierNom != null %}{{ entity.FichierNom }}{% else %}uploader{% endif %}</span>
+                {{ form_widget(edit_form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(edit_form.file2, 'Document 2 (.pdf)') }}
+            <div class="fileUpload">
+                <span>{% if entity.secondFichierNom != null %}{{ entity.secondFichierNom }}{% else %}uploader{% endif %}</span>
+                {{ form_widget(edit_form.file2) }}
+            </div>
+        </div>
+
+        <div>
             {{ form_label(edit_form.fil_actu) }}
             {{ form_widget(edit_form.fil_actu) }}
             <label for="formbundle_formations_fil_actu" class="checkbox"></label>
