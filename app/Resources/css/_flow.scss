@@ -21,6 +21,7 @@
 // edit forms
 //    champ d'upload
 //    checkbox
+//    color picker
 // media queries
 
 
@@ -608,7 +609,7 @@ h1 {
 .profile-data .fileUpload {
   height: 27px; width: 40%; min-width: 200px; // mêmes valeurs que dans '<main> containers'
 }
-.fileUpload:hover { background: #fff; cursor: pointer; }
+.fileUpload:hover, #appbundle_organisme_backgroundColor:hover { background: #fff; cursor: pointer; }
 .fileUpload span {
   position: absolute;
   top: 50%; left: 50%;
@@ -670,6 +671,38 @@ input[type="checkbox"]:checked + label:after { opacity: 0.7; }
   font-size: 0.8em;
   display: none;
 }
+
+// color picker
+
+#appbundle_organisme_backgroundColor {
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.3);
+  transition: background .2s;
+  text-align: center; font-size: 0.9em;
+  cursor: default !important;
+  color: transparent;
+}
+#appbundle_organisme_backgroundColor::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.7);
+  text-align: center;
+}
+.color-picker {
+  position: absolute; left: 0px; top: 0;
+  padding: 0px;
+  border-left: 1px solid #000; border-top: 1px solid #000;
+}
+.color-picker ul {
+  list-style: none;
+  padding: 0px; margin: 0px;
+  float: left;
+}
+.color-picker ul li {
+  display: block; width: 30px; height: 15px;
+  border-right: 1px solid #000; border-bottom: 1px solid #000;
+  margin: 0px; float: left;
+  cursor: pointer;
+}
+#appbundle_organisme_backgroundColor_color-picker { margin-top: -85px;}
 
 
 /* //////////////// media queries //////////////// *\

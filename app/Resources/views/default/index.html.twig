@@ -41,29 +41,6 @@
                     </div>
                 </div>
             </li>
-            <script>
-                $('#myModal').on('shown.bs.modal', function () {
-                    $('#myInput').focus()
-                })
-
-                $(document).ready(function () {
-                    var theHREF;
-                    $(".confirmModalLink").click(function(e) {
-                        e.preventDefault();
-                        theHREF = $(this).attr("href");
-                        $(this).next().modal("show");
-                    });
-
-                    $("#confirmModalNo").click(function(e) {
-                        $("#confirmModal").modal("hide");
-                    });
-
-                    $("#confirmModalYes").click(function(e) {
-                        window.location.href = theHREF;
-                    });
-
-                });
-            </script>
         {% endfor %}
     </ul>
     <ul id="tiles-wrapper">
@@ -99,6 +76,28 @@
 {% block scripts %}
     {{ parent() }}
     <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+
+        $(document).ready(function () {
+            var theHREF;
+            $(".confirmModalLink").click(function(e) {
+                e.preventDefault();
+                theHREF = $(this).attr("href");
+                $(this).next().modal("show");
+            });
+
+            $("#confirmModalNo").click(function(e) {
+                $("#confirmModal").modal("hide");
+            });
+
+            $("#confirmModalYes").click(function(e) {
+                window.location.href = theHREF;
+            });
+
+        });
+
         function tilesBg(n) {
             $( "#tiles-wrapper li:nth-child(" + n + ")" ).hover(
                 function() { $( "#accueil" ).addClass( "tile" + n ) },

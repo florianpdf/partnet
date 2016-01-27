@@ -29,6 +29,22 @@
         </div>
 
         <div>
+            {{ form_label(form.file, 'Document 1 (.pdf)') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(form.file2, 'Document 2 (.pdf)') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file2) }}
+            </div>
+        </div>
+
+        <div>
             {{ form_label(form.fil_actu) }}
             {{ form_widget(form.fil_actu) }}
             <label for="formbundle_formations_fil_actu" class="checkbox"></label>
@@ -38,6 +54,8 @@
         {{ form_errors(form.nbPlace) }}
         {{ form_errors(form.lieu) }}
         {{ form_errors(form.resume) }}
+        {{ form_errors(form.file) }}
+        {{ form_errors(form.file2) }}
         {{ form_errors(form.fil_actu) }}
 
         {{ form_end(form) }}
