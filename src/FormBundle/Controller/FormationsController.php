@@ -138,9 +138,10 @@ class FormationsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $entity->setImage($this->getUser()->getIdOrganisme()->getPhoto());
+//            $entity->setImage($this->getUser()->getIdOrganisme()->getPhoto());
 
             $entity->setDateAjout(new \DateTime());
+            $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
 
             $em->persist($entity);
             $em->flush();
@@ -251,6 +252,7 @@ class FormationsController extends Controller
 
         if ($editForm->isValid()) {
 
+
            // Edition upload
             if($editForm->get('file')->getData() != null) {
                 if($entity->getFichier() != null) {
@@ -265,7 +267,8 @@ class FormationsController extends Controller
                     $entity->setSecondFichier(null);
                 }
             }
-
+            $entity->preUploadFile1();
+            $entity->preUploadFile2();
 
             $em->flush();
 

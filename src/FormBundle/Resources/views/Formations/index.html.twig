@@ -12,9 +12,8 @@
 
             </thead>
             {% for entity in entities %}
-
                 <tr>
-                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.image}) }}" /></td>
+                    <td><img width="80" src="{{ path('organisme_get_picture', {'picture': entity.user.idOrganisme.photo}) }}" /></td>
                     <td>
                         <ul>
                             <li><strong>Titre : </strong>{{ entity.titre }}</li>

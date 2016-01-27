@@ -18,6 +18,10 @@ class Formations
      * @var file
      */
     public $file;
+
+    /**
+     * @var file
+     */
     public $file2;
 
     protected function getUploadDir()
@@ -34,14 +38,20 @@ class Formations
     /**
      * @ORM\PrePersist
      */
-    public function preUpload()
+    public function preUploadFile1()
     {
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
             $this->fichier_nom = $this->file->getClientOriginalName();
-            $this->fichier = uniqid().'.'.$this->file->guessExtension();
+            $this->fichier = uniqid() . '.' . $this->file->guessExtension();
         }
+    }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUploadFile2()
+    {
         if (null !== $this->file2) {
             // do whatever you want to generate a unique name
             $this->second_fichier_nom = $this->file2->getClientOriginalName();
@@ -52,15 +62,20 @@ class Formations
     /**
      * @ORM\PostPersist
      */
-    public function upload()
+    public function uploadFile1()
     {
         if (null === $this->file) {
             return;
         } else {
-            $this->file->move(__DIR__.'/../../../app/uploads'.$this->getUploadDir(), $this->fichier);
+            $this->file->move(__DIR__ . '/../../../app/uploads' . $this->getUploadDir(), $this->fichier);
             unset($this->file);
         }
+    }
 
+    /**
+     * @ORM\PostPersist
+     */
+    public function uploadFile2(){
         if (null === $this->file2) {
             return;
         } else {
@@ -72,16 +87,19 @@ class Formations
     /**
      * @ORM\PostRemove
      */
-    public function removeUpload()
+    public function removeUploadFile1()
     {
+        $target = __DIR__ . '/../../../app/uploads' . $this->getUploadDir() . '/';
 
-        $target = __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/';
+        if ($this->fichier) {
 
-        if($this->fichier) {
-
-            unlink($target.$this->fichier);
-
+            unlink($target . $this->fichier);
         }
+    }
+
+    public function removeUploadFile2()
+    {
+        $target = __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/';
 
         if($this->second_fichier) {
 
@@ -99,15 +117,11 @@ class Formations
 
     // GENERATED CODE
 
+
     /**
      * @var integer
      */
     private $id;
-
-    /**
-     * @var string
-     */
-    private $image;
 
     /**
      * @var string
@@ -159,6 +173,11 @@ class Formations
      */
     private $dateAjout;
 
+    /**
+     * @var \UserBundle\Entity\User
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -168,30 +187,6 @@ class Formations
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Formations
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -432,5 +427,29 @@ class Formations
     public function getDateAjout()
     {
         return $this->dateAjout;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return Formations
+     */
+    public function setUser(\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
