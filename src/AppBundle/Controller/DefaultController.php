@@ -40,11 +40,82 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $statistiques = $em->getRepository('UserBundle:Statistiques');
+        $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
 
-        $nb_connection_par_jour = $statistiques->getNbConnectionParJour();
-        $nb_connection_par_mois = $statistiques->getNbConnectionParMois();
+        $date = new \DateTime();
+        $years = $date->format('Y-m-d');
+        $years = substr($years, 0, 4);
 
-        $statistiques_par_mois_accueil = $statistiques->getStatistiquesParMois();
+        $statistiques_par_mois_global = $statistiques->getStatistiquesParMois($years);
+        $statistiques_par_mois_accueil = $statistiques->getStatistiquesParMoisAccueil($years);
+        $statistiques_par_mois_ged = $statistiques->getStatistiquesParMoisGed($years);
+        $statistiques_par_mois_formation = $statistiques->getStatistiquesParMoisFormation($years);
+        $statistiques_par_mois_emploi = $statistiques->getStatistiquesParMoisEmploi($years);
+        $statistiques_par_mois_annuaire = $statistiques->getStatistiquesParMoisAnnuaire($years);
+        $statistiques_par_mois_dialogue = $statistiques->getStatistiquesParMoisDialogue($years);
+        $statistiques_par_mois_agenda = $statistiques->getStatistiquesParMoisAgenda($years);
+
+        $data_global = [];
+        foreach ($statistiques_par_mois_global as $statistique_par_mois_global)
+        {
+            array_push($data_global, $statistique_par_mois_global['visites']);
+        }
+
+        $data_accueil = [];
+        foreach ($statistiques_par_mois_accueil as $statistique_par_mois_accueil)
+        {
+            array_push($data_accueil, $statistique_par_mois_accueil['visites']);
+        }
+
+        $data_ged = [];
+        foreach ($statistiques_par_mois_ged as $statistique_par_mois_ged)
+        {
+            array_push($data_ged, $statistique_par_mois_ged['visites']);
+        }
+
+        $data_formation = [];
+        foreach ($statistiques_par_mois_formation as $statistique_par_mois_formation)
+        {
+            array_push($data_formation, $statistique_par_mois_formation['visites']);
+        }
+
+        $data_emploi = [];
+        foreach ($statistiques_par_mois_emploi as $statistique_par_mois_emploi)
+        {
+            array_push($data_emploi, $statistique_par_mois_emploi['visites']);
+        }
+
+        $data_annuaire = [];
+        foreach ($statistiques_par_mois_annuaire as $statistique_par_mois_annuaire)
+        {
+            array_push($data_annuaire, $statistique_par_mois_annuaire['visites']);
+        }
+
+        $data_dialogue = [];
+        foreach ($statistiques_par_mois_dialogue as $statistique_par_mois_dialogue)
+        {
+            array_push($data_dialogue, $statistique_par_mois_dialogue['visites']);
+        }
+
+        $data_agenda = [];
+        foreach ($statistiques_par_mois_agenda as $statistique_par_mois_agenda)
+        {
+            array_push($data_agenda, $statistique_par_mois_agenda['visites']);
+        }
+
+
+
+
+//        foreach ($organismes as $organisme)
+//        {
+//            foreach ($statistiques_par_mois_accueil as $statistique_par_mois_accueil)
+//            {
+//                if (in_array($organisme->getNom(), $statistique_par_mois_accueil))
+//                {
+//                    $plop = array_combine($organisme->getNom(), $statistique_par_mois_accueil);
+//                }
+//            }
+//        }
 
 //        $organismes = [];
 //        foreach ($statistiques_organisme as $statistique_organisme){
@@ -97,9 +168,15 @@ class DefaultController extends Controller
 
 
         return $this->render('AppBundle:statistiques:index.html.twig', array(
-            'nb_connection_par_jour' => $nb_connection_par_jour,
-            'nb_connection_par_mois' => $nb_connection_par_mois,
-            'statistiques_par_mois_accueil' => $statistiques_par_mois_accueil
+            'statistiques_par_mois_global' => $statistiques_par_mois_global,
+            'data_global' => json_encode($data_global),
+            'data_accueil' => json_encode($data_accueil),
+            'data_ged' => json_encode($data_ged),
+            'data_formation' => json_encode($data_formation),
+            'data_emploi' => json_encode($data_emploi),
+            'data_annuaire' => json_encode($data_annuaire),
+            'data_dialogue' => json_encode($data_dialogue),
+            'data_agenda' => json_encode($data_agenda)
         ));
     }
 

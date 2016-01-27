@@ -11,34 +11,117 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class StatistiquesRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getNbConnectionParJour()
+    public function getStatistiquesParMois($year)
     {
         $queryBuilder = $this->_em->createQueryBuilder()
-            ->select('COUNT(s)')
+            ->select('SUBSTRING(s.date, 1, 7) as month, COUNT(s) as visites, o.nom')
             ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
-            ->Where('s.date <= :now')
-            ->setParameter('now', new \Datetime());
-        return $queryBuilder->getQuery()->getSingleScalarResult();
-    }
-
-    public function getNbConnectionParMois()
-    {
-        $queryBuilder = $this->_em->createQueryBuilder()
-            ->select('COUNT(s)')
-            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
-            ->Where('s.date BETWEEN :mois AND :auj')
-            ->setParameter('mois', 'convert(datetime,SUBSTRING(CONVERT(varchar(8), GETDATE(), 112), 1, 6) + \'01\')')
-            ->setParameter('auj', new \DateTime('now'));
-        return $queryBuilder->getQuery()->getSingleScalarResult();
-    }
-
-    public function getStatistiquesParMois()
-    {
-        $queryBuilder = $this->_em->createQueryBuilder()
-            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesAccueil) as visites')
-            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
-            ->groupBy('month');
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
         $result = $queryBuilder->getQuery()->getResult();
         return $result;
     }
+
+    public function getStatistiquesParMoisAccueil($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesAccueil) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
+    public function getStatistiquesParMoisGed($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesGed) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
+    public function getStatistiquesParMoisFormation($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesFormation) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
+    public function getStatistiquesParMoisEmploi($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesEmploi) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
+    public function getStatistiquesParMoisAnnuaire($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesAnnuaire) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
+    public function getStatistiquesParMoisDialogue($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesDialogue) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
+
+    public function getStatistiquesParMoisAgenda($year)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder()
+            ->select('SUBSTRING(s.date, 1, 7) as month, SUM(s.nbVisitesAgenda) as visites, o.nom')
+            ->from($this->_entityName, 's')// Dans un repository, $this->_entityName est le namespace de l'entité gérée
+            ->leftJoin('s.user', 'u')
+            ->leftJoin('u.id_organisme', 'o')
+            ->where('SUBSTRING(s.date, 1, 4) = :year')
+            ->groupBy('month')
+            ->setParameter('year', $year);
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result;
+    }
+
 }
