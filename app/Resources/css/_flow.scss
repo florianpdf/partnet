@@ -235,7 +235,7 @@ nav a:hover span { opacity: 0.5; }
   height: 25px; line-height: 25px;
   overflow: hidden;
   list-style: none;
-
+  z-index: 1;
 }
 #marquee li {
   position: absolute;
@@ -723,7 +723,7 @@ input[type="checkbox"]:checked + label:after { opacity: 0.7; }
   #top-bar > div + div + div { display: inline-block; }
 }
 
-
+canvas { max-width: 100%; }
 
 
 
