@@ -8,9 +8,6 @@ FormBundle\Entity\Formations:
             generator:
                 strategy: AUTO
     fields:
-        image:
-            type: string
-            length: 255
         titre:
             type: string
             length: 255
@@ -44,10 +41,10 @@ FormBundle\Entity\Formations:
             type: datetime
             nullable: true
             column: date_ajout
-#
-#    manyToOne:
-#        user:
-#            targetEntity: UserBundle\Entity\User
+
+    manyToOne:
+        user:
+            targetEntity: UserBundle\Entity\User
 
     lifecycleCallbacks:
         prePersist: [ preUploadFile1, preUploadFile2 ]

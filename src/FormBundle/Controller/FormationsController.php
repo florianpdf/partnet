@@ -138,9 +138,10 @@ class FormationsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $entity->setImage($this->getUser()->getIdOrganisme()->getPhoto());
+//            $entity->setImage($this->getUser()->getIdOrganisme()->getPhoto());
 
             $entity->setDateAjout(new \DateTime());
+            $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
 
             $em->persist($entity);
             $em->flush();

@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th class="control"></th>
+                <th>Organisme</th>
                 <th>Fonction</th>
                 <th>Entreprise</th>
                 <th>Lieu</th>
@@ -30,6 +31,7 @@
         {% for entity in entities %}
             <tr>
                 <td class="target"></td>
+                <td><img width="80" src="{{ path('organisme_get_picture', {'picture': entity.user.idOrganisme.photo}) }}" /></td>
                 <td class="target">{{ entity.titre }}</td>
                 <td class="target">{{ entity.entreprise }}</td>
                 <td class="target">{{ entity.lieu }}</td>
@@ -129,7 +131,8 @@
             "autoWidth": false,
             "columns": [
                 { "width": "5%" },
-                { "width": "30%" },
+                { "width": "10%" },
+                { "width": "20%" },
                 { "width": "15%" },
                 { "width": "15%" },
                 { "width": "15%" },

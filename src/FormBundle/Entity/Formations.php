@@ -117,15 +117,11 @@ class Formations
 
     // GENERATED CODE
 
+
     /**
      * @var integer
      */
     private $id;
-
-    /**
-     * @var string
-     */
-    private $image;
 
     /**
      * @var string
@@ -177,6 +173,11 @@ class Formations
      */
     private $dateAjout;
 
+    /**
+     * @var \UserBundle\Entity\User
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -186,30 +187,6 @@ class Formations
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Formations
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -450,5 +427,29 @@ class Formations
     public function getDateAjout()
     {
         return $this->dateAjout;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return Formations
+     */
+    public function setUser(\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

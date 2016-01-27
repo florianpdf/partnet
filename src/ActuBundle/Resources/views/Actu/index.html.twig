@@ -42,7 +42,7 @@
                                 <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
                             </a>
                         {% endif %}
-                        <a href="{{ path('actu_delete', {'id':  actu.Id, 'type': actu.type  }) }}" title="Supprimer">
+                        <a class="confirmModalLink" href="{{ path('actu_delete', {'id':  actu.Id, 'type': actu.type  }) }}" title="Supprimer">
                             <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                         </a>
                     </td>
@@ -54,11 +54,35 @@
         <a id="main-btn" href="{{ path('actu_new') }}">Ajouter une actualité</a>
 
     </main>
-
+    {% include '@Ged/Documents/delete.html.twig' %}
 {% endblock %}
 
 {% block scripts %}
 {{ parent() }}
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+
+        $(document).ready(function () {
+            var theHREF;
+
+            $(".confirmModalLink").click(function(e) {
+                e.preventDefault();
+                theHREF = $(this).attr("href");
+                $("#confirmModal").modal("show");
+            });
+
+            $("#confirmModalNo").click(function(e) {
+                $("#confirmModal").modal("hide");
+            });
+
+            $("#confirmModalYes").click(function(e) {
+                window.location.href = theHREF;
+            });
+
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $( '#donnees' ).dataTable( {
