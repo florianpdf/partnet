@@ -72,6 +72,13 @@
                             </a>
                         {% endif %}
                     {% endif %}
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        {% if entity.roles[0] == 'ROLE_ADMIN' or entity.roles[0] == 'ROLE_USER'%}
+                            <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                            </a>
+                        {% endif %}
+                    {% endif %}
                         {% if entity.enabled == 1 %}
                             <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
                                 <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
