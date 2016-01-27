@@ -251,6 +251,7 @@ class FormationsController extends Controller
 
         if ($editForm->isValid()) {
 
+
            // Edition upload
             if($editForm->get('file')->getData() != null) {
                 if($entity->getFichier() != null) {
@@ -265,7 +266,8 @@ class FormationsController extends Controller
                     $entity->setSecondFichier(null);
                 }
             }
-
+            $entity->preUploadFile1();
+            $entity->preUploadFile2();
 
             $em->flush();
 
