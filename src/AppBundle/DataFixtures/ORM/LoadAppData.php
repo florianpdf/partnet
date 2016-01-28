@@ -68,6 +68,16 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
         $sousprefecture->setDescription('Bureaux de l\'administration préfectorale');
         $manager->persist($sousprefecture);
 
+        $conseildepartemental = new Organisme();
+
+        copy($conseildepartemental->getFixturesPath() . 'sous-prefecture.png', 'app/uploads/organismes_pictures/sous-prefecture.png');
+
+        $conseildepartemental->setPhoto('conseil_general_d_eure_et_loir.jpg');
+        $conseildepartemental->setNom('Conseil départemental');
+        $conseildepartemental->setBackgroundColor('#BCC771');
+        $conseildepartemental->setDescription('En France, le conseil départemental est l\'assemblée délibérante d\'un département, élue au suffrage universel dans le cadre des cantons. Avant le renouvellement des assemblées départementales de mars 2015, cette instance portait le nom de conseil général.');
+        $manager->persist($conseildepartemental);
+
         $manager->flush();
 
         $this->addReference('1', $poleemploi);
@@ -75,6 +85,7 @@ class LoadAppData extends AbstractFixture implements FixtureInterface, OrderedFi
         $this->addReference('3', $ml);
         $this->addReference('4', $capemploi);
         $this->addReference('5', $sousprefecture);
+        $this->addReference('6', $conseildepartemental);
     }
 
     public function getOrder()

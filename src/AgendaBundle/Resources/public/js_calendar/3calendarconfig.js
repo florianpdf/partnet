@@ -31,7 +31,7 @@ $(document).ready(function() {
         slotLabelFormat: 'HH:mm', // format de l'heure sur les slots
         timeFormat: 'HH:mm',
         minTime: "08:00:00", // heure de début du calendar
-        maxTime: '20:00:00', // heure de fin du calendar
+        maxTime: '22:00:00', // heure de fin du calendar
         scrollTime: '09:00:00', // heure sur laquelle le calendar pointe par default
         slotEventOverlap: false, // Les évènements ne se chevauchent pas
         height: 'auto',
