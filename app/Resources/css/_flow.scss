@@ -196,6 +196,11 @@ a:hover, a:active, a:focus { color: inherit; }
   border-left-color: #fff;
   opacity: 0.8;
 }
+#top-bar .arrow-right {
+  position: static; display: inline-block; transform: none;
+  border-width: 6px 0 6px 10px;
+  margin: 0 10px;
+}
 nav {
   display: flex; height: 100%;
   flex-direction: column;

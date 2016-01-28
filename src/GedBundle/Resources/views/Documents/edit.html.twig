@@ -3,7 +3,9 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/topbar.html.twig') }}
+{% embed "includes/topbar.html.twig" %}
+    {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('documents') }}">Documents</a>{% endblock %}
+{% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="admin-form deep-main">
@@ -13,33 +15,35 @@
 
         <div>
             {{ form_label(edit_form.titre, 'Titre') }}
-            {{ form_errors(edit_form.titre) }}
             {{ form_widget(edit_form.titre) }}
         </div>
 
         <div>
             {{ form_label(edit_form.auteur) }}
-            {{ form_errors(edit_form.auteur) }}
             {{ form_widget(edit_form.auteur) }}
         </div>
 
         <div>
             {{ form_label(edit_form.resume) }}
-            {{ form_errors(edit_form.resume) }}
             {{ form_widget(edit_form.resume) }}
         </div>
 
         <div>
             {{ form_label(edit_form.finDeVie) }}
-            {{ form_errors(edit_form.finDeVie) }}
             {{ form_widget(edit_form.finDeVie) }}
         </div>
 
         <div>
             {{ form_label(edit_form.fil_actu) }}
-            {{ form_errors(edit_form.fil_actu) }}
             {{ form_widget(edit_form.fil_actu) }}
+            <label for="gedbundle_documents_fil_actu" class="checkbox"></label>
         </div>
+
+        {{ form_errors(edit_form.titre) }}
+        {{ form_errors(edit_form.auteur) }}
+        {{ form_errors(edit_form.resume) }}
+        {{ form_errors(edit_form.finDeVie) }}
+        {{ form_errors(edit_form.fil_actu) }}
 
         {{ form_end(edit_form) }}
     </main>
