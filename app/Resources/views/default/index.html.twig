@@ -10,14 +10,14 @@
                 <span>
                     {% if result.type is defined %}
                         {% if result.type == 'events' %}
-                            Nouvel évènement : Ajouté le
+                            Nouvel évènement ajouté le
                         {% elseif result.type == 'documents' %}
-                            Nouveau document : Ajouté le
+                            Nouveau document ajouté le
                         {% elseif result.type == 'formations' %}
-                            Nouvelle formation : Ajouté le
+                            Nouvelle formation ajoutée le
                         {% endif %}
                     {% else %}
-                        Nouvelle actu: Ajouté le
+                        Actualité ajoutée le
                     {% endif %}
 
                     {{ result.dateAjout | date('d/m/Y') }} –
@@ -95,7 +95,6 @@
             $("#confirmModalYes").click(function(e) {
                 window.location.href = theHREF;
             });
-
         });
 
         function tilesBg(n) {

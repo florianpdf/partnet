@@ -196,6 +196,11 @@ a:hover, a:active, a:focus { color: inherit; }
   border-left-color: #fff;
   opacity: 0.8;
 }
+#top-bar .arrow-right {
+  position: static; display: inline-block; transform: none;
+  border-width: 6px 0 6px 10px;
+  margin: 0 10px;
+}
 nav {
   display: flex; height: 100%;
   flex-direction: column;
@@ -235,7 +240,7 @@ nav a:hover span { opacity: 0.5; }
   height: 25px; line-height: 25px;
   overflow: hidden;
   list-style: none;
-
+  z-index: 10000;
 }
 #marquee li {
   position: absolute;
@@ -249,8 +254,8 @@ nav a:hover span { opacity: 0.5; }
 #tiles-wrapper, #tiles-wrapper li { transition: all 1.5s; }
 #tiles-wrapper {
   opacity: 0; transform: scale(2,2);
-  list-style: none;height: 100%;
-  min-height: 100%;
+  list-style: none;
+  height: 100%; min-height: 100%;
   max-width: 1300px; margin: 0 auto 0; padding: $top-bar-height + 60px 30px 60px;
   display: flex;
   flex-flow: row wrap;
@@ -723,7 +728,7 @@ input[type="checkbox"]:checked + label:after { opacity: 0.7; }
   #top-bar > div + div + div { display: inline-block; }
 }
 
-
+canvas { max-width: 100%; }
 
 
 
