@@ -1,7 +1,9 @@
 {% extends '::base.html.twig' %}
 
 {% block main_content -%}
-    {{ include('includes/topbar.html.twig') }}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('formations') }}">Formations</a>{% endblock %}
+    {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="admin-form deep-main"><h1>Ajout d'une formation</h1>

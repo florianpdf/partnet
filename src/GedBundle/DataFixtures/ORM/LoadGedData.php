@@ -57,8 +57,15 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         $document->setTitre('Évolution de l\'emploi en Centre-Val de Loire');
         $document->setUser($this->getReference('uploader-superadmin'));
         $document->setAuteur('INSEE');
-        $document->setResume('Vivamus eros felis, tincidunt nec justo vel, imperdiet varius ligula. Nulla finibus ante enim. Donec a ex euismod, accumsan nulla eget, sagittis enim. Duis vitae rhoncus arcu. Pellentesque ac neque a risus volutpat pellentesque. Etiam vulputate faucibus dictum. Proin dignissim mi porttitor libero interdum, vel sagittis ipsum convallis.');
-        $document->createFile("pdf");
+        $document->setResume('Avec près d’un million de personnes en activité fin 2013, le Centre-Val de Loire a connu dix années mouvementées en matière d’emploi. Après une période de hausse, la crise conduit à partir de 2008 à de nombreuses destructions d’emplois salariés dans la région. Les importantes mutations économiques entraînent un fort renouvellement de l’appareil productif, qui se traduit par des trajectoires sectorielles différenciées. Les activités de services restent créatrices d’emploi, mais à un rythme inférieur à la moyenne nationale. Dans l’industrie, la crise aggrave une situation déjà fragile. Soutenus par la création du statut d’auto-entrepreneur en 2009, les emplois non salariés, un emploi sur dix, augmentent fortement.');
+        // upload d'un document .pdf réel
+        $token = uniqid().".pdf";
+        $document->setDocument($token);
+        $file = "app/uploads/fixtures_ged/evolution_de_l_emploi_en_centre-val_de_loire.pdf";
+        $newfile = "app/uploads/documents/" . $token;
+        copy($file, $newfile);
+        $document->setExtension('pdf');
+        // fin upload
         $document->setFileName('test_upload.pdf');
         $document->setDateAjout(new \DateTime('09/01/2015'));
         $document->setFinDeVie(new \DateTime('02/01/2016'));
