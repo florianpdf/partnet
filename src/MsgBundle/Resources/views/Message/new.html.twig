@@ -27,36 +27,32 @@
 
                 {{ form_start(form) }}
 
+                <a class="search-contact" href="{{ path('annuaire_homepage') }}">rechercher un destinataire</a>
+
                 {% if selected_email is defined %}
                 <div>
                     {{ form_label(form.recipient) }}
-                    {{ form_widget(form.recipient, {'attr' : {'class' : 'form-control', 'value' : selected_email} }) }}
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
-                    </span>
+                    {{ form_widget(form.recipient, {'attr' : {'value' : selected_email} }) }}
                 </div>
                 {% else %}
                 <div>
                     {{ form_label(form.recipient) }}
-                    {{ form_widget(form.recipient, {'attr' : {'class' : 'form-control'}}) }}
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
-                    </span>
+                    {{ form_widget(form.recipient, {'attr' : { 'autofocus' : true }}) }}
                 </div>
                 {% endif %}
 
                 <div>
                     {{ form_label(form.subject) }}
-                    {{ form_widget(form.subject, {'attr' : {'class' : 'form-control'}}) }}
+                    {{ form_widget(form.subject) }}
                 </div>
 
                 <div>
                     {{ form_label(form.message) }}
-                    {{ form_widget(form.message, {'attr' : {'class' : 'form-control', 'rows' : '10'}}) }}
+                    {{ form_widget(form.message) }}
                 </div>
 
                 <div>
-                    {{ form_widget(form.submit, {'attr' : {'class' : 'btn btn-primary'}}) }}
+                    {{ form_widget(form.submit) }}
                 </div>
 
                 {{ form_errors(form.subject) }}

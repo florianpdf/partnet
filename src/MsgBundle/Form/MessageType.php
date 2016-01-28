@@ -20,7 +20,7 @@ class MessageType extends AbstractType
         $builder
             ->add('recipient', 'text', array(
                 'label' => 'Destinataire', 'attr' => array(
-                'placeholder' => 'adresse mail')
+                'placeholder' => 'adresse email')
             ))
             ->add('message', 'textarea', array('label' => 'Message'))
 

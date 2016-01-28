@@ -15,6 +15,8 @@
 // statistics
 // backgrounds
 // <main> containers
+//     menu messagerie
+//     bouton "rechercher un destinataire"
 // back office
 // headers
 // flashbag
@@ -494,6 +496,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 }
 .legend div div:first-child { margin-right: 5px; }
 
+// menu messagerie
 .panel {
   border-radius: 0; border: 0;
   background: $dialogue-odd-rows-bg;
@@ -502,6 +505,21 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .panel .nav .active a, .panel .nav .active a:hover { background: $dialogue-head-rows-bg; }
 .panel .nav a:hover { background: $dialogue-rows-hover-bg; }
 .new-message .panel { margin-top: 130px; }
+
+// bouton "rechercher un destinataire"
+
+.search-contact {
+  display: block;
+  padding: 5px 0;
+  text-align: center;
+  background: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,0,0,0.3);
+  transition: background .2s;
+}
+.search-contact:hover {
+  background: #fff;
+}
 
 
 /* //////////////// back office //////////////// *\
