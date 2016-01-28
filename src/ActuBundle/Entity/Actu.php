@@ -8,7 +8,7 @@ namespace ActuBundle\Entity;
 class Actu
 {
 
-    protected $type = 'actus';
+    protected $type = 'Actualité';
 
     public function getType(){
         return $this->type;
@@ -118,4 +118,3 @@ class Actu
         return $this->dateAjout;
     }
 }
-

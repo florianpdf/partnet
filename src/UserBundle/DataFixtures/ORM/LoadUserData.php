@@ -35,7 +35,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $superadmin->setRoles(array('ROLE_SUPER_ADMIN'));
         $superadmin->setNom('Dumont');
         $superadmin->setPrenom('Christophe');
-        $superadmin->setOrganisme('Pôle emploi');
+        $superadmin->setIdOrganisme($this->getReference(1));
         $superadmin->setPoste('Directeur');
         $superadmin->setTelephone('0389126433');
         $superadmin->setNbUploads('0');
@@ -51,7 +51,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $admin->setRoles(array('ROLE_ADMIN'));
         $admin->setNom('Fournier');
         $admin->setPrenom('Antoine');
-        $admin->setOrganisme('Sous-préfecture');
+        $admin->setIdOrganisme($this->getReference(2));
         $admin->setPoste('Directeur');
         $admin->setTelephone('0378254167');
         $admin->setNbUploads('0');
@@ -67,7 +67,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $user->setRoles(array('ROLE_USER'));
         $user->setNom('Perrin');
         $user->setPrenom('Émilie');
-        $user->setOrganisme('Mission locale');
+        $user->setIdOrganisme($this->getReference(3));
         $user->setPoste('Chargée d\'accueil');
         $user->setTelephone('0368474510');
         $user->setNbUploads('0');
@@ -82,6 +82,6 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

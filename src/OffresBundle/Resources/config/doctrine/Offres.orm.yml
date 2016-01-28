@@ -1,0 +1,52 @@
+OffresBundle\Entity\Offres:
+    type: entity
+    table: offres
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        titre:
+            type: string
+            length: 255
+            nullable: false
+        entreprise:
+            type: string
+            length: 255
+            nullable: false
+        lieu:
+            type: string
+            length: 255
+            nullable: false
+        resume:
+            type: text
+            nullable: true
+        document:
+            type: string
+            length: 255
+            nullable: true
+        file_name:
+            type: string
+            length: 255
+            nullable: true
+        filActu:
+            type: boolean
+            column: fil_actu
+            nullable: true
+        dateAjout:
+            type: datetime
+            nullable: false
+
+    manyToOne:
+        user:
+            targetEntity: UserBundle\Entity\User
+
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

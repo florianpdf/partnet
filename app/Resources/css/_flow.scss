@@ -21,6 +21,7 @@
 // edit forms
 //    champ d'upload
 //    checkbox
+//    color picker
 // media queries
 
 
@@ -195,6 +196,11 @@ a:hover, a:active, a:focus { color: inherit; }
   border-left-color: #fff;
   opacity: 0.8;
 }
+#top-bar .arrow-right {
+  position: static; display: inline-block; transform: none;
+  border-width: 6px 0 6px 10px;
+  margin: 0 10px;
+}
 nav {
   display: flex; height: 100%;
   flex-direction: column;
@@ -234,7 +240,7 @@ nav a:hover span { opacity: 0.5; }
   height: 25px; line-height: 25px;
   overflow: hidden;
   list-style: none;
-
+  z-index: 10000;
 }
 #marquee li {
   position: absolute;
@@ -245,9 +251,12 @@ nav a:hover span { opacity: 0.5; }
 
 // positioning
 
+#tiles-wrapper, #tiles-wrapper li { transition: all 1.5s; }
 #tiles-wrapper {
+  opacity: 0; transform: scale(2,2);
   list-style: none;
-  max-width: 1300px; margin: 0 auto 0; min-height: 100%; padding: $top-bar-height + 60px 30px 60px;
+  height: 100%; min-height: 100%;
+  max-width: 1300px; margin: 0 auto 0; padding: $top-bar-height + 60px 30px 60px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center; align-content: center;
@@ -255,8 +264,18 @@ nav a:hover span { opacity: 0.5; }
 #tiles-wrapper li {
   position: relative;
   flex: auto;
-  width: 30%; min-width: 350px; height: 265px;
+  width: 30%; min-width: 350px;
+  height: 40%; max-height: 265px; min-height: 230px;
   margin: 5px;
+}
+@media screen and (min-width: 1200px)
+{
+  #tiles-wrapper li:nth-child(1) { transform: translate(-25%,-25%); }
+  #tiles-wrapper li:nth-child(2) { transform: translate(0,-25%); }
+  #tiles-wrapper li:nth-child(3) { transform: translate(25%,-25%); }
+  #tiles-wrapper li:nth-child(4) { transform: translate(-25%,25%); }
+  #tiles-wrapper li:nth-child(5) { transform: translate(0,25%); }
+  #tiles-wrapper li:nth-child(6) { transform: translate(25%,25%); }
 }
 
 // colors
@@ -351,6 +370,7 @@ nav a:hover span { opacity: 0.5; }
 #accueil {
   background: $tiles-bg;
   transition: background 1s;
+  overflow-x: hidden;
 }
 #ged        { background: $ged-bg; }
 #agenda     { background: $agenda-bg; }
@@ -380,6 +400,7 @@ main {
 #emploi .deep-main     { background: $emploi-main-bg; }
 #formations .deep-main { background: $formations-main-bg; }
 .profile-data li {
+  position: relative;
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 0 30px;
@@ -461,6 +482,16 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 }
 .deep-main form ul:nth-child(2) { margin-top: 30px; }
 .deep-main form ul:last-of-type { margin-bottom: 30px; }
+
+.legend {
+  text-align: center;
+  margin-top: 30px;
+}
+.legend div {
+  display: inline-block;
+  margin-right: 10px;
+}
+.legend div div:first-child { margin-right: 5px; }
 
 
 /* //////////////// back office //////////////// *\
@@ -580,7 +611,10 @@ h1 {
   border: 1px solid rgba(0,0,0,0.3);
   transition: background .2s;
 }
-.fileUpload:hover { background: #fff; cursor: pointer; }
+.profile-data .fileUpload {
+  height: 27px; width: 40%; min-width: 200px; // mêmes valeurs que dans '<main> containers'
+}
+.fileUpload:hover, #appbundle_organisme_backgroundColor:hover { background: #fff; cursor: pointer; }
 .fileUpload span {
   position: absolute;
   top: 50%; left: 50%;
@@ -595,7 +629,24 @@ h1 {
 
 // checkbox
 
-input[type="checkbox"] { display: none; }
+input[type="checkbox"][name*="fil_actu"] { display: none; }
+.fos_user_registration_register li:nth-child(3) { height: 165px; }
+#fos_user_registration_form_roles {
+  position: absolute; top: 5px; right: 30px;
+  width: 50%;
+  text-align: right;
+}
+#fos_user_registration_form_roles label {
+  display: block; height: 30px; line-height: 30px;
+  padding-right: 10px; margin: 0 30px 0 0;
+}
+#fos_user_registration_form_roles input {
+  margin: 0 0 0 10px; min-width: 0; width: 20px;
+  float: right;
+}
+#fos_user_registration_form_roles label:hover {
+  background: $annuaire-main-bg;
+}
 .checkbox {
   position: absolute; top: -10px; right: 0;
   width: 40px; height: 40px;
@@ -613,6 +664,50 @@ input[type="checkbox"] { display: none; }
 }
 .checkbox:hover::after {opacity: 0.15; }
 input[type="checkbox"]:checked + label:after { opacity: 0.7; }
+
+.infos {
+  position: absolute; top: 10px;
+  height: calc(100% - 20px); width: 35%;
+}
+.infos div {
+  background: $annuaire-main-bg;
+  height: 100%;
+  padding: 10px;
+  font-size: 0.8em;
+  display: none;
+}
+
+// color picker
+
+#appbundle_organisme_backgroundColor {
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.3);
+  transition: background .2s;
+  text-align: center; font-size: 0.9em;
+  cursor: default !important;
+  color: transparent;
+}
+#appbundle_organisme_backgroundColor::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.7);
+  text-align: center;
+}
+.color-picker {
+  position: absolute; left: 0px; top: 0;
+  padding: 0px;
+  border-left: 1px solid #000; border-top: 1px solid #000;
+}
+.color-picker ul {
+  list-style: none;
+  padding: 0px; margin: 0px;
+  float: left;
+}
+.color-picker ul li {
+  display: block; width: 30px; height: 15px;
+  border-right: 1px solid #000; border-bottom: 1px solid #000;
+  margin: 0px; float: left;
+  cursor: pointer;
+}
+#appbundle_organisme_backgroundColor_color-picker { margin-top: -85px;}
 
 
 /* //////////////// media queries //////////////// *\
@@ -633,7 +728,7 @@ input[type="checkbox"]:checked + label:after { opacity: 0.7; }
   #top-bar > div + div + div { display: inline-block; }
 }
 
-
+canvas { max-width: 100%; }
 
 
 

@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block main_content -%}
-    {{ include('includes/topbar.html.twig') }}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('formations') }}">Formations</a>{% endblock %}
+    {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
+
     <main class="datatables-page">
         <table id="donnees" class="display" width="100%">
             <thead>
@@ -12,15 +15,35 @@
 
             </thead>
             {% for entity in entities %}
-
                 <tr>
-                    <td><img width="50" src="{{ path('organisme_get_picture', {'picture': entity.image}) }}" /></td>
+                    <td><img width="80" src="{{ path('organisme_get_picture', {'picture': entity.user.idOrganisme.photo}) }}" /></td>
                     <td>
                         <ul>
                             <li><strong>Titre : </strong>{{ entity.titre }}</li>
                             <li><strong>Places disponibles : </strong>{{ entity.nbPlace }}</li>
                             <li><strong>Lieu : </strong>{{ entity.lieu }}</li>
                             <li><strong>Résumé : </strong>{{ entity.resume }}</li>
+                            {% if (entity.fichierNom != null or entity.secondFichierNom != null) %}
+                            <li><strong>Fichier(s) associé(s) : </strong>{% if entity.fichier %}<br />
+                                {{ entity.fichierNom }} :
+                                <a href="{{ path("formation_document_download", {'fichier': entity.fichier}) }}" title="Télécharger">
+                                    <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                                </a>
+                                <a href="{{ path('formation_document_visual', {'document': entity.fichier }) }}" title="Afficher">
+                                    <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                                </a>
+                                {% endif %}
+                                {% if entity.secondFichier %}<br />
+                                    {{ entity.secondFichierNom }} :
+                                    <a href="{{ path("formation_document_download_second", {'fichier': entity.secondFichier}) }}" title="Télécharger">
+                                        <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                                    </a>
+                                    <a href="{{ path('formation_document_visual', {'document': entity.secondFichier }) }}" title="Afficher">
+                                        <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                                    </a>
+                                {% endif %}
+                            </li>
+                            {% endif %}
                         </ul>
                     </td>
 
@@ -66,7 +89,8 @@
                     "paginate": {
                         previous: '‹',
                         next:     '›'
-                    }
+                    },
+                    "zeroRecords": "Pas de formations"
                 },
                 "responsive": {
                     details: {

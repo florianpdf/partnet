@@ -1,34 +1,80 @@
 {% extends '::base.html.twig' %}
 
-{% block main_content -%}
+{% block main_content %}
     {{ include('includes/topbar.html.twig') }}
     {{ include('includes/sidebar.html.twig') }}
-<main class="admin-form deep-main">
-    <h1>Création d'un organisme</h1>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+    <main class="admin-form deep-main">
+        <h1>Ajout d'un organisme</h1>
 
+        {{ form_start(form) }}
 
-    <div>
-        {{ form_label(form.file, 'Image associé') }}
-        {{ form_errors(form.file) }}
-        {{ form_widget(form.file) }}
-    </div>
+        <div>
+            {{ form_label(form.nom, 'Nom') }}
+            {{ form_widget(form.nom) }}
+        </div>
 
-    <div>
-        {{ form_label(form.nom, 'Nom') }}
+        <div>
+            {{ form_label(form.file, 'Image associée') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description) }}
+        </div>
+
+        <div>
+            {{ form_label(form.backgroundColor, 'Couleur (agenda)') }}
+            {{ form_widget(form.backgroundColor, {'attr' : { 'placeholder' : 'sélectionner' }}) }}
+        </div>
+
         {{ form_errors(form.nom) }}
-        {{ form_widget(form.nom) }}
-    </div>
-
-    <div>
-        {{ form_label(form.description, 'Description') }}
+        {{ form_errors(form.file) }}
         {{ form_errors(form.description) }}
-        {{ form_widget(form.description) }}
-    </div>
+        {{ form_errors(form.backgroundColor) }}
 
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+    </main>
+{% endblock %}
 
-</main>
+{% block external_css %}
+    {{ parent() }}
+    {#<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">#}
+    <link href="{{ asset('bundles/app/css_colorpicker/evol.colorpicker.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js_colorPicker/simple-color-picker.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var colors = [
+                'hsl(0, 40%, 30%)', 'hsl(0, 40%, 40%)', 'hsl(0, 40%, 50%)', 'hsl(0, 40%, 60%)', 'hsl(0, 40%, 70%)', 'hsl(0, 40%, 80%)',
+                'hsl(30, 40%, 30%)', 'hsl(30, 40%, 40%)', 'hsl(30, 40%, 50%)', 'hsl(30, 40%, 60%)', 'hsl(30, 40%, 70%)', 'hsl(30, 40%, 80%)',
+                'hsl(60, 40%, 30%)', 'hsl(60, 40%, 40%)', 'hsl(60, 40%, 50%)', 'hsl(60, 40%, 60%)', 'hsl(60, 40%, 70%)', 'hsl(60, 40%, 80%)',
+                'hsl(90, 40%, 30%)', 'hsl(90, 40%, 40%)', 'hsl(90, 40%, 50%)', 'hsl(90, 40%, 60%)', 'hsl(90, 40%, 70%)', 'hsl(90, 40%, 80%)',
+                'hsl(120, 40%, 30%)', 'hsl(120, 40%, 40%)', 'hsl(120, 40%, 50%)', 'hsl(120, 40%, 60%)', 'hsl(120, 40%, 70%)', 'hsl(120, 40%, 80%)',
+                'hsl(150, 40%, 30%)', 'hsl(150, 40%, 40%)', 'hsl(150, 40%, 50%)', 'hsl(150, 40%, 60%)', 'hsl(150, 40%, 70%)', 'hsl(150, 40%, 80%)',
+                'hsl(180, 40%, 30%)', 'hsl(180, 40%, 40%)', 'hsl(180, 40%, 50%)', 'hsl(180, 40%, 60%)', 'hsl(180, 40%, 70%)', 'hsl(180, 40%, 80%)',
+                'hsl(210, 40%, 30%)', 'hsl(210, 40%, 40%)', 'hsl(210, 40%, 50%)', 'hsl(210, 40%, 60%)', 'hsl(210, 40%, 70%)', 'hsl(210, 40%, 80%)',
+                'hsl(240, 40%, 30%)', 'hsl(240, 40%, 40%)', 'hsl(240, 40%, 50%)', 'hsl(240, 40%, 60%)', 'hsl(240, 40%, 70%)', 'hsl(240, 40%, 80%)',
+                'hsl(270, 40%, 30%)', 'hsl(270, 40%, 40%)', 'hsl(270, 40%, 50%)', 'hsl(270, 40%, 60%)', 'hsl(270, 40%, 70%)', 'hsl(270, 40%, 80%)',
+                'hsl(300, 40%, 30%)', 'hsl(300, 40%, 40%)', 'hsl(300, 40%, 50%)', 'hsl(300, 40%, 60%)', 'hsl(300, 40%, 70%)', 'hsl(300, 40%, 80%)',
+                'hsl(330, 40%, 30%)', 'hsl(330, 40%, 40%)', 'hsl(330, 40%, 50%)', 'hsl(330, 40%, 60%)', 'hsl(330, 40%, 70%)', 'hsl(330, 40%, 80%)',
+            ];
+            $( '#appbundle_organisme_backgroundColor' ).simpleColorPicker({
+                colors: colors,
+                colorsPerLine: 24,
+                showEffect: 'fade', hideEffect: 'fade'
+            });
+            $( '.color-picker ul li' ).click(function() {
+                var color = $( '#appbundle_organisme_backgroundColor' ).val();
+                $( '#appbundle_organisme_backgroundColor' ).css( 'background', color );
+            });
+        });
+    </script>
 {% endblock %}

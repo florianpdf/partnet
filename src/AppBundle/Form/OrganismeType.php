@@ -18,6 +18,11 @@ class OrganismeType extends AbstractType
             ->add('file', 'file', array('required' => false, 'label' => 'Image associé', 'attr' => array('accept' => 'image/*')))
             ->add('nom')
             ->add('description')
+            ->add('backgroundColor', null, array(
+                'attr' => array(
+                    'placeholder' => 'sélectionner'
+                )
+            ))
         ;
     }
     

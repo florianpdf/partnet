@@ -129,6 +129,7 @@ class User extends BaseUser
 
     //Generated Code
 
+    
     /**
      * @var string
      */
@@ -138,11 +139,6 @@ class User extends BaseUser
      * @var string
      */
     private $prenom;
-
-    /**
-     * @var string
-     */
-    private $organisme;
 
     /**
      * @var string
@@ -163,6 +159,21 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $creationCompte;
+
+    /**
+     * @var string
+     */
+    private $picture_name;
+
+    /**
+     * @var string
+     */
+    private $picture;
+
+    /**
+     * @var \AppBundle\Entity\Organisme
+     */
+    private $id_organisme;
 
 
     /**
@@ -211,30 +222,6 @@ class User extends BaseUser
     public function getPrenom()
     {
         return $this->prenom;
-    }
-
-    /**
-     * Set organisme
-     *
-     * @param string $organisme
-     *
-     * @return User
-     */
-    public function setOrganisme($organisme)
-    {
-        $this->organisme = $organisme;
-
-        return $this;
-    }
-
-    /**
-     * Get organisme
-     *
-     * @return string
-     */
-    public function getOrganisme()
-    {
-        return $this->organisme;
     }
 
     /**
@@ -334,17 +321,6 @@ class User extends BaseUser
     }
 
     /**
-     * @var string
-     */
-    private $picture_name;
-
-    /**
-     * @var string
-     */
-    private $picture;
-
-
-    /**
      * Set pictureName
      *
      * @param string $pictureName
@@ -367,7 +343,6 @@ class User extends BaseUser
     {
         return $this->picture_name;
     }
-
 
     /**
      * Set picture
@@ -392,13 +367,6 @@ class User extends BaseUser
     {
         return $this->picture;
     }
-
-
-    /**
-     * @var \AppBundle\Entity\Organisme
-     */
-    private $id_organisme;
-
 
     /**
      * Set idOrganisme

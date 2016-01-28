@@ -3,10 +3,18 @@
 {% block body_class %}<body id="annuaire">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/topbar.html.twig') }}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('annuaire_homepage') }}">Annuaire</a>{% endblock %}
+    {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="datatables-page">
+        {% if app.session.flashBag.has('success') %}
+            {% for msg in app.session.flashBag.get('success') %}
+                <p class="flashbag">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+
         <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -34,9 +42,17 @@
                             Administrateur
                         {% elseif entity.roles[0] == 'ROLE_USER' %}
                             Utilisateur
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' %}
+                            Administrateur Annuaire
+                        {% elseif entity.roles[0] == 'ROLE_OFFRE_ADMIN' %}
+                            Administrateur Offres d'emploi
+                        {% elseif entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Formation
                         {% endif %}
                     </td>
-                    <td>{{ entity.organisme }}</td>
+                    <td>
+                        {{ entity.idOrganisme.nom }}
+                    </td>
                     <td>{{ entity.poste }}</td>
                     <td>{{ entity.telephone }}</td>
                     <td>
@@ -52,9 +68,18 @@
                     {% endif %}
                     <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
-                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
-                        </a>
+                        {% if entity.roles[0] == 'ROLE_USER' %}
+                            <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        {% if entity.roles[0] == 'ROLE_ADMIN'%}
+                            <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                            </a>
+                        {% endif %}
                     {% endif %}
                         {% if entity.enabled == 1 %}
                             <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
@@ -71,9 +96,11 @@
             </tbody>
         </table>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ANNUAIRE_ADMIN') %}
             <div class="double-h1">
-                <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                {% endif %}
                 <a id="main-btn" href="{{ path('fos_user_registration_register_contact') }}">Nouveau contact</a>
             </div>
         {% endif %}

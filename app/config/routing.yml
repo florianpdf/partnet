@@ -1,3 +1,7 @@
+offres:
+    resource: "@OffresBundle/Resources/config/routing.yml"
+    prefix:   /
+
 actu:
     resource: "@ActuBundle/Resources/config/routing.yml"
     prefix:   /

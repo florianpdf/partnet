@@ -4,7 +4,9 @@
 <body id="ged" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/topbar.html.twig') }}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('message') }}">Dialogue</a>{% endblock %}
+    {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
     <main>

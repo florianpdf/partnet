@@ -166,7 +166,7 @@ class DocumentsController extends Controller
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Votre document a bien été modifié');
+            ->add('success', 'Votre document a bien été modifié.');
 
 
         $editForm = $this->createEditForm($entity);

@@ -12,10 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Documents
 {
-    protected $type = 'documents';
+    protected $type = 'Documents';
 
     public function getType(){
-        return $this->type = 'documents';
+        return $this->type;
     }
 
     protected function getUploadDir()

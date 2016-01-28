@@ -49,7 +49,7 @@ GedBundle\Entity\Documents:
             length: 255
         file_name:
             type: string
-            nullage: false
+            nullable: false
             length: 255
         dateAjout:
             type: datetime

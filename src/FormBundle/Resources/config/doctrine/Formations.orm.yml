@@ -1,12 +1,5 @@
 FormBundle\Entity\Formations:
     type: entity
-    manyToOne:
-        address:
-          targetEntity: AppBundle\Entity\Organisme
-          joinColumn:
-            name: nom
-            referencedColumnName: id
-
     table: null
     id:
         id:
@@ -15,16 +8,25 @@ FormBundle\Entity\Formations:
             generator:
                 strategy: AUTO
     fields:
-        organisme:
-            type: string
-            length: 255
-            column: organisme
-        image:
-            type: string
-            length: 255
         titre:
             type: string
             length: 255
+        fichier:
+            type: string
+            length: 255
+            nullable: true
+        fichier_nom:
+            type: string
+            length: 255
+            nullable: true
+        second_fichier:
+            type: string
+            length: 255
+            nullable: true
+        second_fichier_nom:
+            type: string
+            length: 255
+            nullable: true
         nbPlace:
             type: integer
             column: nb_place
@@ -40,4 +42,13 @@ FormBundle\Entity\Formations:
             nullable: true
             column: date_ajout
 
-    lifecycleCallbacks: {  }
+    manyToOne:
+        user:
+            targetEntity: UserBundle\Entity\User
+
+    lifecycleCallbacks:
+        prePersist: [ preUploadFile1, preUploadFile2 ]
+        preUpdate: [ preUploadFile1, preUploadFile2 ]
+        postPersist: [ uploadFile1, uploadFile2 ]
+        postUpdate: [ uploadFile1, uploadFile2 ]
+        postRemove: [ removeUploadFile1, removeUploadFile2 ]

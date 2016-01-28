@@ -3,7 +3,9 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/topbar.html.twig') }}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('documents') }}">Documents</a>{% endblock %}
+    {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="admin-form deep-main">
@@ -39,12 +41,6 @@
             {{ form_widget(form.finDeVie) }}
         </div>
 
-        {% if app.session.flashBag.has('failure') %}
-            {% for msg in app.session.flashBag.get('failure') %}
-                {{ msg }}
-            {% endfor %}
-        {% endif %}
-
         <div>
             {{ form_label(form.fil_actu) }}
             {{ form_widget(form.fil_actu) }}
@@ -60,17 +56,4 @@
 
         {{ form_end(form) }}
     </main>
-{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
-    <script>
-        $( "#gedbundle_documents_file" ).change(function() {
-            var selected_file = $( this ).val();
-            // if true : évite que l'input ne soit vidé si l'utilisateur clique sur "Annuler"
-            if (selected_file) {
-                $( ".fileUpload span" ).text( selected_file );
-            }
-        });
-    </script>
 {% endblock %}

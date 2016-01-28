@@ -1,0 +1,7 @@
+offres_offres-emploi_:
+    resource: "@OffresBundle/Resources/config/routing/offres.yml"
+    prefix:   /offres-emploi/
+
+offres_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: OffresBundle:Default:index }

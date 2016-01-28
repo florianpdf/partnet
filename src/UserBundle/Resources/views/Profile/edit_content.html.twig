@@ -22,9 +22,12 @@
             {{ form_label(form.telephone) }}
             {{ form_widget(form.telephone) }}
         </li>
-        <li class="upload-field">
+        <li>
             {{ form_label(form.file) }}
-            {{ form_widget(form.file) }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file) }}
+            </div>
         </li>
         <li>
             {{ form_label(form.current_password) }}

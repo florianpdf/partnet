@@ -13,7 +13,6 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->remove('username')
-            ->add('roles', 'choice', array('label' => 'Statut'))
             ->add('id_organisme', 'entity', array(
                 'class'    => 'AppBundle:Organisme',
                 'property' => 'id',

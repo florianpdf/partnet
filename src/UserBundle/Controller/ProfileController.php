@@ -74,10 +74,16 @@ class ProfileController extends Controller
 
         //$user->setPlainPassword($form->get('current_password')->getData());
 
-
-
         if ($form->isValid()) {
 
+            if($form->get('file')->getData() != null) {
+                if($user->getPictureName() != null) {
+                    unlink(__DIR__.'/../../../app/uploads/profile_pictures/'.$user->getPicture());
+                    $user->setPicture(null);
+                }
+            }
+
+            $user->preUpload();
             $user->setUsername($this->getUser()->getEmail());
 
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */

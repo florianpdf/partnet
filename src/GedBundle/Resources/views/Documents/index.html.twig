@@ -3,7 +3,9 @@
 {% block body_class %}<body id="ged">{% endblock %}
 
 {% block main_content %}
-    {{ include('includes/topbar.html.twig') }}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('documents') }}">Documents</a>{% endblock %}
+    {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
     <main class="datatables-page">
@@ -32,11 +34,7 @@
                 <td class="target">{{ doc.titre }}</td>
                 <td class="target">{{ doc.auteur }}</td>
                 <td class="target">
-                    {% for user in users %}
-                        {% if user.username == doc.user %}
-                            {{ user.organisme }}
-                        {% endif %}
-                    {% endfor %}
+                    {{ doc.user.idOrganisme.nom }}
                 </td>
                 <td class="target">
                     <span style="display:none">{{ doc.dateAjout|date('Y/m/d H:i:s') }}</span>
@@ -44,7 +42,7 @@
                 </td>
                 <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Editer">
+                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer">
                             <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
                         </a>
                         <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">

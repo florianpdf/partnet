@@ -1,0 +1,26 @@
+OffresBundle\Entity\Offres:
+    properties:
+        titre:
+            - NotBlank: ~
+            - Length:
+                max: 50
+                maxMessage: "Le titre ne peut contenir plus de 50 caractères."
+        entreprise:
+            - Length:
+                max: 50
+                maxMessage: "Le nom de l'entreprise ne peut contenir plus de 50 caractères."
+            - Type:
+                type: string
+                message: "Le nom de l'entreprise ne peut contenir que des caractères alphanumériques."
+        lieu:
+            - Length:
+                max: 50
+                maxMessage: "Le lieu ne peut contenir plus de 50 caractères."
+            - Type:
+                type: string
+                message: "Le lieu ne peut contenir que des caractères alphabétiques."
+        file:
+            - File:
+                maxSize: 20M
+                mimeTypes: [application/pdf, application/x-pdf]
+                mimeTypesMessage: "Merci d'uploader un document pdf valide."
