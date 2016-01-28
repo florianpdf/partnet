@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block body_class %}<body id="ged">{% endblock %}
+{% block body_class %}<body id="dialogue">{% endblock %}
 
 {% block main_content %}
     {% embed "includes/topbar.html.twig" %}
@@ -14,7 +14,7 @@
         <div class="panel panel-primary">
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="{{ path('message') }}">Boite de reception</a></li>
+                    <li role="presentation"><a href="{{ path('message') }}">Boîte de reception</a></li>
                     <li role="presentation" class="active"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
                     <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
                 </ul>
@@ -23,8 +23,6 @@
 
     </div>
     <div class="col-md-9">
-                <h2>Messages envoyés</h2>
-
                 <table id="donnees" class="display"  width="100%">
                     <thead>
                     <tr>

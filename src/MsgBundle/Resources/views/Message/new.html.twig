@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block body_class %}
-<body id="ged" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">{% endblock %}
+{% block body_class %}<body id="dialogue">{% endblock %}
 
 {% block main_content %}
     {% embed "includes/topbar.html.twig" %}
@@ -9,86 +8,62 @@
     {% endembed %}
     {{ include('includes/sidebar.html.twig') }}
 
-    <main>
-<div class="container">
-    <div class="col-md-3">
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="{{ path('message') }}">Boite de reception</a></li>
-                    <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
-                    <li role="presentation" class="active"><a href="{{ path('message_new') }}">Nouveau message</a></li>
-                </ul>
+    <div class="container new-message">
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="{{ path('message') }}">Boîte de reception</a></li>
+                        <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
+                        <li role="presentation" class="active"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-    </div>
-    <div class="col-md-9">
-        {% if app.session.flashBag.has('failure') %}
-            {% for msg in app.session.flashBag.get('failure') %}
-        <div class="alert alert-danger" role="alert">{{ msg }}</div>
+        <div class="col-md-9">
+            <main class="admin-form deep-main">
+                <h1>Nouveau message</h1>
 
-            {% endfor %}
-        {% endif %}
-    <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Nouveau message</h3>
-            </div>
-            <div class="panel-body">
+                {{ form_start(form) }}
 
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-
-
-
-            <div>
-                {{ form_label(form.recipient) }}
                 {% if selected_email is defined %}
-                <div class="input-group">
+                <div>
+                    {{ form_label(form.recipient) }}
                     {{ form_widget(form.recipient, {'attr' : {'class' : 'form-control', 'value' : selected_email} }) }}
-
                     <span class="input-group-btn">
-                    <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                        <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
                     </span>
-
                 </div>
-
                 {% else %}
-
-                <div class="input-group">
+                <div>
+                    {{ form_label(form.recipient) }}
                     {{ form_widget(form.recipient, {'attr' : {'class' : 'form-control'}}) }}
-
                     <span class="input-group-btn">
-                    <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
+                        <a class="btn btn-default" href="{{ path('annuaire_homepage') }}">Rechercher un destinataire</a>
                     </span>
+                </div>
+                {% endif %}
 
+                <div>
+                    {{ form_label(form.subject) }}
+                    {{ form_widget(form.subject, {'attr' : {'class' : 'form-control'}}) }}
                 </div>
 
+                <div>
+                    {{ form_label(form.message) }}
+                    {{ form_widget(form.message, {'attr' : {'class' : 'form-control', 'rows' : '10'}}) }}
+                </div>
 
-                {% endif %}
-            </div>
-            <div>
-                {{ form_label(form.subject) }}
-                {{ form_widget(form.subject, {'attr' : {'class' : 'form-control'}}) }}
+                <div>
+                    {{ form_widget(form.submit, {'attr' : {'class' : 'btn btn-primary'}}) }}
+                </div>
+
                 {{ form_errors(form.subject) }}
-            </div>
-
-            <div>
-                {{ form_label(form.message) }}
                 {{ form_errors(form.message) }}
-                {{ form_widget(form.message, {'attr' : {'class' : 'form-control', 'rows' : '10'}}) }}
-            </div>
-            <hr />
-            <div>
-                {{ form_widget(form.submit, {'attr' : {'class' : 'btn btn-primary'}}) }}
-            </div>
 
-
-            {{ form_end(form) }}
-
-          </div>
-</div>
+                {{ form_end(form) }}
+            </main>
+        </div>
     </div>
-</div>
-    </main>
 {% endblock %}
