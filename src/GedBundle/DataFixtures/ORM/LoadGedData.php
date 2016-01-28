@@ -61,7 +61,7 @@ class LoadGedData extends AbstractFixture implements FixtureInterface, OrderedFi
         // upload d'un document .pdf réel
         $token = uniqid().".pdf";
         $document->setDocument($token);
-        $file = "app/uploads/fixtures_ged/evolution_de_l_emploi_en_centre-val_de_loire.pdf";
+        $file = "app/Resources/fixtures_ged/evolution_de_l_emploi_en_centre-val_de_loire.pdf";
         $newfile = "app/uploads/documents/" . $token;
         copy($file, $newfile);
         $document->setExtension('pdf');

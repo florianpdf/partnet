@@ -377,7 +377,7 @@ nav a:hover span { opacity: 0.5; }
 #annuaire   { background: $annuaire-bg; }
 #emploi     { background: $emploi-bg; }
 #formations { background: $formations-bg; }
-#emploi     { background: $emploi-bg; }
+#dialogue   { background: $dialogue-bg; }
 
 
 /* //////////////// <main> containers //////////////// *\
@@ -399,6 +399,7 @@ main {
 #annuaire .deep-main   { background: $annuaire-main-bg; }
 #emploi .deep-main     { background: $emploi-main-bg; }
 #formations .deep-main { background: $formations-main-bg; }
+#dialogue .deep-main   { background: $dialogue-main-bg; }
 .profile-data li {
   position: relative;
   display: flex; align-items: center;
@@ -492,6 +493,15 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
   margin-right: 10px;
 }
 .legend div div:first-child { margin-right: 5px; }
+
+.panel {
+  border-radius: 0; border: 0;
+  background: $dialogue-odd-rows-bg;
+}
+.panel .nav a { color: #000; border-radius: 0; }
+.panel .nav .active a, .panel .nav .active a:hover { background: $dialogue-head-rows-bg; }
+.panel .nav a:hover { background: $dialogue-rows-hover-bg; }
+.new-message .panel { margin-top: 130px; }
 
 
 /* //////////////// back office //////////////// *\
