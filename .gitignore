@@ -9,7 +9,7 @@
 /composer.phar
 /vendor/
 /node_modules/
-/app/uploads/
+/app/uploads/*/*
 .idea
 /web/bundles
 /web/js
