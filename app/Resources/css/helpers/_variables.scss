@@ -28,9 +28,9 @@ $tile6-bg      : #F4D7BE;
 $ged-bg        : #E5F6F1;
 $agenda-bg     : #E9F6E4;
 $annuaire-bg   : #E7EFFF;
-$emploi-bg     : #F8F5D6;
-$formations-bg : #D3D9E7;
 $emploi-bg     : #F7E7E3;
+$formations-bg : #D3D9E7;
+$dialogue-bg   : #F9E9DC;
 
 
 // DataTables rows
@@ -58,10 +58,10 @@ $formations-head-rows-bg  : #fff;
 $formations-odd-rows-bg   : #fff;
 $formations-even-rows-bg  : #fff;
 $formations-rows-hover-bg : #fff;
-$dialogue-head-rows-bg    : #fff;
-$dialogue-odd-rows-bg     : #fff;
-$dialogue-even-rows-bg    : #fff;
-$dialogue-rows-hover-bg   : #fff;
+$dialogue-head-rows-bg    : #AB886C;
+$dialogue-odd-rows-bg     : #F4D5BA;
+$dialogue-even-rows-bg    : #F0CCAD;
+$dialogue-rows-hover-bg   : #ECC7AA;
 
 // main > h1 backgrounds
 $default-main-title-bg    : $default-head-rows-bg;
@@ -87,7 +87,7 @@ $agenda-submit-bg     : #9DC499;
 $annuaire-submit-bg   : #B0B8C7;
 $emploi-submit-bg     : #BF9E95;
 $formations-submit-bg : #fff;
-$dialogue-submit-bg   : #fff;
+$dialogue-submit-bg   : #C2A893;
 
 // fields errors
 $field-error: #B88E8D;

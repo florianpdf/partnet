@@ -21,7 +21,7 @@ class MessageController extends Controller
     {
         // Fonction d'envoi de mail
         $message = \Swift_Message::newInstance()
-            ->setSubject('Un nouveau message privé est arrivé dans votre messagerie P@rtnet\'Emploi')
+            ->setSubject('Un nouveau message privé est arrivé dans votre messagerie P@rtnet\'emploi')
             ->setFrom($from)
             ->setTo($to)
             ->setBody($content);
