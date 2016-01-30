@@ -35,7 +35,7 @@ class DocumentsControllerTest extends WebTestCase
 
         // Test du lien homepage
         $link = $crawler
-            ->filter('a:contains("P@rtnet\'emploi du Perche")')
+            ->filter('a:contains("P@rtnet")')
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
@@ -366,7 +366,7 @@ class DocumentsControllerTest extends WebTestCase
 
         // Test du lien homepage
         $link = $crawler
-            ->filter('a:contains("P@rtnet\'emploi du Perche")')
+            ->filter('a:contains("P@rtnet")')
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
