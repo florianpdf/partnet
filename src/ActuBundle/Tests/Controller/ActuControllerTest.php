@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ActuControllerTest extends WebTestCase
 {
+    public function testActu()
+    {
+
+    }
     /*
     public function testCompleteScenario()
     {

@@ -31,7 +31,7 @@ class EventsControllerTest extends WebTestCase
 
         // Test du lien homepage
         $link = $crawler
-            ->filter('a:contains("P@rtnet\'emploi du Perche")')
+            ->filter('a:contains("P@rtnet")')
             ->eq(0)
             ->link();
         $crawler = $client->click($link);
@@ -82,7 +82,7 @@ class EventsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', 'agenda/events/%202016-01-01T09:00:00/new');
+        $crawler = $client->request('GET', 'agenda/events/%202020-01-01T09:00:00/new');
         $this->assertEquals('AgendaBundle\Controller\EventsController::newAction',
             $client->getRequest()->attributes->get('_controller'));
     }
@@ -92,7 +92,7 @@ class EventsControllerTest extends WebTestCase
 
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', 'agenda/events/%202016-01-01T09:00:00/new');
+        $crawler = $client->request('GET', 'agenda/events/%202020-01-01T09:00:00/new');
 
         // Tests de la présence des champs
         $this->assertTrue($crawler->filter('div#agendabundle_events_start')->count() == 1);
@@ -112,12 +112,12 @@ class EventsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', 'agenda/events/%202016-01-01T09:00:00/new');
+        $crawler = $client->request('GET', 'agenda/events/%202020-01-01T09:00:00/new');
 
         $form = $crawler->selectButton('Créer l\'évènement')->form(array_merge(array(
             'agendabundle_events[end][date][day]' => 01,
             'agendabundle_events[end][date][month]' => 01,
-            'agendabundle_events[end][date][year]' => 2016,
+            'agendabundle_events[end][date][year]' => 2020,
             'agendabundle_events[end][time][hour]' => 10,
             'agendabundle_events[end][time][minute]' => 30,
             'agendabundle_events[titre]' => 'Test création event',
@@ -137,7 +137,7 @@ class EventsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', 'agenda/events/%202016-01-01T09:00:00/new');
+        $crawler = $client->request('GET', 'agenda/events/%202020-01-01T09:00:00/new');
 
         // Création du document
         $client = $this->createEvent(array(
@@ -165,7 +165,7 @@ class EventsControllerTest extends WebTestCase
     {
         $client = $this->AdminConnection();
 
-        $crawler = $client->request('GET', 'agenda/events/%202016-01-01T09:00:00/new');
+        $crawler = $client->request('GET', 'agenda/events/%202020-01-01T09:00:00/new');
 
         // Création du document
         $client = $this->createEvent(array(
@@ -189,7 +189,7 @@ class EventsControllerTest extends WebTestCase
         $query = $em->createQuery('SELECT count(e.id) FROM AgendaBundle:Events e WHERE e.titre = :titre AND e.resume = :resume AND e.end = :dateEnd');
         $query->setParameter('titre', 'Test evenement invalide - de 1H');
         $query->setParameter('resume', 'Test evenement de 30min');
-        $query->setParameter('dateEnd', '2016-01-01 10:00:00');
+        $query->setParameter('dateEnd', '2020-01-01 10:00:00');
         $this->assertTrue(1 == $query->getSingleScalarResult());
     }
 
@@ -200,7 +200,7 @@ class EventsControllerTest extends WebTestCase
         $kernel = static::createKernel();
         $kernel->boot();
         $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-//        $id = $em->getRepository('AgendaBundle:Events')->findOneByTitre('Test evenement invalide - de 1H')->getId();
+        $id = $em->getRepository('AgendaBundle:Events')->findOneByTitre('Test evenement invalide - de 1H')->getId();
 
         $crawler = $client->request('GET', 'event/' . $id . '/edit');
 
@@ -226,7 +226,7 @@ class EventsControllerTest extends WebTestCase
         $query = $em->createQuery('SELECT count(e.id) from AgendaBundle:Events e WHERE e.titre = :titre AND e.resume = :resume AND e.end = :dateEnd');
         $query->setParameter('titre', 'Test edit evenement');
         $query->setParameter('resume', 'Test edit evenement');
-        $query->setParameter('dateEnd', '2016-01-01 11:30:00');
+        $query->setParameter('dateEnd', '2020-01-01 11:30:00');
         $this->assertTrue(1 == $query->getSingleScalarResult());
     }
 

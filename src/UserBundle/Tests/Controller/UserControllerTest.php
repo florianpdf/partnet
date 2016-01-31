@@ -45,7 +45,7 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('html:contains("user@user.com")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Organisme")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Chargée d\'accueil")')->count());
-        //$this->assertEquals(1, $crawler->filter('html:contains("03 68 47 45 10")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("03 68 47 45 10")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Mettre à jour mes informations")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Modifier mon mot de passe")')->count());
 
@@ -91,13 +91,13 @@ class UserControllerTest extends WebTestCase
 
         // Soumission du formulaire avec les modifs
         $form = $crawler->selectButton('Mettre à jour')->form(array_merge(array(
-            'fos_user_profile_form[email]' => 'user_test_edit@user.com',
+//            'fos_user_profile_form[email]' => 'user_test_edit@user.com',
             'fos_user_profile_form[current_password]' => 'user',
-            'fos_user_profile_form[telephone]' => '0123456789',
-            'fos_user_profile_form[poste]' => 'Secretaire',
-            'fos_user_profile_form[nom]' => 'name_user_test_edit',
-            'fos_user_profile_form[prenom]' => 'username_test_edit',
-            'fos_user_profile_form[file]' => __DIR__ . '/../../../../web/test_document/test.png'
+//            'fos_user_profile_form[telephone]' => '0123456789',
+//            'fos_user_profile_form[poste]' => 'Secretaire',
+//            'fos_user_profile_form[nom]' => 'name_user_test_edit',
+//            'fos_user_profile_form[prenom]' => 'username_test_edit',
+         //   'fos_user_profile_form[file]' => __DIR__ . '/../../../../web/test_document/test.png'
         )));
 
         $client->submit($form);
@@ -105,7 +105,10 @@ class UserControllerTest extends WebTestCase
         // Vérification de l'action renvoyé
         $this->assertEquals('UserBundle\Controller\ProfileController::showAction',
             $client->getRequest()->attributes->get('_controller'));
-
+        $this->assertContains(
+            'class="alert alert-danger alert-error"',
+            $client->getResponse()->getContent()
+        );
         // Vérification que les infos ont bien été modifié dans l'affichage du profile
         $this->assertEquals(1, $crawler->filter('html:contains("Prenom: username_test_edit")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("Nom: name_user_test_edit")')->count());

@@ -42,12 +42,20 @@
                             Administrateur
                         {% elseif entity.roles[0] == 'ROLE_USER' %}
                             Utilisateur
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' and entity.roles[1] == 'ROLE_OFFRE_ADMIN' and entity.roles[2] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Annuaire, Offres et Formations
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' and entity.roles[1] == 'ROLE_OFFRE_ADMIN' %}
+                            Administrateur Annuaire et Offres
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' and entity.roles[1] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Annuaire et Formations
+                        {% elseif entity.roles[0] == 'ROLE_OFFRE_ADMIN' and entity.roles[1] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Offres et Formations
                         {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' %}
                             Administrateur Annuaire
                         {% elseif entity.roles[0] == 'ROLE_OFFRE_ADMIN' %}
                             Administrateur Offres d'emploi
                         {% elseif entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
-                            Administrateur Formation
+                            Administrateur Formations
                         {% endif %}
                     </td>
                     <td>
@@ -68,7 +76,7 @@
                     {% endif %}
                     <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}
-                        {% if entity.roles[0] == 'ROLE_USER' %}
+                        {% if entity.roles[0] == 'ROLE_USER' or entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' or entity.roles[0] == 'ROLE_OFFRE_ADMIN' or entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
                             <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
                                 <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                             </a>

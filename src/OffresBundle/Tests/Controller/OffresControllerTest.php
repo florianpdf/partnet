@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class OffresControllerTest extends WebTestCase
 {
+    public function testOffres()
+    {
+
+    }
     /*
     public function testCompleteScenario()
     {

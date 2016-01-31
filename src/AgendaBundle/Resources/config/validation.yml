@@ -6,10 +6,8 @@ AgendaBundle\Entity\Events:
         titre:
             - NotBlank: ~
             - Length:
-                max: 50
+                max: 100
         resume:
             - NotBlank: ~
-            - Length:
-                max: 400
         start:
             - GreaterThan: now
