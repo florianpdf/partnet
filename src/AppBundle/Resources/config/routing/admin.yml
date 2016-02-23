@@ -72,11 +72,6 @@ admin_organisme_delete:
     defaults: { _controller: "AppBundle:Organisme:delete" }
     methods:  [POST, DELETE, GET]
 
-organisme_get_picture:
-    path:      /organisme/{picture}
-    defaults: { _controller: "AppBundle:Organisme:PictureOrganisme" }
-    methods: [GET]
-
 # Route pour la gestion de formations
 
 formations_new:
