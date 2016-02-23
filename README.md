@@ -21,6 +21,11 @@ Installation manuelle :
     $ php app/console doctrine:fixtures:load
     $ sudo sh bash/chmod.sh
     $ sudo npm install
+    
+    Si grunt: command not found
+        npm install -g grunt-cli
+        npm install grunt --save-dev
+    
     $ grunt
 
 
