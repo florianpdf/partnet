@@ -16,6 +16,7 @@ Installation manuelle :
     $ cd partnet
     $ git checkout develop
     $ composer install
+    $ composer update
     $ php app/console doctrine:database:create
     $ php app/console doctrine:schema:update --force
     $ php app/console doctrine:fixtures:load
