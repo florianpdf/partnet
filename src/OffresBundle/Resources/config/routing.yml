@@ -5,3 +5,8 @@ offres_offres-emploi_:
 offres_homepage:
     path:     /hello/{name}
     defaults: { _controller: OffresBundle:Default:index }
+
+organisme_get_picture:
+    path:      /organisme/{picture}
+    defaults: { _controller: "AppBundle:Organisme:PictureOrganisme" }
+    methods: [GET]
