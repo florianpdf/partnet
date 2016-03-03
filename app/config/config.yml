@@ -100,7 +100,7 @@ fos_user:
         email:
             from_email:
                 address:        partnetemploi@gmail.com
-                sender_name:    P@rnet Emploi - Réinitialiser mot de passe
+                sender_name:    P@rtnet Emploi - Réinitialiser mot de passe
 
 services:
     fos_user.doctrine_registry:
