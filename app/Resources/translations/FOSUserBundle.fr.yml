@@ -52,7 +52,8 @@ registration:
             de réinitialiser votre mot de passe.
 
             Cordialement,
-            L'équipe.
+
+            P@rtnet
 
 # Password resetting
 resetting:
@@ -74,11 +75,12 @@ resetting:
             Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
 
             Cordialement,
-            L'équipe.
+
+            P@rtnet
 
 # Global strings
 layout:
-    logout: déconnexion
+    logout: Déconnexion
     login: Connexion
     register: Inscription
     logged_in_as: Connecté en tant que %username%
