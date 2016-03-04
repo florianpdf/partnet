@@ -61,7 +61,8 @@ class RegistrationController extends Controller
                     'ROLE_ANNUAIRE_ADMIN' => 'Admin [annuaire]',
                     'ROLE_OFFRE_ADMIN' => 'Admin [offres d\'emploi]',
                     'ROLE_FORMATION_ADMIN' => 'Admin [formations]',
-                    'ROLE_ADMIN' => 'Administrateur'
+                    'ROLE_ADMIN' => 'Administrateur',
+                    'ROLE_SUPER_ADMIN' => 'Super Administrateur'
                 ),
                 'multiple' => true,
                 'expanded' => true
