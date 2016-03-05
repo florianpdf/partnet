@@ -35,7 +35,7 @@
             {% for entity in entities %}
                 <tr>
                     <td>
-                        {% if entity.nom AND entity.prenom %}
+                        {% if entity.nom and entity.prenom %}
                             {{ entity.nom }} {{ entity.prenom }}
                         {% else %}
                             <p>Non renseigné</p>
