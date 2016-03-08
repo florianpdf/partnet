@@ -18,13 +18,15 @@ class ContactType extends AbstractType
                 'property' => 'id',
                 'choice_label' => 'nom',
                 'label' => 'Organisme',
-                'multiple' => false
+                'multiple' => false,
+                'required' => false,
+                'placeholder' => 'Extérieur'
             ))
-            ->add('telephone', 'text', array('label' => 'Téléphone'))
+            ->add('telephone', 'text', array('label' => 'Téléphone', 'required' => false))
 
-            ->add('poste', 'text', array('label' => 'Fonction'))
+            ->add('poste', 'text', array('label' => 'Fonction', 'required' => false))
 
-            ->add('nom', 'text', array('label' => 'Nom'))
+            ->add('nom', 'text', array('label' => 'Nom', 'required' => false))
             ->add('prenom', 'text', array('label' => 'Prénom'))
             ->remove('current_password')
             ->remove('username');

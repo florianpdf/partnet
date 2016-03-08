@@ -38,7 +38,7 @@
                         {% if entity.nom and entity.prenom %}
                             {{ entity.nom }} {{ entity.prenom }}
                         {% else %}
-                            <p>Non renseigné</p>
+                            Non renseigné
                         {% endif %}
                     </td>
                     <td>
@@ -62,27 +62,35 @@
                             Administrateur Offres d'emploi
                         {% elseif entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
                             Administrateur Formations
+                        {% elseif entity.roles[0] == 'ROLE_CONTACT' %}
+                            Contact Extérieur
                         {% endif %}
+
+
                     </td>
                     <td>
-                        {% if entity.idOrganisme %}
+                        {% if entity.idOrganisme == null and entity.roles[0] == 'ROLE_CONTACT' %}
+                            Contact Extérieur
+                        {% elseif entity.idOrganisme %}
                             {{ entity.idOrganisme.nom }}
                         {% else %}
-                            <p>Non renseigné</p>
+                            Non renseigné
                         {% endif %}
                     </td>
                     <td>
-                        {% if entity.poste %}
+                        {% if entity.idOrganisme == null and entity.roles[0] == 'ROLE_CONTACT' %}
+                            Contact Extérieur
+                        {% elseif entity.poste %}
                             {{ entity.poste }}
                         {% else %}
-                            <p>Non renseigné</p>
+                            Non renseigné
                         {% endif %}
                     </td>
                     <td>
                         {% if entity.telephone %}
                             {{ entity.telephone }}
                         {% else %}
-                            <p>Non renseigné</p>
+                            Non renseigné
                         {% endif %}
                     </td>
                     <td>
@@ -93,8 +101,12 @@
                         {% endif %}
                     </td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
-                        <td>{{ entity.creationCompte|date('d/m/Y') }}</td>
+                        {% if (entity.roles == 'ROLE_CONTACT') %}
+                            <td>{{ entity.lastLogin('d/m/Y') }}</td>
+                        {% else %}
+                            <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
+                            <td>{{ entity.creationCompte|date('d/m/Y') }}</td>
+                        {% endif %}
                     {% endif %}
                     <td class="actions">
                     {% if is_granted('ROLE_ADMIN') %}

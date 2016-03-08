@@ -55,6 +55,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setRoles(array('ROLE_CONTACT'));
             $em->persist($entity);
             $em->flush();
 
@@ -79,7 +80,6 @@ class UserController extends Controller
         $form->add('password', 'hidden', array(
             'data' => substr($tokenGenerator->generateToken(), 0, 8)))
             ->add('submit', 'submit', array('label' => 'Créer'));
-
         return $form;
     }
 }
