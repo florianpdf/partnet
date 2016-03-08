@@ -224,8 +224,6 @@ class OrganismeController extends Controller
      */
     public function deleteAction($id)
     {
-
-
             // pour la Méthode GET
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:Organisme')->find($id);
