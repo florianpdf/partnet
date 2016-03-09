@@ -38,10 +38,15 @@
                 $( "input[type='checkbox']").prop( "disabled", true );
                 $( "input[value='ROLE_ADMIN']").prop( "disabled", false );
             }
+            else if ($( "input[value='ROLE_SUPER_ADMIN']" ).is( ":checked" ))
+            {
+                $( "input[type='checkbox']").prop( "disabled", true );
+                $( "input[value='ROLE_SUPER_ADMIN']").prop( "disabled", false );
+            }
             else if ($( "input[type='checkbox']" ).is( ":checked" ))
             {
                 $( "input[type='checkbox']").prop( "disabled", false );
-                $( "input[value='ROLE_USER'], input[value='ROLE_ADMIN']").prop( "disabled", true );
+                $( "input[value='ROLE_USER'], input[value='ROLE_ADMIN'], input[value='ROLE_SUPER_ADMIN']").prop( "disabled", true );
             }
             else
             {
@@ -58,16 +63,19 @@
                 $( ".role-user" ).css( "display", "block" );
             });
             {% if is_granted('ROLE_SUPER_ADMIN') %}
-            $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+2):nth-of-type(-n+4)" ).hover(function() {
-                $( ".role-user-admin" ).css( "display", "block" );
-            });
-            $( "#fos_user_registration_form_roles").find( "label:last-of-type" ).hover(function() {
-                $( ".role-admin" ).css( "display", "block" );
-            });
+                $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+2):nth-of-type(-n+4)" ).hover(function() {
+                    $( ".role-user-admin" ).css( "display", "block" );
+                });
+                $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+5)" ).hover(function() {
+                    $( ".role-admin" ).css( "display", "block" );
+                });
+                $( "#fos_user_registration_form_roles").find( "label:nth-last-of-type(1)" ).hover(function() {
+                    $( ".role-super-admin" ).css( "display", "block" );
+                });
             {% elseif is_granted('ROLE_ADMIN') %}
-            $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+2):nth-of-type(-n+4)" ).hover(function() {
-                $( ".role-user-admin" ).css( "display", "block" );
-            });
+                $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+2):nth-of-type(-n+4)" ).hover(function() {
+                    $( "role-user-admin" ).css( "display", "block" );
+                });
             {% endif %}
             $( "#fos_user_registration_form_roles").find( "label" ).mouseleave(function() {
                 $( ".infos div" ).css( "display", "none" );
