@@ -14,7 +14,7 @@
     <field name="nbVisitesDialogue" type="integer" column="nb_visites_dialogue" nullable="true"/>
 
     <many-to-one field="user" target-entity="UserBundle\Entity\User">
-      <join-column name="id_user" referenced-column-name="id" />
+      <join-column name="id_user" referenced-column-name="id" on-delete="CASCADE"/>
     </many-to-one>
 
   </entity>

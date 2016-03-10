@@ -109,15 +109,13 @@
                         {% endif %}
                     {% endif %}
                     <td class="actions">
-                    {% if is_granted('ROLE_ADMIN') %}
-                        {% if entity.roles[0] == 'ROLE_USER' or entity.roles[0] == 'ROLE_CONTACT' or entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' or entity.roles[0] == 'ROLE_OFFRE_ADMIN' or entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
-                            <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
-                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
-                            </a>
-                        {% endif %}
+                    {% if (is_granted('ROLE_SUPER_ADMIN')) and (entity.id != id_user_connect) %}
+                        <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
                     {% endif %}
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        {% if entity.roles[0] == 'ROLE_ADMIN'%}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% if (entity.roles[0] == 'ROLE_USER' or entity.roles[0] == 'ROLE_CONTACT' or entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' or entity.roles[0] == 'ROLE_OFFRE_ADMIN' or entity.roles[0] == 'ROLE_FORMATION_ADMIN') and (entity.idOrganisme == organisme_user_connect) and (entity.id != id_user_connect)%}
                             <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
                                 <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
                             </a>
