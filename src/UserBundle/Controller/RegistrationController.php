@@ -69,6 +69,13 @@ class RegistrationController extends Controller
             ))
                 ->add('plainPassword', 'hidden', array(
                     'data' => substr($tokenGenerator->generateToken(), 0, 8),
+                ))
+                ->add('id_organisme', 'entity', array(
+                    'class'    => 'AppBundle:Organisme',
+                    'property' => 'id',
+                    'choice_label' => 'nom',
+                    'label' => 'Organisme',
+                    'multiple' => false
                 ));
         }
         else if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
@@ -99,6 +106,11 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         $user->setCreationCompte(new \DateTime());
+        $organisme = $this->getUser()->getIdOrganisme()->getNom();
+
+        if (!in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
+            $user->setIdOrganisme($this->getUser()->getIdOrganisme());
+        }
 
         if ($form->isValid()) {
 
@@ -119,6 +131,7 @@ class RegistrationController extends Controller
 
         return $this->render('@User/Registration/user_register.html.twig', array(
             'form' => $form->createView(),
+            'admin_organisme' => $organisme,
         ));
     }
 

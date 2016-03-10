@@ -12,14 +12,7 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->remove('username')
-            ->add('id_organisme', 'entity', array(
-                'class'    => 'AppBundle:Organisme',
-                'property' => 'id',
-                'choice_label' => 'nom',
-                'label' => 'Organisme',
-                'multiple' => false
-            ));
+            ->remove('username');
     }
 
     public function getParent()
