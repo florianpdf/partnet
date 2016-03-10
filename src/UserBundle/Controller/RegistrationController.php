@@ -75,7 +75,8 @@ class RegistrationController extends Controller
                     'property' => 'id',
                     'choice_label' => 'nom',
                     'label' => 'Organisme',
-                    'multiple' => false
+                    'multiple' => false,
+                    'placeholder' => 'Choissisez votre organisme',
                 ));
         }
         else if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
@@ -106,11 +107,13 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         $user->setCreationCompte(new \DateTime());
-        $organisme = $this->getUser()->getIdOrganisme()->getNom();
 
         if (!in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
+            $organisme = $this->getUser()->getIdOrganisme()->getNom();
             $user->setIdOrganisme($this->getUser()->getIdOrganisme());
         }
+        else
+            $organisme = null;
 
         if ($form->isValid()) {
 
