@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use FormBundle\Entity\Formations;
 use FormBundle\Form\FormationsType;
-
+use UserBundle\Entity\Statistiques;
 
 use Symfony\Component\HttpFoundation\Session;
 use Symfony\Component\HttpFoundation\File\File;
@@ -117,6 +117,7 @@ class FormationsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $this->stats($em);
 
         $entities = $em->getRepository('FormBundle:Formations')->findAll();
 
@@ -301,13 +302,16 @@ class FormationsController extends Controller
         return $this->redirect($this->generateUrl('formations'));
     }
 
-    /**
-     * Creates a form to delete a Formations entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    public function stats($em)
+    {
+        $statistiques = $em->getRepository('UserBundle:Statistiques');
+
+        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
+        $stats->setNbVisitesFormation($stats->getNbVisitesFormation()+1);
+        $em->flush();
+    }
 
 }
 

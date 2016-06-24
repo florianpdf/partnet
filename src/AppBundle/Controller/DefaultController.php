@@ -56,88 +56,349 @@ class DefaultController extends Controller
         $statistiques_par_mois_dialogue = $statistiques->getStatistiquesParMoisDialogue($years);
         $statistiques_par_mois_agenda = $statistiques->getStatistiquesParMoisAgenda($years);
 
+        $data_global = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
 
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
-        $data_global = [];
         foreach ($statistiques_par_mois_global as $statistique_par_mois_global)
         {
             $month = substr($statistique_par_mois_global['month'], 5, 6);
             if ($month == 1)
-                array_push($data_global_janvier, $statistique_par_mois_global['visites']);
+                $data_global['janvier'] = $statistique_par_mois_global['visites'];
             if ($month == 2)
-                array_push($data_global_fevier, $statistique_par_mois_global['visites']);
+                $data_global['fevrier'] = $statistique_par_mois_global['visites'];
             if ($month == 3)
-                array_push($data_global_mars, $statistique_par_mois_global['visites']);
+                $data_global['mars'] = $statistique_par_mois_global['visites'];
             if ($month == 4)
-                array_push($data_global_avril, $statistique_par_mois_global['visites']);
+                $data_global['avril'] = $statistique_par_mois_global['visites'];
             if ($month == 5)
-                array_push($data_global_mai, $statistique_par_mois_global['visites']);
+                $data_global['mai'] = $statistique_par_mois_global['visites'];
             if ($month == 6)
-                array_push($data_global_juin, $statistique_par_mois_global['visites']);
+                $data_global['juin'] = $statistique_par_mois_global['visites'];
             if ($month == 7)
-                array_push($data_global_juillet, $statistique_par_mois_global['visites']);
+                $data_global['juillet'] = $statistique_par_mois_global['visites'];
             if ($month == 8)
-                array_push($data_global_aout, $statistique_par_mois_global['visites']);
+                $data_global['aout'] = $statistique_par_mois_global['visites'];
             if ($month == 9)
-                array_push($data_global_septembre, $statistique_par_mois_global['visites']);
+                $data_global['septembre'] = $statistique_par_mois_global['visites'];
             if ($month == 10)
-                array_push($data_global_octobre, $statistique_par_mois_global['visites']);
+                $data_global['octobre'] = $statistique_par_mois_global['visites'];
             if ($month == 11)
-                array_push($data_global_novembre, $statistique_par_mois_global['visites']);
+                $data_global['novembre'] = $statistique_par_mois_global['visites'];
             if ($month == 12)
-                array_push($data_global_decembre, $statistique_par_mois_global['visites']);
+                $data_global['decembre'] = $statistique_par_mois_global['visites'];
         }
 
-        $data_accueil = [];
+        $data_accueil = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_accueil as $statistique_par_mois_accueil)
         {
-            array_push($data_accueil, $statistique_par_mois_accueil['visites']);
+            $month = substr($statistique_par_mois_accueil['month'], 5, 6);
+            if ($month == 1)
+                $data_accueil['janvier'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 2)
+                $data_accueil['fevrier'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 3)
+                $data_accueil['mars'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 4)
+                $data_accueil['avril'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 5)
+                $data_accueil['mai'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 6)
+                $data_accueil['juin'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 7)
+                $data_accueil['juillet'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 8)
+                $data_accueil['aout'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 9)
+                $data_accueil['septembre'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 10)
+                $data_accueil['octobre'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 11)
+                $data_accueil['novembre'] = $statistique_par_mois_accueil['visites'];
+            if ($month == 12)
+                $data_accueil['decembre'] = $statistique_par_mois_accueil['visites'];
         }
 
-        $data_ged = [];
+        $data_ged = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_ged as $statistique_par_mois_ged)
         {
-            array_push($data_ged, $statistique_par_mois_ged['visites']);
+            $month = substr($statistique_par_mois_ged['month'], 5, 6);
+            if ($month == 1)
+                $data_ged['janvier'] = $statistique_par_mois_ged['visites'];
+            if ($month == 2)
+                $data_ged['fevrier'] = $statistique_par_mois_ged['visites'];
+            if ($month == 3)
+                $data_ged['mars'] = $statistique_par_mois_ged['visites'];
+            if ($month == 4)
+                $data_ged['avril'] = $statistique_par_mois_ged['visites'];
+            if ($month == 5)
+                $data_ged['mai'] = $statistique_par_mois_ged['visites'];
+            if ($month == 6)
+                $data_ged['juin'] = $statistique_par_mois_ged['visites'];
+            if ($month == 7)
+                $data_ged['juillet'] = $statistique_par_mois_ged['visites'];
+            if ($month == 8)
+                $data_ged['aout'] = $statistique_par_mois_ged['visites'];
+            if ($month == 9)
+                $data_ged['septembre'] = $statistique_par_mois_ged['visites'];
+            if ($month == 10)
+                $data_ged['octobre'] = $statistique_par_mois_ged['visites'];
+            if ($month == 11)
+                $data_ged['novembre'] = $statistique_par_mois_ged['visites'];
+            if ($month == 12)
+                $data_ged['decembre'] = $statistique_par_mois_ged['visites'];
         }
 
-        $data_formation = [];
+        $data_formation = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_formation as $statistique_par_mois_formation)
         {
-            array_push($data_formation, $statistique_par_mois_formation['visites']);
+            $month = substr($statistique_par_mois_formation['month'], 5, 6);
+            if ($month == 1)
+                $data_formation['janvier'] = $statistique_par_mois_formation['visites'];
+            if ($month == 2)
+                $data_formation['fevrier'] = $statistique_par_mois_formation['visites'];
+            if ($month == 3)
+                $data_formation['mars'] = $statistique_par_mois_formation['visites'];
+            if ($month == 4)
+                $data_formation['avril'] = $statistique_par_mois_formation['visites'];
+            if ($month == 5)
+                $data_formation['mai'] = $statistique_par_mois_formation['visites'];
+            if ($month == 6)
+                $data_formation['juin'] = $statistique_par_mois_formation['visites'];
+            if ($month == 7)
+                $data_formation['juillet'] = $statistique_par_mois_formation['visites'];
+            if ($month == 8)
+                $data_formation['aout'] = $statistique_par_mois_formation['visites'];
+            if ($month == 9)
+                $data_formation['septembre'] = $statistique_par_mois_formation['visites'];
+            if ($month == 10)
+                $data_formation['octobre'] = $statistique_par_mois_formation['visites'];
+            if ($month == 11)
+                $data_formation['novembre'] = $statistique_par_mois_formation['visites'];
+            if ($month == 12)
+                $data_formation['decembre'] = $statistique_par_mois_formation['visites'];
         }
 
-        $data_emploi = [];
+        $data_emploi = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_emploi as $statistique_par_mois_emploi)
         {
-            array_push($data_emploi, $statistique_par_mois_emploi['visites']);
+            $month = substr($statistique_par_mois_emploi['month'], 5, 6);
+            if ($month == 1)
+                $data_emploi['janvier'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 2)
+                $data_emploi['fevrier'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 3)
+                $data_emploi['mars'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 4)
+                $data_emploi['avril'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 5)
+                $data_emploi['mai'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 6)
+                $data_emploi['juin'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 7)
+                $data_emploi['juillet'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 8)
+                $data_emploi['aout'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 9)
+                $data_emploi['septembre'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 10)
+                $data_emploi['octobre'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 11)
+                $data_emploi['novembre'] = $statistique_par_mois_emploi['visites'];
+            if ($month == 12)
+                $data_emploi['decembre'] = $statistique_par_mois_emploi['visites'];
         }
 
-        $data_annuaire = [];
+        $data_annuaire = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_annuaire as $statistique_par_mois_annuaire)
         {
-            array_push($data_annuaire, $statistique_par_mois_annuaire['visites']);
+            $month = substr($statistique_par_mois_annuaire['month'], 5, 6);
+            if ($month == 1)
+                $data_annuaire['janvier'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 2)
+                $data_annuaire['fevrier'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 3)
+                $data_annuaire['mars'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 4)
+                $data_annuaire['avril'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 5)
+                $data_annuaire['mai'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 6)
+                $data_annuaire['juin'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 7)
+                $data_annuaire['juillet'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 8)
+                $data_annuaire['aout'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 9)
+                $data_annuaire['septembre'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 10)
+                $data_annuaire['octobre'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 11)
+                $data_annuaire['novembre'] = $statistique_par_mois_annuaire['visites'];
+            if ($month == 12)
+                $data_annuaire['decembre'] = $statistique_par_mois_annuaire['visites'];
         }
 
-        $data_dialogue = [];
+        $data_dialogue = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_dialogue as $statistique_par_mois_dialogue)
         {
-            array_push($data_dialogue, $statistique_par_mois_dialogue['visites']);
+            $month = substr($statistique_par_mois_dialogue['month'], 5, 6);
+            if ($month == 1)
+                $data_dialogue['janvier'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 2)
+                $data_dialogue['fevrier'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 3)
+                $data_dialogue['mars'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 4)
+                $data_dialogue['avril'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 5)
+                $data_dialogue['mai'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 6)
+                $data_dialogue['juin'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 7)
+                $data_dialogue['juillet'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 8)
+                $data_dialogue['aout'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 9)
+                $data_dialogue['septembre'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 10)
+                $data_dialogue['octobre'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 11)
+                $data_dialogue['novembre'] = $statistique_par_mois_dialogue['visites'];
+            if ($month == 12)
+                $data_dialogue['decembre'] = $statistique_par_mois_dialogue['visites'];
         }
 
-        $data_agenda = [];
+        $data_agenda = array(
+            'janvier' => 0,
+            'fevrier' => 0,
+            'mars' => 0,
+            'avril' => 0,
+            'mai' => 0,
+            'juin' => 0,
+            'juillet' => 0,
+            'aout' => 0,
+            'septembre' => 0,
+            'octobre' => 0,
+            'novembre' => 0,
+            'decembre' => 0
+        );
         foreach ($statistiques_par_mois_agenda as $statistique_par_mois_agenda)
         {
-            array_push($data_agenda, $statistique_par_mois_agenda['visites']);
+            $month = substr($statistique_par_mois_agenda['month'], 5, 6);
+            if ($month == 1)
+                $data_agenda['janvier'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 2)
+                $data_agenda['fevrier'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 3)
+                $data_agenda['mars'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 4)
+                $data_agenda['avril'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 5)
+                $data_agenda['mai'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 6)
+                $data_agenda['juin'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 7)
+                $data_agenda['juillet'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 8)
+                $data_agenda['aout'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 9)
+                $data_agenda['septembre'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 10)
+                $data_agenda['octobre'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 11)
+                $data_agenda['novembre'] = $statistique_par_mois_agenda['visites'];
+            if ($month == 12)
+                $data_agenda['decembre'] = $statistique_par_mois_agenda['visites'];
         }
 
 

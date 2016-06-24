@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use OffresBundle\Entity\Offres;
 use OffresBundle\Form\OffresType;
+use UserBundle\Entity\Statistiques;
 
 use Symfony\Component\HttpFoundation\Session;
 use Symfony\Component\HttpFoundation\File\File;
@@ -27,6 +28,8 @@ class OffresController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
+        $this->stats($em);
 
         $entities = $em->getRepository('OffresBundle:Offres')->findAll();
 
@@ -290,5 +293,16 @@ class OffresController extends Controller
         $response->setContent(file_get_contents($filepath));
 
         return $response;
+    }
+
+    public function stats($em)
+    {
+        $statistiques = $em->getRepository('UserBundle:Statistiques');
+
+        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
+        $stats->setNbVisitesEmploi($stats->getNbVisitesEmploi()+1);
+        $em->flush();
     }
 }

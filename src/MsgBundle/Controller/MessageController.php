@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MsgBundle\Entity\Message;
 use MsgBundle\Form\MessageType;
 use UserBundle\Entity\User;
-
+use UserBundle\Entity\Statistiques;
 /**
  * Message controller.
  *
@@ -48,6 +48,8 @@ class MessageController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
+        $this->stats($em);
 
         // Récupère les messages selon le nom d'utilisateur
         $entities = $em->getRepository('MsgBundle:Message')->findByNomRecipient($this->getUser()->getEmail());
@@ -324,5 +326,16 @@ class MessageController extends Controller
             ->add('submit', 'submit', array('label' => 'Supprimer le message'))
             ->getForm()
         ;
+    }
+
+    public function stats($em)
+    {
+        $statistiques = $em->getRepository('UserBundle:Statistiques');
+
+        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
+        $stats->setNbVisitesDialogue($stats->getNbVisitesDialogue()+1);
+        $em->flush();
     }
 }

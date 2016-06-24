@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use GedBundle\Entity\Documents;
 use GedBundle\Form\DocumentsType;
+use UserBundle\Entity\Statistiques;
 
 use Symfony\Component\HttpFoundation\Session;
 use Symfony\Component\HttpFoundation\File\File;
@@ -30,6 +31,8 @@ class DocumentsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $list_users = $em->getRepository('UserBundle:User')->findAll();
         $entities = $em->getRepository('GedBundle:Documents')->findAll();
+
+        $this->stats($em);
 
         return $this->render('GedBundle:Documents:index.html.twig', array(
             'docs' => $entities,
@@ -267,5 +270,16 @@ class DocumentsController extends Controller
         $response->setContent(file_get_contents($filepath));
 
         return $response;
+    }
+
+    public function stats($em)
+    {
+        $statistiques = $em->getRepository('UserBundle:Statistiques');
+
+        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
+        $stats->setNbVisitesGed($stats->getNbVisitesGed()+1);
+        $em->flush();
     }
 }
