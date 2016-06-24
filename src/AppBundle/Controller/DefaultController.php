@@ -46,6 +46,7 @@ class DefaultController extends Controller
         $years = $date->format('Y-m-d');
         $years = substr($years, 0, 4);
 
+
         $statistiques_par_mois_global = $statistiques->getStatistiquesParMois($years);
         $statistiques_par_mois_accueil = $statistiques->getStatistiquesParMoisAccueil($years);
         $statistiques_par_mois_ged = $statistiques->getStatistiquesParMoisGed($years);
@@ -55,10 +56,46 @@ class DefaultController extends Controller
         $statistiques_par_mois_dialogue = $statistiques->getStatistiquesParMoisDialogue($years);
         $statistiques_par_mois_agenda = $statistiques->getStatistiquesParMoisAgenda($years);
 
+
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
+        $data_global = [];
         $data_global = [];
         foreach ($statistiques_par_mois_global as $statistique_par_mois_global)
         {
-            array_push($data_global, $statistique_par_mois_global['visites']);
+            $month = substr($statistique_par_mois_global['month'], 5, 6);
+            if ($month == 1)
+                array_push($data_global_janvier, $statistique_par_mois_global['visites']);
+            if ($month == 2)
+                array_push($data_global_fevier, $statistique_par_mois_global['visites']);
+            if ($month == 3)
+                array_push($data_global_mars, $statistique_par_mois_global['visites']);
+            if ($month == 4)
+                array_push($data_global_avril, $statistique_par_mois_global['visites']);
+            if ($month == 5)
+                array_push($data_global_mai, $statistique_par_mois_global['visites']);
+            if ($month == 6)
+                array_push($data_global_juin, $statistique_par_mois_global['visites']);
+            if ($month == 7)
+                array_push($data_global_juillet, $statistique_par_mois_global['visites']);
+            if ($month == 8)
+                array_push($data_global_aout, $statistique_par_mois_global['visites']);
+            if ($month == 9)
+                array_push($data_global_septembre, $statistique_par_mois_global['visites']);
+            if ($month == 10)
+                array_push($data_global_octobre, $statistique_par_mois_global['visites']);
+            if ($month == 11)
+                array_push($data_global_novembre, $statistique_par_mois_global['visites']);
+            if ($month == 12)
+                array_push($data_global_decembre, $statistique_par_mois_global['visites']);
         }
 
         $data_accueil = [];
