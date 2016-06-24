@@ -278,8 +278,18 @@ class DocumentsController extends Controller
 
         $current_user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
-        $stats->setNbVisitesGed($stats->getNbVisitesGed()+1);
-        $em->flush();
+        if ($statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime())) == null){
+            $stats = new Statistiques();
+            $stats->setUser($current_user);
+            $stats->setDate(new \DateTime());
+            $stats->setNbVisitesGed(+1);
+            $em->persist($stats);
+            $em->flush();
+        }
+        else {
+            $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
+            $stats->setNbVisitesGed($stats->getNbVisitesGed() + 1);
+            $em->flush();
+        }
     }
 }
