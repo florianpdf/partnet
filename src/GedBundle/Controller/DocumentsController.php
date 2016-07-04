@@ -237,14 +237,14 @@ class DocumentsController extends Controller
         $response->headers->set('Content-type', $oFile->getMimeType());
         $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
         $response->headers->set('Content-length', $oFile->getSize());
-        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
+        //$d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
 
-        $response->headers->set('Content-Disposition', $d);
+        //$response->headers->set('Content-Disposition', $d);
 
         // Send headers before outputting anything
         $response->sendHeaders();
 
-        $response->setContent(file_get_contents($filepath));
+        $response->setContent(file_get_contents($oFile));
 
         return $response;
     }
