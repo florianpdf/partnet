@@ -35,7 +35,7 @@ security:
         - { path: ^/admin/formations/*, role: ROLE_FORMATION_ADMIN }
         - { path: ^/admin/offres-emploi/*, role: ROLE_OFFRE_ADMIN }
         - { path: ^/admin/, role: ROLE_ADMIN }
-#        - { path: ^/documents/, role: ROLE_USER }
+        - { path: ^/documents/, role: ROLE_USER }
         - { path: ^/annuaire/, role: ROLE_USER }
         - { path: ^/message/, role: ROLE_USER }
         - { path: ^/agenda/, role: ROLE_USER }
