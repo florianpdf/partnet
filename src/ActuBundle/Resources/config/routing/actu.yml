@@ -2,10 +2,6 @@ actu:
     path:     /
     defaults: { _controller: "ActuBundle:Actu:index" }
 
-actu_show:
-    path:     /{id}/show
-    defaults: { _controller: "ActuBundle:Actu:show" }
-
 actu_new:
     path:     /new
     defaults: { _controller: "ActuBundle:Actu:new" }
