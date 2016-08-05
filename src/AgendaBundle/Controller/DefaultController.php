@@ -15,22 +15,22 @@ class DefaultController extends Controller
 
         $organismes = $em->getRepository('AppBundle:Organisme')->findAll();
 
-        $this->stats($em);
+        //$this->stats($em);
 
         return $this->render('AgendaBundle:Default:index.html.twig', array(
             'organismes' => $organismes
         ));
     }
 
-    public function stats($em)
-    {
-        $statistiques = $em->getRepository('UserBundle:Statistiques');
-
-        $current_user = $this->get('security.token_storage')->getToken()->getUser();
-
-        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
-        $stats->setNbVisitesAgenda($stats->getNbVisitesAgenda()+1);
-        $em->flush();
-    }
+//    public function stats($em)
+//    {
+//        $statistiques = $em->getRepository('UserBundle:Statistiques');
+//
+//        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+//
+//        $stats = $statistiques->findOneBy(array('user' => $current_user, 'date' => new \DateTime()));
+//        $stats->setNbVisitesAgenda($stats->getNbVisitesAgenda()+1);
+//        $em->flush();
+//    }
 
 }

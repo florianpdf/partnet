@@ -1085,9 +1085,9 @@ be a descendant of the grid when it is being dragged.
 }
 .fc-slats, /*horizontals*/
 .fc-content-skeleton, /*day numbers*/
-.fc-bgevent-skeleton, /*events container*/ {
-	pointer-events: none;
-}
+//.fc-bgevent-skeleton, /*events container*/ {
+//	pointer-events: none;
+//}
 .fc-bgevent,
 .fc-event-container {
 	pointer-events: auto;
