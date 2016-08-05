@@ -36,22 +36,15 @@ class FormationsController extends Controller
         $response = new Response();
 
         // Set headers
-        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $fichier;
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/";
+        $content = file_get_contents($filepath.$fichier);
 
-        $oFile = new File($filepath);
-
-        $response->headers->set('Cache-Control', 'private');
-        $response->headers->set('Content-type', $oFile->getMimeType());
-        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
-        $response->headers->set('Content-length', $oFile->getSize());
-        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
-
-        $response->headers->set('Content-Disposition', $d);
-
-        // Send headers before outputting anything
-        $response->sendHeaders();
+        $response->headers->set('Content-Type', 'mime/type');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
 
         $response->setContent(file_get_contents($filepath));
+
+        $response->setContent($content);
 
         return $response;
     }
@@ -66,22 +59,15 @@ class FormationsController extends Controller
         $response = new Response();
 
         // Set headers
-        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/". $fichier;
+        $filepath = $this->get('kernel')->getRootDir()."/uploads/formations_documents/";
+        $content = file_get_contents($filepath.$fichier);
 
-        $oFile = new File($filepath);
-
-        $response->headers->set('Cache-Control', 'private');
-        $response->headers->set('Content-type', $oFile->getMimeType());
-        $response->headers->set('Content-Disposition', 'attachment; filepath="' . $oFile->getBasename() . '";');
-        $response->headers->set('Content-length', $oFile->getSize());
-        $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);                                    // filename
-
-        $response->headers->set('Content-Disposition', $d);
-
-        // Send headers before outputting anything
-        $response->sendHeaders();
+        $response->headers->set('Content-Type', 'mime/type');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
 
         $response->setContent(file_get_contents($filepath));
+
+        $response->setContent($content);
 
         return $response;
     }
