@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block main_content %}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+
+<main class="deep-main">
+    <h1>Créer un nouveau contact</h1>
+    {{ form_start(form) }}
+    <ul class="profile-data">
+        <li>
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email, {'attr' : { 'autofocus' : true }}) }}
+        </li>
+        <li>
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+        </li>
+        <li>
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+        </li>
+        <li>
+            {{ form_label(form.poste) }}
+            {{ form_widget(form.poste) }}
+        </li>
+        <li>
+            {{ form_label(form.id_organisme) }}
+            {{ form_widget(form.id_organisme) }}
+        </li>
+        <li>
+            {{ form_label(form.telephone) }}
+            {{ form_widget(form.telephone) }}
+        </li>
+    </ul>
+
+    {{ form_errors(form.email) }}
+    {{ form_errors(form.nom) }}
+    {{ form_errors(form.prenom) }}
+    {{ form_errors(form.poste) }}
+    {{ form_errors(form.id_organisme) }}
+    {{ form_errors(form.telephone) }}
+
+    {{ form_end(form) }}
+</main>
+{% endblock %}

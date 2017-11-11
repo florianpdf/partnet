@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block main_content -%}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('formations') }}">Formations</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="admin-form deep-main">
+        <h1><i>{{ entity.titre }}</i></h1>
+
+        {{ form_start(edit_form) }}
+
+        <div>
+            {{ form_label(edit_form.titre, 'Titre') }}
+            {{ form_widget(edit_form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.nbPlace, 'Places restantes') }}
+            {{ form_widget(edit_form.nbPlace) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.lieu, 'Lieu') }}
+            {{ form_widget(edit_form.lieu) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.resume, 'Descriptif') }}
+            {{ form_widget(edit_form.resume) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.file, 'Document 1 (.pdf)') }}
+            <div class="fileUpload">
+                <span>{% if entity.fichierNom != null %}{{ entity.FichierNom }}{% else %}uploader{% endif %}</span>
+                {{ form_widget(edit_form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(edit_form.file2, 'Document 2 (.pdf)') }}
+            <div class="fileUpload">
+                <span>{% if entity.secondFichierNom != null %}{{ entity.secondFichierNom }}{% else %}uploader{% endif %}</span>
+                {{ form_widget(edit_form.file2) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(edit_form.fil_actu) }}
+            {{ form_widget(edit_form.fil_actu) }}
+            <label for="formbundle_formations_fil_actu" class="checkbox"></label>
+        </div>
+
+        {{ form_errors(edit_form.titre) }}
+        {{ form_errors(edit_form.nbPlace) }}
+        {{ form_errors(edit_form.lieu) }}
+        {{ form_errors(edit_form.resume) }}
+        {{ form_errors(edit_form.fil_actu) }}
+
+        {{ form_end(edit_form) }}
+    </main>
+{% endblock %}

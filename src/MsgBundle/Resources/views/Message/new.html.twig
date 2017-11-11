@@ -1,0 +1,65 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}<body id="dialogue">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('message') }}">Dialogue</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <div class="container new-message">
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="{{ path('message') }}">Boîte de reception</a></li>
+                        <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
+                        <li role="presentation" class="active"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <main class="admin-form deep-main">
+                <h1>Nouveau message</h1>
+
+                {{ form_start(form) }}
+
+                <a class="search-contact" href="{{ path('annuaire_homepage') }}">rechercher un destinataire</a>
+
+                {% if selected_email is defined %}
+                <div>
+                    {{ form_label(form.recipient) }}
+                    {{ form_widget(form.recipient, {'attr' : {'value' : selected_email} }) }}
+                </div>
+                {% else %}
+                <div>
+                    {{ form_label(form.recipient) }}
+                    {{ form_widget(form.recipient, {'attr' : { 'autofocus' : true }}) }}
+                </div>
+                {% endif %}
+
+                <div>
+                    {{ form_label(form.subject) }}
+                    {{ form_widget(form.subject) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.message) }}
+                    {{ form_widget(form.message) }}
+                </div>
+
+                <div>
+                    {{ form_widget(form.submit) }}
+                </div>
+
+                {{ form_errors(form.subject) }}
+                {{ form_errors(form.message) }}
+
+                {{ form_end(form) }}
+            </main>
+        </div>
+    </div>
+{% endblock %}

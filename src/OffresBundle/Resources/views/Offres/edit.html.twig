@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="emploi">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('offres-emploi') }}">Offres d'emploi</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="admin-form deep-main">
+        <h1><i>{{ entity.titre }}</i></h1>
+
+    {{ form_start(edit_form) }}
+
+        <div>
+            {{ form_label(edit_form.titre) }}
+            {{ form_widget(edit_form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.entreprise) }}
+            {{ form_widget(edit_form.entreprise) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.lieu) }}
+            {{ form_widget(edit_form.lieu) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.resume) }}
+            {{ form_widget(edit_form.resume) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.fil_actu) }}
+            {{ form_widget(edit_form.fil_actu) }}
+            <label for="offresbundle_offres_fil_actu" class="checkbox"></label>
+        </div>
+
+        {{ form_errors(edit_form.titre) }}
+        {{ form_errors(edit_form.entreprise) }}
+        {{ form_errors(edit_form.lieu) }}
+        {{ form_errors(edit_form.resume) }}
+        {{ form_errors(edit_form.fil_actu) }}
+
+        {{ form_end(edit_form) }}
+    </main>
+{% endblock %}

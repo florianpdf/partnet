@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}
+<body id="agenda">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('agenda_homepage') }}">Agenda</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="admin-form deep-main">
+        <h1>Création d'un évènement</h1>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div>
+            {{ form_label(form.start) }}
+            {{ form_widget(form.start) }}
+        </div>
+
+        <div>
+            {{ form_label(form.end) }}
+            {{ form_widget(form.end) }}
+        </div>
+
+        <div>
+            {{ form_label(form.titre) }}
+            {{ form_widget(form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(form.resume) }}
+            {{ form_widget(form.resume) }}
+        </div>
+
+        <div>
+            {{ form_label(form.fil_actu) }}
+            {{ form_widget(form.fil_actu) }}
+            <label for="agendabundle_events_fil_actu" class="checkbox"></label>
+        </div>
+
+        {{ form_errors(form.start) }}
+        {{ form_errors(form.end) }}
+        {{ form_errors(form.titre) }}
+        {{ form_errors(form.resume) }}
+        {{ form_errors(form.fil_actu) }}
+
+        {{ form_end(form) }}
+
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $( "#agendabundle_events_start_date_year" ).appendTo( "#agendabundle_events_start_date" );
+            $( "#agendabundle_events_start_date_day" ).prependTo( "#agendabundle_events_start_date" );
+            $( "#agendabundle_events_end_date_year" ).appendTo( "#agendabundle_events_end_date" );
+            $( "#agendabundle_events_end_date_day" ).prependTo( "#agendabundle_events_end_date" );
+        });
+    </script>
+{% endblock %}

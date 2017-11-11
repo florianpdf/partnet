@@ -1,0 +1,88 @@
+GedBundle\Entity\Documents:
+    type: entity
+    table: documents
+    repositoryClass: GedBundle\Entity\DocumentsRepository
+    indexes:
+        document_user:
+            columns:
+                - id_user
+        id_user_2:
+            columns:
+                - id_user
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        titre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        resume:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        extension:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        auteur:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        document:
+            type: string
+            nullable: false
+            length: 255
+        file_name:
+            type: string
+            nullable: false
+            length: 255
+        dateAjout:
+            type: datetime
+            nullable: true
+            column: date_ajout
+        dateModif:
+            type: datetime
+            nullable: true
+            column: date_modif
+        finDeVie:
+            type: date
+            nullable: true
+            options:
+                unsigned: false
+            column: fin_de_vie
+        nbdocument:
+            type: integer
+            nullable: true
+        fil_actu:
+            type: boolean
+
+    manyToOne:
+        user:
+            targetEntity: UserBundle\Entity\User
+            cascade: {  }
+            fetch: LAZY
+            joinColumns:
+                id_user:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

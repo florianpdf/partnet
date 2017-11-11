@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('documents') }}">Documents</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="datatables-page">
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            <p class="flashbag">{{ msg }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th class="control"></th>
+            <th>Titre du document</th>
+            <th>Auteur</th>
+            <th>Organisme émetteur</th>
+            <th>Date d'ajout</th>
+            <th>Actions</th>
+            <th>Résumé</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for doc in docs %}
+            <tr>
+                <td class="control target"></td>
+                <td class="target">{{ doc.titre }}</td>
+                <td class="target">{{ doc.auteur }}</td>
+                <td class="target">
+                    {{ doc.user.idOrganisme.nom }}
+                </td>
+                <td class="target">
+                    <span style="display:none">{{ doc.dateAjout|date('Y/m/d H:i:s') }}</span>
+                    {{ doc.dateAjout|date('d/m/Y') }}
+                </td>
+                <td class="actions">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{  path('documents_edit', { 'id': doc.id }) }}" title="Éditer">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('documents_delete', {'id':  doc.Id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    {% endif %}
+                    <a href="{{ path("document_download", {'document': doc.document}) }}" title="Télécharger">
+                        <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                    </a>
+                    <a href="{{ path('document_visual', {'document': doc.document }) }}" title="Afficher">
+                        <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                    </a>
+                </td>
+                <td>{{ doc.resume }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a id="main-btn" href="{{ path('documents_new') }}">Ajouter un document</a>
+        {% include '@Ged/Documents/delete.html.twig' %}
+    {% endif %}
+
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+
+        $(document).ready(function () {
+            var theHREF;
+
+            $(".confirmModalLink").click(function(e) {
+                e.preventDefault();
+                theHREF = $(this).attr("href");
+                $("#confirmModal").modal("show");
+            });
+
+            $("#confirmModalNo").click(function(e) {
+                $("#confirmModal").modal("hide");
+            });
+
+            $("#confirmModalYes").click(function(e) {
+                window.location.href = theHREF;
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                    "zeroRecords": "Aucun document ne répond aux critères."
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: '.target',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden && col.data != "" ?
+                                    '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                $('<div class="slider"/>').append( data ) :
+                                false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "5%" },
+                    { "width": "37.5%" },
+                    { "width": "17.5%" },
+                    { "width": "17.5%" },
+                    { "width": "10%" },
+                    { "width": "12.5%" },
+                    null
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false,
+                        targets:   0
+                    },
+                    { orderable: false, targets: 5},
+                    { className: 'none', targets: 6},
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 1},
+                    { className: 'all', targets: 5},
+                    { responsivePriority: 3, targets: 3 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 4 }
+                ],
+                "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
+            });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
+    </script>
+{% endblock %}

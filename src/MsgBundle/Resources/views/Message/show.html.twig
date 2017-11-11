@@ -1,0 +1,130 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}<body id="dialogue">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('message') }}">Dialogue</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main>
+<div class="container">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active"><a href="{{ path('message') }}">Boîte de reception</a></li>
+                    <li role="presentation"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
+                    <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <h2>{{ entity.subject }}</h2>
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <table class="record_properties">
+                    <tbody>
+
+                        <tr>
+                            <th>Expéditeur</th>
+                            <td>{{ entity.senderName }} ({{ entity.sender }})</td>
+                        </tr>
+                        <tr>
+                            <th>Sujet</th>
+                            <td>{{ entity.subject }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        <hr />
+                <tr>
+                    <th>Message</th>
+                    <td>{{ entity.message }}</td>
+                </tr>
+            </div>
+        </div>
+
+        <div class="container">
+
+                <table>
+                    <td><a class="btn btn-default" href="{{ path('message') }}">
+                            Retour
+                        </a></td>
+                    <td>{{ form_start(delete_form) }}
+                        {{ form_widget(delete_form.submit, {'attr' : {'class' : 'btn btn-danger'}}) }}
+                        {{ form_end(delete_form) }}</td>
+                </table>
+
+        </div>
+        <hr />
+
+        {% for entity_comments in comments %}
+            {% if entity_comments.idMessage == entity.id %}
+
+                <div class="panel panel-default">
+
+
+                    <div class="panel-body">
+                        <table class="record_properties">
+                            <tbody>
+                                <tr>
+                                    <th>Expéditeur</th>
+                                    <td>{{ entity_comments.senderName }} ({{ entity_comments.sender }})</td>
+                                </tr>
+                                <tr>
+                                    <th>Sujet</th>
+                                    <td>{{ entity_comments.subject }}{{ entity.subject }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ entity_comments.date|date('Y-m-d H:i:s') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <hr />
+                        <p>{{ entity_comments.message }}</p>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+        <hr />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Répondre</h3>
+            </div>
+            <div class="panel-body">
+
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+
+                    {{ form_label(form.message) }}
+                    {{ form_errors(form.message) }}
+                    {{ form_widget(form.message, {'attr' : {'class' : 'form-control'}}) }}
+                    {{ form_widget(form.repondre, {'attr' : {'class' : 'btn btn-default'}}) }}
+
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</main>
+{% endblock %}

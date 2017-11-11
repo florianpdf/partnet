@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="UserBundle\Entity\StatistiquesRepository" name="UserBundle\Entity\Statistiques">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="date" type="date" column="date"/>
+    <field name="nbVisitesAccueil" type="integer" column="nb_visites_accueil" nullable="true"/>
+    <field name="nbVisitesGed" type="integer" column="nb_visites_ged" nullable="true"/>
+    <field name="nbVisitesAgenda" type="integer" column="nb_visites_agenda" nullable="true"/>
+    <field name="nbVisitesAnnuaire" type="integer" column="nb_visites_annuaire" nullable="true"/>
+    <field name="nbVisitesFormation" type="integer" column="nb_visites_formation" nullable="true"/>
+    <field name="nbVisitesEmploi" type="integer" column="nb_visites_emploi" nullable="true"/>
+    <field name="nbVisitesDialogue" type="integer" column="nb_visites_dialogue" nullable="true"/>
+
+    <many-to-one field="user" target-entity="UserBundle\Entity\User">
+      <join-column name="id_user" referenced-column-name="id" on-delete="CASCADE"/>
+    </many-to-one>
+
+  </entity>
+</doctrine-mapping>

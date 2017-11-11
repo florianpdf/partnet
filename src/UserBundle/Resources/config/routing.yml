@@ -1,0 +1,6 @@
+# Route permettant l'affichage de la photo de profile dans topbar et profile
+
+user_get_picture:
+    path: /picture/{picture}
+    defaults: { _controller: "UserBundle:PictureProfile:PictureProfile" }
+    methods: [GET]

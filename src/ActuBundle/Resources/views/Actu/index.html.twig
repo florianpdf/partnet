@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body>{% endblock %}
+
+{% block main_content %}
+{{ include('includes/topbar.html.twig') }}
+{{ include('includes/sidebar.html.twig') }}
+
+    <main class="datatables-page">
+
+        {% if app.session.flashBag.has('success') %}
+            {% for msg in app.session.flashBag.get('success') %}
+                <p class="flashbag">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="control"></th>
+                    <th>Type</th>
+                    <th>Titre</th>
+                    <th>Résumé</th>
+                    <th>Date d'ajout</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for actu in actus %}
+                <tr>
+                    <td class="control target"></td>
+                    <td class="target">{{ actu.type }}</td>
+                    <td class="target">{{ actu.titre }}</td>
+                    <td class="target">{{ actu.resume }}</td>
+                    <td class="target">
+                        <span style="display:none">{{ actu.dateAjout|date('Y/m/d H:i:s') }}</span>
+                        {{ actu.dateAjout|date('d/m/Y') }}
+                    </td>
+                    <td class="actions">
+                        {% if actu.type == 'Actualité' %}
+                            <a href="{{  path('actu_edit', { 'id': actu.id }) }}" title="Editer">
+                                <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% endif %}
+                        <a class="confirmModalLink" href="{{ path('actu_delete', {'id':  actu.Id, 'type': actu.type  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a id="main-btn" href="{{ path('actu_new') }}">Ajouter une actualité</a>
+
+    </main>
+    {% include '@Actu/Actu/delete.html.twig' %}
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+
+        $(document).ready(function () {
+            var theHREF;
+
+            $(".confirmModalLink").click(function(e) {
+                e.preventDefault();
+                theHREF = $(this).attr("href");
+                $("#confirmModal").modal("show");
+            });
+
+            $("#confirmModalNo").click(function(e) {
+                $("#confirmModal").modal("hide");
+            });
+
+            $("#confirmModalYes").click(function(e) {
+                window.location.href = theHREF;
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                    "zeroRecords": "Aucun document ne répond aux critères."
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: '.target',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden && col.data != "" ?
+                                '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "5%" },
+                    { "width": "4.5%" },
+                    { "width": "17.5%" },
+                    { "width": "17.5%" },
+                    { "width": "10%" },
+                    { "width": "3%" }
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false,
+                        targets:   0
+                    },
+                    { orderable: false, targets: 5},
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 1},
+                    { className: 'all', targets: 5},
+                    { responsivePriority: 3, targets: 3 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 4 }
+                ],
+                "order": [[ 4, 'desc' ], [ 3, 'asc' ]]
+            });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
+    </script>
+{% endblock %}

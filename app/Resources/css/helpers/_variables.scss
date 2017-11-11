@@ -1,0 +1,108 @@
+// background colors
+////////////////////
+
+$login-bg              : #EEEDEB; // used by the top bar too
+$login-wrapper-bg      : #dbd7ce;
+$login-title-bg        : #86817A;
+$login-submit-bg       : #ADA597;
+$login-submit-hover-bg : #8A7F6D;
+$tiles-bg              : #e4e3e1;
+$top-bar-bg            : #87827B;
+
+// tiles colors
+$tile1 : #9bcedc;
+$tile2 : #e1d85d;
+$tile3 : #a1d68a;
+$tile4 : #e0a494;
+$tile5 : #abb7d2;
+$tile6 : #e8ac79;
+
+// body backgrounds
+$tile1-bg      : #D7EBF1;
+$tile2-bg      : #F1ECB1;
+$tile3-bg      : #D1EBC5;
+$tile4-bg      : #F2D9D2;
+$tile5-bg      : #D3D9E7;
+$tile6-bg      : #F4D7BE;
+
+$ged-bg        : #E5F6F1;
+$agenda-bg     : #E9F6E4;
+$annuaire-bg   : #E7EFFF;
+$emploi-bg     : #F7E7E3;
+$formations-bg : #D3D9E7;
+$dialogue-bg   : #F9E9DC;
+
+
+// DataTables rows
+$default-head-rows-bg     : #87827B;
+$default-odd-rows-bg      : #DDDCDA;
+$default-even-rows-bg     : #D0CFCD;
+$default-rows-hover-bg    : #CAC9C7;
+$documents-head-rows-bg   : #559FB2;
+$documents-odd-rows-bg    : #D0E6EC;
+$documents-even-rows-bg   : #C3DFE7;
+$documents-rows-hover-bg  : #B3D7E0;
+$agenda-head-rows-bg      : #7AAF74;
+$agenda-odd-rows-bg       : #CCE9C0;
+$agenda-even-rows-bg      : #C1E4B2;
+$agenda-rows-hover-bg     : #BCDDAD;
+$annuaire-head-rows-bg    : #8E99AF;
+$annuaire-odd-rows-bg     : #D2D8E7;
+$annuaire-even-rows-bg    : #C7CFE1;
+$annuaire-rows-hover-bg   : #C1C9DA;
+$emploi-head-rows-bg      : #A87B6F;
+$emploi-odd-rows-bg       : #F2D7D0;
+$emploi-even-rows-bg      : #EECCC3;
+$emploi-rows-hover-bg     : #EAC3B9;
+$formations-head-rows-bg  : #fff;
+$formations-odd-rows-bg   : #fff;
+$formations-even-rows-bg  : #fff;
+$formations-rows-hover-bg : #fff;
+$dialogue-head-rows-bg    : #AB886C;
+$dialogue-odd-rows-bg     : #F4D5BA;
+$dialogue-even-rows-bg    : #F0CCAD;
+$dialogue-rows-hover-bg   : #ECC7AA;
+
+// main > h1 backgrounds
+$default-main-title-bg    : $default-head-rows-bg;
+$documents-main-title-bg  : $documents-head-rows-bg;
+$agenda-main-title-bg     : $agenda-head-rows-bg;
+$annuaire-main-title-bg   : $annuaire-head-rows-bg;
+$emploi-main-title-bg     : $emploi-head-rows-bg;
+$formations-main-title-bg : $formations-head-rows-bg;
+$dialogue-main-title-bg   : $dialogue-head-rows-bg;
+
+// main backgrounds
+$documents-main-bg  : $documents-odd-rows-bg;
+$agenda-main-bg     : $agenda-odd-rows-bg;
+$annuaire-main-bg   : $annuaire-odd-rows-bg;
+$emploi-main-bg     : $emploi-odd-rows-bg;
+$formations-main-bg : $formations-odd-rows-bg;
+$dialogue-main-bg   : $dialogue-odd-rows-bg;
+
+// main submit button backgrounds
+$default-submit-bg    : #A7A39E;
+$documents-submit-bg  : #82B9C7;
+$agenda-submit-bg     : #9DC499;
+$annuaire-submit-bg   : #B0B8C7;
+$emploi-submit-bg     : #BF9E95;
+$formations-submit-bg : #fff;
+$dialogue-submit-bg   : #C2A893;
+
+// fields errors
+$field-error: #B88E8D;
+
+
+// dimensions
+/////////////
+
+$top-bar-height : 80px;
+$menu-trigger-w : 10px;
+$h1-height      : 50px;
+$main-submit    : 40px;
+
+
+// autre
+////////
+
+$datatables-name : "donnees";

@@ -1,0 +1,275 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="annuaire">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('annuaire_homepage') }}">Annuaire</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="datatables-page">
+        {% if app.session.flashBag.has('success') %}
+            {% for msg in app.session.flashBag.get('success') %}
+                <p class="flashbag">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Nom et prénom</th>
+                <th>Rôle</th>
+                <th>Organisme</th>
+                <th>Poste</th>
+                <th>Téléphone</th>
+                <th>E-mail</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Dernière connexion</th>
+                    <th>Création du compte</th>
+                {% endif %}
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        {% if entity.nom and entity.prenom %}
+                            {{ entity.nom }} {{ entity.prenom }}
+                        {% else %}
+                            Non renseigné
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.roles[0] == 'ROLE_SUPER_ADMIN' %}
+                            Super-Administrateur
+                        {% elseif entity.roles[0] == 'ROLE_ADMIN' %}
+                            Administrateur
+                        {% elseif entity.roles[0] == 'ROLE_USER' %}
+                            Utilisateur
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' and entity.roles[1] == 'ROLE_OFFRE_ADMIN' and entity.roles[2] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Annuaire, Offres et Formations
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' and entity.roles[1] == 'ROLE_OFFRE_ADMIN' %}
+                            Administrateur Annuaire et Offres
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' and entity.roles[1] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Annuaire et Formations
+                        {% elseif entity.roles[0] == 'ROLE_OFFRE_ADMIN' and entity.roles[1] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Offres et Formations
+                        {% elseif entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' %}
+                            Administrateur Annuaire
+                        {% elseif entity.roles[0] == 'ROLE_OFFRE_ADMIN' %}
+                            Administrateur Offres d'emploi
+                        {% elseif entity.roles[0] == 'ROLE_FORMATION_ADMIN' %}
+                            Administrateur Formations
+                        {% elseif entity.roles[0] == 'ROLE_CONTACT' %}
+                            Contact Extérieur
+                        {% endif %}
+
+
+                    </td>
+                    <td>
+                        {% if entity.idOrganisme == null and entity.roles[0] == 'ROLE_CONTACT' %}
+                            Contact Extérieur
+                        {% elseif entity.idOrganisme %}
+                            {{ entity.idOrganisme.nom }}
+                        {% else %}
+                            Non renseigné
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.idOrganisme == null and entity.roles[0] == 'ROLE_CONTACT' %}
+                            Contact Extérieur
+                        {% elseif entity.poste %}
+                            {{ entity.poste }}
+                        {% else %}
+                            Non renseigné
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.telephone %}
+                            {{ entity.telephone }}
+                        {% else %}
+                            Non renseigné
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.enabled == 1 %}
+                            <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a>
+                        {% else %}
+                            <a href="mailto:{{  entity.email }}" title="Envoyer un e-mail">{{ entity.email }}</a>
+                        {% endif %}
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% if (entity.roles == 'ROLE_CONTACT') %}
+                            <td>{{ entity.lastLogin('d/m/Y') }}</td>
+                        {% else %}
+                            <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
+                            <td>{{ entity.creationCompte|date('d/m/Y') }}</td>
+                        {% endif %}
+                    {% endif %}
+                    <td class="actions">
+                    {% if (is_granted('ROLE_SUPER_ADMIN')) and (entity.id != id_user_connect) %}
+                        <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% if (entity.roles[0] == 'ROLE_USER' or entity.roles[0] == 'ROLE_CONTACT' or entity.roles[0] == 'ROLE_ANNUAIRE_ADMIN' or entity.roles[0] == 'ROLE_OFFRE_ADMIN' or entity.roles[0] == 'ROLE_FORMATION_ADMIN') and (entity.idOrganisme == organisme_user_connect) and (entity.id != id_user_connect)%}
+                            <a class="confirmModalLink" href="{{ path('user_delete', {'id':  entity.id  }) }}" title="Supprimer">
+                                <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                        {% if entity.enabled == 1 %}
+                            <a href="{{ path('message_new') }}{{  entity.email }}" title="Envoyer un e-mail">
+                                <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% else %}
+                            <a href="mailto:{{  entity.email }}" title="Envoyer un e-mail">
+                                <img src="{{  asset('images/msg.svg') }}" width="20" height="20" alt="Éditer" />
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if is_granted('ROLE_ANNUAIRE_ADMIN') %}
+            <div class="double-h1">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a id="main-btn" href="{{ path('fos_user_registration_register') }}">Nouvel utilisateur</a>
+                {% endif %}
+                <a id="main-btn" href="{{ path('fos_user_registration_register_contact') }}">Nouveau contact</a>
+            </div>
+        {% endif %}
+        {% include '@Annuaire/Default/delete.html.twig' %}
+    </main>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+    {{ parent() }}
+{% if is_granted('ROLE_ADMIN') %}
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%"},
+                    { "width": "10%"},
+                    { "width": "5%"}
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false
+                    },
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 4},
+                    { responsivePriority: 3, targets: 0 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 1 }
+                ],
+                "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
+            });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
+    </script>
+{% else %}
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 'tr',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                '<div>'+col.title+' : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%"},
+                    { "width": "10%"},
+                    { "width": "5%"}
+                ],
+                "columnDefs": [
+                    {
+                        className: 'control',
+                        orderable: false
+                    },
+                    { className: 'all', targets: 0},
+                    { className: 'all', targets: 4},
+                    { responsivePriority: 3, targets: 0 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 1, targets: 1 }
+                ],
+                "order": [[ 3, 'desc' ], [ 2, 'asc' ]]
+            });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+        });
+    </script>
+{% endif %}
+{% endblock %}

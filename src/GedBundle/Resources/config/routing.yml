@@ -1,0 +1,5 @@
+# Appel de document.yml pour les routes de GedBundle
+
+documents:
+    prefix:     /
+    resource: "@GedBundle/Resources/config/routing/documents.yml"

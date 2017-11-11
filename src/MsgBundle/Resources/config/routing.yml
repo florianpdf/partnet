@@ -1,0 +1,5 @@
+# Appel de message.yml pour les routes de MsgBundle
+
+msg_message:
+    resource: "@MsgBundle/Resources/config/routing/message.yml"
+    prefix:   /

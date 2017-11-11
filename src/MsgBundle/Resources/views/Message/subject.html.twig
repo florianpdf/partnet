@@ -1,0 +1,118 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}<body id="dialogue">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('message') }}">Dialogue</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main>
+<div class="container">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation"><a href="{{ path('message') }}">Boîte de reception</a></li>
+                    <li role="presentation" class="active"><a href="{{ path('message_suivi') }}">Mes messages envoyés</a></li><hr />
+                    <li role="presentation"><a href="{{ path('message_new') }}">Nouveau message</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+                <table id="donnees" class="display"  width="100%">
+                    <thead>
+                    <tr>
+                        <th>Envoyé à</th>
+                        <th>Sujet</th>
+                        <th>Réponses</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>A :
+                            {% for user in users %}
+                                {% if entity.recipient == user.email %}
+                                {{ user.prenom }} {{ user.nom }}
+                                {% endif %}
+                            {% endfor %}
+                                ({{ entity.recipient }})
+                            </td>
+                            <td>{{ entity.subject }}</td>
+                            <td></td>
+                            <td><a href="{{ path('message_show', { 'id': entity.id }) }}" title="Voir"><img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Voir" /></a>
+
+                            </td>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+</div>
+
+</div>
+
+
+
+
+</main>
+    {% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $( '#donnees' ).dataTable( {
+                "lengthChange": false,
+                "info": false,
+                "pagingType": "simple",
+
+                "language": {
+                    "search": "",
+                    "paginate": {
+                        previous: '‹',
+                        next:     '›'
+                    },
+                    "zeroRecords": "Pas de messages",
+                },
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: '.target',
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden && col.data != "" ?
+                                '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
+                            } ).join('');
+
+                            return data ?
+                                    $('<div class="slider"/>').append( data ) :
+                                    false;
+                        }
+                    }
+                },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "40%" },
+                    { "width": "40%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                ],
+                "columnDefs": [],
+            });
+
+            // autofocus et placeholder pour le champ de recherche
+            $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+
+            // fadeout pour le flashbag
+            window.setTimeout(function() {
+                $( '.flashbag' ).fadeOut( 1750 );
+            }, 2250);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,14 @@
+dashboard:
+    path:     /
+    defaults: { _controller: "AppBundle:Default:admin" }
+    options:
+        expose: true
+
+statistiques:
+    path:     /statistiques
+    defaults: { _controller: "AppBundle:Default:Statistiques" }
+
+admin:
+    resource: "@AppBundle/Resources/config/routing/admin.yml"
+    prefix:   /
+

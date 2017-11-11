@@ -1,0 +1,54 @@
+FormBundle\Entity\Formations:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        titre:
+            type: string
+            length: 255
+        fichier:
+            type: string
+            length: 255
+            nullable: true
+        fichier_nom:
+            type: string
+            length: 255
+            nullable: true
+        second_fichier:
+            type: string
+            length: 255
+            nullable: true
+        second_fichier_nom:
+            type: string
+            length: 255
+            nullable: true
+        nbPlace:
+            type: integer
+            column: nb_place
+        lieu:
+            type: string
+            length: 255
+        resume:
+            type: text
+        fil_actu:
+            type: boolean
+        dateAjout:
+            type: datetime
+            nullable: true
+            column: date_ajout
+
+    manyToOne:
+        user:
+            targetEntity: UserBundle\Entity\User
+
+    lifecycleCallbacks:
+        prePersist: [ preUploadFile1, preUploadFile2 ]
+        preUpdate: [ preUploadFile1, preUploadFile2 ]
+        postPersist: [ uploadFile1, uploadFile2 ]
+        postUpdate: [ uploadFile1, uploadFile2 ]
+        postRemove: [ removeUploadFile1, removeUploadFile2 ]

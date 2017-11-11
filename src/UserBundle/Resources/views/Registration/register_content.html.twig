@@ -1,0 +1,52 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <ul class="profile-data">
+        <li>
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email, {'attr' : { 'autofocus' : true }}) }}
+        </li>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li>
+                {{ form_label(form.id_organisme) }}
+                {{ form_widget(form.id_organisme) }}
+            </li>
+        {% else %}
+            <li>
+                <label>Organisme</label>
+                <select>
+                    <option>{{ admin_organisme }}</option>
+                </select>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <div class="infos">
+                    <div class="role-user">Un utilisateur a accès, grâce à ses identifiants, à toutes les sections de l'extranet. Il ne peut pas les éditer.</div>
+                    <div class="role-user-admin">Un sous-admin a des droits d'édition sur l'une ou plusieurs sections de l'extranet (les privilèges sont cumulables). Les droits pour l'annuaire se limitent à la création d'un nouveau contact.</div>
+                    <div class="role-admin">
+                        Un administrateur peut éditer toutes les sections de l'extranet et a accès à des statistiques relatives à sa structure.<br/><br/>
+                        Le Super Administrateur a en plus la possibilité de créer un utilisateur ayant le rôle de "Super administrateur"
+                    </div>
+                </div>
+                {{ form_label(form.roles) }}
+                {{ form_widget(form.roles) }}
+            </li>
+        {% endif %}
+
+    </ul>
+
+    {{ form_errors(form.email) }}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        {{ form_errors(form.id_organisme) }}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ form_errors(form.roles) }}
+    {% endif %}
+
+    <div>
+        <input class="main-submit" type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+
+    {{ form_end(form) }}
+</form>

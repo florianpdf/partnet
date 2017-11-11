@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="agenda">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('agenda_homepage') }}">Agenda</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="deep-main admin-form">
+        <h1>Création d'un évènement</h1>
+
+        {{ form_start(edit_form) }}
+
+        <div>
+            {{ form_label(edit_form.start) }}
+            {{ form_widget(edit_form.start) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.end) }}
+            {{ form_widget(edit_form.end) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.titre) }}
+            {{ form_widget(edit_form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.resume) }}
+            {{ form_widget(edit_form.resume) }}
+        </div>
+
+        <div>
+            {{ form_label(edit_form.fil_actu) }}
+            {{ form_widget(edit_form.fil_actu) }}
+            <label for="agendabundle_events_fil_actu" class="checkbox"></label>
+        </div>
+
+        {{ form_errors(edit_form.start) }}
+        {{ form_errors(edit_form.end) }}
+        {{ form_errors(edit_form.titre) }}
+        {{ form_errors(edit_form.resume) }}
+        {{ form_errors(edit_form.fil_actu) }}
+
+        {{ form_end(edit_form) }}
+    </main>
+
+{% endblock %}

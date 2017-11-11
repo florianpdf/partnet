@@ -1,0 +1,98 @@
+<?php
+
+namespace GedBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Documents
+ *
+ */
+class Documents
+{
+    protected $type = 'Documents';
+
+    public function getType(){
+        return $this->type;
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/documents';
+    }
+
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'app/uploads/documents/fixtures/';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../app/'.$this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->document ? null : $this->getUploadDir().'/'.$this->document;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->document ? null : $this->getUploadRootDir().'/'.$this->document;
+    }
+
+    // used in fixtures
+    public function createFile($ext)
+    {
+        $token = uniqid().".".$ext;
+        $this->setDocument($token);
+        $test_file = fopen("app/uploads/documents/" . $token, "w");
+        fwrite($test_file, 'Some content.');
+        fclose($test_file);
+        $this->setExtension($ext);
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->file_name = $this->file->getClientOriginalName();
+            $this->document = uniqid().'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->file->move($this->getUploadRootDir(), $this->document);
+
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    //Generated Code
+
+}

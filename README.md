@@ -21,6 +21,11 @@ Installation manuelle :
     $ php app/console doctrine:fixtures:load
     $ sudo sh bash/chmod.sh
     $ sudo npm install
+    
+    Si grunt: command not found
+        npm install -g grunt-cli
+        npm install grunt --save-dev
+    
     $ grunt
 
 
@@ -33,6 +38,8 @@ PHP Composer :
 Node JS : (pour le fonctionnement de Grunt)
 [- Installation sous Ubuntu ](http://doc.ubuntu-fr.org/nodejs)
 
-
-
+----------
+Cron Task :
+----------------------
+[ php app/console partnet:cleanup ] ==> Permet la suppression de tous les docs arrivant en fin de vie et de tous les events de plus de 5 mois
 

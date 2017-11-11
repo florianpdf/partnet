@@ -1,0 +1,121 @@
+<?php
+
+namespace FormBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Formations
+ */
+class Formations
+{
+
+
+    // UPLOAD
+    /**
+     * @var file
+     */
+    public $file;
+
+    /**
+     * @var file
+     */
+    public $file2;
+
+    protected function getUploadDir()
+    {
+        return '/formations_documents';
+    }
+
+    public function getFixturesPath()
+    {
+        return $this->getAbsolutePath() . 'web/uploads/formations_documents/fixtures/';
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUploadFile1()
+    {
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->fichier_nom = $this->file->getClientOriginalName();
+            $this->fichier = uniqid() . '.' . $this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUploadFile2()
+    {
+        if (null !== $this->file2) {
+            // do whatever you want to generate a unique name
+            $this->second_fichier_nom = $this->file2->getClientOriginalName();
+            $this->second_fichier = uniqid().'.'.$this->file2->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function uploadFile1()
+    {
+        if (null === $this->file) {
+            return;
+        } else {
+            $this->file->move(__DIR__ . '/../../../app/uploads' . $this->getUploadDir(), $this->fichier);
+            unset($this->file);
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function uploadFile2(){
+        if (null === $this->file2) {
+            return;
+        } else {
+            $this->file2->move(__DIR__.'/../../../app/uploads'.$this->getUploadDir(), $this->second_fichier);
+            unset($this->file2);
+        }
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUploadFile1()
+    {
+        $target = __DIR__ . '/../../../app/uploads' . $this->getUploadDir() . '/';
+
+        if ($this->fichier) {
+
+            unlink($target . $this->fichier);
+        }
+    }
+
+    public function removeUploadFile2()
+    {
+        $target = __DIR__.'/../../../app/uploads'.$this->getUploadDir().'/';
+
+        if($this->second_fichier) {
+
+            unlink($target.$this->second_fichier);
+
+        }
+    }
+
+    protected $type = 'Formations';
+
+
+    public function getType(){
+        return $this->type;
+    }
+
+    // GENERATED CODE
+
+
+}

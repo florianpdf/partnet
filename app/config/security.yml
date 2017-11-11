@@ -1,24 +1,43 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_CONTACT: ROLE_CONTACT
+        ROLE_ANNUAIRE_ADMIN: ROLE_USER
+        ROLE_OFFRE_ADMIN: ROLE_USER
+        ROLE_FORMATION_ADMIN: ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER, ROLE_ANNUAIRE_ADMIN, ROLE_OFFRE_ADMIN, ROLE_FORMATION_ADMIN]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
+            http_basic: ~
+            logout:       true
+            anonymous:    true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 604800 # 1 week in seconds
+                path:     /
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/register/contact, role: ROLE_ANNUAIRE_ADMIN }
+        - { path: ^/admin/formations/*, role: ROLE_FORMATION_ADMIN }
+        - { path: ^/admin/offres-emploi/*, role: ROLE_OFFRE_ADMIN }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/documents/, role: ROLE_USER }
+        - { path: ^/annuaire/, role: ROLE_USER }
+        - { path: ^/message/, role: ROLE_USER }
+        - { path: ^/agenda/, role: ROLE_USER }
+        - { path: ^/profile/, role: ROLE_USER }
+        - { path: ^/*, role: [IS_AUTHENTICATED, ROLE_USER] }

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="ged">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('documents') }}">Documents</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="admin-form deep-main">
+        <h1>Ajout d'un document</h1>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div>
+            {{ form_label(form.titre, 'Titre') }}
+            {{ form_widget(form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(form.auteur) }}
+            {{ form_widget(form.auteur) }}
+        </div>
+
+        <div>
+            {{ form_label(form.resume) }}
+            {{ form_widget(form.resume) }}
+        </div>
+
+        <div>
+            {{ form_label(form.file, 'Document (.pdf)') }}
+            <div class="fileUpload">
+                <span>uploader</span>
+                {{ form_widget(form.file) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(form.finDeVie) }}
+            {{ form_widget(form.finDeVie) }}
+        </div>
+
+        <div>
+            {{ form_label(form.fil_actu) }}
+            {{ form_widget(form.fil_actu) }}
+            <label for="gedbundle_documents_fil_actu" class="checkbox"></label>
+        </div>
+
+        {{ form_errors(form.titre) }}
+        {{ form_errors(form.auteur) }}
+        {{ form_errors(form.resume) }}
+        {{ form_errors(form.finDeVie) }}
+        {{ form_errors(form.file) }}
+        {{ form_errors(form.fil_actu) }}
+
+        {{ form_end(form) }}
+    </main>
+{% endblock %}

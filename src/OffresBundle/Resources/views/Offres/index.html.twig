@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="emploi">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('offres-emploi') }}">Offres d'emploi</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="datatables-page">
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.session.flashBag.get('success') %}
+            <p class="flashbag">{{ msg }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <table id="donnees" class="nowrap stripe row-border hover" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="control"></th>
+                <th>Organisme</th>
+                <th>Fonction</th>
+                <th>Entreprise</th>
+                <th>Lieu</th>
+                <th>Organisme émetteur</th>
+                <th>Date d'ajout</th>
+                <th>Actions</th>
+                <th>Descriptif</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td class="target"></td>
+                <td><img width="80" src="{{ path('organisme_get_picture', {'picture': entity.user.idOrganisme.photo}) }}" /></td>
+                <td class="target">{{ entity.titre }}</td>
+                <td class="target">{{ entity.entreprise }}</td>
+                <td class="target">{{ entity.lieu }}</td>
+                <td class="target">{{ entity.user.idOrganisme.nom }}</td>
+                <td class="target">
+                    <span style="display:none">{{ entity.dateAjout|date('Y/m/d H:i:s') }}</span>
+                    {{ entity.dateAjout|date('d/m/Y') }}
+                </td>
+                <td class="actions">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{  path('offres-emploi__edit', { 'id': entity.id }) }}" title="Éditer">
+                            <img src="{{  asset('images/edit.svg') }}" width="20" height="20" alt="Éditer" />
+                        </a>
+                        <a class="confirmModalLink" href="{{ path('offres-emploi__delete', {'id':  entity.id  }) }}" title="Supprimer">
+                            <img src="{{ asset('images/delete.svg') }}" width="20" height="20" alt="Supprimer" />
+                        </a>
+                    {% endif %}
+                    {% if entity.document %}
+                        <a href="{{ path("offres-emploi_download", {'document': entity.document}) }}" title="Télécharger">
+                            <img src="{{ asset('images/download.svg') }}" width="20" height="20" alt="Télécharger" />
+                        </a>
+                        <a href="{{ path('offres-emploi_visual', {'document': entity.document }) }}" title="Afficher">
+                            <img src="{{ asset('images/zoom.svg') }}" width="20" height="20" alt="Aperçu" />
+                        </a>
+                    {% endif %}
+                </td>
+                <td class="target">{{ entity.resume }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a id="main-btn" href="{{ path('offres-emploi__new') }}">Ajouter une offre d'emploi</a>
+        {% include '@Offres/Offres/delete.html.twig' %}
+    {% endif %}
+
+    </main>
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    })
+
+    $(document).ready(function () {
+        var theHREF;
+
+        $(".confirmModalLink").click(function(e) {
+            e.preventDefault();
+            theHREF = $(this).attr("href");
+            $("#confirmModal").modal("show");
+        });
+
+        $("#confirmModalNo").click(function(e) {
+            $("#confirmModal").modal("hide");
+        });
+
+        $("#confirmModalYes").click(function(e) {
+            window.location.href = theHREF;
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $( '#donnees' ).dataTable( {
+            "lengthChange": false,
+            "info": false,
+            "pagingType": "simple",
+            "language": {
+                "search": "",
+                "paginate": {
+                    previous: '‹',
+                    next:     '›'
+                },
+                "zeroRecords": "Aucun document ne répond aux critères."
+            },
+            "responsive": {
+                details: {
+                    type: 'column',
+                    target: '.target',
+                    renderer: function ( api, rowIdx, columns ) {
+                        var data = $.map( columns, function ( col, i ) {
+                            return col.hidden && col.data != "" ?
+                            '<div><strong>'+col.title+'</strong> : '+col.data+'</div>':'';
+                        } ).join('');
+
+                        return data ?
+                                $('<div class="slider"/>').append( data ) :
+                                false;
+                    }
+                }
+            },
+            "autoWidth": false,
+            "columns": [
+                { "width": "5%" },
+                { "width": "10%" },
+                { "width": "20%" },
+                { "width": "15%" },
+                { "width": "15%" },
+                { "width": "15%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                null
+            ],
+            "columnDefs": [
+                {
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                },
+                { orderable: false, targets: 6},
+                { className: 'none', targets: 7},
+                { className: 'all', targets: 0},
+                { className: 'all', targets: 1},
+                { className: 'all', targets: 6},
+                { responsivePriority: 4, targets: 4 },
+                { responsivePriority: 3, targets: 3 },
+                { responsivePriority: 2, targets: 2 },
+                { responsivePriority: 1, targets: 4 }
+            ],
+            "order": [[ 5, 'desc' ], [ 2, 'asc' ]]
+        });
+
+        // autofocus et placeholder pour le champ de recherche
+        $( 'input[type="search"]' ).focus().attr( "placeholder", "recherche globale" );
+    });
+</script>
+{% endblock %}

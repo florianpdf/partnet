@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="annuaire">{% endblock %}
+
+{% block main_content %}
+    {{ include('includes/topbar.html.twig') }}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="deep-main">
+        <h1>Enregistrer un utilisateur</h1>
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        {% block fos_user_content %}
+            {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+        {% endblock fos_user_content %}
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        function isChecked() {
+            if ($( "input[value='ROLE_USER']" ).is( ":checked" ))
+            {
+                $( "input[type='checkbox']").prop( "disabled", true );
+                $( "input[value='ROLE_USER']").prop( "disabled", false );
+            }
+            else if ($( "input[value='ROLE_ADMIN']" ).is( ":checked" ))
+            {
+                $( "input[type='checkbox']").prop( "disabled", true );
+                $( "input[value='ROLE_ADMIN']").prop( "disabled", false );
+            }
+            else if ($( "input[value='ROLE_SUPER_ADMIN']" ).is( ":checked" ))
+            {
+                $( "input[type='checkbox']").prop( "disabled", true );
+                $( "input[value='ROLE_SUPER_ADMIN']").prop( "disabled", false );
+            }
+            else if ($( "input[type='checkbox']" ).is( ":checked" ))
+            {
+                $( "input[type='checkbox']").prop( "disabled", false );
+                $( "input[value='ROLE_USER'], input[value='ROLE_ADMIN'], input[value='ROLE_SUPER_ADMIN']").prop( "disabled", true );
+            }
+            else
+            {
+                $( "input[type='checkbox']").prop( "disabled", false );
+            }
+        }
+
+        isChecked();
+        $(document).ready(function () {
+            $( "input[type='checkbox" ).on( "change", function() {
+                isChecked();
+            });
+            $( "#fos_user_registration_form_roles").find( "label:first-of-type" ).hover(function() {
+                $( ".role-user" ).css( "display", "block" );
+            });
+            $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+2):nth-of-type(-n+4)" ).hover(function() {
+                $( ".role-user-admin" ).css( "display", "block" );
+            });
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            $( "#fos_user_registration_form_roles").find( "label:nth-of-type(n+5)" ).hover(function() {
+                    $( ".role-admin" ).css( "display", "block" );
+            });
+            {% endif %}
+            $( "#fos_user_registration_form_roles").find( "label" ).mouseleave(function() {
+                $( ".infos div" ).css( "display", "none" );
+            });
+        });
+    </script>
+{% endblock %}

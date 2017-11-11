@@ -1,0 +1,8 @@
+agenda_events:
+    resource: "@AgendaBundle/Resources/config/routing/events.yml"
+    prefix:   /events
+
+agenda_homepage:
+    path:     /
+    defaults:
+        _controller: AgendaBundle:Default:index

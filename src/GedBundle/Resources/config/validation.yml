@@ -1,0 +1,19 @@
+GedBundle\Entity\Documents:
+    properties:
+        titre:
+            - NotBlank: ~
+            - Length:
+                max: 50
+                maxMessage: "Le titre ne peut contenir plus de 50 caractères."
+        auteur:
+            - Length:
+                max: 50
+                maxMessage: "L'auteur ne peut contenir plus de 50 caractères."
+            - Type:
+                type: string
+                message: "Ce champ ne peut contenir que des caractères alphabétiques."
+        file:
+            - File:
+                maxSize: 20M
+                mimeTypes: [application/pdf, application/x-pdf]
+                mimeTypesMessage: "Merci d'uploader un document pdf valide."

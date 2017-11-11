@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}<body id="agenda">{% endblock %}
+
+{% block main_content %}
+    {% embed "includes/topbar.html.twig" %}
+        {% block breadcrumb %}<a href="{{ path('homepage') }}">P@rtnet</a><div class="arrow-right"></div><a href="{{ path('agenda_homepage') }}">Agenda</a>{% endblock %}
+    {% endembed %}
+    {{ include('includes/sidebar.html.twig') }}
+
+    <main class="datatables-page">
+
+        <div id='calendar'></div>
+        <a id="main-btn" href="{{ path('events_new') }}">Ajouter un évènement</a>
+        <div class="legend">
+            {% for organisme in organismes %}
+                <div>
+                    <div style="background-color: {{ organisme.BackgroundColor }}; width: 20px; height: 20px;"></div>
+                    <div>{{ organisme.nom }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    {% include '@Agenda/Events/eventrender.html.twig' %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        var user = '{{ app.user }}';
+        var roles = {{ app.user.roles|json_encode|raw }};
+        var organisme = '{{ app.user.idorganisme.id }}';
+    </script>
+    <script src="{{ asset('bundles/agenda/js_calendar/1moment.min.js') }}"></script>
+    <script src="{{ asset('bundles/agenda/js_calendar/2fullcalendar.js') }}"></script>
+    <script src="{{ asset('bundles/agenda/js_calendar/3calendarconfig.js') }}"></script>
+    <script src="{{ asset('bundles/agenda/js_calendar/lang/fr.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    {{ parent() }}
+{% endblock %}

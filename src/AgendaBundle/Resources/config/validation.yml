@@ -1,0 +1,13 @@
+# src/AgendaBundle/Resources/config/validation.yml
+AgendaBundle\Entity\Events:
+    constraints:
+        - Callback: [isDateValid]
+    properties:
+        titre:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        resume:
+            - NotBlank: ~
+        start:
+            - GreaterThan: now
